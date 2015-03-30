@@ -37,6 +37,6 @@
     "ember-export-application-global": "^1.0.2",
     "ember-mobiletouch": "1.4.9",
     "fourth-ember-components": "git+ssh://git@github.com/fourth/fourth-ember-components.git#v1.0.1",
-    "liquid-fire": "^0.18.0"
+    "liquid-fire": "ef4/liquid-fire#c85d7008"
   }
 }
