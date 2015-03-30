@@ -14,6 +14,7 @@
     "qunit": "~1.17.1",
     "hammerjs": "2.0.4",
     "fastclick": "~1.0.6",
-    "i18n-js": "v3.0.0.rc8"
+    "i18n-js": "v3.0.0.rc8",
+    "bourbon": "~4.2.1"
   }
 }

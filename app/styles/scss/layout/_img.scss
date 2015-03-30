@@ -1,0 +1,15 @@
+img {
+	max-width: 100%;
+	height: auto;
+	border: 0;
+}
+svg {
+	//width: 1rem;
+	//height: 1rem;
+	fill: currentColor;
+	stroke-width: 0;
+	&--auto {
+		width:auto;
+		height: auto;
+	}
+}

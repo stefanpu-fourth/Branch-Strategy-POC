@@ -1,0 +1,28 @@
+.header {
+	text-align:center;
+	width:100%;
+	border-bottom:1px solid $color-grey-light;
+	line-height:rem(32);
+	background:$color-white;
+	position:relative;
+	z-index:1;
+	&__brand {
+		height:rem(40);
+		@include rem(padding, 12, 16);
+		@include respond(640) {
+			position:absolute;
+			
+		};
+	}
+	&__logo {
+		height:rem(24);
+		width: auto;
+	}
+	&--sticky {
+		box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.5);
+		backface-visibility: hidden; //prevent paint
+		top:0;
+		z-index: 1;
+		position:fixed;
+	}
+}
