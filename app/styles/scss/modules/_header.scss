@@ -11,7 +11,7 @@
 		@include rem(padding, 12, 16);
 		@include respond(640) {
 			position:absolute;
-			
+
 		};
 	}
 	&__logo {

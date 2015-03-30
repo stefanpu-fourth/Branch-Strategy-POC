@@ -1,5 +1,5 @@
 .payslip {
-	
+
 	&__pie {
 		position: relative;
 		width: 100%;
@@ -94,7 +94,7 @@
 
 		}
 	}
-	
+
 	&__breakdown {
 		padding:1rem;
 		text-align: center;
@@ -105,5 +105,5 @@
 		@include respond(720) {
 			height: 360px;
 		};
-	}	
+	}
 }

@@ -61,7 +61,7 @@
 		}
 		&--7 {
 			@include transition-delay(0.3s);
-		} 
+		}
 		.card--active & {
 			width:100%;
 			@include transition-duration(0.5s);
@@ -84,7 +84,7 @@
 				z-index: 1;
 				top:rem(5);
 			}
-			
+
 		}
 	}
 	&__shiftcolor {
@@ -98,7 +98,7 @@
 		width:0;
 		@include transition(width 0.3s);
 		@include transition-delay(0.2s);
-		    		
+
 		.card--active & {
 			width:100%; // leave space in case 2 shifts next each other
 		}
