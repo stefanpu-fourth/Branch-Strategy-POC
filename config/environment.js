@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'ess-ui',
+    modulePrefix: 'ess',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
