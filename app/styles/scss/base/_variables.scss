@@ -1,0 +1,20 @@
+$breakpoints: 		0,80,160,240,320,400,480,560,640,720,800,880,960,1040,1120,1200;
+
+$color-green: 		#9cbf2b;
+$color-orange: 		#F08B1D;
+$color-blue: 		#00B6DE;
+$color-red: 		#C80850;
+$color-white: 		#FFF;
+$color-grey-darkest:#17191B;
+$color-grey-dark: 	#464B4F;
+$color-grey-medium: #AFA9A6;
+$color-grey-light: 	#CCC;
+$color-grey-lighter:#DDD;
+$color-grey-lightest:#F5F5F5;
+
+$body-font-size: 	16;
+$body-line-height: 	24;
+
+// Boubourn prefixer override
+$prefix-for-mozilla:   false;
+$prefix-for-opera:     false;

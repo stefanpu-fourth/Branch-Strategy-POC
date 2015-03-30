@@ -1,0 +1,80 @@
+@import "bower_components/bourbon/app/assets/stylesheets/_bourbon.scss";
+
+// Using bourbon as doesn't depend on ruby like compass and runs with libsass
+// Custom app wide mixins here
+
+// Example usage;
+//min 400
+//@include respond(400) {
+//  xxxxxx;
+//}
+// between 0 and 800
+//@include respond(0,800) {
+//  xxxxxx;
+//}
+@mixin respond($min-width, $max-width: false) {
+  $min: false;
+  $max: false;
+
+  @each $breakpoint in $breakpoints {
+    @if $min-width == $breakpoint { $min: $breakpoint };
+    @if $max-width == $breakpoint { $max: $breakpoint };
+  }
+
+  @if $max {
+    $max: $max - 1;
+  }
+
+  @if ($min and $max) and ($min > $max) {
+    @warn "$min-width value is greater than $max-width value.";
+  } @elseif ($min == 0 and $max) {
+    @media (max-width: em($max)) { @content; }
+  } @elseif ($min and $max) {
+    @media (min-width: em($min)) and (max-width: em($max)) { @content; }
+  } @else if $min {
+    @media (min-width: em($min)) { @content; }
+  }
+}
+
+
+// Boubon rem function doesnt support multiple properties. This does.
+// Example usage: @include rem(margin, 20, 0);
+@mixin rem($property, $values...) {
+  $max: length($values);
+  $remValues: '';
+
+  @for $i from 1 through $max {
+    $value: strip-units(nth($values, $i));
+    $remValues: #{$remValues + $value / $body-font-size}rem;
+
+    @if $i < $max {
+      $remValues: #{$remValues + " "};
+    }
+  }
+
+  #{$property}: $remValues;
+}
+
+@mixin button() {
+  -ms-touch-action: manipulation; /* IE10  */
+    touch-action: manipulation;     /* IE11+ */
+    display: inline-block;
+  @include rem(padding, 5, 10);
+  white-space: nowrap;
+  cursor: pointer;
+  border: 0;
+  border-radius: rem(4);
+  -webkit-appearance: none;
+  position: relative;
+  color: inherit;
+  overflow: visible;
+  letter-spacing: inherit;
+  background: $color-grey-lightest;
+  border: 1px solid $color-grey-light;
+  //text-transform: uppercase;
+  font-size:rem(13);
+  min-width:rem(36);
+  &:focus {
+    outline: 0;
+  }
+}
