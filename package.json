@@ -12,11 +12,11 @@
     "build": "ember build",
     "test": "ember test"
   },
-  "repository": "",
+  "repository": "http://github.com/fourth/ess-ui",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Fourth",
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.2",
     "broccoli-sass": "^0.6.3",
