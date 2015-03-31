@@ -34,7 +34,8 @@
 		font-size:rem(14);
 		position: relative;
 	}
-	&--active {
+
+	.active {
 		border-bottom:3px solid $color-green;
 		color: $color-grey-darkest;
 	}

@@ -15,9 +15,15 @@
     </div>
     <nav class="nav">
       <ul>
-        <li><a href="#" class="nav__link">My Rotas</a></li>
-        <li><a href="#" class="nav__link">My Payslips</a></li>
-        <li><a href="#" class="nav__link nav--active">HR Details</a></li>
+        <li>
+          {{#link-to 'rotas' class="nav__link nav"}}My Rotas{{/link-to}}
+        </li>
+        <li>
+          {{#link-to 'payslips' class="nav__link nav"}}My Payslips{{/link-to}}
+        </li>
+        <li>
+          {{#link-to 'details' class="nav__link nav"}}HR Details{{/link-to}}
+        </li>
       </ul>
     </nav>
 </header>
