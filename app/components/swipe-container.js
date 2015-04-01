@@ -48,9 +48,14 @@ export default Ember.Component.extend({
 
   isMoving: false,
 
-  didInsertElement: function() {
-    var transitionEvents = 'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd';
+  transitionEvents: function () {
+    var namespace = Ember.guidFor(this);
+    var evts = [ 'transitionend', 'webkitTransitionEnd', 'oTransitionEnd', 'MSTransitionEnd' ];
+    return evts.map(str => { return `${str}.${namespace}`; }).join(' ');
+  }.property(),
 
+  didInsertElement: function() {
+    var transitionEvents = this.get('transitionEvents');
     //bind handlers
     this.$(w).on('resize', run.bind(this, 'resizeHandler'));
     this.$().find('.swipe__wrap').on(transitionEvents, run.bind(this, 'transitionEnd'));
@@ -58,6 +63,13 @@ export default Ember.Component.extend({
     //init viewport
     run.once(this, 'resizeHandler');
     this.setActiveCard();
+  },
+
+  willDestroyElement: function () {
+    var transitionEvents = this.get('transitionEvents');
+
+    this.$(w).off('resize');
+    this.$().find('.swipe__wrap').off(transitionEvents);
   },
 
   getViewPortWidth: function() {
