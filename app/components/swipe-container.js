@@ -1,9 +1,6 @@
 import Ember from 'ember';
 
 var run = Ember.run;
-var w = window;
-var doc = document;
-var math = Math;
 var horizontalPanHandler = function(e) {
   var evt = e.originalEvent;
   var gesture = evt.gesture;
@@ -13,7 +10,7 @@ var horizontalPanHandler = function(e) {
   var $wrap;
   var xPos;
 
-  if(isMoving || math.abs(deltaY) > math.abs(deltaX)) {
+  if(isMoving || Math.abs(deltaY) > Math.abs(deltaX)) {
     return;
   }
 
@@ -57,7 +54,7 @@ export default Ember.Component.extend({
   didInsertElement: function() {
     var transitionEvents = this.get('transitionEvents');
     //bind handlers
-    this.$(w).on('resize', run.bind(this, 'resizeHandler'));
+    this.$(window).on('resize', run.bind(this, 'resizeHandler'));
     this.$('.swipe__wrap').on(transitionEvents, run.bind(this, 'transitionEnd'));
 
     //init viewport
@@ -68,12 +65,12 @@ export default Ember.Component.extend({
   willDestroyElement: function () {
     var transitionEvents = this.get('transitionEvents');
 
-    this.$(w).off('resize');
+    this.$(window).off('resize');
     this.$('.swipe__wrap').off(transitionEvents);
   },
 
   getViewPortWidth: function() {
-    return math.max(doc.documentElement.clientWidth, w.innerWidth || 0);
+    return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   },
 
   setActiveCard: function(index = 0) {
@@ -94,7 +91,7 @@ export default Ember.Component.extend({
     var wrapOffset;
 
     viewPortWidth = viewPortWidth || this.getViewPortWidth();
-    wrapOffset = -math.abs(index * (viewPortWidth - 48));
+    wrapOffset = -Math.abs(index * (viewPortWidth - 48));
 
     $wrap.css({
       transform: `translate3d(${wrapOffset}px, 0, 0)`,
@@ -131,7 +128,7 @@ export default Ember.Component.extend({
     var currentDelta;
     var activeCardIndex;
 
-    if(math.abs(deltaY) > math.abs(deltaX)) {
+    if(Math.abs(deltaY) > Math.abs(deltaX)) {
       return;
     }
 
