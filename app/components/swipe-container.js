@@ -17,7 +17,7 @@ var horizontalPanHandler = function(e) {
     return;
   }
 
-  $wrap = this.$().find('.swipe__wrap');
+  $wrap = this.$('.swipe__wrap');
   xPos = deltaX + this.get('xPosStart');
 
   if(!$wrap.hasClass('swipe--loaded')) {
@@ -58,7 +58,7 @@ export default Ember.Component.extend({
     var transitionEvents = this.get('transitionEvents');
     //bind handlers
     this.$(w).on('resize', run.bind(this, 'resizeHandler'));
-    this.$().find('.swipe__wrap').on(transitionEvents, run.bind(this, 'transitionEnd'));
+    this.$('.swipe__wrap').on(transitionEvents, run.bind(this, 'transitionEnd'));
 
     //init viewport
     run.once(this, 'resizeHandler');
@@ -69,7 +69,7 @@ export default Ember.Component.extend({
     var transitionEvents = this.get('transitionEvents');
 
     this.$(w).off('resize');
-    this.$().find('.swipe__wrap').off(transitionEvents);
+    this.$('.swipe__wrap').off(transitionEvents);
   },
 
   getViewPortWidth: function() {
@@ -85,12 +85,12 @@ export default Ember.Component.extend({
 
     this.set('activeCardIndex', index);
 
-    $cards = this.$().find('.card');
+    $cards = this.$('.card');
     $cards.removeClass('card--active').eq(index).addClass('card--active');
   },
 
   setWrapOffset: function(index, viewPortWidth) {
-    var $wrap = this.$().find('.swipe__wrap');
+    var $wrap = this.$('.swipe__wrap');
     var wrapOffset;
 
     viewPortWidth = viewPortWidth || this.getViewPortWidth();
@@ -103,7 +103,7 @@ export default Ember.Component.extend({
   },
 
   resizeHandler: function() {
-    var $wrap = this.$().find('.swipe__wrap');
+    var $wrap = this.$('.swipe__wrap');
     var $cards = $wrap.children('.card');
     var viewPortWidth = this.getViewPortWidth();
     var activeCardIndex = this.get('activeCardIndex');
@@ -113,7 +113,7 @@ export default Ember.Component.extend({
   },
 
   transitionEnd: function() {
-    var $wrap = this.$().find('.swipe__wrap');
+    var $wrap = this.$('.swipe__wrap');
 
     this.setProperties({
       xPosStart: $wrap.offset().left - 30,
@@ -135,7 +135,7 @@ export default Ember.Component.extend({
       return;
     }
 
-    $wrap = this.$().find('.swipe__wrap');
+    $wrap = this.$('.swipe__wrap');
     $cards = $wrap.children('.card');
 
     currentDelta = this.get('deltaX');
