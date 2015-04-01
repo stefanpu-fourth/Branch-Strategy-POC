@@ -16,6 +16,22 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+    mobileTouch : {
+        use : ['tap', 'press', 'pan', 'swipe'],
+        alwaysTapOnPress : false,
+        defaultTapOnPress : true,
+        options : {
+           domEvents : true
+        },
+        tune : {
+          tap : { time : 250, threshold : 9 }, //Hammer default is 250 / 2
+          press : { time : 251, threshold : 9 }, //Hammer default is 500 / 5
+          swipe : { direction : 6, velocity : 0.3, threshold : 25 },
+          pan : { direction : 6 },
+          pinch : {},
+          rotate : {}
+        }
     }
   };
 
