@@ -1,3 +1,7 @@
-PAYSLIPS {{#link-to 'payslips.payslip' 1}}a payslip{{/link-to}}
-
-{{outlet}}
+{{#swipe-container}}
+    {{#with attrs.lineitems as lineitems }}
+        {{#each lineitems as |lineitem index|}}
+            {{payslip-card-item line=lineitem}}
+        {{/each}}
+    {{/with}}
+{{/swipe-container}}
