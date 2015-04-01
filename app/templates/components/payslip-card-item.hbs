@@ -1,11 +1,11 @@
 <div class="card__wrap">
     <div class="card__front">
-        <h1>19 March 2015</h1>
+        <h1>{{line.processingDate}}</h1>
         <div class="payslip__pie card__flipme">
             <div class="payslip__numbers">
-                <span class="payslip__total">Total: &pound;1,023.45</span>
+                <span class="payslip__total">Total: &pound;{{line.grossPay}}</span>
                 <span class="payslip__takehome">Take home:</span>
-                <span class="payslip__net"><span>&pound;942.40</span></span>
+                <span class="payslip__net"><span>&pound;{{line.netPay}}</span></span>
             </div>
             <div class="payslip__chart payslip__chart--12" data-percent="75">
                 <div class="payslip__chartbg">
