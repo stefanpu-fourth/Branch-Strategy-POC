@@ -1,7 +1,7 @@
 {{#swipe-container}}
   {{#with attrs.lineitems as lineitems }}
-    {{#each lineitems as |lineitem|}}
-      {{payslip-card-item line=lineitem}}
+    {{#each lineitems as |lineitem index|}}
+      {{payslip-card-item line=lineitem index=index selectedIndex=attrs.selectedIndex}}
     {{/each}}
   {{/with}}
 {{/swipe-container}}

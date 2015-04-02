@@ -41,7 +41,7 @@ export default Ember.Component.extend({
 
   xPosStart: 0,
 
-  activeCardIndex: 0,
+  activeCardIndex: null,
 
   isMoving: false,
 

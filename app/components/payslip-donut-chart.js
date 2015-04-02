@@ -5,8 +5,13 @@ export default Ember.Component.extend({
 
   netPay: null,
   grossPay: null,
+  index: null,
+  selectedIndex: null,
 
-  dashOffset: 0,
+  isActive: function () {
+    var props = this.getProperties('index', 'selectedIndex');
+    return props.index === props.selectedIndex;
+  }.property('index', 'selectedIndex'),
 
   takeHome: function () {
     var props = this.getProperties('grossPay', 'netPay');
