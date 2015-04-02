@@ -35,6 +35,6 @@ export default Ember.Component.extend({
       dashOffset = circumference;
     }
 
-    return `stroke-dasharray:${circumference} ${circumference};stroke-dashoffset:${dashOffset}`.htmlSafe();
-  }.property('isActive')
+    return `stroke-dasharray: ${circumference}px, ${circumference}px; stroke-dashoffset: ${dashOffset}px;`.htmlSafe();
+  }.property('isActive', 'takeHome')
 });
