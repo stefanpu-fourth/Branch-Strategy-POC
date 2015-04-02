@@ -1,6 +1,6 @@
 {{#swipe-container}}
   {{#with attrs.lineitems as lineitems }}
-    {{#each lineitems as |lineitem index|}}
+    {{#each lineitems as |lineitem|}}
       {{payslip-card-item line=lineitem}}
     {{/each}}
   {{/with}}

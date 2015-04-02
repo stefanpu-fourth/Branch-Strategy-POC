@@ -62,6 +62,14 @@
 			width: 266px;
 		};
 	}
+  &__chartanimate {
+    path {
+      stroke: #9cbf2b;
+      stroke-linecap: round;
+      webkitTransition: stroke-dashoffset 1350ms ease;
+      transition: stroke-dashoffset 1350ms ease;
+    }
+  }
 	&__chartbg {
 		stroke:$color-grey-lighter;
 	}
