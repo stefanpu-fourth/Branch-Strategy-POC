@@ -80,6 +80,9 @@ export default Ember.Component.extend({
       return;
     }
 
+    this.sendAction('setSelectedIndex', index);
+
+    //TODO: remove this???
     this.set('activeCardIndex', index);
 
     $cards = this.$('.card');
