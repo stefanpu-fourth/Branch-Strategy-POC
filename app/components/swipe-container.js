@@ -35,13 +35,13 @@ export default Ember.Component.extend({
 
   classNames: ['swipe'],
 
+  selectedIndex: null,
+
   xPos: 0,
 
   deltaX: 0,
 
   xPosStart: 0,
-
-  activeCardIndex: null,
 
   isMoving: false,
 
@@ -59,7 +59,7 @@ export default Ember.Component.extend({
 
     //init viewport
     run.once(this, 'resizeHandler');
-    this.setActiveCard();
+    this.sendAction('setSelectedIndex');
   },
 
   willDestroyElement: function () {
@@ -71,22 +71,6 @@ export default Ember.Component.extend({
 
   getViewPortWidth: function() {
     return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-  },
-
-  setActiveCard: function(index = 0) {
-    var $cards;
-
-    if(index === this.get('activeCardIndex')) {
-      return;
-    }
-
-    this.sendAction('setSelectedIndex', index);
-
-    //TODO: remove this???
-    this.set('activeCardIndex', index);
-
-    $cards = this.$('.card');
-    $cards.removeClass('card--active').eq(index).addClass('card--active');
   },
 
   setWrapOffset: function(index, viewPortWidth) {
@@ -106,10 +90,10 @@ export default Ember.Component.extend({
     var $wrap = this.$('.swipe__wrap');
     var $cards = $wrap.children('.card');
     var viewPortWidth = this.getViewPortWidth();
-    var activeCardIndex = this.get('activeCardIndex');
+    var selectedIndex = this.get('selectedIndex');
 
     $cards.css('width', viewPortWidth - 64);
-    this.setWrapOffset(activeCardIndex, viewPortWidth);
+    this.setWrapOffset(selectedIndex, viewPortWidth);
   },
 
   transitionEnd: function() {
@@ -129,7 +113,7 @@ export default Ember.Component.extend({
     var $wrap;
     var $cards;
     var currentDelta;
-    var activeCardIndex;
+    var index;
 
     if(Math.abs(deltaY) > Math.abs(deltaX)) {
       return;
@@ -139,24 +123,24 @@ export default Ember.Component.extend({
     $cards = $wrap.children('.card');
 
     currentDelta = this.get('deltaX');
-    activeCardIndex = this.get('activeCardIndex');
+    index = this.get('selectedIndex');
 
     $wrap.removeClass('swipe--dragging');
 
     this.set('isMoving', true);
 
     if(currentDelta < 0) {
-      if(activeCardIndex !== $cards.length - 1) {
-        activeCardIndex++;
+      if(index !== $cards.length - 1) {
+        index++;
       }
     } else {
-      if(activeCardIndex !== 0) {
-        activeCardIndex--;
+      if(index !== 0) {
+        index--;
       }
     }
 
-    this.setWrapOffset(activeCardIndex);
-    this.setActiveCard(activeCardIndex);
+    this.setWrapOffset(index);
+    this.sendAction('setSelectedIndex', index);
   },
 
   panLeft: horizontalPanHandler,

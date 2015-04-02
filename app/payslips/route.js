@@ -12,7 +12,11 @@ export default Ember.Route.extend({
   },
 
   actions: {
-    setSelectedIndex: function (index) {
+    setSelectedIndex: function (index=0) {
+      if (index === this.get('controller.attrs.selectedIndex')) {
+        return;
+      }
+
       this.set('controller.attrs.selectedIndex', index);
     }
   }
