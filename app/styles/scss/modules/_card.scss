@@ -19,8 +19,11 @@
 		left: 0;
 		@include transition(all 0.4s);
 		@include transform-style(preserve-3d);
+
 		&--flipped {
-			@include transform(rotateY(180deg));
+      @include respond($min-width:0, $max-width:640) {
+        @include transform(rotateY(180deg));
+      }
 		}
 	}
 	&__front, &__back {
