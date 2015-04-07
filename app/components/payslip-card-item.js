@@ -1,9 +1,6 @@
 import Ember from 'ember';
+import CardItemMixin from 'ess/mixins/card-item';
 
-export default Ember.Component.extend({
-  tagName: 'section',
-  classNames: ['card', 'payslip'],
-  line: null,
-  index: null,
-  selectedIndex: null
+export default Ember.Component.extend(CardItemMixin, {
+  classNames: ['payslip']
 });

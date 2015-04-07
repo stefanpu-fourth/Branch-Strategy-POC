@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: [ 'payslip__pie card__flipme' ],
+  classNames: [ 'payslip__pie', 'card__flipme' ],
   classNameBindings: [ 'isActive:card--active' ],
 
   netPay: null,
