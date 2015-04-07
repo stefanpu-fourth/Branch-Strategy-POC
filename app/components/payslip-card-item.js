@@ -1,14 +1,6 @@
 import Ember from 'ember';
+import CardItemMixin from 'ess/mixins/card-item';
 
-export default Ember.Component.extend({
-  tagName: 'section',
-  classNames: ['card', 'payslip'],
-  line: null,
-  flipped: false,
-
-  actions: {
-    flip: function () {
-      this.toggleProperty('flipped');
-    }
-  }
+export default Ember.Component.extend(CardItemMixin, {
+  classNames: ['card', 'payslip']
 });
