@@ -45,6 +45,14 @@ export default Ember.Component.extend({
 
   isMoving: false,
 
+  wrapStyles: function () {
+    var selectedIndex = this.get('selectedIndex') || 0;
+    var viewPortWidth = this.getViewPortWidth();
+    var wrapOffset = -Math.abs(selectedIndex * (viewPortWidth - 48));
+
+    return `transform: translate3d(${wrapOffset}px, 0, 0); visibility: visible;`;
+  }.property('selectedIndex'),
+
   transitionEvents: function () {
     var namespace = Ember.guidFor(this);
     var evts = [ 'transitionend', 'webkitTransitionEnd', 'oTransitionEnd', 'MSTransitionEnd' ];
@@ -73,6 +81,7 @@ export default Ember.Component.extend({
     return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   },
 
+  //still required for the resize handler
   setWrapOffset: function(index, viewPortWidth) {
     var $wrap = this.$('.swipe__wrap');
     var wrapOffset;
@@ -139,7 +148,6 @@ export default Ember.Component.extend({
       }
     }
 
-    this.setWrapOffset(index);
     this.sendAction('setSelectedIndex', index);
   },
 
