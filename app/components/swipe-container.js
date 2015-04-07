@@ -35,15 +35,23 @@ export default Ember.Component.extend({
 
   classNames: ['swipe'],
 
+  selectedIndex: null,
+
   xPos: 0,
 
   deltaX: 0,
 
   xPosStart: 0,
 
-  activeCardIndex: 0,
-
   isMoving: false,
+
+  wrapStyles: function () {
+    var selectedIndex = this.get('selectedIndex') || 0;
+    var viewPortWidth = this.getViewPortWidth();
+    var wrapOffset = -Math.abs(selectedIndex * (viewPortWidth - 48));
+
+    return `transform: translate3d(${wrapOffset}px, 0, 0); visibility: visible;`;
+  }.property('selectedIndex'),
 
   transitionEvents: function () {
     var namespace = Ember.guidFor(this);
@@ -59,7 +67,7 @@ export default Ember.Component.extend({
 
     //init viewport
     run.once(this, 'resizeHandler');
-    this.setActiveCard();
+    this.sendAction('setSelectedIndex');
   },
 
   willDestroyElement: function () {
@@ -73,19 +81,7 @@ export default Ember.Component.extend({
     return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   },
 
-  setActiveCard: function(index = 0) {
-    var $cards;
-
-    if(index === this.get('activeCardIndex')) {
-      return;
-    }
-
-    this.set('activeCardIndex', index);
-
-    $cards = this.$('.card');
-    $cards.removeClass('card--active').eq(index).addClass('card--active');
-  },
-
+  //still required for the resize handler
   setWrapOffset: function(index, viewPortWidth) {
     var $wrap = this.$('.swipe__wrap');
     var wrapOffset;
@@ -103,10 +99,10 @@ export default Ember.Component.extend({
     var $wrap = this.$('.swipe__wrap');
     var $cards = $wrap.children('.card');
     var viewPortWidth = this.getViewPortWidth();
-    var activeCardIndex = this.get('activeCardIndex');
+    var selectedIndex = this.get('selectedIndex');
 
     $cards.css('width', viewPortWidth - 64);
-    this.setWrapOffset(activeCardIndex, viewPortWidth);
+    this.setWrapOffset(selectedIndex, viewPortWidth);
   },
 
   transitionEnd: function() {
@@ -126,7 +122,7 @@ export default Ember.Component.extend({
     var $wrap;
     var $cards;
     var currentDelta;
-    var activeCardIndex;
+    var index;
 
     if(Math.abs(deltaY) > Math.abs(deltaX)) {
       return;
@@ -136,24 +132,23 @@ export default Ember.Component.extend({
     $cards = $wrap.children('.card');
 
     currentDelta = this.get('deltaX');
-    activeCardIndex = this.get('activeCardIndex');
+    index = this.get('selectedIndex');
 
     $wrap.removeClass('swipe--dragging');
 
     this.set('isMoving', true);
 
     if(currentDelta < 0) {
-      if(activeCardIndex !== $cards.length - 1) {
-        activeCardIndex++;
+      if(index !== $cards.length - 1) {
+        index++;
       }
     } else {
-      if(activeCardIndex !== 0) {
-        activeCardIndex--;
+      if(index !== 0) {
+        index--;
       }
     }
 
-    this.setWrapOffset(activeCardIndex);
-    this.setActiveCard(activeCardIndex);
+    this.sendAction('setSelectedIndex', index);
   },
 
   panLeft: horizontalPanHandler,

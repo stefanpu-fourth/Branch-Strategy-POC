@@ -4,8 +4,7 @@ import {
 } from 'ember-qunit';
 
 moduleForComponent('payslip-card-item', {
-  // Specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar']
+  needs: [ 'component:payslip-donut-chart' ]
 });
 
 test('it renders', function(assert) {
