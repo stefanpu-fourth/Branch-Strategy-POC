@@ -5,7 +5,12 @@ var attr = DS.attr;
 var PayslipLineItem = DS.Model.extend({
   grossPay: attr('number'),
   netPay: attr('number'),
-  processingDate: attr('string')
+  processingDate: attr('string'),
+
+  formattedProcessingDate: function () {
+    return moment(this.get('processingDate'), 'DD MMM YYYY').format('DD MMM');
+  }.property('processingDate')
+
 });
 
 PayslipLineItem.reopenClass({
