@@ -17,10 +17,6 @@ var horizontalPanHandler = function(e) {
   $wrap = this.$('.swipe__wrap');
   xPos = deltaX + this.get('xPosStart');
 
-  if(!$wrap.hasClass('swipe--loaded')) {
-    $wrap.addClass('swipe--loaded');
-  }
-
   $wrap.addClass('swipe--dragging').css({
     transform: `translate3d(${xPos}px, 0, 0)`
   });
