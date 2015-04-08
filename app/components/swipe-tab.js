@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   tagName: 'a',
-  classNames: [ 'notALink', 'swipe__tablink', 'swipe__tablink--payslip' ],
+  classNames: [ 'notALink', 'swipe__tablink' ],
   classNameBindings: [ 'isActive:swipe__tablink--active' ],
 
   item: null,
