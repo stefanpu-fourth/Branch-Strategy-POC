@@ -15,9 +15,10 @@ export default Ember.Component.extend({
     var $container = this.$();
     var $tabs = $container.children('.swipe__tablink');
     var $activeTab = $tabs.eq(index);
-    var left = $activeTab.offset().left - 12;
 
-    this.$().animate({ scrollLeft: left }, 200);
+    if ($activeTab.length) {
+      this.$().animate({ scrollLeft: $activeTab.offset().left - 12 }, 200);
+    }
   },
 
   getViewPortWidth: function() {
