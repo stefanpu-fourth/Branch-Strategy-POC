@@ -8,33 +8,26 @@ export default Ember.Component.extend({
   selectedIndex: null,
 
   didInsertElement: function () {
-    var selectedIndex = this.get('selectedIndex') || 0;
-    var $tabs = this.$('.swipe__tablink');
-    var $active = $tabs.eq(selectedIndex);
-    var viewPortWidth = this.getViewPortWidth();
-    var activeElWidth = $active.outerWidth();
-    var totalTabWidth = $tabs.length * activeElWidth;
-    var $container;
-    var left;
-    var scrollLeft;
-    var adjustedWidth;
+    Ember.run.once(this, 'setScrollLeft');
+  },
 
-    $tabs.removeClass('swipe__tablink--active');
-    $active.addClass('swipe__tablink--active');
+  setScrollLeft: function (index=0) {
+    var $container = this.$();
+    var $tabs = $container.children('.swipe__tablink');
+    var $activeTab = $tabs.eq(index);
+    var left = $activeTab.offset().left - 12;
 
-    if ((viewPortWidth + 12) > totalTabWidth) {
-      return;
-    }
-
-    $container = this.$();
-    left = $active.position().left;
-    scrollLeft = $container.scrollLeft();
-    adjustedWidth = (viewPortWidth / 2) - (activeElWidth / 2);
-
-    $container.animate(scrollLeft + left - adjustedWidth);
+    this.$().animate({ scrollLeft: left }, 200);
   },
 
   getViewPortWidth: function() {
     return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   },
+
+  actions: {
+    setSelectedIndex: function(index) {
+      this.sendAction('setSelectedIndex', index);
+      this.setScrollLeft(index);
+    }
+  }
 });

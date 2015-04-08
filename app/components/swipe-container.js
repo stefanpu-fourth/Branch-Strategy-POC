@@ -157,5 +157,11 @@ export default Ember.Component.extend({
 
   panLeft: horizontalPanHandler,
 
-  panRight: horizontalPanHandler
+  panRight: horizontalPanHandler,
+
+  actions: {
+    setSelectedIndex: function (index) {
+      this.sendAction('setSelectedIndex', index);
+    }
+  }
 });

@@ -19,5 +19,9 @@ export default Ember.Component.extend({
   prop: function () {
     var props = this.getProperties('item', 'propertyKey');
     return props.item.get(props.propertyKey);
-  }.property('item', 'propertyKey')
+  }.property('item', 'propertyKey'),
+
+  tap: function () {
+    this.sendAction('setSelectedIndex', this.get('index'));
+  }
 });
