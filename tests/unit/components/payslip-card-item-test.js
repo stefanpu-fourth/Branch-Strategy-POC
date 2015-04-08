@@ -4,7 +4,7 @@ import {
 } from 'ember-qunit';
 
 moduleForComponent('payslip-card-item', {
-  needs: [ 'component:payslip-donut-chart' ]
+  needs: [ 'component:payslip-donut-chart', 'component:svg-icon' ]
 });
 
 test('it renders', function(assert) {
