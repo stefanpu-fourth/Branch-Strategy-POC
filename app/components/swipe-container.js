@@ -35,6 +35,10 @@ export default Ember.Component.extend({
 
   classNames: ['swipe'],
 
+  collection: null,
+
+  tabPropertyKey: null,
+
   selectedIndex: null,
 
   xPos: 0,

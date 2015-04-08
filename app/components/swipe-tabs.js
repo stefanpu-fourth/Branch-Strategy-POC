@@ -3,10 +3,12 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['swipe__tabs'],
 
-  selectedIndex: 10,
+  collection: null,
+
+  selectedIndex: null,
 
   didInsertElement: function () {
-    var selectedIndex = this.get('selectedIndex');
+    var selectedIndex = this.get('selectedIndex') || 0;
     var $tabs = this.$('.swipe__tablink');
     var $active = $tabs.eq(selectedIndex);
     var viewPortWidth = this.getViewPortWidth();
@@ -30,10 +32,6 @@ export default Ember.Component.extend({
     adjustedWidth = (viewPortWidth / 2) - (activeElWidth / 2);
 
     $container.animate(scrollLeft + left - adjustedWidth);
-  },
-
-  setScrollLeft: function () {
-
   },
 
   getViewPortWidth: function() {

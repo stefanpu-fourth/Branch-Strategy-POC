@@ -1,12 +1,12 @@
-<a href="#" class="swipe__tablink swipe__tablink--payslip">02 Jan</a>
-<a href="#" class="swipe__tablink swipe__tablink--payslip">09 Jan</a>
-<a href="#" class="swipe__tablink swipe__tablink--payslip">16 Jan</a>
-<a href="#" class="swipe__tablink swipe__tablink--payslip">23 Jan</a>
-<a href="#" class="swipe__tablink swipe__tablink--payslip">30 Jan</a>
-<a href="#" class="swipe__tablink swipe__tablink--payslip">05 Feb</a>
-<a href="#" class="swipe__tablink swipe__tablink--payslip">12 Feb</a>
-<a href="#" class="swipe__tablink swipe__tablink--payslip">19 Feb</a>
-<a href="#" class="swipe__tablink swipe__tablink--payslip">26 Feb</a>
-<a href="#" class="swipe__tablink swipe__tablink--payslip">05 Mar</a>
-<a href="#" class="swipe__tablink swipe__tablink--payslip">12 Mar</a>
-<a href="#" class="swipe__tablink swipe__tablink--payslip swipe__tablink--active">19 Mar</a>
+{{#each collection as |item index|}}
+  {{swipe-tab
+    item=item
+    propertyKey=tabPropertyKey
+    index=index
+    selectedIndex=selectedIndex
+    setSelectedIndex="setSelectedIndex"
+  }}
+{{/each}}
+
+
+
