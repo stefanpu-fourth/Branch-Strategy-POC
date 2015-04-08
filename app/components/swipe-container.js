@@ -17,10 +17,6 @@ var horizontalPanHandler = function(e) {
   $wrap = this.$('.swipe__wrap');
   xPos = deltaX + this.get('xPosStart');
 
-  if(!$wrap.hasClass('swipe--loaded')) {
-    $wrap.addClass('swipe--loaded');
-  }
-
   $wrap.addClass('swipe--dragging').css({
     transform: `translate3d(${xPos}px, 0, 0)`
   });
@@ -34,6 +30,10 @@ var horizontalPanHandler = function(e) {
 export default Ember.Component.extend({
 
   classNames: ['swipe'],
+
+  collection: null,
+
+  tabPropertyKey: null,
 
   selectedIndex: null,
 
@@ -153,5 +153,11 @@ export default Ember.Component.extend({
 
   panLeft: horizontalPanHandler,
 
-  panRight: horizontalPanHandler
+  panRight: horizontalPanHandler,
+
+  actions: {
+    setSelectedIndex: function (index) {
+      this.sendAction('setSelectedIndex', index);
+    }
+  }
 });

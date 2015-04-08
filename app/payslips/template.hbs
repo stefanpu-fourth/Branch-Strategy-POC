@@ -1,4 +1,9 @@
-{{#swipe-container selectedIndex=attrs.selectedIndex setSelectedIndex="setSelectedIndex"}}
+{{#swipe-container
+  collection=attrs.lineitems
+  tabPropertyKey="formattedProcessingDate"
+  selectedIndex=attrs.selectedIndex
+  setSelectedIndex="setSelectedIndex"
+}}
   {{#with attrs.lineitems as lineitems }}
     {{#each lineitems as |lineitem index|}}
       {{payslip-card-item line=lineitem index=index selectedIndex=attrs.selectedIndex}}

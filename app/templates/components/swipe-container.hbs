@@ -1,3 +1,9 @@
-<div class="swipe__wrap" style={{wrapStyles}}>
+<div class="swipe__wrap swipe--loaded" style={{wrapStyles}}>
   {{yield}}
 </div>
+{{swipe-tabs
+  collection=collection
+  selectedIndex=selectedIndex
+  tabPropertyKey=tabPropertyKey
+  setSelectedIndex="setSelectedIndex"
+}}

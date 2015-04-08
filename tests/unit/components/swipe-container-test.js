@@ -5,15 +5,14 @@ import {
 import Ember from 'ember';
 
 moduleForComponent('swipe-container', {
-  // Specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar']
+  needs: [ 'component:swipe-tabs', 'component:swipe-tab' ]
 });
 
 test('it renders', function(assert) {
   assert.expect(2);
 
   // Creates the component instance
-  var component = this.subject();
+  var component = this.subject({ collection: [ Ember.Object.create({ id: 1 }) ], tabPropertyKey: 'id', selectedIndex: 0 });
   assert.equal(component._state, 'preRender');
 
   // Renders the component to the page
