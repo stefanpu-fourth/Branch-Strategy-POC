@@ -32,7 +32,7 @@
         border-radius: 0;
     }
     &--loaded {
-        @include transition(all 0.15s ease-out);
+        @include transition(all 0.25s ease-out);
     }
     &--dragging {
         @include transition(none);
