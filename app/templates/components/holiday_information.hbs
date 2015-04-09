@@ -17,6 +17,12 @@
           <dt class="tabular__key">Booked</dt>
           <dd class="tabular__value">{{info.bookedHoliday}}</dd>
       </dl>
+      {{#if displayReservedHoliday}}
+      <dl class="tabular__row">
+          <dt class="tabular__key">Holidays Reserved</dt>
+          <dd class="tabular__value">{{info.reservedHoliday}}</dd>
+      </dl>
+      {{/if}}
       <dl class="tabular__row">
           <dt class="tabular__key">Accrued</dt>
           <dd class="tabular__value">{{info.accruedHoliday}}</dd>
