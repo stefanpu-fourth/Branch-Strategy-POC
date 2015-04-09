@@ -4,11 +4,11 @@
     {{payslip-donut-chart grossPay=line.grossPay netPay=line.netPay index=index selectedIndex=selectedIndex}}
     <a class="notALink payslip__show card__flipme" {{action 'flip'}}>
       {{svg-icon name="paper-list"}}
-      <span>Show payslip breakdown</span>
+      <span>{{t 'payslips.breakdown'}}</span>
     </a>
     <a href="#" class="payslip__download">
       {{svg-icon name="download"}}
-      <span>Download payslip (.pdf)</span>
+      <span>{{t 'payslips.download'}}</span>
     </a>
   </div>
   <div class="card__back">

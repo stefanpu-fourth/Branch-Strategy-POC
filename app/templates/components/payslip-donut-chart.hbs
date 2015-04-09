@@ -1,9 +1,9 @@
 <div class="payslip__numbers">
-  <span class="payslip__total">Total: &pound;{{grossPay}}</span>
-  <span class="payslip__takehome">Take home:</span>
+  <span class="payslip__total">{{t 'payslips.totalPay'}}: &pound;{{grossPay}}</span>
+  <span class="payslip__takehome">{{t 'payslips.takeHome'}}:</span>
   <span class="payslip__net"><span>&pound;{{netPay}}</span></span>
 </div>
-<div class="payslip__chart payslip__chart--12" data-percent="75">
+<div class="payslip__chart payslip__chart--12">
   <div class="payslip__chartbg">
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
       <path d="M150,6c78.5,0,144,65.5,144,144s-65.5,144-144,144S6,228.5,6,150 S71.5,6,150,6z" /> </svg>
