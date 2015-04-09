@@ -3,8 +3,12 @@ import {
   test
 } from 'ember-qunit';
 import Ember from 'ember';
+import t from 'ess/helpers/t';
 
 moduleForComponent('payslip-donut-chart', {
+  beforeEach: function () {
+    Ember.Handlebars.registerHelper('t', t);
+  }
 });
 
 test('it renders', function(assert) {
