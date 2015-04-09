@@ -3,7 +3,23 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['payslip__line'],
 
+  payslips: null,
+
+  xCategories: function () {
+    return this.get('payslips').getEach('formattedProcessingDate').toArray();
+  }.property('payslip'),
+
+  grossPaySeries: function () {
+    return this.get('payslips').getEach('grossPay').toArray();
+  }.property('payslip'),
+
+  netPaySeries: function () {
+    return this.get('payslips').getEach('netPay').toArray();
+  }.property('payslip'),
+
   didInsertElement: function() {
+    var props = this.getProperties('xCategories', 'grossPaySeries', 'netPaySeries');
+
     this.$().highcharts({
       chart: {
         type: 'spline',
@@ -12,7 +28,7 @@ export default Ember.Component.extend({
       },
       title: null,
       xAxis: {
-        categories: ['06 Jan', '11 Jan', '18 Jan', '23 Jan', '30 Jan', '05 Feb', '12 Feb', '19 Feb', '26 Feb', '05 Mar', '12 Mar', '19 Mar'],
+        categories: props.xCategories,
         tickmarkPlacement: 'on',
         tickWidth: 0,
         gridLineWidth: 1,
@@ -41,7 +57,7 @@ export default Ember.Component.extend({
           style: {
             'color': '#999999'
           },
-          formatter: function() {
+          formatter: function () {
             return '£' + this.value;
           }
         }
@@ -55,14 +71,14 @@ export default Ember.Component.extend({
         },
         name: 'Total',
         color: '#CCC',
-        data: [965, 1121, 887, 954, 1021, 965, 1121, 887, 954, 1021, 854, 937]
+        data: props.grossPaySeries
       }, {
         marker: {
           symbol: 'circle'
         },
         name: 'Take home',
         color: '#9cbf2b',
-        data: [875, 1055, 822, 900, 955, 871, 1052, 840, 903, 955, 807, 889]
+        data: props.netPaySeries
       }]
     });
   }
