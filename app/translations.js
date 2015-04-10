@@ -10,6 +10,15 @@ export default {
       download: 'Download payslip (.pdf)',
       totalPay: 'Total',
       takeHome: 'Take home'
+    },
+    rotas: {
+      holidayInformation: 'Holiday Information',
+      allowed: 'Allowed',
+      taken: 'Taken',
+      booked: 'Booked',
+      holidaysReserved:'Holidays Reserved',
+      remaining: 'Remaining',
+      accrued: 'Accrued'
     }
   }
 };
