@@ -1,0 +1,108 @@
+<li class="rota__past">
+  <div class="rota__overview">
+    <div class="rota__day">
+      Mon 09
+    </div>
+    <span class="rota__hours">
+      {{svg-icon name="shift" class="rota__icon"}} 1000-1700
+    </span>
+  </div>
+  <div class="rota__bar">
+    <!--
+          e.g. shift 6am to 12pm based on rotad day of 24 hours (12am to 12am)
+          width calculation:
+          shift in mins / rotad day in mins x 100
+          360/1440*100=25%
+          left calculation:
+          time from rotad period start / rotad day in mins x 100
+          360/1440*100=25%
+          -->
+    <span class="rota__shift" style="left:42%; width:29%;">
+      <span class="rota__shiftcolor rota__shiftcolor--1"></span>
+    </span>
+
+  </div>
+</li>
+<li class="rota__past">
+  <div class="rota__overview">
+    <div class="rota__day">
+      Tue 10
+    </div>
+
+  </div>
+  <div class="rota__bar rota__bar--2"></div>
+</li>
+<li class="rota__present">
+  <div class="rota__overview">
+    <div class="rota__day">
+      Wed 11
+    </div>
+    <div class="rota__hours">
+      {{svg-icon name="shift" class="rota__icon"}} 1700-2130
+    </div>
+  </div>
+  <div class="rota__bar">
+    <span class="rota__shift" style="left:71%; width:18%;">
+      <span class="rota__shiftcolor rota__shiftcolor--2"></span>
+    </span>
+  </div>
+</li>
+<li>
+  <div class="rota__overview">
+    <div class="rota__day">
+      Thu 12
+    </div>
+  </div>
+  <div class="rota__bar"></div>
+</li>
+<li>
+  <div class="rota__overview">
+    <div class="rota__day">
+      Fri 13
+    </div>
+    <div class="rota__hours">
+      {{svg-icon name="shift" class="rota__icon"}} 1100-1700 <span class="rota__split">&amp;</span> 1800-2200
+    </div>
+  </div>
+  <div class="rota__bar">
+    <span class="rota__shift" style="left:46%; width:25%;">
+      <span class="rota__shiftcolor rota__shiftcolor--3"></span>
+    </span>
+    <span class="rota__shift" style="left:75%; width:17%;">
+      <span class="rota__shiftcolor rota__shiftcolor--4"></span>
+    </span>
+  </div>
+</li>
+<li>
+  <div class="rota__overview">
+    <div class="rota__day">
+      Sat 14
+    </div>
+    <div class="rota__hours">
+      {{svg-icon name="shift" class="rota__icon"}} 1100-1700
+    </div>
+  </div>
+  <div class="rota__bar">
+    <span class="rota__shift" style="left:46%; width:25%;">
+      <span class="rota__shiftcolor rota__shiftcolor--5"></span>
+    </span>
+  </div>
+</li>
+<li>
+  <div class="rota__overview">
+    <div class="rota__day">
+      Sun 15
+    </div>
+    <div class="rota__hours">
+      {{svg-icon name="shift" class="rota__icon"}} 1130-1700 <span class="rota__split">&amp;</span> 1730-2100
+    </div>
+  </div>
+  <div class="rota__bar">
+    <span class="rota__shift" style="left:47%; width:24%;">
+      <span class="rota__shiftcolor rota__shiftcolor--6"></span>
+    </span>
+    <span class="rota__shift" style="left:73%; width:16.5%;">
+      <span class="rota__shiftcolor rota__shiftcolor--7"></span>
+    </span>
+  </div>
+</li>
