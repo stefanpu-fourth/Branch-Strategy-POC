@@ -6,27 +6,29 @@
       <h2 class="tabular__heading">Employer details</h2>
       <dl class="tabular__row">
         <dt class="tabular__key">Name</dt>
-        <dd class="tabular__value">Fourth Ltd</dd>
+        <dd class="tabular__value">{{attrs.employment.company.companyName}}</dd>
       </dl>
       <dl class="tabular__row">
         <dt class="tabular__key">Unit</dt>
-        <dd class="tabular__value">London</dd>
+        <dd class="tabular__value">{{attrs.employment.location.locationName}}</dd>
       </dl>
       <dl class="tabular__row">
         <dt class="tabular__key">Address</dt>
-        <dd class="tabular__value tabular__value--wide">90 Long Acre
-          <br>Covent Garden
-          <br>London
-          <br>WC2E 9RA</dd>
+        <dd class="tabular__value tabular__value--wide">
+          {{attrs.employment.location.address1}}
+          <br />{{attrs.employment.location.address2}}
+          <br />{{attrs.employment.location.town}}
+          <br />{{attrs.employment.location.postCode}}
+        </dd>
       </dl>
 
       <dl class="tabular__row">
         <dt class="tabular__key">Phone</dt>
-        <dd class="tabular__value">01234 567 890</dd>
+        <dd class="tabular__value">{{attrs.employment.location.phone}}</dd>
       </dl>
       <dl class="tabular__row">
         <dt class="tabular__key">Fax</dt>
-        <dd class="tabular__value">01234 567 890</dd>
+        <dd class="tabular__value">{{attrs.employment.location.fax}}</dd>
       </dl>
     </div>
 
@@ -38,30 +40,31 @@
       <h2 class="tabular__heading">Employee details</h2>
       <dl class="tabular__row tabular__row--nobg">
         <dt class="tabular__key">Name</dt>
-        <dd class="tabular__value">Fred Flintstone</dd>
+        <dd class="tabular__value">{{attrs.employee.fullName}}</dd>
       </dl>
       <dl class="tabular__row tabular__row--nobg">
         <dt class="tabular__key">Address</dt>
-        <dd class="tabular__value tabular__value--wide">301 Cobblestone Way
-          <br>Bedrock
-          <br>Louisiana
-          <br>70777</dd>
+        <dd class="tabular__value tabular__value--wide">
+          {{attrs.employee.address1}}
+          <br />{{attrs.employee.address2}}
+          <br />{{attrs.employee.county}}
+          <br />{{attrs.employee.postCode}}</dd>
       </dl>
       <dl class="tabular__row tabular__row--nobg">
         <dt class="tabular__key">Date of birth</dt>
-        <dd class="tabular__value">1000BC</dd>
+        <dd class="tabular__value">{{attrs.employee.dateOfBirth}}</dd>
       </dl>
       <dl class="tabular__row tabular__row--nobg">
         <dt class="tabular__key">Home</dt>
-        <dd class="tabular__value">01234 567 890</dd>
+        <dd class="tabular__value">{{attrs.employee.homeTel}}</dd>
       </dl>
       <dl class="tabular__row tabular__row--nobg">
         <dt class="tabular__key">Mobile</dt>
-        <dd class="tabular__value">01234 567 890</dd>
+        <dd class="tabular__value">{{attrs.employee.mobileTel}}</dd>
       </dl>
       <dl class="tabular__row tabular__row--nobg">
         <dt class="tabular__key">Work email</dt>
-        <dd class="tabular__value tabular__value--wide">fred.flintstone@fourth.com</dd>
+        <dd class="tabular__value tabular__value--wide">{{attrs.employee.workEmail}}</dd>
       </dl>
     </div>
   </div>

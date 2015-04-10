@@ -23,7 +23,13 @@ var Employee = DS.Model.extend({
   nationality: attr('string'),
   employeeNumber: attr('string'),
   startDate: attr('string'), //TODO: change to date or similar for API integration
-  serviceDuration: attr('string')
+  serviceDuration: attr('string'),
+
+  fullName: function () {
+    var props = this.getProperties('firstNames', 'surName');
+    return `${props.firstNames} ${props.surName}`;
+  }.property('firstNames', 'surName')
+
 });
 
 Employee.reopenClass({
