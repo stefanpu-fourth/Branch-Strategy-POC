@@ -6,6 +6,8 @@ export default Ember.Component.extend({
 
   payslips: null,
 
+  selectedIndex: null,
+
   grossPayTitle: i18n.t('payslips.totalPay'),
 
   netPayTitle: i18n.t('payslips.takeHome'),
@@ -40,6 +42,10 @@ export default Ember.Component.extend({
     return `<strong>${title}</strong><br />${seriesMarkup}`.htmlSafe();
   },
 
+  pointClickHandler: function (e) {
+    this.sendAction('setSelectedIndex', e.point.index);
+  },
+
   didInsertElement: function() {
     var propNames = [ 'xCategories', 'grossPaySeries', 'netPaySeries', 'grossPayTitle', 'netPayTitle' ];
     var props = this.getProperties(propNames);
@@ -50,6 +56,13 @@ export default Ember.Component.extend({
         type: 'spline',
         marginLeft: 0,
         marginRight: 0
+      },
+      plotOptions: {
+        series: {
+          events: {
+            click: Ember.run.bind(this, 'pointClickHandler')
+          }
+        }
       },
       xAxis: {
         categories: props.xCategories,

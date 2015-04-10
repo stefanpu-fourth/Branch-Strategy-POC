@@ -11,7 +11,8 @@
   {{/swipe-container}}
   <div class="payslip__breakdown">
     <h2>{{t 'payslips.historic'}}</h2>
-    {{payslips-time-chart payslips=attrs.lineitems}}
+    {{payslips-time-chart
+      payslips=attrs.lineitems selectedIndex=attrs.selectedIndex setSelectedIndex="setSelectedIndex"}}
   </div>
 {{/with}}
 
