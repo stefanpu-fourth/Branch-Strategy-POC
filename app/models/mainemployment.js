@@ -1,14 +1,15 @@
 import DS from 'ember-data';
 
 var attr = DS.attr;
+var belongsTo = DS.belongsTo;
 
 var MainEmployment = DS.Model.extend({
   employeeId: attr('number'),
   employmentId: attr('number'),
   jobTitle: attr('string'),
   payType: attr('string'),
-  company: DS.belongsTo('company', { embedded: 'always' }),
-  location: DS.belongsTo('location', { embedded: 'always' })
+  company: belongsTo('company'), //will more than likely be embedded always
+  location: belongsTo('location')  //will more than likely be embedded always
 });
 
 MainEmployment.reopenClass({
@@ -16,18 +17,8 @@ MainEmployment.reopenClass({
     id: 1,
     employmentId: 1,
     jobTitle: 'Custom Service Operative',
-    company: {
-      companyName: 'Fourth'
-    },
-    location: {
-      locationName: 'London',
-      address1: '90 Long Acre',
-      address2: 'Covent Garden',
-      town: 'London',
-      postCode: 'WC2E 9RA',
-      phone: '01234 567 890',
-      fax: '01234 567 890'
-    }
+    company: 1,
+    location: 1
   }]
 });
 

@@ -29,6 +29,7 @@ var Employee = DS.Model.extend({
 Employee.reopenClass({
   FIXTURES: [
     {
+      id: 1,
       surName: 'Flintstone',
       firstNames: 'Fred',
       address1: '301 Cobblestone Way',

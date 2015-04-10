@@ -2,7 +2,7 @@ import DS from 'ember-data';
 
 var attr = DS.attr;
 
-export default DS.Model.extend({
+var Location =  DS.Model.extend({
   locationName: attr('string'),
   address1: attr('string'),
   address2: attr('string'),
@@ -14,3 +14,20 @@ export default DS.Model.extend({
   fax: attr('string'),
   division: attr('number')
 });
+
+Location.reopenClass({
+  FIXTURES: [
+    {
+      id: 1,
+      locationName: 'London',
+      address1: '90 Long Acre',
+      address2: 'Covent Garden',
+      town: 'London',
+      postCode: 'WC2E 9RA',
+      phone: '01234 567 890',
+      fax: '01234 567 890'
+    }
+  ]
+});
+
+export default Location;

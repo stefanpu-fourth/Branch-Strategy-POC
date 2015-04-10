@@ -2,7 +2,7 @@ import DS from 'ember-data';
 
 var attr = DS.attr;
 
-export default DS.Model.extend({
+var Company = DS.Model.extend({
   companyName: attr('string'),
   address1: attr('string'),
   address2: attr('string'),
@@ -16,3 +16,15 @@ export default DS.Model.extend({
   taxOfficeNumber: attr('number'),
   payeReference: attr('number')
 });
+
+Company.reopenClass({
+  FIXTURES: [
+    {
+      id: 1,
+      companyName: 'Fourth'
+    }
+  ]
+});
+
+export default Company;
+
