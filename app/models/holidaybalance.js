@@ -3,27 +3,28 @@ import DS from 'ember-data';
 var attr = DS.attr;
 
 var HolidayBalance = DS.Model.extend({
-  allowedHoliday: attr('number'),
-  bookedHoliday: attr('number'),
-  takenHoliday: attr('number'),
-  accruedHoliday: attr('number'),
-  reservedHoliday: attr('number'),
+  Allowed: attr('number'),
+  Booked: attr('number'),
+  Taken: attr('number'),
+  Accrued: attr('number'),
+  Reserved: attr('number'),
   periodHoliday: attr('string'),
+  Type : attr('string'),
+  Remaining: attr('number'),
 
-  remainingHoliday: function () {
-    return this.get('allowedHoliday')-(this.get('takenHoliday')+this.get('bookedHoliday'));
-  }.property('allowedHoliday','takenHoliday')
 });
 
 HolidayBalance.reopenClass({
   FIXTURES: [{
     id:1,
-    allowedHoliday: 20,
-    bookedHoliday: 3,
-    takenHoliday: 4,
-    reservedHoliday:1,
-    accruedHoliday: 5,
-    periodHoliday:"(01 Jan - 31 Dec 2015)"
+    Allowed: 20,
+    Booked: 3,
+    Taken: 4,
+    Reserved:1,
+    Accrued: 5,
+    periodHoliday:"(01 Jan 2015 - 31 Dec 2015)",
+    Type : 'Days',
+    Remaining: 13
   }]
 });
 
