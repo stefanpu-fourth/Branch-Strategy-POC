@@ -21,7 +21,9 @@
     "andThen",
     "currentURL",
     "currentPath",
-    "currentRouteName"
+    "currentRouteName",
+    "sinon",
+    "moment"
   ],
   "node": false,
   "browser": false,
