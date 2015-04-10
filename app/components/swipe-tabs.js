@@ -8,10 +8,11 @@ export default Ember.Component.extend({
   selectedIndex: null,
 
   didInsertElement: function () {
-    Ember.run.once(this, 'setScrollLeft');
+    this.addObserver('selectedIndex', this, this.setScrollLeft);
   },
 
-  setScrollLeft: function (index=0) {
+  setScrollLeft: function () {
+    var index = this.get('selectedIndex') || 0;
     var $container = this.$();
     var $tabs = $container.children('.swipe__tablink');
     var $activeTab = $tabs.eq(index);
@@ -28,7 +29,6 @@ export default Ember.Component.extend({
   actions: {
     setSelectedIndex: function(index) {
       this.sendAction('setSelectedIndex', index);
-      this.setScrollLeft(index);
     }
   }
 });
