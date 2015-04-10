@@ -3,28 +3,28 @@
     <div class="tabular">
       <dl class="tabular__row">
           <dt class="tabular__key">{{t 'rotas.allowed'}}</dt>
-          <dd class="tabular__value">{{info.Allowed}}</dd>
+          <dd class="tabular__value">{{info.Allowed}} {{info.Type}}</dd>
       </dl>
       <dl class="tabular__row">
           <dt class="tabular__key">{{t 'rotas.taken'}}</dt>
-          <dd class="tabular__value">{{info.Taken}}</dd>
+          <dd class="tabular__value">{{info.Taken}} {{info.Type}}</dd>
       </dl>
       <dl class="tabular__row">
           <dt class="tabular__key">{{t 'rotas.booked'}}</dt>
-          <dd class="tabular__value">{{info.Booked}}</dd>
+          <dd class="tabular__value">{{info.Booked}} {{info.Type}}</dd>
       </dl>
       {{#if displayReservedHoliday}}
       <dl class="tabular__row">
           <dt class="tabular__key">{{t 'rotas.holidaysReserved'}}</dt>
-          <dd class="tabular__value">{{info.Reserved}}</dd>
+          <dd class="tabular__value">{{info.Reserved}}  {{info.Type}}</dd>
       </dl>
       {{/if}}
       <dl class="tabular__row">
           <dt class="tabular__key">{{t 'rotas.remaining'}}</dt>
-          <dd class="tabular__value">{{info.Remaining}}</dd>
+          <dd class="tabular__value">{{info.Remaining}}  {{info.Type}}</dd>
       </dl>
       <dl class="tabular__row">
           <dt class="tabular__key">{{t 'rotas.accrued'}}</dt>
-          <dd class="tabular__value">{{info.Accrued}}</dd>
+          <dd class="tabular__value">{{info.Accrued}} {{info.Type}}</dd>
       </dl>
     </div>
