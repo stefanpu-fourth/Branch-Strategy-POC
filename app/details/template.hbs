@@ -3,17 +3,17 @@
   <div class="details__employer">
 
     <div class="tabular">
-      <h2 class="tabular__heading">Employer details</h2>
+      <h2 class="tabular__heading">{{t 'details.employment.details'}}</h2>
       <dl class="tabular__row">
-        <dt class="tabular__key">Name</dt>
+        <dt class="tabular__key">{{t 'details.name'}}</dt>
         <dd class="tabular__value">{{attrs.employment.company.companyName}}</dd>
       </dl>
       <dl class="tabular__row">
-        <dt class="tabular__key">Unit</dt>
+        <dt class="tabular__key">{{t 'details.employment.location'}}</dt>
         <dd class="tabular__value">{{attrs.employment.location.locationName}}</dd>
       </dl>
       <dl class="tabular__row">
-        <dt class="tabular__key">Address</dt>
+        <dt class="tabular__key">{{t 'details.address'}}</dt>
         <dd class="tabular__value tabular__value--wide">
           {{attrs.employment.location.address1}}
           <br />{{attrs.employment.location.address2}}
@@ -23,11 +23,11 @@
       </dl>
 
       <dl class="tabular__row">
-        <dt class="tabular__key">Phone</dt>
+        <dt class="tabular__key">{{t 'details.employment.phone'}}</dt>
         <dd class="tabular__value">{{attrs.employment.location.phone}}</dd>
       </dl>
       <dl class="tabular__row">
-        <dt class="tabular__key">Fax</dt>
+        <dt class="tabular__key">{{t 'details.employment.fax'}}</dt>
         <dd class="tabular__value">{{attrs.employment.location.fax}}</dd>
       </dl>
     </div>
@@ -37,13 +37,13 @@
   <div class="details__employee">
 
     <div class="tabular">
-      <h2 class="tabular__heading">Employee details</h2>
+      <h2 class="tabular__heading">{{t 'details.employee.details'}}</h2>
       <dl class="tabular__row tabular__row--nobg">
-        <dt class="tabular__key">Name</dt>
+        <dt class="tabular__key">{{t 'details.name'}}</dt>
         <dd class="tabular__value">{{attrs.employee.fullName}}</dd>
       </dl>
       <dl class="tabular__row tabular__row--nobg">
-        <dt class="tabular__key">Address</dt>
+        <dt class="tabular__key">{{t 'details.address'}}</dt>
         <dd class="tabular__value tabular__value--wide">
           {{attrs.employee.address1}}
           <br />{{attrs.employee.address2}}
@@ -51,19 +51,19 @@
           <br />{{attrs.employee.postCode}}</dd>
       </dl>
       <dl class="tabular__row tabular__row--nobg">
-        <dt class="tabular__key">Date of birth</dt>
+        <dt class="tabular__key">{{t 'details.employee.dateOfBirth'}}</dt>
         <dd class="tabular__value">{{attrs.employee.dateOfBirth}}</dd>
       </dl>
       <dl class="tabular__row tabular__row--nobg">
-        <dt class="tabular__key">Home</dt>
+        <dt class="tabular__key">{{t 'details.employee.homeTel'}}</dt>
         <dd class="tabular__value">{{attrs.employee.homeTel}}</dd>
       </dl>
       <dl class="tabular__row tabular__row--nobg">
-        <dt class="tabular__key">Mobile</dt>
+        <dt class="tabular__key">{{t 'details.employee.mobileTel'}}</dt>
         <dd class="tabular__value">{{attrs.employee.mobileTel}}</dd>
       </dl>
       <dl class="tabular__row tabular__row--nobg">
-        <dt class="tabular__key">Work email</dt>
+        <dt class="tabular__key">{{t 'details.employee.workEmail'}}</dt>
         <dd class="tabular__value tabular__value--wide">{{attrs.employee.workEmail}}</dd>
       </dl>
     </div>

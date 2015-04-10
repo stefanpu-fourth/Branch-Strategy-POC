@@ -20,6 +20,23 @@ export default {
       holidaysReserved: 'Holidays Reserved',
       remaining: 'Remaining',
       accrued: 'Accrued'
+    },
+    details: {
+      name: 'Name',
+      address: 'Address',
+      employment: {
+        details: 'Employer Details',
+        location: 'Location',
+        phone: 'Phone',
+        fax: 'Fax'
+      },
+      employee: {
+        details: 'Employee Details',
+        dateOfBirth: 'Date of birth',
+        homeTel: 'Home',
+        mobileTel: 'Mobile',
+        workEmail: 'Work email'
+      }
     }
   }
 };
