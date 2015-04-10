@@ -5,7 +5,7 @@ import {
 
 moduleForModel('mainemployment', {
   // Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:company','model:location']
 });
 
 test('it exists', function(assert) {
