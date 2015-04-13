@@ -38,14 +38,24 @@ Employee.reopenClass({
       id: 1,
       surName: 'Flintstone',
       firstNames: 'Fred',
+      employeeNumber: '000001',
+      startDate: '730BC',
+      serviceDuration: '2 years',
+      NINumber: 'SN000001B',
+      nationality: 'RockLander',
+      gender: 'Male',
       address1: '301 Cobblestone Way',
       address2: 'Bedrock',
+      address3: 'RockLand',
+      town: 'CityStone',
       county: 'Louisiana',
+      country: 'United States',
       postCode: '70777',
       dateOfBirth: '1000BC',
       homeTel: '01234 567 890',
       mobileTel: '01234 567 890',
-      workEmail: 'fred.flintstone@fourth.com'
+      workEmail: 'fred.flintstone@fourth.com',
+      homeEmail: 'fred.flintstone@rock.com'
     }
   ]
 });
