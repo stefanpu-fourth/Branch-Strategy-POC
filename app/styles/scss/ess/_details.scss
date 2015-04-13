@@ -5,6 +5,7 @@
 		border:1px solid $color-grey-light;
 		margin:1rem;
 		padding:1rem;
+    overflow: auto;
 	}
 	@include respond(640) {
 		@include display(flex);
