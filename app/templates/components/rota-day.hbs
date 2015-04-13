@@ -1,0 +1,23 @@
+<div class="rota__overview">
+  <div class="rota__day">
+    {{moment shift.shiftDate format="dddd Do"}}
+  </div>
+  <span class="rota__hours">
+    {{svg-icon name="shift" class="rota__icon"}} 1000-1700
+  </span>
+</div>
+<div class="rota__bar">
+  <!--
+  e.g. shift 6am to 12pm based on rotad day of 24 hours (12am to 12am)
+  width calculation:
+  shift in mins / rotad day in mins x 100
+  360/1440*100=25%
+  left calculation:
+  time from rotad period start / rotad day in mins x 100
+  360/1440*100=25%
+  -->
+  <span class="rota__shift" style="left:42%; width:29%;">
+    <span class="rota__shiftcolor rota__shiftcolor--1"></span>
+  </span>
+
+</div>
