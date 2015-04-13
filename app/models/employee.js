@@ -19,7 +19,7 @@ var Employee = DS.Model.extend({
   mobileTel: attr('string'),
   workEmail: attr('string'),
   homeEmail: attr('string'),
-  NINumber: attr('string'),
+  niNumber: attr('string'),
   nationality: attr('string'),
   employeeNumber: attr('string'),
   startDate: attr('string'), //TODO: change to date or similar for API integration
@@ -41,7 +41,7 @@ Employee.reopenClass({
       employeeNumber: '000001',
       startDate: '730BC',
       serviceDuration: '2 years',
-      NINumber: 'SN000001B',
+      niNumber: 'SN000001B',
       nationality: 'RockLander',
       gender: 'Male',
       address1: '301 Cobblestone Way',

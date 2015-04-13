@@ -32,10 +32,17 @@ export default {
       },
       employee: {
         details: 'Employee Details',
+        employeeNumber: 'Employee number',
+        startDate: 'Start date',
+        serviceDuration: 'Service duration',
+        niNumber: 'NI Number',
         dateOfBirth: 'Date of birth',
         homeTel: 'Home',
         mobileTel: 'Mobile',
-        workEmail: 'Work email'
+        workEmail: 'Work email',
+        homeEmail: 'Home email',
+        nationality: 'Nationality',
+        gender: 'Gender'
       }
     }
   }
