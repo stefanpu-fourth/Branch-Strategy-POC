@@ -3,7 +3,7 @@
    setSelectedIndex="setSelectedIndex"
 }}
   {{#each attrs.rotaWeeks as |rotaWeek|}}
-    {{rota-week shifts=rotaWeek.shifts}}
+    {{rota-week week=rotaWeek shifts=rotaWeek.shifts}}
   {{/each}}
 {{/swipe-container}}
 {{holiday-information info=attrs.holiday}}

@@ -10,6 +10,10 @@ var RotaWeek = Ember.Object.extend({
 
       return moment(s.get('shiftDate')).isBetween(start, end);
     });
+  }.property('start'),
+
+  end: function() {
+    return moment(this.get('start')).add(6, 'day');
   }.property('start')
 });
 
