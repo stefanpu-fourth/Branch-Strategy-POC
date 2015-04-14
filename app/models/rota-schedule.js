@@ -10,6 +10,7 @@ var RotaSchedule = DS.Model.extend({
   jobTitle: attr('string'),
   isMain: attr('boolean'),
   shiftTimes: attr(),
+  shifts: attr(),
   rotaStart: attr('date'),
   rotaStartDayOfWeek: attr('number')
 });
@@ -117,6 +118,20 @@ var shiftMoment = moment().startOf('isoWeek').subtract(7, 'days');
 fixtures.forEach(f => {
   f.shiftDate = shiftMoment.format("YYYY-MM-DD 00:00:00.000");
   shiftMoment.add(1, 'day');
+});
+
+fixtures.forEach(f => {
+  if (f.shiftTimes) {
+    let newShifts = f.shiftTimes.map(function(time, index) {
+      if ((index % 2) === 0) {
+        return {
+          start: time,
+          end: f.shiftTimes[index + 1]
+        };
+      }
+    });
+    f.shifts = newShifts.filter(shift => { return shift !== undefined; });
+  }
 });
 
 RotaSchedule.reopenClass({

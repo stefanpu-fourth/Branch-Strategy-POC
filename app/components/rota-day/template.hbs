@@ -2,9 +2,11 @@
   <div class="rota__day">
     {{moment shift.shiftDate format="ddd D"}}
   </div>
+  {{#if shift.shifts}}
   <span class="rota__hours">
-    {{svg-icon name="shift" class="rota__icon"}} 1000-1700
+    {{svg-icon name="shift" class="rota__icon"}} {{#each shift.shifts as |shift|}}{{shift.start}}-{{shift.end}} {{/each}}
   </span>
+  {{/if}}
 </div>
 <div class="rota__bar">
   <!--
