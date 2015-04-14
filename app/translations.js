@@ -7,6 +7,7 @@ export default {
     },
     payslips: {
       breakdown: 'Show payslip breakdown',
+      historic: 'Historic Breakdown',
       download: 'Download payslip (.pdf)',
       totalPay: 'Total',
       takeHome: 'Take home'
