@@ -4,7 +4,11 @@
   </div>
   {{#if shift.shifts}}
   <span class="rota__hours">
-    {{svg-icon name="shift" class="rota__icon"}} {{#each shift.shifts as |shift|}}{{shift.start}}-{{shift.end}} {{/each}}
+    {{svg-icon name="shift" class="rota__icon"}}
+    {{#each shift.shifts as |shift index|}}
+      {{#if index}}<span class="rota__split">&amp;</span>{{/if}}
+      {{shift.start}}-{{shift.end}}
+    {{/each}}
   </span>
   {{/if}}
 </div>
