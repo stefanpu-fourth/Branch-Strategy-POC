@@ -68,6 +68,10 @@
       width:100%;
       @include transition-duration(0.5s);
     }
+    &.empty {
+      background: #FFF;
+      border: 1px solid $color-grey-medium;
+    }
   }
   &__shift {
     position: absolute;
