@@ -41,7 +41,7 @@ var fixtures = [{
 
 }, {
   id: 6,
-  type: 'off',
+  type: 'Holiday',
   isMain: true
 
 }, {
@@ -60,7 +60,7 @@ var fixtures = [{
   isMain: true
 }, {
   id: 10,
-  type: 'off',
+  type: 'Absent',
   isMain: true
 }, {
   id: 11,
@@ -79,7 +79,7 @@ var fixtures = [{
   isMain: true
 }, {
   id: 14,
-  type: 'off',
+  type: 'Holiday',
   isMain: true
 }, {
   id: 15,

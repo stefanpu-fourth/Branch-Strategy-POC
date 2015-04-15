@@ -11,5 +11,13 @@ export default Ember.Component.extend({
 
   isInPast: function() {
     return this.get('shiftDateAsMoment').isBefore(moment().startOf('day'));
-  }.property()
+  }.property(),
+
+  isNotRota: function() {
+    var type = this.get('shift.type');
+
+    var onOff = /^o(n|ff)$/i;
+
+    return !(onOff.test(type));
+  }.property('shift.type')
 });
