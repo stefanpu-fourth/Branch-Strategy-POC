@@ -9,7 +9,9 @@ export default Ember.Component.extend({
 
   style: function() {
     var shift = this.get('shift');
-    return "left: " + this.getStartPercent(shift) + "%; width: " + this.getDurationPercent(shift) + "%";
+    if (shift) {
+      return "left: " + this.getStartPercent(shift) + "%; width: " + this.getDurationPercent(shift) + "%";
+    }
   }.property('shift'),
 
   getStartPercent: function(shift) {
