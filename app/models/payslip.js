@@ -1,19 +1,23 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 var attr = DS.attr;
 
-var PayslipLineItem = DS.Model.extend({
-  grossPay: attr('number'),
+var Payslip = DS.Model.extend({
+  grossPay: Ember.computed.alias('currentGrossPay'),
   netPay: attr('number'),
   processingDate: attr('string'),
 
-  formattedProcessingDate: function () {
-    return moment(this.get('processingDate'), 'DD MMM YYYY').format('DD MMM');
-  }.property('processingDate')
+  currentGrossPay: attr('number'),
 
+  formattedProcessingDate: function () {
+    return moment(this.get('processingDate')).format('DD MMM');
+  }.property('processingDate'),
+
+  payslipElements: DS.hasMany('payslipElement')
 });
 
-PayslipLineItem.reopenClass({
+Payslip.reopenClass({
   FIXTURES: [{
     id: 1,
     grossPay: 1333.00,
@@ -77,4 +81,4 @@ PayslipLineItem.reopenClass({
   }]
 });
 
-export default PayslipLineItem;
+export default Payslip;

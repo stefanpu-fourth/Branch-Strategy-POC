@@ -51,6 +51,8 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.user = 57354;
+    ENV.apiBaseUrl = "http://fourth-employee-selfservice-dev.cloudapp.net:8080";
   }
 
   if(environment === 'test') {

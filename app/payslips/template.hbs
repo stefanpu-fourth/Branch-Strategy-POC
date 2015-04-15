@@ -1,21 +1,18 @@
-{{#with attrs.lineitems as lineitems }}
+{{#with attrs.payslips as payslips }}
   {{#swipe-container
-    collection=lineitems
+    collection=payslips
     tabPropertyKey="formattedProcessingDate"
     selectedIndex=attrs.selectedIndex
     setSelectedIndex="setSelectedIndex"
     cardSpacing=12
   }}
-    {{#each lineitems as |lineitem index|}}
-      {{payslip-card-item line=lineitem index=index selectedIndex=attrs.selectedIndex}}
+    {{#each payslips as |payslip index|}}
+      {{payslip-card-item payslip=payslip index=index selectedIndex=attrs.selectedIndex}}
     {{/each}}
   {{/swipe-container}}
   <div class="payslip__breakdown">
     <h2>{{t 'payslips.historic'}}</h2>
     {{payslips-time-chart
-      payslips=attrs.lineitems selectedIndex=attrs.selectedIndex setSelectedIndex="setSelectedIndex"}}
+      payslips=payslips selectedIndex=attrs.selectedIndex setSelectedIndex="setSelectedIndex"}}
   </div>
 {{/with}}
-
-
-
