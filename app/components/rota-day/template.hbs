@@ -12,18 +12,4 @@
   </span>
   {{/if}}
 </div>
-<div class="rota__bar">
-  <!--
-  e.g. shift 6am to 12pm based on rotad day of 24 hours (12am to 12am)
-  width calculation:
-  shift in mins / rotad day in mins x 100
-  360/1440*100=25%
-  left calculation:
-  time from rotad period start / rotad day in mins x 100
-  360/1440*100=25%
-  -->
-  <span class="rota__shift" style="left:42%; width:29%;">
-    <span class="rota__shiftcolor rota__shiftcolor--1"></span>
-  </span>
-
-</div>
+{{rota-bar shifts=shift.shifts}}

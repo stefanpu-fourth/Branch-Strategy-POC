@@ -35,6 +35,7 @@
   }
   &__bar {
     position: relative;
+    overflow: hidden;
     height: rem(12);
     background: $color-grey-lighter;
     margin-bottom: rem(3);
