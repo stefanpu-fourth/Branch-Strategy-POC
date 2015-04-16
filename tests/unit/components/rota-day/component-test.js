@@ -32,18 +32,18 @@ test('it can detect non-rota days', function(assert) {
   // Creates the component instance
   var component = this.subject();
 
-  component.set('shift', { type: 'on' });
+  component.set('day', { type: 'on' });
   assert.equal(component.get('isNotRota'), false);
-  component.set('shift', { type: 'off' });
+  component.set('day', { type: 'off' });
   assert.equal(component.get('isNotRota'), false);
-  component.set('shift', { type: 'On' });
+  component.set('day', { type: 'On' });
   assert.equal(component.get('isNotRota'), false);
-  component.set('shift', { type: 'OFF' });
+  component.set('day', { type: 'OFF' });
   assert.equal(component.get('isNotRota'), false);
-  component.set('shift', { type: 'Xon' });
+  component.set('day', { type: 'Xon' });
   assert.equal(component.get('isNotRota'), true);
-  component.set('shift', { type: 'Xoff' });
+  component.set('day', { type: 'Xoff' });
   assert.equal(component.get('isNotRota'), true);
-  component.set('shift', { type: 'Holiday' });
+  component.set('day', { type: 'Holiday' });
   assert.equal(component.get('isNotRota'), true);
 });
