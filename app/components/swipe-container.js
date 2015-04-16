@@ -106,7 +106,6 @@ export default Ember.Component.extend({
   },
 
   transitionEnd: function() {
-console.log('===> TRANSITION END');
     var $wrap = this.$('.swipe__wrap');
 
 
@@ -117,7 +116,6 @@ console.log('===> TRANSITION END');
   },
 
   panEnd: function(e) {
-console.log('===> PAN END');
     var evt = e.originalEvent;
     var gesture = evt.gesture;
     var deltaX = gesture.deltaX;
