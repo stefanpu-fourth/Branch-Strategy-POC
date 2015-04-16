@@ -10,6 +10,12 @@ export default Ember.Controller.extend({
       }
 
       this.set('selectedIndex', index);
+    },
+
+    setSelectedSegmentInfo: function(segment, day, week) {
+      console.log("in setSelectedSegmentInfo action with %o, %o, %o", segment, day, week);
+
+      this.set('selectedDayIndex', day);
     }
   }
 });

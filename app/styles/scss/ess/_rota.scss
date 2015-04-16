@@ -86,20 +86,20 @@
       & .rota__shiftcolor {
         border: 1px solid $color-grey-dark;
         z-index: 1;
-        top:rem(5);
       }
 
     }
   }
   &__shiftcolor {
     position:absolute;
-    height: rem(12);
+    height: 100%;
+    width: 100%;
+    top: 0;
     left: 0;
     background: $color-green;
-    top: rem(6);
+    box-sizing: border-box;
     //border: 1px solid $color-white;
     transform:translate3d(0,0,0);
-    width:0;
     @include transition(width 0.3s);
     @include transition-delay(0.2s);
 

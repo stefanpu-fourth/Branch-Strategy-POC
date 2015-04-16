@@ -1,11 +1,11 @@
 <div class="rota__overview">
   <div class="rota__day">
-    {{moment shift.shiftDate format="ddd D"}}
+    {{moment day.shiftDate format="ddd D"}}
   </div>
-  {{#if shift.shifts}}
+  {{#if day.shifts}}
   <span class="rota__hours">
     {{svg-icon name="shift" class="rota__icon"}}
-    {{#each shift.shifts as |shift index|}}
+    {{#each day.shifts as |shift index|}}
       {{#if index}}<span class="rota__split">&amp;</span>{{/if}}
       {{shift.start}}-{{shift.end}}
     {{/each}}
@@ -13,8 +13,8 @@
   {{/if}}
   {{#if isNotRota}}
   <span class="rota__hours">
-    {{shift.type}}
+    {{day.type}}
   </span>
   {{/if}}
 </div>
-{{rota-bar shifts=shift.shifts empty=isNotRota}}
+{{rota-bar shifts=day.shifts empty=isNotRota dayIndex=dayIndex selectedDayIndex=selectedDayIndex selectTarget=selectTarget}}

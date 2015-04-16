@@ -5,6 +5,8 @@ export default Ember.Component.extend({
 
   classNames: ['rota__shift'],
 
+//  classNameBindings: ['selected:selected'],
+
   attributeBindings: ['style'],
 
   style: function() {
@@ -13,6 +15,10 @@ export default Ember.Component.extend({
       return ("left: " + this.getStartPercent(shift) + "%; width: " + this.getDurationPercent(shift) + "%").htmlSafe();
     }
   }.property('shift'),
+
+  // selected: function() {
+
+  // }.property('segmentIndex', 'selectedIndex')
 
   getStartPercent: function(shift) {
     var start = this.getIntTime(shift.start);
@@ -34,5 +40,13 @@ export default Ember.Component.extend({
     }
 
     return ((end - start)/(60*24)) * 100;
+  },
+
+  actions: {
+    selectSegment: function() {
+      var target = this.get("selectTarget");
+
+      target.send('setSelectedSegmentInfo', this.get('segmentIndex'), this.get('dayIndex'));
+    }
   }
 });
