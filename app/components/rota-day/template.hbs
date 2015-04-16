@@ -17,4 +17,13 @@
   </span>
   {{/if}}
 </div>
-{{rota-bar shifts=day.shifts empty=isNotRota dayIndex=dayIndex selectedDayIndex=selectedDayIndex selectTarget=selectTarget}}
+{{rota-bar
+   shifts=day.shifts
+   empty=isNotRota
+   selectedSegmentIndex=selectedSegmentIndex
+   dayIndex=dayIndex
+   selectedDayIndex=selectedDayIndex
+   weekIndex=weekIndex
+   selectedWeekIndex=selectedWeekIndex
+   selectTarget=selectTarget
+}}

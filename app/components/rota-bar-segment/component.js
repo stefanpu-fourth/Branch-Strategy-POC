@@ -5,7 +5,7 @@ export default Ember.Component.extend({
 
   classNames: ['rota__shift'],
 
-//  classNameBindings: ['selected:selected'],
+  classNameBindings: ['selected:rota__selected'],
 
   attributeBindings: ['style'],
 
@@ -16,9 +16,11 @@ export default Ember.Component.extend({
     }
   }.property('shift'),
 
-  // selected: function() {
-
-  // }.property('segmentIndex', 'selectedIndex')
+  selected: function() {
+    return Ember.isEqual(this.get('segmentIndex'), this.get('selectedSegmentIndex')) &&
+      Ember.isEqual(this.get('dayIndex'), this.get('selectedDayIndex')) &&
+      Ember.isEqual(this.get('weekIndex'), this.get('selectedWeekIndex'));
+  }.property('segmentIndex', 'selectedSegmentIndex', 'dayIndex', 'selectedDayIndex', 'weekIndex', 'selectedWeekIndex'),
 
   getStartPercent: function(shift) {
     var start = this.getIntTime(shift.start);

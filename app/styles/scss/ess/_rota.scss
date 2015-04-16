@@ -21,6 +21,11 @@
     text-align: right;
     float: right;
   }
+  &__day-row {
+    &.rota__selected {
+      background-color: green;
+    }
+  }
   &__icon {
     width:rem(12);
     height:rem(12);
@@ -87,7 +92,9 @@
         border: 1px solid $color-grey-dark;
         z-index: 1;
       }
-
+    }
+    &.rota__selected .rota__shiftcolor {
+      background-color: purple;
     }
   }
   &__shiftcolor {
