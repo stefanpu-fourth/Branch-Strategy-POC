@@ -3,14 +3,7 @@ import Ember from 'ember';
 var RotaWeek = Ember.Object.extend({
   start: null,
 
-  shifts: function() {
-    return this.get('store').filter('rotaSchedule', s => {
-      var start = this.get('start').clone().subtract(1, 'day'),
-          end = start.clone().add(8, 'days');
-
-      return moment(s.get('shiftDate')).isBetween(start, end);
-    });
-  }.property('start'),
+  shifts: [],
 
   end: function() {
     return moment(this.get('start')).add(6, 'day');
@@ -22,8 +15,8 @@ var RotaWeek = Ember.Object.extend({
 });
 
 RotaWeek.reopenClass({
-  forMoment: function(date, store) {
-    return RotaWeek.create({start: moment(date), store: store});
+  forDate: function(date, shifts) {
+    return RotaWeek.create({start: moment(date), shifts: shifts});
   }
 });
 
@@ -42,12 +35,31 @@ export default Ember.Service.extend({
     return this._fetchSchedules(date, prevWeeks, futureWeeks).then(schedules => {
       this.set('fetchedSchedules.content', schedules);
       var start = moment(this.get('fetchedSchedules.firstObject.shiftDate')),
-          rotaWeeks = [],
-          store = this.get('store');
+          rotaWeeks = [];
 
       for (let i=0;i<prevWeeks + futureWeeks + 1; i++) {
-        var shiftStart = start.clone().add(7 * i, 'days');
-        rotaWeeks.pushObject(RotaWeek.forMoment(shiftStart, store));
+        let shiftStart = start.clone().add(7 * i, 'days'),
+           filterStart = shiftStart.clone().subtract(1, 'days'),
+                   end = shiftStart.clone().add(7, 'days');
+        let shifts = [];
+        schedules.forEach(s => {
+          if (moment(s.get('shiftDate')).isBetween(filterStart, end)) {
+            shifts.push(s);
+          }
+        });
+
+        let shiftDates = shifts.map(s => { return s.get('shiftDate'); });
+
+        shifts.forEach((s, index) => {
+          var dupeIndex = shiftDates.lastIndexOf(s.get('shiftDate'));
+          if (dupeIndex !== index) {
+            shifts[dupeIndex].get('shifts').forEach(ds => { s.get('shifts').push(ds); });
+            shifts.splice(dupeIndex, 1);
+            shiftDates.splice(dupeIndex, 1);
+          }
+        });
+
+        rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, shifts));
       }
 
       return rotaWeeks;

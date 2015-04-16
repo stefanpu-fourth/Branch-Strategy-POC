@@ -183,8 +183,8 @@ var fixtures = [{
 }];
 
 fixtures.forEach(f => {
-  f.location = "Here",
-  f.jobTitle = "Surf"
+  f.location = "Here";
+  f.jobTitle = "Surf";
 });
 
 var shiftMoment = moment().startOf('isoWeek').subtract(14, 'days');
@@ -197,6 +197,7 @@ shiftMoment = moment().startOf('isoWeek');
 fixtures.push({
   id: 37,
   type: 'on',
+  isMain: false,
   shiftDate: shiftMoment.format("YYYY-MM-DD 00:00:00.000"),
   shiftTimes: ['0700', '1500'],
   location: "There",
@@ -211,7 +212,9 @@ fixtures.forEach(f => {
         if (startTime !== endTime) {
           return {
             start: startTime,
-            end: endTime
+            end: endTime,
+            location: f.location,
+            jobTitle: f.jobTitle
           };
         }
       }
