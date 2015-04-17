@@ -24,6 +24,9 @@
   &__day-row {
     &.rota__selected {
       background-color: green;
+      .rota__day, .rota__hours {
+        font-size: rem(16);
+      }
     }
   }
   &__icon {
