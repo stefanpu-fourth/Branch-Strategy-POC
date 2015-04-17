@@ -19,6 +19,7 @@
   "author": "Fourth",
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.2",
+    "broccoli-jscs": "0.0.22",
     "broccoli-sass": "0.6.3",
     "ember-cli": "0.2.3",
     "ember-cli-app-version": "0.3.3",

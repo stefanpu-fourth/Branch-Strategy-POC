@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: [ 'payslip__pie', 'card__flipme' ],
-  classNameBindings: [ 'isActive:card--active' ],
+  classNames: ['payslip__pie', 'card__flipme'],
+  classNameBindings: ['isActive:card--active'],
 
   netPay: null,
   grossPay: null,
@@ -30,8 +30,7 @@ export default Ember.Component.extend({
     if (isActive) {
       takeHome = this.get('takeHome');
       dashOffset = circumference - (circumference * takeHome);
-    }
-    else {
+    } else {
       dashOffset = circumference;
     }
 

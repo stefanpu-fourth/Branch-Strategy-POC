@@ -10,7 +10,7 @@ var horizontalPanHandler = function(e) {
   var $wrap;
   var xPos;
 
-  if(isMoving || Math.abs(deltaY) > Math.abs(deltaX)) {
+  if (isMoving || Math.abs(deltaY) > Math.abs(deltaX)) {
     return;
   }
 
@@ -55,7 +55,7 @@ export default Ember.Component.extend({
 
   transitionEvents: function () {
     var namespace = Ember.guidFor(this);
-    var evts = [ 'transitionend', 'webkitTransitionEnd', 'oTransitionEnd', 'MSTransitionEnd' ];
+    var evts = ['transitionend', 'webkitTransitionEnd', 'oTransitionEnd', 'MSTransitionEnd'];
     return evts.map(str => { return `${str}.${namespace}`; }).join(' ');
   }.property(),
 
@@ -124,7 +124,7 @@ export default Ember.Component.extend({
     var currentDelta;
     var index;
 
-    if(Math.abs(deltaY) > Math.abs(deltaX)) {
+    if (Math.abs(deltaY) > Math.abs(deltaX)) {
       return;
     }
 
@@ -138,12 +138,12 @@ export default Ember.Component.extend({
 
     this.set('isMoving', true);
 
-    if(currentDelta < 0) {
-      if(index !== $cards.length - 1) {
+    if (currentDelta < 0) {
+      if (index !== $cards.length - 1) {
         index++;
       }
     } else {
-      if(index !== 0) {
+      if (index !== 0) {
         index--;
       }
     }

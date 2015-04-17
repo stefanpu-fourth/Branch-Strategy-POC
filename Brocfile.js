@@ -2,7 +2,14 @@
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-var app = new EmberApp();
+var app = new EmberApp({
+  jscsOptions: {
+    configPath: '.jscsrc',
+    enabled: true,
+    esnext: true,
+    disableTestGenerator: false
+  }
+});
 
 app.import('bower_components/moment/moment.js');
 app.import('bower_components/highcharts-release/highcharts.js');

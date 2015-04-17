@@ -9,6 +9,6 @@ export default Ember.Route.extend({
   },
 
   setupController: function (controller, model) {
-    controller.set('attrs.holiday', model.holidayBalance.findBy('id','1'));
+    controller.set('attrs.holiday', model.holidayBalance.findBy('id', '1'));
   }
 });
