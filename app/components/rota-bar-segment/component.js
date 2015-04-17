@@ -46,7 +46,7 @@ export default Ember.Component.extend({
     selectSegment: function() {
       var target = this.get("selectTarget");
 
-      target.send('setSelectedShift', this.get('shift'), this.get('dayIndex'));
+      target.send('setSelectedShift', this.get('shift'));
     }
   }
 });

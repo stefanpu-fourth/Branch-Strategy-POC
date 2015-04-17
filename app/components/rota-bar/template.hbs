@@ -1,12 +1,7 @@
-{{#each shifts as |shift segmentIndex|}}
+{{#each shifts as |shift|}}
   {{rota-bar-segment
      shift=shift
-     segmentIndex=segmentIndex
      selectedShift=selectedShift
-     dayIndex=dayIndex
-     selectedDayIndex=selectedDayIndex
-     weekIndex=weekIndex
-     selectedWeekIndex=selectedWeekIndex
      selectTarget=selectTarget
   }}
 {{/each}}

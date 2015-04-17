@@ -12,8 +12,14 @@ export default Ember.Component.extend({
   }.property(),
 
   isSelected: function() {
-    return Ember.isEqual(this.get('selectedDayIndex'), this.get('dayIndex')) && Ember.isEqual(this.get('selectedWeekIndex'), this.get('weekIndex'));
-  }.property('selectedDayIndex', 'dayIndex', 'selectedWeekIndex', 'weekIndex'),
+    // return true if the day's shifts array contains the selected shift
+    var shifts = this.get('day.shifts');
+    if (shifts) {
+      return shifts.indexOf(this.get('selectedShift')) !== -1;
+    } else {
+      return false;
+    }
+  }.property('selectedShift', 'day'),
 
   isInPast: function() {
     return this.get('shiftDateAsMoment').isBefore(moment().startOf('day'));

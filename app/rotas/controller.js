@@ -10,12 +10,9 @@ export default Ember.Controller.extend({
       }
 
       this.set('selectedIndex', index);
-      this.set('selectedDayIndex', undefined);
-      this.set('selectedShift', undefined);
     },
 
-    setSelectedShift: function(shift, day) {
-      this.set('selectedDayIndex', day);
+    setSelectedShift: function(shift) {
       this.set('selectedShift', shift);
     }
   }
