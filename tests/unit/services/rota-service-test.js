@@ -66,7 +66,7 @@ test('it can get the next shift when there is one', function(assert) {
 
   // and add a shift to a record in the past
   record = records.get(1);
-  records.shifts = { start: '0600', end: '1200' };
+  record.shifts = [{ start: '0600', end: '1200' }];
 
   var shiftPromise = service.getNextShift(new Date(2015, 3, 2));
 
