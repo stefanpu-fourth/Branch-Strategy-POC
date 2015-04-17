@@ -17,7 +17,7 @@ export default {
       allowed: 'Allowed',
       taken: 'Taken',
       booked: 'Booked',
-      holidaysReserved:'Holidays Reserved',
+      holidaysReserved: 'Holidays Reserved',
       remaining: 'Remaining',
       accrued: 'Accrued'
     }

@@ -47,7 +47,7 @@ export default Ember.Component.extend({
   },
 
   didInsertElement: function() {
-    var propNames = [ 'xCategories', 'grossPaySeries', 'netPaySeries', 'grossPayTitle', 'netPayTitle' ];
+    var propNames = ['xCategories', 'grossPaySeries', 'netPaySeries', 'grossPayTitle', 'netPayTitle'];
     var props = this.getProperties(propNames);
 
     this.$().highcharts({
@@ -76,7 +76,7 @@ export default Ember.Component.extend({
           autoRotation: [0, -45, -90],
           style: {
             'color': '#999999'
-          },
+          }
         }
       },
       yAxis: {
