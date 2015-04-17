@@ -50,7 +50,7 @@ export default Ember.Component.extend({
     var viewPortWidth = this.getViewPortWidth();
     var wrapOffset = -Math.abs(selectedIndex * (viewPortWidth - 48));
 
-    return `transform: translate3d(${wrapOffset}px, 0, 0); visibility: visible;`;
+    return `-webkit-transform: translate3d(${wrapOffset}px, 0, 0); transform: translate3d(${wrapOffset}px, 0, 0); visibility: visible;`;
   }.property('selectedIndex'),
 
   transitionEvents: function () {
@@ -107,6 +107,7 @@ export default Ember.Component.extend({
 
   transitionEnd: function() {
     var $wrap = this.$('.swipe__wrap');
+
 
     this.setProperties({
       xPosStart: $wrap.offset().left - 30,
