@@ -10,19 +10,18 @@ var HolidayBalance = DS.Model.extend({
   reserved: attr('number'),
   periodHoliday: attr('string'),
   type : attr('string'),
-  remaining: attr('number'),
-
+  remaining: attr('number')
 });
 
 HolidayBalance.reopenClass({
   FIXTURES: [{
-    id:1,
+    id: 1,
     allowed: 20,
     booked: 3,
     taken: 4,
-    reserved:1,
+    reserved: 1,
     accrued: 5,
-    periodHoliday:"(01 Jan 2015 - 31 Dec 2015)",
+    periodHoliday: "(01 Jan 2015 - 31 Dec 2015)",
     type : 'Days',
     remaining: 13
   }]
