@@ -6,7 +6,8 @@ export default Ember.Route.extend({
   model: function () {
     return Ember.RSVP.hash({
       holidayBalance: this.store.find('holidayBalance'),
-      rotaWeeks: this.get('rotaService').getRotaWeeks()
+      rotaWeeks: this.get('rotaService').getRotaWeeks(),
+      nextShift: this.get('rotaService').getNextShift()
     });
   },
 
@@ -15,6 +16,7 @@ export default Ember.Route.extend({
     controller.setProperties({
       'attrs.holiday': model.holidayBalance.findBy('id', '1'),
       'attrs.rotaWeeks': model.rotaWeeks,
+      'selectedShift': model.nextShift,
       'selectedIndex': 2
     });
   }

@@ -101,7 +101,7 @@ var fixtures = [{
 }, {
   id: 19,
   type: 'on',
-  shiftTimes: ['0700', '1500', '2100', '0100'],
+  shiftTimes: ['0700', '1200', '2100', '0100'],
   isMain: true
 }, {
   id: 20,

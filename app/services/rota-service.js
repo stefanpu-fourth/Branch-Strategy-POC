@@ -66,6 +66,45 @@ export default Ember.Service.extend({
     });
   },
 
+  getNextShift: function(date = Date.now()) {
+    var sortedSchedules = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
+      content: [],
+      sortProperties: ['shiftDate']
+    });
+
+    return this._fetchSchedules(date, 0, 2).then(schedules => {
+      sortedSchedules.set('content', schedules);
+      let today = moment(date).startOf('day');
+
+      let foundShift;
+
+      sortedSchedules.find(day => {
+        let dayMoment = moment(day.get('shiftDate'));
+        if (dayMoment.isSame(today) || dayMoment.isAfter(today)) {
+          let shifts = day.get('shifts') || [];
+
+          foundShift = shifts.find(shift => {
+            let startDateTime = moment(shift.start, "HHmm");
+            let endDateTime = moment(shift.end, "HHmm");
+
+            let endCheckTime = dayMoment.clone().hour(endDateTime.hour());
+            endCheckTime.minute(endDateTime.minute());
+
+            if (endDateTime.isBefore(startDateTime)) {
+              endCheckTime.add(1, 'days');
+            }
+
+            return endCheckTime.isAfter(date);
+          });
+
+          return foundShift;
+        }
+      });
+
+      return foundShift;
+    });
+  },
+
   _fetchSchedules: function(date, prevWeeks, futureWeeks) {
     var store = this.get('store');
     var fetchedSchedules = store.find('rota-schedule', {
