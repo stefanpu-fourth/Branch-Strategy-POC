@@ -20,10 +20,13 @@
 {{rota-bar
    shifts=day.shifts
    empty=isNotRota
-   selectedSegmentIndex=selectedSegmentIndex
+   selectedShift=selectedShift
    dayIndex=dayIndex
    selectedDayIndex=selectedDayIndex
    weekIndex=weekIndex
    selectedWeekIndex=selectedWeekIndex
    selectTarget=selectTarget
 }}
+{{#if isSelected}}
+<div class="rota__details">{{selectedShift.location}}<br/>{{selectedShift.jobTitle}}</div>
+{{/if}}

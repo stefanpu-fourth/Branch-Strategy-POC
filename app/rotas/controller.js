@@ -14,9 +14,9 @@ export default Ember.Controller.extend({
       this.set('selectedSegmentIndex', undefined);
     },
 
-    setSelectedSegmentInfo: function(segment, day) {
+    setSelectedShift: function(shift, day) {
       this.set('selectedDayIndex', day);
-      this.set('selectedSegmentIndex', segment);
+      this.set('selectedShift', shift);
     }
   }
 });

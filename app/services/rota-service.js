@@ -16,7 +16,7 @@ var RotaWeek = Ember.Object.extend({
 
 RotaWeek.reopenClass({
   forDate: function(date, shifts) {
-    return RotaWeek.create({start: moment(date), shifts: shifts});
+    return RotaWeek.create({ start: moment(date), shifts: shifts });
   }
 });
 

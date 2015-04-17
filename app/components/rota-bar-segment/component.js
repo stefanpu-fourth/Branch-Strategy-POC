@@ -17,10 +17,8 @@ export default Ember.Component.extend({
   }.property('shift'),
 
   selected: function() {
-    return Ember.isEqual(this.get('segmentIndex'), this.get('selectedSegmentIndex')) &&
-      Ember.isEqual(this.get('dayIndex'), this.get('selectedDayIndex')) &&
-      Ember.isEqual(this.get('weekIndex'), this.get('selectedWeekIndex'));
-  }.property('segmentIndex', 'selectedSegmentIndex', 'dayIndex', 'selectedDayIndex', 'weekIndex', 'selectedWeekIndex'),
+    return Ember.isEqual(this.get('shift'), this.get('selectedShift'));
+  }.property('shift', 'selectedShift'),
 
   getStartPercent: function(shift) {
     var start = this.getIntTime(shift.start);
@@ -29,8 +27,8 @@ export default Ember.Component.extend({
   },
 
   getIntTime: function(time) {
-    var hour = parseInt(time.substring(0,2));
-    var minutes = parseInt(time.substring(2,4));
+    var hour = parseInt(time.substring(0, 2));
+    var minutes = parseInt(time.substring(2, 4));
     return (hour * 60) + minutes;
   },
 
@@ -48,7 +46,7 @@ export default Ember.Component.extend({
     selectSegment: function() {
       var target = this.get("selectTarget");
 
-      target.send('setSelectedSegmentInfo', this.get('segmentIndex'), this.get('dayIndex'));
+      target.send('setSelectedShift', this.get('shift'), this.get('dayIndex'));
     }
   }
 });
