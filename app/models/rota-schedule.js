@@ -10,7 +10,6 @@ var RotaSchedule = DS.Model.extend({
   jobTitle: attr('string'),
   isMain: attr('boolean'),
   shiftTimes: attr(),
-  shifts: attr(),
   rotaStart: attr('date'),
   rotaStartDayOfWeek: attr('number')
 });
@@ -202,25 +201,6 @@ fixtures.push({
   shiftTimes: ['0700', '1500'],
   location: "There",
   jobTitle: "Slave"
-});
-
-fixtures.forEach(f => {
-  if (f.shiftTimes) {
-    let newShifts = f.shiftTimes.map(function(startTime, index) {
-      if ((index % 2) === 0) {
-        var endTime = f.shiftTimes[index + 1];
-        if (startTime !== endTime) {
-          return {
-            start: startTime,
-            end: endTime,
-            location: f.location,
-            jobTitle: f.jobTitle
-          };
-        }
-      }
-    });
-    f.shifts = newShifts.filter(shift => { return shift !== undefined; });
-  }
 });
 
 RotaSchedule.reopenClass({

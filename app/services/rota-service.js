@@ -114,6 +114,27 @@ export default Ember.Service.extend({
       requestedDate: moment(date).format('YYYY-MM-DD'),
       numPreviousWeeks: prevWeeks,
       numFutureWeeks: futureWeeks
+    }).then(schedules => {
+      schedules.forEach(day => {
+        var times = day.get('shiftTimes');
+        if (times) {
+          let newShifts = times.map(function(startTime, index) {
+            if ((index % 2) === 0) {
+              var endTime = times[index + 1];
+              if (startTime !== endTime) {
+                return {
+                  start: startTime,
+                  end: endTime,
+                  location: day.get('location'),
+                  jobTitle: day.get('jobTitle')
+                };
+              }
+            }
+          });
+          day.set('shifts', newShifts.filter(shift => { return shift !== undefined; }));
+        }
+      });
+      return schedules;
     });
     return fetchedSchedules;
   }
