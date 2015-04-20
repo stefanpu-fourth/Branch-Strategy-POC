@@ -85,3 +85,33 @@ test("won't return a next shift when there isn't one", function(assert) {
     assert.equal(fetchedShift, undefined);
   });
 });
+
+test("merged schedules correctly sort their shifts", function(assert) {
+  var service = this.subject({ store: store });
+
+  // the shift we're going to be looking for
+  var shift = { start: '0700', end: '1200' };
+
+  // add a shift to a record late in the day
+  var record = records.get(20);
+  record.shifts = [{ start: '1400', end: '2000' }];
+
+  var shiftDate = record.get('shiftDate');
+
+  // add a shift record on the same day with the shift we're searching for
+  records.push(Ember.Object.create({
+    shiftDate: shiftDate,
+    shifts: [shift]
+  }));
+
+  // and add a shift to a record in the past
+  record = records.get(1);
+  record.shifts = [{ start: '0600', end: '1200' }];
+
+  var shiftPromise = service.getNextShift(shiftDate);
+
+  return shiftPromise.then(fetchedShift => {
+    // fetched shift should be one from the merged-in record
+    assert.equal(fetchedShift, shift);
+  });
+});
