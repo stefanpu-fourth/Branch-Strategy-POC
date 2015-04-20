@@ -6,29 +6,33 @@
       <h2 class="tabular__heading">{{t 'details.employment.details'}}</h2>
       <dl class="tabular__row">
         <dt class="tabular__key">{{t 'details.name'}}</dt>
-        <dd class="tabular__value">{{attrs.employment.company.companyName}}</dd>
+        <dd class="tabular__value">{{attrs.employment.companyName}}</dd>
       </dl>
       <dl class="tabular__row">
         <dt class="tabular__key">{{t 'details.employment.location'}}</dt>
-        <dd class="tabular__value">{{attrs.employment.location.locationName}}</dd>
+        <dd class="tabular__value">{{attrs.employment.locationName}}</dd>
       </dl>
       <dl class="tabular__row">
         <dt class="tabular__key">{{t 'details.address'}}</dt>
         <dd class="tabular__value tabular__value--wide">
-          {{attrs.employment.location.address1}}
-          <br />{{attrs.employment.location.address2}}
-          <br />{{attrs.employment.location.town}}
-          <br />{{attrs.employment.location.postCode}}
+          {{attrs.employment.locationAddress1}}
+          {{#if attrs.employment.locationAddress2}}
+          <br />{{attrs.employment.locationAddress2}}
+          {{/if}}
+          {{#if attrs.employment.locationTown}}
+          <br />{{attrs.employment.locationTown}}
+          {{/if}}
+          <br />{{attrs.employment.locationPostCode}}
         </dd>
       </dl>
 
       <dl class="tabular__row">
         <dt class="tabular__key">{{t 'details.employment.phone'}}</dt>
-        <dd class="tabular__value">{{attrs.employment.location.phone}}</dd>
+        <dd class="tabular__value">{{attrs.employment.locationPhone}}</dd>
       </dl>
       <dl class="tabular__row">
         <dt class="tabular__key">{{t 'details.employment.fax'}}</dt>
-        <dd class="tabular__value">{{attrs.employment.location.fax}}</dd>
+        <dd class="tabular__value">{{attrs.employment.locationFax}}</dd>
       </dl>
     </div>
 
