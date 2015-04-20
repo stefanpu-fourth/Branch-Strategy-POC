@@ -4,10 +4,11 @@ export default Ember.Route.extend({
   rotaService: Ember.inject.service(),
 
   model: function () {
+    var rotaService = this.get('rotaService');
     return Ember.RSVP.hash({
       holidayBalance: this.store.find('holidayBalance'),
-      rotaWeeks: this.get('rotaService').getRotaWeeks(),
-      nextShift: this.get('rotaService').getNextShift()
+      rotaWeeks: rotaService.getRotaWeeks(),
+      nextShift: rotaService.getNextShift()
     });
   },
 

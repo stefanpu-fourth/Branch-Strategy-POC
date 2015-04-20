@@ -9,6 +9,10 @@ export default Ember.Component.extend({
 
   attributeBindings: ['style'],
 
+  shift: null,
+  selectedShift: null,
+  selectTarget: null,
+
   style: function() {
     var shift = this.get('shift');
     if (shift) {

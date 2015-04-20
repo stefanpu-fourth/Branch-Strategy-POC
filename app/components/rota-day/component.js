@@ -7,9 +7,13 @@ export default Ember.Component.extend({
 
   classNameBindings: ['isInPast:rota__past', 'isSelected:rota__selected'],
 
+  day: null,
+  selectedShift: null,
+  selectTarget: null,
+
   shiftDateAsMoment: function() {
     return moment(this.get('day.shiftDate'));
-  }.property(),
+  }.property('day.shiftDate'),
 
   isSelected: function() {
     // return true if the day's shifts array contains the selected shift
@@ -19,11 +23,11 @@ export default Ember.Component.extend({
     } else {
       return false;
     }
-  }.property('selectedShift', 'day'),
+  }.property('selectedShift', 'day.shifts'),
 
   isInPast: function() {
     return this.get('shiftDateAsMoment').isBefore(moment().startOf('day'));
-  }.property(),
+  }.property('shiftDateAsMoment'),
 
   isNotRota: function() {
     var type = this.get('day.type');
