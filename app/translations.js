@@ -26,6 +26,8 @@ export default {
       address: 'Address',
       employment: {
         details: 'Employer Details',
+        payType: 'Pay Type',
+        jobTitle: 'Job Title',
         location: 'Location',
         phone: 'Phone',
         fax: 'Fax'
