@@ -63,7 +63,7 @@ MainEmployment.reopenClass({
     locationPhone: "020 8303 3040",
     locationFax: "020 8304 4974",
     division: "1. Front Of House"
-}]
+  }]
 });
 
 export default MainEmployment;
