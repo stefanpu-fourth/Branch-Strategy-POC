@@ -8,6 +8,9 @@ var app = new EmberApp({
     enabled: true,
     esnext: true,
     disableTestGenerator: false
+  },
+  sassOptions: {
+    includePaths: ['app']
   }
 });
 
