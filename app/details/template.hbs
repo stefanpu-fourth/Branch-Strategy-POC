@@ -62,19 +62,19 @@
         <dt class="tabular__key">{{t 'details.address'}}</dt>
         <dd class="tabular__value tabular__value--wide">
           {{attrs.employee.address1}}
-          {{#unless isBlankAddress2}}
+          {{#if attrs.employee.address2}}
             <br />{{attrs.employee.address2}}
-          {{/unless}}
-          {{#unless isBlankAddress3}}
+          {{/if}}
+          {{#if attrs.employee.address3}}
             <br />{{attrs.employee.address3}}
-          {{/unless}}
+          {{/if}}
             <br />{{attrs.employee.town}}
-          {{#unless isBlankCounty}}
+          {{#if attrs.employee.county}}
             <br />{{attrs.employee.county}}
-          {{/unless}}
-          {{#unless isBlankCountry}}
+          {{/if}}
+          {{#if attrs.employee.country}}
             <br />{{attrs.employee.country}}
-          {{/unless}}
+          {{/if}}
           <br />{{attrs.employee.postCode}}</dd>
       </dl>
       <dl class="tabular__row tabular__row--nobg">
