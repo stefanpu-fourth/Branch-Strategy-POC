@@ -72,7 +72,7 @@ export default Ember.Service.extend({
   getNextShift: function(date = Date.now()) {
     var sortedSchedules = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
       content: [],
-      sortProperties: ['shiftDate']
+      sortProperties: ['shiftDate', 'shiftTimes.0']
     });
 
     return this._fetchSchedules(date, 0, 2).then(schedules => {

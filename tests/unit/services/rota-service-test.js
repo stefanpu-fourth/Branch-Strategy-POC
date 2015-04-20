@@ -61,18 +61,18 @@ test('it can get the next shift when there is one', function(assert) {
 
   // add a shift to a record in the future
   var record = records.get(20);
-  var shift = { start: '0700', end: '1200' };
-  record.shifts = [shift];
+  record.shiftTimes = ['0700', '1300'];
 
   // and add a shift to a record in the past
   record = records.get(1);
-  record.shifts = [{ start: '0600', end: '1200' }];
+  record.shiftTimes = ['0600', '1200'];
 
   var shiftPromise = service.getNextShift(new Date(2015, 3, 2));
 
   return shiftPromise.then(fetchedShift => {
     // fetched shift should be the future one
-    assert.equal(fetchedShift, shift);
+    assert.equal(fetchedShift.start, '0700');
+    assert.equal(fetchedShift.end, '1300');
   });
 });
 
@@ -89,29 +89,28 @@ test("won't return a next shift when there isn't one", function(assert) {
 test("merged schedules correctly sort their shifts", function(assert) {
   var service = this.subject({ store: store });
 
-  // the shift we're going to be looking for
-  var shift = { start: '0700', end: '1200' };
-
   // add a shift to a record late in the day
   var record = records.get(20);
-  record.shifts = [{ start: '1400', end: '2000' }];
+  record.shiftTimes = ['1400', '2000'];
 
   var shiftDate = record.get('shiftDate');
 
   // add a shift record on the same day with the shift we're searching for
+  // this is the shift we'll be looking for
   records.push(Ember.Object.create({
     shiftDate: shiftDate,
-    shifts: [shift]
+    shiftTimes: ['0700', '1200']
   }));
 
   // and add a shift to a record in the past
   record = records.get(1);
-  record.shifts = [{ start: '0600', end: '1200' }];
+  record.shiftTimes = ['0600', '1200'];
 
   var shiftPromise = service.getNextShift(shiftDate);
 
   return shiftPromise.then(fetchedShift => {
     // fetched shift should be one from the merged-in record
-    assert.equal(fetchedShift, shift);
+    assert.equal(fetchedShift.start, '0700');
+    assert.equal(fetchedShift.end, '1200');
   });
 });
