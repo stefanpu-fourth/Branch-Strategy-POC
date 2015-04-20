@@ -42,8 +42,8 @@ test('it fetches the appropriate data from the store', function(assert) {
 });
 
 test('it groups the rotaSchedule objects into rota weeks', function(assert) {
-  var service = this.subject({ store: store }),
-      weeksPromise = service.getRotaWeeks(new Date(2015, 3, 2));
+  var service = this.subject({ store: store });
+  var weeksPromise = service.getRotaWeeks(new Date(2015, 3, 2));
 
   return weeksPromise.then(weeks => {
     assert.equal(weeks.get('firstObject.start').format('YYYY-MM-DD'), '2015-03-30', 'first shift is present');

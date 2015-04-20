@@ -34,13 +34,13 @@ export default Ember.Service.extend({
   getRotaWeeks: function(date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
     return this._fetchSchedules(date, prevWeeks, futureWeeks).then(schedules => {
       this.set('fetchedSchedules.content', schedules);
-      var start = moment(this.get('fetchedSchedules.firstObject.shiftDate')),
-          rotaWeeks = [];
+      var start = moment(this.get('fetchedSchedules.firstObject.shiftDate'));
+      var rotaWeeks = [];
 
       for (let i=0;i<prevWeeks + futureWeeks + 1; i++) {
-        let shiftStart = start.clone().add(7 * i, 'days'),
-           filterStart = shiftStart.clone().subtract(1, 'days'),
-                   end = shiftStart.clone().add(7, 'days');
+        let shiftStart = start.clone().add(7 * i, 'days');
+        let filterStart = shiftStart.clone().subtract(1, 'days');
+        let end = shiftStart.clone().add(7, 'days');
         let shifts = [];
         schedules.forEach(s => {
           if (moment(s.get('shiftDate')).isBetween(filterStart, end)) {
