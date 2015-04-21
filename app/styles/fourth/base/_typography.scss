@@ -5,11 +5,12 @@ html {
       -ms-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
    -webkit-font-smoothing: antialiased;
-   font-size: rem($body-font-size) // 14px;
+  font-size: 100%;
 }
 
 body {
   font-family: "Open Sans", sans-serif;
+  @include font-size(m);
   line-height: 1.25rem;
   color: $color-body-text;
 }
