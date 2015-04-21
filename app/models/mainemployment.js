@@ -50,7 +50,7 @@ MainEmployment.reopenClass({
     companyPostCode: "UB8 1LX",
     companyPhone: "0",
     companyFax: "0",
-    taxOfficeName: "",
+    taxOfficeName: "Test",
     taxOfficeNumber: "073",
     payeReference: "P7266A",
     locationName: "Bexleyheath",

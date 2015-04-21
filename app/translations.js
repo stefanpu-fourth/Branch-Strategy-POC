@@ -48,7 +48,10 @@ export default {
         gender: 'Gender'
       },
       employer: {
-        details: 'Employer Details'
+        details: 'Employer Details',
+        taxOfficeName: 'Tax Office Name',
+        taxOfficeNumber: 'Tax Office Number',
+        payeReference: 'PAYE Reference'
       }
     }
   }

@@ -26,6 +26,9 @@
           {{#if attrs.employment.locationAddress2}}
           <br />{{attrs.employment.locationAddress2}}
           {{/if}}
+           {{#if attrs.employment.locationAddress3}}
+          <br />{{attrs.employment.locationAddress3}}
+          {{/if}}
           {{#if attrs.employment.locationTown}}
           <br />{{attrs.employment.locationTown}}
           {{/if}}
@@ -127,37 +130,43 @@
         <dd class="tabular__value">{{attrs.employment.companyName}}</dd>
       </dl>
       <dl class="tabular__row">
-        <dt class="tabular__key">{{t 'details.employment.location'}}</dt>
-        <dd class="tabular__value">{{attrs.employment.locationName}}</dd>
-      </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key">{{t 'details.employment.jobTitle'}}</dt>
-        <dd class="tabular__value">{{attrs.employment.jobTitle}}</dd>
-      </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key">{{t 'details.employment.payType'}}</dt>
-        <dd class="tabular__value">{{attrs.employment.payType}}</dd>
-      </dl>
-      <dl class="tabular__row">
         <dt class="tabular__key">{{t 'details.address'}}</dt>
         <dd class="tabular__value tabular__value--wide">
-          {{attrs.employment.locationAddress1}}
-          {{#if attrs.employment.locationAddress2}}
-          <br />{{attrs.employment.locationAddress2}}
+          {{attrs.employment.companyAddress1}}
+          {{#if attrs.employment.companyAddress2}}
+          <br />{{attrs.employment.companyAddress2}}
           {{/if}}
-          {{#if attrs.employment.locationTown}}
-          <br />{{attrs.employment.locationTown}}
+          {{#if attrs.employment.companyAddress3}}
+          <br />{{attrs.employment.companyAddress3}}
           {{/if}}
-          <br />{{attrs.employment.locationPostCode}}
+          {{#if attrs.employment.companyTown}}
+          <br />{{attrs.employment.companyTown}}
+          {{/if}}
+          {{#if attrs.employment.companyCounty}}
+          <br />{{attrs.employment.companyCounty}}
+          {{/if}}
+          <br />{{attrs.employment.companyPostCode}}
         </dd>
       </dl>
       <dl class="tabular__row">
         <dt class="tabular__key">{{t 'details.employment.phone'}}</dt>
-        <dd class="tabular__value">{{attrs.employment.locationPhone}}</dd>
+        <dd class="tabular__value">{{attrs.employment.companyPhone}}</dd>
       </dl>
       <dl class="tabular__row">
         <dt class="tabular__key">{{t 'details.employment.fax'}}</dt>
-        <dd class="tabular__value">{{attrs.employment.locationFax}}</dd>
+        <dd class="tabular__value">{{attrs.employment.companyFax}}</dd>
+      </dl>
+      <dl class="tabular__row">
+        <dt class="tabular__key">{{t 'details.employer.taxOfficeName'}}</dt>
+        <dd class="tabular__value">{{attrs.employment.taxOfficeName}}</dd>
+      </dl>
+      <dl class="tabular__row">
+        <dt class="tabular__key">{{t 'details.employer.taxOfficeNumber'}}</dt>
+        <dd class="tabular__value">{{attrs.employment.taxOfficeNumber}}</dd>
+      </dl>
+      <dl class="tabular__row">
+        <dt class="tabular__key">{{t 'details.employer.payeReference'}}</dt>
+        <dd class="tabular__value">{{attrs.employment.payeReference}}</dd>
       </dl>
     </div>
   </div>
