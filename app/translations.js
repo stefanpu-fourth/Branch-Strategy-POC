@@ -24,14 +24,14 @@ export default {
     details: {
       name: 'Name',
       address: 'Address',
+      phone: 'Phone',
+      fax: 'Fax',
       employment: {
         details: 'Main Employment',
         division: 'Division',
         payType: 'Pay Type',
         jobTitle: 'Job Title',
-        location: 'Location',
-        phone: 'Phone',
-        fax: 'Fax'
+        location: 'Location'
       },
       employee: {
         details: 'Employee Details',
