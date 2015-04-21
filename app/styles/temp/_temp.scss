@@ -1,5 +1,13 @@
+// _temp.scss
+
+// modules
 @import 'modules/header';
 @import 'modules/nav';
 @import 'modules/swipe';
 @import 'modules/card';
 @import 'modules/tabular';
+
+// ess
+@import 'ess/payslip';
+@import 'ess/rota';
+@import 'ess/details';
