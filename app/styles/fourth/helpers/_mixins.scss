@@ -1,0 +1,145 @@
+
+
+// RESPOND
+// mixin for adding media queries
+// note that this will only be applied if the break points used
+// are in the $breakpoints array (see helpers/_variables.scss)
+
+// Example usage:
+
+// // min 400
+// @include respond(400) {
+//   your: styles;
+// }
+
+// // between 480 and 800
+// @include respond(480, 800) {
+//   your: styles;
+// }
+
+@mixin respond($min-width, $max-width: false) {
+  $min: false;
+  $max: false;
+
+  @each $breakpoint in $breakpoints {
+    @if $min-width == $breakpoint { $min: $breakpoint };
+    @if $max-width == $breakpoint { $max: $breakpoint };
+  }
+
+  @if $max {
+    $max: $max - 1;
+  }
+
+  @if ($min and $max) and ($min > $max) {
+    @warn "$min-width value is greater than $max-width value.";
+  } @else if ($min == 0 and $max) {
+    @media (max-width: em($max)) { @content; }
+  } @else if ($min and $max) {
+    @media (min-width: em($min)) and (max-width: em($max)) { @content; }
+  } @else if $min {
+    @media (min-width: em($min)) { @content; }
+  }
+}
+
+
+// REM
+// bourbon rem function does not support multiple properties
+// this one does
+
+// example usage:
+// @include rem(margin, 20, 0);
+
+@mixin rem($property, $values...) {
+  $max: length($values);
+  $remValues: '';
+
+  @for $i from 1 through $max {
+    $value: strip-units(nth($values, $i));
+    $remValues: #{$remValues + $value / $body-font-size}rem;
+
+    @if $i < $max {
+      $remValues: #{$remValues + " "};
+    }
+  }
+
+  #{$property}: $remValues;
+}
+
+
+// BORDER RADIUS
+// bourbon does not include a mixin for this
+// but we do require the webkit prefix (apr 2015)
+
+// example usages:
+// @include border-radius(4px);
+// @include border-radius(0 0 0 0 / 10px 20px 30px 40px);
+
+@mixin border-radius( $args:0 ) {
+  -webkit-border-radius: $args;
+          border-radius: $args;
+}
+
+
+// FONT-SIZE
+// mixin for setting the font-size and line-height of elements
+// note: if you are scaling up
+//       the font sizes are fluid based on the window width
+
+// example usage:
+// .foo {
+//   @include font-size( xl );
+// }
+// .bar {
+//   @include font-size( s );
+// }
+
+@mixin font-size( $size ) {
+  $font-sizes:
+    ("xxxl", "fluid",  2.157, 1.1)
+    ("xxl",  "fluid",  1.369, 1.2)
+    ("xl",   "fluid",   .777, 1.3)
+    ("l",    "fluid",   .333, 1.4)
+    ("m",    "fixed", 14,     1.5)
+    ("s",    "fixed", 12,     1.5)
+    ("xs",   "fixed", 10,     1.5);
+
+  @each $font-size, $type, $multiplier, $line-height in $font-sizes {
+    @if $size == $font-size {
+      @if $type == "fluid" {
+        font-size: calc(#{$body-font-size}px + #{$multiplier}vw);
+        /* #{rem($body-font-size)} */
+      } @else {
+        font-size: rem($multiplier);
+      }
+      line-height: #{$line-height};
+    }
+  }
+}
+
+
+
+// TODO: REVIEW
+
+@mixin button() {
+  -ms-touch-action: manipulation; /* IE10  */
+    touch-action: manipulation;     /* IE11+ */
+    display: inline-block;
+  @include rem(padding, 5, 10);
+  white-space: nowrap;
+  cursor: pointer;
+  border: 0;
+  border-radius: rem(4);
+  -webkit-appearance: none;
+  position: relative;
+  color: inherit;
+  overflow: visible;
+  letter-spacing: inherit;
+  background: $color-grey-lightest;
+  border: 1px solid $color-grey-light;
+  text-transform: uppercase;
+  @include font-size(s);
+  min-width:rem(36);
+  &:focus {
+    outline: 0;
+  }
+}

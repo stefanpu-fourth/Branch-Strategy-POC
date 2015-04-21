@@ -1,0 +1,12 @@
+// _svg.scss
+
+svg {
+    width: auto;
+    height: auto;
+    fill: currentColor;
+    stroke-width: 0;
+
+    &:not(:root) {
+      overflow: hidden;
+    }
+}

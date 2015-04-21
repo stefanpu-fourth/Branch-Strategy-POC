@@ -1,6 +1,17 @@
-@import "scss/base";
-@import "scss/layout";
-@import "scss/modules";
-@import "scss/ess";
+// app.scss
 
-@import "pods";
+// import the fourth styles
+   @import "fourth";
+
+// import pods
+// this contains styles for all pods
+// including components
+   @import "pods";
+
+// import specific styleguide styles
+// not within pods or components
+   @import "ess";
+
+
+// REVIEW THIS
+@import "temp/temp";
