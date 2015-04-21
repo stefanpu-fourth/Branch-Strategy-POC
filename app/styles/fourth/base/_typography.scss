@@ -1,0 +1,26 @@
+// _typography.scss
+
+html {
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+   -webkit-font-smoothing: antialiased;
+   font-size: rem($body-font-size) // 14px;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.25rem;
+  color: $color-body-text;
+}
+
+h1, h2, h3, h4, h5, h6,
+p, a, blockquote,
+ol, ul, dd, dt, dl {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  vertical-align: baseline;
+}

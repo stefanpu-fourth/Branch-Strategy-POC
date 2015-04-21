@@ -1,8 +1,10 @@
+// _tables.scss
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
 }
-td {
-	text-align: left;
+th, td {
+    text-align: left;
 }
