@@ -1,5 +1,5 @@
 .details {
-	&__employee, &__employer {
+	&__employee, &__employer, &__employment {
 		@include flex(1);
 		background:$color-white;
 		border:1px solid $color-grey-light;
@@ -7,13 +7,16 @@
 		padding:1rem;
     overflow: auto;
 	}
-	@include respond(640) {
+	@include respond(800) {
 		@include display(flex);
 		height:100vh;
 		padding-top:rem(48);
 		position: absolute;
 		top:0;
 		width:100%;
+    &__employment {
+      margin-right: 0.5rem;
+    }
 		&__employee {
 			margin-left: 0.5rem;
 		}

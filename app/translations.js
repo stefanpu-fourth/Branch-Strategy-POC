@@ -25,7 +25,8 @@ export default {
       name: 'Name',
       address: 'Address',
       employment: {
-        details: 'Employer Details',
+        details: 'Main Employment',
+        division: 'Division',
         payType: 'Pay Type',
         jobTitle: 'Job Title',
         location: 'Location',
@@ -45,6 +46,9 @@ export default {
         homeEmail: 'Home email',
         nationality: 'Nationality',
         gender: 'Gender'
+      },
+      employer: {
+        details: 'Employer Details'
       }
     }
   }
