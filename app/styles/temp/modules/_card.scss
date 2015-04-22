@@ -23,7 +23,7 @@
         @include transition(all 0.4s);
         @include transform-style(preserve-3d);
         &--flipped {
-            @include respond($min-width: 0, $max-width: 640) {
+            @include respond(0, 640) {
                 @include transform(rotateY(180deg));
             }
         }
