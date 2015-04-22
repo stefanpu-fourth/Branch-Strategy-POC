@@ -3,10 +3,10 @@
 
 // AVAILABLE BREAKPOINTS FOR MEDIA QUERIES
 // starting from 320px there is a breakpoint every 80px
-   $breakpoints:          320,  400,  480,
-                          560,  640,  720,
-                          800,  880,  960,
-                         1040, 1120, 1200;
+   $breakpoints:   0,   80,  160,  240,
+                 320,  400,  480,  560,
+                 640,  720,  800,  880,
+                 960, 1040, 1120, 1200;
 
 // COLOUR SCHEME
 // based on the fourth brand palette
