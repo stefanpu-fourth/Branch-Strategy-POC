@@ -1,1 +1,16 @@
+{{#swipe-container
+   collection=attrs.rotaWeeks
+   tabPropertyKey="formattedDateRange"
+   selectedIndex=selectedIndex
+   setSelectedIndex="setSelectedIndex"
+}}
+  {{#each attrs.rotaWeeks as |rotaWeek|}}
+    {{rota-week
+       week=rotaWeek
+       shifts=rotaWeek.shifts
+       selectedShift=selectedShift
+       selectTarget=this
+    }}
+  {{/each}}
+{{/swipe-container}}
 {{holiday-information info=attrs.holiday}}

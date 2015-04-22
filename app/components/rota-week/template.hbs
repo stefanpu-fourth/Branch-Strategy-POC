@@ -1,0 +1,8 @@
+<h1>{{moment week.start format="D MMM"}} - {{moment week.end format="D MMM"}}</h1>
+{{#each shifts as |shiftDay|}}
+  {{rota-day
+     day=shiftDay
+     selectedShift=selectedShift
+     selectTarget=selectTarget
+  }}
+{{/each}}
