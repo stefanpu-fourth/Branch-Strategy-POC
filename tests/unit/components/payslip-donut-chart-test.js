@@ -40,16 +40,3 @@ test('isActive adds card--active class to component div', function (assert) {
     assert.ok($el.hasClass('card--active'), 'payslip-donut-chart element has class card--active');
   });
 });
-
-test('isActive is true when index is equal to selectedIndex', function (assert) {
-  assert.expect(2);
-
-  var component = this.subject({ selectedIndex: 1, index: 0 });
-
-  assert.ok(!component.get('isActive'), 'isActive is false when selectedIndex and index are not equal');
-
-  Ember.run(() => {
-    component.setProperties({ selectedIndex: 0, index: 0 });
-    assert.ok(component.get('isActive'), 'isActive is true when selectedIndex and index are equal');
-  });
-});
