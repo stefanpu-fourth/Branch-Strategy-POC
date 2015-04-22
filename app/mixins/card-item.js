@@ -30,8 +30,6 @@ export default Ember.Mixin.create({
       if (spacing !== undefined) {
         this.set('cardSpacing', spacing);
       }
-    } else {
-      console.log("parent not set at willInsertElement");
     }
   },
 

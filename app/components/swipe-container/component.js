@@ -31,22 +31,18 @@ var panEndHandler = function(e) {
     deltaX = gesture.deltaX;
     deltaY = gesture.deltaY;
   }
-  var $wrap;
-  var $cards;
-  var currentDelta;
-  var index;
-  var selectedIndex;
 
   if (Math.abs(deltaY) > Math.abs(deltaX)) {
     this.set('deltaX', 0);
     return;
   }
 
-  $wrap = this.$('.swipe__wrap');
-  $cards = $wrap.children('.card');
+  var $wrap = this.$('.swipe__wrap');
+  var $cards = $wrap.children('.card');
 
-  currentDelta = deltaX || this.get('deltaX');
-  selectedIndex = index = this.get('selectedIndex');
+  var currentDelta = deltaX || this.get('deltaX');
+  var selectedIndex = this.get('selectedIndex');
+  var index = selectedIndex;
 
   if (currentDelta < 0) {
     if (index !== $cards.length - 1) {
