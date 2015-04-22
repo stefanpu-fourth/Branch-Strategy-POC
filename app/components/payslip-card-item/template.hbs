@@ -1,7 +1,7 @@
 <div class="card__wrap {{if flipped 'card__wrap--flipped'}}">
   <div class="card__front">
     <h1>{{line.processingDate}}</h1>
-    {{payslip-donut-chart grossPay=line.grossPay netPay=line.netPay index=index selectedIndex=selectedIndex}}
+    {{payslip-donut-chart grossPay=line.grossPay netPay=line.netPay isActive=isActive}}
     <a class="notALink payslip__show card__flipme" {{action 'flip'}}>
       {{svg-icon name="paper-list"}}
       <span>{{t 'payslips.breakdown'}}</span>

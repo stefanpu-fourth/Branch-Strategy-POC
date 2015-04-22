@@ -35,18 +35,18 @@ var panEndHandler = function(e) {
   var $cards;
   var currentDelta;
   var index;
-
-  $wrap = this.$('.swipe__wrap');
+  var selectedIndex;
 
   if (Math.abs(deltaY) > Math.abs(deltaX)) {
     this.set('deltaX', 0);
     return;
   }
 
+  $wrap = this.$('.swipe__wrap');
   $cards = $wrap.children('.card');
 
   currentDelta = deltaX || this.get('deltaX');
-  index = this.get('selectedIndex');
+  selectedIndex = index = this.get('selectedIndex');
 
   if (currentDelta < 0) {
     if (index !== $cards.length - 1) {
@@ -60,7 +60,7 @@ var panEndHandler = function(e) {
 
   this.set('deltaX', 0);
 
-  if (index !== this.get('selectedIndex')) {
+  if (index !== selectedIndex) {
     this.set('isMoving', true);
     this.sendAction('setSelectedIndex', index);
   }
@@ -73,6 +73,7 @@ export default Ember.Component.extend({
   collection: null,
   tabPropertyKey: null,
   selectedIndex: null,
+  cardSpacing: 24,
 
   deltaX: 0,
   viewPortWidth: 0,
@@ -84,10 +85,15 @@ export default Ember.Component.extend({
     var selectedIndex = this.get('selectedIndex') || 0;
     var viewPortWidth = this.get('viewPortWidth');
     var deltaX = this.get('deltaX');
-    var wrapOffset = -Math.abs(selectedIndex * (viewPortWidth - 46)) + deltaX;
+    var cardSpacing = this.get('cardSpacing');
+    var wrapOffset = -Math.abs(selectedIndex * (viewPortWidth - (cardSpacing * 3))) + deltaX;
+    var margin = cardSpacing * 1.5;
 
-    return `transform: translate3d(${wrapOffset}px, 0, 0); -webkit-transform: translate3d(${wrapOffset}px, 0, 0); visibility: visible;`.htmlSafe();
-  }.property('selectedIndex', 'viewPortWidth', 'deltaX'),
+    return `transform: translate3d(${wrapOffset}px, 0, 0);
+      -webkit-transform: translate3d(${wrapOffset}px, 0, 0);
+      margin-left: ${margin}px;
+      visibility: visible;`.htmlSafe();
+  }.property('selectedIndex', 'viewPortWidth', 'deltaX', 'cardSpacing'),
 
   transitionEvents: function () {
     var namespace = Ember.guidFor(this);
@@ -98,12 +104,13 @@ export default Ember.Component.extend({
   didInsertElement: function() {
     var transitionEvents = this.get('transitionEvents');
     var $wrap = this.$('.swipe__wrap');
+    var $window = this.$(window);
 
     //bind handlers
     this.boundResizeHandler = run.bind(this, 'resizeHandler');
     this.boundPanEndHandler = run.bind(this, 'panEnd');
-    this.$(window).on('resize', this.boundResizeHandler);
-    this.$(window).on('panend', this.boundPanEndHandler);
+    $window.on('resize', this.boundResizeHandler);
+    $window.on('panend', this.boundPanEndHandler);
     $wrap.on(transitionEvents, run.bind(this, 'transitionEnd'));
 
     //init viewport
@@ -113,9 +120,10 @@ export default Ember.Component.extend({
 
   willDestroyElement: function () {
     var transitionEvents = this.get('transitionEvents');
+    var $window = this.$(window);
 
-    this.$(window).off('resize', this.boundResizeHandler);
-    this.$(window).off('panend', this.boundPanEndHandler);
+    $window.off('resize', this.boundResizeHandler);
+    $window.off('panend', this.boundPanEndHandler);
     this.$('.swipe__wrap').off(transitionEvents);
   },
 
@@ -124,13 +132,7 @@ export default Ember.Component.extend({
   },
 
   resizeHandler: function() {
-    var $wrap = this.$('.swipe__wrap');
-    var $cards = $wrap.children('.card');
-    var viewPortWidth = this.getViewPortWidth();
-
-    this.set('viewPortWidth', viewPortWidth);
-
-    $cards.css('width', viewPortWidth - 64);    // use of css here feels dodgy
+    this.set('viewPortWidth', Math.max(document.documentElement.clientWidth, window.innerWidth || 0));
   },
 
   transitionEnd: function() {
