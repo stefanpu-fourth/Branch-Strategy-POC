@@ -1,4 +1,4 @@
-<div class="swipe__wrap swipe--loaded" style={{wrapStyles}}>
+<div {{bind-attr style=wrapStyles}} {{bind-attr class=":swipe__wrap :swipe--loaded isPanning:swipe--dragging"}}>
   {{yield}}
 </div>
 {{swipe-tabs

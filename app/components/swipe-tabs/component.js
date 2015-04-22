@@ -26,6 +26,22 @@ export default Ember.Component.extend({
     return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   },
 
+  panStart: function(ev) {
+    ev.stopPropagation();
+  },
+
+  panMove: function(ev) {
+    ev.stopPropagation();
+  },
+
+  panLeft: function(ev) {
+    ev.stopPropagation();
+  },
+
+  panRight: function(ev) {
+    ev.stopPropagation();
+  },
+
   actions: {
     setSelectedIndex: function(index) {
       this.sendAction('setSelectedIndex', index);

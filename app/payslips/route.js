@@ -8,7 +8,7 @@ export default Ember.Route.extend({
 
   setupController: function (controller, model) {
     controller.set('attrs.lineitems', model);
-    controller.set('attrs.selectedIndex', null);
+    controller.set('attrs.selectedIndex', 0);
   },
 
   actions: {

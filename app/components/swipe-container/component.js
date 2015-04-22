@@ -7,24 +7,59 @@ var horizontalPanHandler = function(e) {
   var deltaX = gesture.deltaX;
   var deltaY = gesture.deltaY;
   var isMoving = this.get('isMoving');
-  var $wrap;
-  var xPos;
 
   if (isMoving || Math.abs(deltaY) > Math.abs(deltaX)) {
     return;
   }
 
-  $wrap = this.$('.swipe__wrap');
-  xPos = deltaX + this.get('xPosStart');
+  this.set('deltaX', deltaX);
+};
 
-  $wrap.addClass('swipe--dragging').css({
-    transform: `translate3d(${xPos}px, 0, 0)`
-  });
+var panEndHandler = function(e) {
+  if (!this.get('isPanning')) {
+    return;
+  }
 
-  this.setProperties({
-    xPos: xPos,
-    deltaX: deltaX
-  });
+  this.set('isPanning', false);
+
+  e.stopPropagation();
+
+  var evt = e.originalEvent;
+  var gesture = evt.gesture;
+  var deltaX, deltaY;
+  if (gesture) {
+    deltaX = gesture.deltaX;
+    deltaY = gesture.deltaY;
+  }
+
+  if (Math.abs(deltaY) > Math.abs(deltaX)) {
+    this.set('deltaX', 0);
+    return;
+  }
+
+  var $wrap = this.$('.swipe__wrap');
+  var $cards = $wrap.children('.card');
+
+  var currentDelta = deltaX || this.get('deltaX');
+  var selectedIndex = this.get('selectedIndex');
+  var index = selectedIndex;
+
+  if (currentDelta < 0) {
+    if (index !== $cards.length - 1) {
+      index++;
+    }
+  } else {
+    if (index !== 0) {
+      index--;
+    }
+  }
+
+  this.set('deltaX', 0);
+
+  if (index !== selectedIndex) {
+    this.set('isMoving', true);
+    this.sendAction('setSelectedIndex', index);
+  }
 };
 
 export default Ember.Component.extend({
@@ -32,48 +67,59 @@ export default Ember.Component.extend({
   classNames: ['swipe'],
 
   collection: null,
-
   tabPropertyKey: null,
-
   selectedIndex: null,
-
-  xPos: 0,
+  cardSpacing: 16,
 
   deltaX: 0,
-
-  xPosStart: 0,
+  viewPortWidth: 0,
 
   isMoving: false,
+  isPanning: false,
 
   wrapStyles: function () {
     var selectedIndex = this.get('selectedIndex') || 0;
-    var viewPortWidth = this.getViewPortWidth();
-    var wrapOffset = -Math.abs(selectedIndex * (viewPortWidth - 48));
+    var viewPortWidth = this.get('viewPortWidth');
+    var deltaX = this.get('deltaX');
+    var cardSpacing = this.get('cardSpacing');
+    var wrapOffset = -Math.abs(selectedIndex * (viewPortWidth - (cardSpacing * 3))) + deltaX;
+    var margin = cardSpacing * 1.5;
 
-    return `transform: translate3d(${wrapOffset}px, 0, 0); visibility: visible;`.htmlSafe();
-  }.property('selectedIndex'),
+    return `transform: translate3d(${wrapOffset}px, 0, 0);
+      -webkit-transform: translate3d(${wrapOffset}px, 0, 0);
+      margin-left: ${margin}px;
+      visibility: visible;`.htmlSafe();
+  }.property('selectedIndex', 'viewPortWidth', 'deltaX', 'cardSpacing'),
 
   transitionEvents: function () {
     var namespace = Ember.guidFor(this);
-    var evts = ['transitionend','webkitTransitionEnd','oTransitionEnd','MSTransitionEnd'];
+    var evts = ['transitionend', 'webkitTransitionEnd', 'oTransitionEnd', 'MSTransitionEnd'];
     return evts.map(str => { return `${str}.${namespace}`; }).join(' ');
   }.property(),
 
   didInsertElement: function() {
     var transitionEvents = this.get('transitionEvents');
+    var $wrap = this.$('.swipe__wrap');
+    var $window = this.$(window);
+
     //bind handlers
-    this.$(window).on('resize', run.bind(this, 'resizeHandler'));
-    this.$('.swipe__wrap').on(transitionEvents, run.bind(this, 'transitionEnd'));
+    this.boundResizeHandler = run.bind(this, 'resizeHandler');
+    this.boundPanEndHandler = run.bind(this, 'panEnd');
+    $window.on('resize', this.boundResizeHandler);
+    $window.on('panend', this.boundPanEndHandler);
+    $wrap.on(transitionEvents, run.bind(this, 'transitionEnd'));
 
     //init viewport
     run.once(this, 'resizeHandler');
-    this.sendAction('setSelectedIndex');
+    this.sendAction('setSelectedIndex', this.get('selectedIndex'));
   },
 
   willDestroyElement: function () {
     var transitionEvents = this.get('transitionEvents');
+    var $window = this.$(window);
 
-    this.$(window).off('resize');
+    $window.off('resize', this.boundResizeHandler);
+    $window.off('panend', this.boundPanEndHandler);
     this.$('.swipe__wrap').off(transitionEvents);
   },
 
@@ -81,79 +127,23 @@ export default Ember.Component.extend({
     return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   },
 
-  //still required for the resize handler
-  setWrapOffset: function(index, viewPortWidth) {
-    var $wrap = this.$('.swipe__wrap');
-    var wrapOffset;
-
-    viewPortWidth = viewPortWidth || this.getViewPortWidth();
-    wrapOffset = -Math.abs(index * (viewPortWidth - 48));
-
-    $wrap.css({
-      transform: `translate3d(${wrapOffset}px, 0, 0)`,
-      visibility: 'visible'
-    });
-  },
-
   resizeHandler: function() {
-    var $wrap = this.$('.swipe__wrap');
-    var $cards = $wrap.children('.card');
-    var viewPortWidth = this.getViewPortWidth();
-    var selectedIndex = this.get('selectedIndex');
-
-    $cards.css('width', viewPortWidth - 64);
-    this.setWrapOffset(selectedIndex, viewPortWidth);
+    this.set('viewPortWidth', Math.max(document.documentElement.clientWidth, window.innerWidth || 0));
   },
 
   transitionEnd: function() {
-    var $wrap = this.$('.swipe__wrap');
-
-    this.setProperties({
-      xPosStart: $wrap.offset().left - 30,
-      isMoving: false
-    });
+    this.set('isMoving', false);
   },
 
-  panEnd: function(e) {
-    var evt = e.originalEvent;
-    var gesture = evt.gesture;
-    var deltaX = gesture.deltaX;
-    var deltaY = gesture.deltaY;
-    var $wrap;
-    var $cards;
-    var currentDelta;
-    var index;
-
-    if (Math.abs(deltaY) > Math.abs(deltaX)) {
-      return;
-    }
-
-    $wrap = this.$('.swipe__wrap');
-    $cards = $wrap.children('.card');
-
-    currentDelta = this.get('deltaX');
-    index = this.get('selectedIndex');
-
-    $wrap.removeClass('swipe--dragging');
-
-    this.set('isMoving', true);
-
-    if (currentDelta < 0) {
-      if (index !== $cards.length - 1) {
-        index++;
-      }
-    } else {
-      if (index !== 0) {
-        index--;
-      }
-    }
-
-    this.sendAction('setSelectedIndex', index);
-  },
+  panEnd: panEndHandler,
 
   panLeft: horizontalPanHandler,
 
   panRight: horizontalPanHandler,
+
+  panStart: function() {
+    this.set('isPanning', true);
+  },
 
   actions: {
     setSelectedIndex: function (index) {
