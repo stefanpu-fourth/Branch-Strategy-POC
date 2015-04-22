@@ -20,6 +20,39 @@ export default {
       holidaysReserved: 'Holidays Reserved',
       remaining: 'Remaining',
       accrued: 'Accrued'
+    },
+    details: {
+      name: 'Name',
+      address: 'Address',
+      phone: 'Phone',
+      fax: 'Fax',
+      employment: {
+        details: 'Main Employment',
+        division: 'Division',
+        payType: 'Pay Type',
+        jobTitle: 'Job Title',
+        location: 'Location'
+      },
+      employee: {
+        details: 'Employee Details',
+        employeeNumber: 'Employee number',
+        startDate: 'Start date',
+        serviceDuration: 'Service duration',
+        niNumber: 'NI Number',
+        dateOfBirth: 'Date of birth',
+        homeTel: 'Home',
+        mobileTel: 'Mobile',
+        workEmail: 'Work email',
+        homeEmail: 'Home email',
+        nationality: 'Nationality',
+        gender: 'Gender'
+      },
+      employer: {
+        details: 'Employer Details',
+        taxOfficeName: 'Tax Office Name',
+        taxOfficeNumber: 'Tax Office Number',
+        payeReference: 'PAYE Reference'
+      }
     }
   }
 };
