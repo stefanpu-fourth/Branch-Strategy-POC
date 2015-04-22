@@ -38,7 +38,8 @@ module.exports = function(environment) {
           threshold: 25
         },
         pan: {
-          threshold: 10
+          threshold: 5,
+          direction: 6
         }
       }
     }
