@@ -3,7 +3,6 @@ import config from 'ess/config/environment';
 
 export default SirenAdapter.extend({
   headers: function() {
-    console.log('computing headers');
     var headers = {
       "X-Fourth-Version": 0,
       "X-Fourth-UserID": config.user,

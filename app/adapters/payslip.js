@@ -11,7 +11,6 @@ export default EssAdapter.extend({
       qstring = `$filter=ProcessingDate ge ${query.ProcessingDate}`;
     }
     var url = this._buildOdataUrl(type, qstring);
-    console.log(url);
     return this.ajax(url);
   }
 });
