@@ -22,21 +22,3 @@ test('it renders', function(assert) {
   this.render();
   assert.equal(component._state, 'inDOM');
 });
-
-test('isActive adds card--active class to component div', function (assert) {
-  assert.expect(1);
-
-  var component = this.subject();
-  var $el;
-
-  //render component
-  this.render();
-
-  //element is not available until rendered
-  $el = component.$();
-
-  Ember.run(() => {
-    component.set('isActive', true);
-    assert.ok($el.hasClass('card--active'), 'payslip-donut-chart element has class card--active');
-  });
-});
