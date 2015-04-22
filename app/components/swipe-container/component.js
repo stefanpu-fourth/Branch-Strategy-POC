@@ -73,7 +73,7 @@ export default Ember.Component.extend({
   collection: null,
   tabPropertyKey: null,
   selectedIndex: null,
-  cardSpacing: 24,
+  cardSpacing: 16,
 
   deltaX: 0,
   viewPortWidth: 0,
