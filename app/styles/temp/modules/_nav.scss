@@ -1,0 +1,54 @@
+.nav {
+	height:rem(48);
+	font-size:0; //fix inline-block white-space
+	overflow-y: hidden;
+	overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    position:relative;
+
+	ul {
+		//display: flex;
+		@include display(flex);
+		@include respond(640) {
+			@include justify-content(center);
+		};
+	}
+	li {
+		display:inline-block;
+		font-size:rem(16);
+		//flex:1 0 auto;
+		@include flex(1 0 0);
+		@include respond(640) {
+			@include flex(0 0 150px);
+		};
+	}
+
+	.link {
+		height: rem(48);
+		line-height: rem(48);
+		width: 100%;
+		display: inline-block;
+		padding-left:rem(8);
+		padding-right:rem(8);
+		color: $color-grey;
+		text-transform: uppercase;
+		font-size:rem(14);
+		position: relative;
+	}
+
+	.active {
+		color: $color-grey-darkest;
+
+    &::after {
+      content: "";
+      display:block;
+      height: 4px;
+      position:absolute;
+      bottom:0;
+      left:0;
+      right:0;
+      @include border-radius( 2px );
+    }
+	}
+}

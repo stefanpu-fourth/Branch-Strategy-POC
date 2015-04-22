@@ -1,0 +1,20 @@
+// _anchor.scss
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: transparent;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active,
+  &:hover {
+    outline: 0;
+  }
+}

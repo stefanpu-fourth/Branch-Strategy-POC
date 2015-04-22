@@ -1,0 +1,30 @@
+.details {
+	&__employee, &__employer, &__employment {
+		@include flex(1);
+		background:$color-white;
+		border:1px solid $color-grey-light;
+		margin:1rem;
+		padding:1rem;
+    overflow: auto;
+	}
+	@include respond(800) {
+		@include display(flex);
+		height:100vh;
+		padding-top:rem(48);
+		position: absolute;
+		top:0;
+		width:100%;
+    &__employment {
+      margin-right: 0.5rem;
+      margin-left: 0.5rem;
+    }
+		&__employee {
+			margin-right: 0.5rem;
+		}
+		&__employer {
+			margin-right: 0.5rem;
+		}
+	}
+
+
+}

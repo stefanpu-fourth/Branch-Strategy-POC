@@ -1,0 +1,15 @@
+// _scrollbars.scss
+
+::-webkit-scrollbar {
+  width: .5rem;
+  height: .5rem;
+  background-color: $color-grey-lighter;
+}
+::-webkit-scrollbar-thumb {
+  background-color: $color-grey-light;
+  @include border-radius( .25rem );
+}
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  background-color: $color-grey;
+}

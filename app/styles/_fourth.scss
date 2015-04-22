@@ -1,0 +1,8 @@
+// _fourth.scss
+
+// including bourbon and neat
+    @import "bower_components/bourbon/app/assets/stylesheets/bourbon";
+
+// the fourth framework
+   @import "fourth/helpers";
+   @import "fourth/base";
