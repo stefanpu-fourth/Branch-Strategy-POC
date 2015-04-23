@@ -1,0 +1,47 @@
+.rota-day {
+  margin: {
+    top:    0;
+    bottom: 0;
+  }
+
+  position: relative;
+
+  @include font-size(s);
+  text-align: left;
+
+  will-change:
+    margin-top,
+    margin-bottom;
+  @include transition(
+    margin-top    .25s ease,
+    margin-bottom .25s ease
+  );
+
+  &.-past {
+    opacity: .33;
+    @include filter(grayscale(50%));
+  }
+
+  &.-present {
+    font-weight: bold;
+  }
+}
+
+.rota-day--overview {
+  @include clearfix;
+  padding-top: rem(4);
+}
+
+.rota-day--row {
+  float:      left;
+  text-align: left;
+}
+
+.rota-day--hours {
+  float:      right;
+  text-align: right;
+
+  & .svg-icon {
+    color: $color-grey;
+  }
+}

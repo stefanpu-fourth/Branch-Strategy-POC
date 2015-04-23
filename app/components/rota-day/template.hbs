@@ -1,10 +1,15 @@
-<div class="rota__overview">
-  <div class="rota__day">
+<div class="tool-tip--replace">
+  <p>{{svg-icon name="location"}} {{selectedShift.location}}</p>
+  <p>{{svg-icon name="user"}} {{selectedShift.jobTitle}}</p>
+</div>
+
+<div class="rota-day--overview">
+  <div class="rota-day--row">
     {{moment day.shiftDate format="ddd D"}}
   </div>
   {{#if day.shifts}}
-  <span class="rota__hours">
-    {{svg-icon name="shift" class="rota__icon"}}
+  <span class="rota-day--hours">
+    {{svg-icon name="clock"}}
     {{#each day.shifts as |shift index|}}
       {{#if index}}<span class="rota__split">&amp;</span>{{/if}}
       {{shift.start}}-{{shift.end}}
@@ -12,7 +17,7 @@
   </span>
   {{/if}}
   {{#if isNotRota}}
-  <span class="rota__hours">
+  <span class="rota-day--hours">
     {{day.type}}
   </span>
   {{/if}}
@@ -23,6 +28,3 @@
    selectedShift=selectedShift
    selectTarget=selectTarget
 }}
-{{#if isSelected}}
-<div class="rota__details">{{selectedShift.location}}<br/>{{selectedShift.jobTitle}}</div>
-{{/if}}
