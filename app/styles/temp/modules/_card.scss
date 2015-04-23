@@ -2,7 +2,7 @@
     @include perspective(1000);
     float: left;
     position: relative;
-    //padding: rem(16);
+    padding: rem(16);
     @include rem(margin, 0, 8);
     text-align: center;
     height: 388px;
