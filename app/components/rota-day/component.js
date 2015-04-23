@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   tagName: 'li',
 
-  classNames: ['rota__day-row'],
+  classNames: ['rota__day-row', 'brand-before-bg'],
 
   classNameBindings: ['isInPast:rota__past', 'isSelected:rota__selected'],
 
