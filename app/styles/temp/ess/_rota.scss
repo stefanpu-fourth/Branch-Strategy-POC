@@ -23,7 +23,23 @@
   }
   &__day-row {
     &.rota__selected {
-      background-color: green;
+      position:relative;
+      margin:
+      {
+        top:rem(16);
+        bottom:rem(16);
+      }
+      &::before{
+        content:"";
+        display:block;
+        position:absolute;
+        top:0;
+        right:rem(-16);
+        bottom:0;
+        left:rem(-16);
+        opacity:.1;
+      }
+
       .rota__day, .rota__hours {
         font-size: rem(16);
       }
