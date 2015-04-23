@@ -75,3 +75,19 @@ test('isTouch detects touch device', function(assert) {
   window.ontouchstart = true;
   assert.equal(component.get('isTouch'), true, 'isTouch true when ontouchstart present in window');
 });
+
+test('moreThanOne does proper checks', function(assert) {
+  assert.expect(5);
+
+  var component = this.subject();
+
+  assert.equal(component.get('moreThanOne'), false, 'moreThanOne is false when collection is not there');
+  component.set('collection', []);
+  assert.equal(component.get('moreThanOne'), false, 'moreThanOne is false when collection is empty');
+  component.set('collection', [1]);
+  assert.equal(component.get('moreThanOne'), false, 'moreThanOne is false when collection has single entry');
+  component.set('collection', [1, 2]);
+  assert.equal(component.get('moreThanOne'), true, 'moreThanOne is true when collection has two entries');
+  component.set('collection', [1, 2, 3, 4]);
+  assert.equal(component.get('moreThanOne'), true, 'moreThanOne is true when collection has more than two entries');
+});

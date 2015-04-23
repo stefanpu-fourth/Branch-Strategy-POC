@@ -99,6 +99,10 @@ export default Ember.Component.extend({
     return this.get('selectedIndex') === (this.get('collection.length') - 1);
   }.property('selectedIndex', 'collection'),
 
+  moreThanOne: function() {
+    return this.get('collection.length') > 1;
+  }.property('collection'),
+
   isTouch: function () {
     return (('ontouchstart' in window) || (window.navigator.MaxTouchPoints > 0) || (window.navigator.msMaxTouchPoints > 0));
   }.property(),
@@ -163,13 +167,13 @@ export default Ember.Component.extend({
     },
 
     prevPage: function () {
-      if (!this.get('isFirst') && (this.get('collection.length') > 1)) {
+      if (!this.get('isFirst') && this.get('moreThanOne')) {
         this.sendAction('setSelectedIndex', this.get('selectedIndex') - 1);
       }
     },
 
     nextPage: function () {
-      if (!this.get('isLast') && (this.get('collection.length') > 1)) {
+      if (!this.get('isLast') && this.get('moreThanOne')) {
         this.sendAction('setSelectedIndex', this.get('selectedIndex') + 1);
       }
     }
