@@ -65,8 +65,8 @@
   &__chartanimate {
     path {
       stroke-linecap: round;
-      webkitTransition: stroke-dashoffset 1350ms ease;
-      transition: stroke-dashoffset 1350ms ease;
+      webkitTransition: stroke-dashoffset 1350ms 500ms ease;
+      transition: stroke-dashoffset 1350ms 500ms ease;
     }
   }
 	&__chartbg {

@@ -2,6 +2,9 @@ import Ember from 'ember';
 
 var run = Ember.run;
 var horizontalPanHandler = function(e) {
+  if (!this.get('isPanning')) {
+    return;
+  }
   var evt = e.originalEvent;
   var gesture = evt.gesture;
   var deltaX = gesture.deltaX;

@@ -38,7 +38,8 @@ module.exports = function(environment) {
           threshold: 25
         },
         pan: {
-          threshold: 10
+          threshold: 5,
+          direction: 6
         }
       }
     }
@@ -50,6 +51,8 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.user = 57354;
+    ENV.apiBaseUrl = "http://fourth-employee-selfservice-dev.cloudapp.net:8080";
   }
 
   if(environment === 'test') {

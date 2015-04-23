@@ -8,9 +8,16 @@ var HolidayBalance = DS.Model.extend({
   taken: attr('number'),
   accrued: attr('number'),
   reserved: attr('number'),
-  periodHoliday: attr('string'),
+  holidayYearStartDate: attr('string'),
   type : attr('string'),
-  remaining: attr('number')
+  remaining: attr('number'),
+
+  periodHoliday: function() {
+    var holidayStart=moment(this.get('holidayYearStartDate')).format('DD MMM YYYY');
+    var holidayEnd= moment(holidayStart).subtract(1, 'days').add(1, 'year').format('DD MMM YYYY');
+    return `(${holidayStart} - ${holidayEnd})`;
+  }.property('holidayYearStartDate')
+
 });
 
 HolidayBalance.reopenClass({
@@ -21,7 +28,7 @@ HolidayBalance.reopenClass({
     taken: 4,
     reserved: 1,
     accrued: 5,
-    periodHoliday: "(01 Jan 2015 - 31 Dec 2015)",
+    holidayYearStartDate: '2015-03-31 00:00:00',
     type : 'Days',
     remaining: 13
   }]

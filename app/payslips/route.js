@@ -3,11 +3,14 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   model: function () {
-    return this.store.find('paysliplineitem');
+    var processingDate = moment().subtract(12, 'months').format('YYYY-MM-DD');
+    return this.store.find('payslip', {
+      'ProcessingDate': processingDate
+    });
   },
 
   setupController: function (controller, model) {
-    controller.set('attrs.lineitems', model);
+    controller.set('attrs.payslips.content', model);
     controller.set('attrs.selectedIndex', 0);
   },
 
