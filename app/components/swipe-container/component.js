@@ -101,7 +101,7 @@ export default Ember.Component.extend({
 
   moreThanOne: function() {
     return this.get('collection.length') > 1;
-  }.property('collection.length'),
+  }.property('collection.length').volatile(),
 
   isTouch: function () {
     return (('ontouchstart' in window) || (window.navigator.MaxTouchPoints > 0) || (window.navigator.msMaxTouchPoints > 0));
