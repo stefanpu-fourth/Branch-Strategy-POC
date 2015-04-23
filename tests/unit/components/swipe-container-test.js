@@ -66,7 +66,10 @@ test('isTouch detects touch device', function(assert) {
   assert.expect(2);
   var component = this.subject();
 
-  assert.equal(component.get('isTouch'), false, 'isTouch false by default');
+  // NB this test used to check for a false result
+  // but has been adjusted as PhantomJS appears to be touch-capable
+  // From what I've read, this test may, possibly, fail in the IE11 JS engine
+  assert.equal(component.get('isTouch'), ('ontouchstart' in window), 'isTouch false by default');
 
   // make sure isTouch isn't cached
   component.isTouch.volatile();
