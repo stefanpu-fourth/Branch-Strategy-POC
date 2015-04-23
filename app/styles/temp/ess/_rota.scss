@@ -64,6 +64,7 @@
     background: $color-grey-lighter;
     margin-bottom: rem(3);
     width:100%;
+    @include border-radius(rem(6));
     transform:translate3d(0,0,0);
     @include transition-property(width);
     @include transition-duration(0s);
@@ -100,7 +101,6 @@
   &__shift {
     position: absolute;
     height: rem(12);
-    background: $color-green;
     box-sizing: content-box;
     transform:translate3d(0,0,0);
     @include respond(640) {
@@ -124,6 +124,7 @@
     left: 0;
     box-sizing: border-box;
     //border: 1px solid $color-white;
+    @include border-radius(rem(6));
     transform:translate3d(0,0,0);
     @include transition(width 0.3s);
     @include transition-delay(0.2s);
