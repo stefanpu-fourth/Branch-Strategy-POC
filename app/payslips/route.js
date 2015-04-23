@@ -3,8 +3,9 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   model: function () {
+    var processingDate = moment().subtract(12, 'months').format('YYYY-MM-DD');
     return this.store.find('payslip', {
-      'ProcessingDate': '2014-04-15'
+      'ProcessingDate': processingDate
     });
   },
 
