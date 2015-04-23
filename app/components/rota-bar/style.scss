@@ -1,0 +1,17 @@
+.rota-bar {
+  display: block;
+
+  width: 100%;
+  height: rem(12);
+  margin-bottom: rem(3);
+
+  position: relative;
+
+  background-color: $color-grey-lighter;
+  @include border-radius(rem(6));
+
+  &.-empty {
+    background-color: $color-white;
+    border: 1px solid $color-grey;
+  }
+}
