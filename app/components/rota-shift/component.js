@@ -27,10 +27,10 @@ export default Ember.Component.extend({
   }.property('selected'),
 
   convertToMinutes: function(time) {
-      var hours   = parseInt(time.substring(0, 2));
-      var minutes = parseInt(time.substring(2, 4));
+    var hours   = parseInt(time.substring(0, 2));
+    var minutes = parseInt(time.substring(2, 4));
 
-      return (hours * 60) + minutes;
+    return (hours * 60) + minutes;
   },
 
   getStartPercent: function(shift) {
