@@ -182,8 +182,8 @@ var fixtures = [{
 }];
 
 fixtures.forEach(f => {
-  f.location = "Here";
-  f.jobTitle = "Surf";
+  f.location = "Birmingham 1 - Corporation St";
+  f.jobTitle = "Manager On Duty AE/A+/A/B";
 });
 
 var shiftMoment = moment().startOf('isoWeek').subtract(14, 'days');
