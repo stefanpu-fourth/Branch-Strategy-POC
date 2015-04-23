@@ -1,0 +1,31 @@
+<h2>{{t 'rotas.holidayInformation'}}</h2>
+<h3 class="holiday-info--range">{{info.periodHoliday}}</h3>
+
+<div class="tabular">
+  <dl class="tabular--row">
+      <dt class="tabular--key">{{t 'rotas.allowed'}}</dt>
+      <dd class="tabular--val">{{info.allowed}} {{info.type}}</dd>
+  </dl>
+  <dl class="tabular--row">
+      <dt class="tabular--key">{{t 'rotas.taken'}}</dt>
+      <dd class="tabular--val">{{info.taken}} {{info.type}}</dd>
+  </dl>
+  <dl class="tabular--row">
+      <dt class="tabular--key">{{t 'rotas.booked'}}</dt>
+      <dd class="tabular--val">{{info.booked}} {{info.type}}</dd>
+  </dl>
+  {{#if displayReservedHoliday}}
+  <dl class="tabular--row">
+      <dt class="tabular--key">{{t 'rotas.holidaysReserved'}}</dt>
+      <dd class="tabular--val">{{info.reserved}}  {{info.type}}</dd>
+  </dl>
+  {{/if}}
+  <dl class="tabular--row">
+      <dt class="tabular--key">{{t 'rotas.remaining'}}</dt>
+      <dd class="tabular--val">{{info.remaining}}  {{info.type}}</dd>
+  </dl>
+  <dl class="tabular--row">
+      <dt class="tabular--key">{{t 'rotas.accrued'}}</dt>
+      <dd class="tabular--val">{{info.accrued}} {{info.type}}</dd>
+  </dl>
+</div>
