@@ -1,0 +1,22 @@
+.svg-icon {
+    display:  inline-block;
+
+    // making size relative to their context (ie text)
+    width:    1.2em;
+    height:   auto;
+
+    // must use position:relative here
+    // as translateX creates new stacking order
+    // and puts the SVGs above other elements
+    // including menu
+    position: relative;
+    top:      .18em;
+}
+
+.svg-icon--svg {
+    width:1.2em;
+    height:1.2em; // IE needs this to properly scale SVG ( height:auto not working );
+
+    fill:currentColor;
+    stroke-width:0; // reguired for buttons that for some unknown reason add a stroke to SVGs
+}
