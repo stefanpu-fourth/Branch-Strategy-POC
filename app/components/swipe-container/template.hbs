@@ -1,6 +1,10 @@
 <div {{bind-attr style=wrapStyles}} {{bind-attr class=":swipe__wrap :swipe--loaded isPanning:swipe--dragging"}}>
   {{yield}}
 </div>
+{{#unless isTouch}}
+<div {{bind-attr class=":swipe__arrow :swipe__left isFirst:disabled"}} {{action "prevPage"}}><span>&lt;</span></div>
+<div {{bind-attr class=":swipe__arrow :swipe__right isLast:disabled"}} {{action "nextPage"}}><span>&gt;</span></div>
+{{/unless}}
 {{swipe-tabs
   collection=collection
   selectedIndex=selectedIndex
