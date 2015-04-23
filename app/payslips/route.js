@@ -10,7 +10,7 @@ export default Ember.Route.extend({
   },
 
   setupController: function (controller, model) {
-    controller.set('attrs.payslips', model);
+    controller.set('attrs.payslips.content', model);
     controller.set('attrs.selectedIndex', 0);
   },
 
