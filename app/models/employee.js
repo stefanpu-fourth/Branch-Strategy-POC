@@ -28,15 +28,7 @@ var Employee = DS.Model.extend({
   fullName: function () {
     var props = this.getProperties('firstNames', 'surName');
     return `${props.firstNames} ${props.surName}`;
-  }.property('firstNames', 'surName'),
-
-  startDateFormat: function () {
-    return moment(this.get('startDate')).format('DD MMM YYYY');
-  }.property('startDate'),
-
-  dateOfBirthFormat: function () {
-    return moment(this.get('dateOfBirth')).format('DD MMM YYYY');
-  }.property('dateOfBirth')
+  }.property('firstNames', 'surName')
 
 });
 
