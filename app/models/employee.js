@@ -28,7 +28,15 @@ var Employee = DS.Model.extend({
   fullName: function () {
     var props = this.getProperties('firstNames', 'surName');
     return `${props.firstNames} ${props.surName}`;
-  }.property('firstNames', 'surName')
+  }.property('firstNames', 'surName'),
+
+  startDateFormat: function () {
+    return moment(this.get('startDate')).format('DD MMM YYYY');
+  }.property('startDate'),
+
+  dateOfBirthFormat: function () {
+    return moment(this.get('dateOfBirth')).format('DD MMM YYYY');
+  }.property('dateOfBirth')
 
 });
 
@@ -39,7 +47,7 @@ Employee.reopenClass({
       surName: 'Flintstone',
       firstNames: 'Fred',
       employeeNumber: '000001',
-      startDate: '730BC',
+      startDate: '2013-07-24 00:00:00',
       serviceDuration: '2 years',
       niNumber: 'SN000001B',
       nationality: 'RockLander',
@@ -51,7 +59,7 @@ Employee.reopenClass({
       county: 'Louisiana',
       country: 'United States',
       postCode: '70777',
-      dateOfBirth: '1000BC',
+      dateOfBirth: '1993-11-30 00:00:00',
       homeTel: '01234 567 890',
       mobileTel: '01234 567 890',
       workEmail: 'fred.flintstone@fourth.com',
