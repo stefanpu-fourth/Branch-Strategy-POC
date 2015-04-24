@@ -93,16 +93,16 @@ export default Ember.Service.extend({
 
       let foundShift;
 
-      sortedSchedules.find(day => {
-        let dayMoment = moment(day.get('shiftDate'));
-        if (dayMoment.isSame(today) || dayMoment.isAfter(today)) {
-          let shifts = day.get('shifts') || [];
+      sortedSchedules.find(schedule => {
+        let scheduleMoment = moment(schedule.get('shiftDate'));
+        if (scheduleMoment.isSame(today) || scheduleMoment.isAfter(today)) {
+          let shifts = schedule.get('shifts') || [];
 
           foundShift = shifts.find(shift => {
             let startDateTime = moment(shift.start, "HHmm");
             let endDateTime = moment(shift.end, "HHmm");
 
-            let endCheckTime = dayMoment.clone().hour(endDateTime.hour());
+            let endCheckTime = scheduleMoment.clone().hour(endDateTime.hour());
             endCheckTime.minute(endDateTime.minute());
 
             if (endDateTime.isBefore(startDateTime)) {
