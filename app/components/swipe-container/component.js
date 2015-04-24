@@ -34,33 +34,31 @@ var panEndHandler = function(e) {
     deltaX = gesture.deltaX;
     deltaY = gesture.deltaY;
   }
+  var currentDelta = deltaX || this.get('deltaX');
+  this.set('deltaX', 0);
+
+  if (currentDelta !== 0) {
+    this.set('isMoving', true);
+  }
 
   if (Math.abs(deltaY) > Math.abs(deltaX)) {
-    this.set('deltaX', 0);
     return;
   }
 
-  var $wrap = this.$('.swipe__wrap');
-  var $cards = $wrap.children('.card');
-
-  var currentDelta = deltaX || this.get('deltaX');
   var selectedIndex = this.get('selectedIndex');
   var index = selectedIndex;
 
   if (currentDelta < 0) {
-    if (index !== $cards.length - 1) {
+    if (index !== this.get('collection.length') - 1) {
       index++;
     }
-  } else {
+  } else if (currentDelta > 0) {
     if (index !== 0) {
       index--;
     }
   }
 
-  this.set('deltaX', 0);
-
   if (index !== selectedIndex) {
-    this.set('isMoving', true);
     this.sendAction('setSelectedIndex', index);
   }
 };
@@ -94,6 +92,22 @@ export default Ember.Component.extend({
       visibility: visible;`.htmlSafe();
   }.property('selectedIndex', 'viewPortWidth', 'deltaX', 'cardSpacing'),
 
+  isFirst: function () {
+    return this.get('selectedIndex') === 0;
+  }.property('selectedIndex'),
+
+  isLast: function () {
+    return this.get('selectedIndex') === (this.get('collection.length') - 1);
+  }.property('selectedIndex', 'collection'),
+
+  moreThanOne: function() {
+    return this.get('collection.length') > 1;
+  }.property('collection.length').volatile(),
+
+  isTouch: function () {
+    return (('ontouchstart' in window) || (window.navigator.MaxTouchPoints > 0) || (window.navigator.msMaxTouchPoints > 0));
+  }.property(),
+
   transitionEvents: function () {
     var namespace = Ember.guidFor(this);
     var evts = ['transitionend', 'webkitTransitionEnd', 'oTransitionEnd', 'MSTransitionEnd'];
@@ -104,6 +118,7 @@ export default Ember.Component.extend({
     var transitionEvents = this.get('transitionEvents');
     var $wrap = this.$('.swipe__wrap');
     var $window = this.$(window);
+    var $arrows = this.$('.swipe__arrow');
 
     //bind handlers
     this.boundResizeHandler = run.bind(this, 'resizeHandler');
@@ -111,6 +126,9 @@ export default Ember.Component.extend({
     $window.on('resize', this.boundResizeHandler);
     $window.on('panend', this.boundPanEndHandler);
     $wrap.on(transitionEvents, run.bind(this, 'transitionEnd'));
+    $arrows.on('panstart', function(evt) {
+      evt.stopPropagation();
+    });
 
     //init viewport
     run.once(this, 'resizeHandler');
@@ -124,15 +142,16 @@ export default Ember.Component.extend({
     $window.off('resize', this.boundResizeHandler);
     $window.off('panend', this.boundPanEndHandler);
     this.$('.swipe__wrap').off(transitionEvents);
-  },
-
-  getViewPortWidth: function() {
-    return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    this.$('.swipe__arrow').off('panstart');
   },
 
   resizeHandler: function() {
-    this.set('viewPortWidth', Math.max(document.documentElement.clientWidth, window.innerWidth || 0));
+    this.set('viewPortWidth', this.$(window).width());
   },
+
+  pageChanging: function() {
+    this.set('isMoving', true);
+  }.observes('selectedIndex'),
 
   transitionEnd: function() {
     this.set('isMoving', false);
@@ -151,6 +170,18 @@ export default Ember.Component.extend({
   actions: {
     setSelectedIndex: function (index) {
       this.sendAction('setSelectedIndex', index);
+    },
+
+    prevPage: function () {
+      if (!this.get('isFirst') && this.get('moreThanOne')) {
+        this.sendAction('setSelectedIndex', this.get('selectedIndex') - 1);
+      }
+    },
+
+    nextPage: function () {
+      if (!this.get('isLast') && this.get('moreThanOne')) {
+        this.sendAction('setSelectedIndex', this.get('selectedIndex') + 1);
+      }
     }
   }
 });
