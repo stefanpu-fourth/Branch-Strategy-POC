@@ -90,6 +90,11 @@ export default Ember.Service.extend({
     return endCheckTime.isAfter(date);
   },
 
+  // TODO SJ these params should be fetched from
+  // config. probably. They don't make much sense in the context of
+  // this function, but are needed in order to fetch the data if not
+  // there. Or maybe it should assume data already there. Throw an
+  // exception if the promise isn't there maybe???
   getNextShift: function(date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
     var sortedSchedules = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
       content: [],
