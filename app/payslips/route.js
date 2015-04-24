@@ -4,6 +4,11 @@ export default Ember.Route.extend({
 
   model: function () {
     var processingDate = moment().subtract(12, 'months').format('YYYY-MM-DD');
+    var payslips = this.store.all('payslip');
+    if (payslips.get('length') > 0) {
+      return payslips;
+    }
+
     return this.store.find('payslip', {
       'ProcessingDate': processingDate
     });
