@@ -170,13 +170,13 @@ export default Ember.Component.extend({
     prevPage: function () {
       if (!this.get('isFirst') && this.get('moreThanOne')) {
         this.sendAction('setSelectedIndex', this.get('selectedIndex') - 1);
-    }
+      }
     },
 
     nextPage: function () {
       if (!this.get('isLast') && this.get('moreThanOne')) {
         this.sendAction('setSelectedIndex', this.get('selectedIndex') + 1);
-  }
+      }
     }
   }
 });
