@@ -31,7 +31,7 @@
         margin: -1px;
         border-radius: 0;
     }
-    &--loaded {
+    &--moving {
         @include transition(all 0.25s ease-out);
     }
     &--dragging {

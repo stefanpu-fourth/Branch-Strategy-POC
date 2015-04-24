@@ -47,7 +47,7 @@ export default Ember.Mixin.create({
   },
 
   resizeHandler: function() {
-    this.set('width', Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - (this.get('cardSpacing') * 4));
+    this.set('width', this.$(window).width() - (this.get('cardSpacing') * 4));
   },
 
   actions: {

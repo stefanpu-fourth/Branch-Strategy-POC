@@ -34,13 +34,17 @@ var panEndHandler = function(e) {
     deltaX = gesture.deltaX;
     deltaY = gesture.deltaY;
   }
+  var currentDelta = deltaX || this.get('deltaX');
+  this.set('deltaX', 0);
+
+  if (currentDelta !== 0) {
+    this.set('isMoving', true);
+  }
 
   if (Math.abs(deltaY) > Math.abs(deltaX)) {
-    this.set('deltaX', 0);
     return;
   }
 
-  var currentDelta = deltaX || this.get('deltaX');
   var selectedIndex = this.get('selectedIndex');
   var index = selectedIndex;
 
@@ -48,16 +52,13 @@ var panEndHandler = function(e) {
     if (index !== this.get('collection.length') - 1) {
       index++;
     }
-  } else {
+  } else if (currentDelta > 0) {
     if (index !== 0) {
       index--;
     }
   }
 
-  this.set('deltaX', 0);
-
   if (index !== selectedIndex) {
-    this.set('isMoving', true);
     this.sendAction('setSelectedIndex', index);
   }
 };
@@ -139,13 +140,13 @@ export default Ember.Component.extend({
     this.$('.swipe__wrap').off(transitionEvents);
   },
 
-  getViewPortWidth: function() {
-    return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+  resizeHandler: function() {
+    this.set('viewPortWidth', this.$(window).width());
   },
 
-  resizeHandler: function() {
-    this.set('viewPortWidth', Math.max(document.documentElement.clientWidth, window.innerWidth || 0));
-  },
+  pageChanging: function() {
+    this.set('isMoving', true);
+  }.observes('selectedIndex'),
 
   transitionEnd: function() {
     this.set('isMoving', false);
@@ -169,13 +170,13 @@ export default Ember.Component.extend({
     prevPage: function () {
       if (!this.get('isFirst') && this.get('moreThanOne')) {
         this.sendAction('setSelectedIndex', this.get('selectedIndex') - 1);
-      }
+    }
     },
 
     nextPage: function () {
       if (!this.get('isLast') && this.get('moreThanOne')) {
         this.sendAction('setSelectedIndex', this.get('selectedIndex') + 1);
-      }
+  }
     }
   }
 });
