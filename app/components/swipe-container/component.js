@@ -118,6 +118,7 @@ export default Ember.Component.extend({
     var transitionEvents = this.get('transitionEvents');
     var $wrap = this.$('.swipe__wrap');
     var $window = this.$(window);
+    var $arrows = this.$('.swipe__arrow');
 
     //bind handlers
     this.boundResizeHandler = run.bind(this, 'resizeHandler');
@@ -125,6 +126,9 @@ export default Ember.Component.extend({
     $window.on('resize', this.boundResizeHandler);
     $window.on('panend', this.boundPanEndHandler);
     $wrap.on(transitionEvents, run.bind(this, 'transitionEnd'));
+    $arrows.on('panstart', function(evt) {
+      evt.stopPropagation();
+    });
 
     //init viewport
     run.once(this, 'resizeHandler');
@@ -138,6 +142,7 @@ export default Ember.Component.extend({
     $window.off('resize', this.boundResizeHandler);
     $window.off('panend', this.boundPanEndHandler);
     this.$('.swipe__wrap').off(transitionEvents);
+    this.$('.swipe__arrow').off('panstart');
   },
 
   resizeHandler: function() {
