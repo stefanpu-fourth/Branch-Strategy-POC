@@ -31,8 +31,15 @@ export default Ember.Service.extend({
 
   store: Ember.inject.service(),
 
+  scheduleFetchPromise: null,
+
   getRotaWeeks: function(date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
-    return this._fetchSchedules(date, prevWeeks, futureWeeks).then(schedules => {
+    if (!this.scheduleFetchPromise) {
+      this.scheduleFetchPromise = this._fetchSchedules(date, prevWeeks, futureWeeks);
+    }
+
+    return this.scheduleFetchPromise.then(schedules => {
+      console.log('getRotaWeeks resolved');
       this.set('fetchedSchedules.content', schedules);
       var start = moment(this.get('fetchedSchedules.firstObject.shiftDate'));
       var rotaWeeks = [];
@@ -69,13 +76,18 @@ export default Ember.Service.extend({
     });
   },
 
-  getNextShift: function(date = Date.now()) {
+  getNextShift: function(date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
     var sortedSchedules = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
       content: [],
       sortProperties: ['shiftDate', 'shiftTimes.0']
     });
 
-    return this._fetchSchedules(date, 0, 2).then(schedules => {
+    if (!this.scheduleFetchPromise) {
+      this.scheduleFetchPromise = this._fetchSchedules(date, prevWeeks, futureWeeks);
+    }
+
+    return this.scheduleFetchPromise.then(schedules => {
+      console.log('getNextShift - resolved');
       sortedSchedules.set('content', schedules);
       let today = moment(date).startOf('day');
 
