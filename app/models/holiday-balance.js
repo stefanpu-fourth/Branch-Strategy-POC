@@ -13,9 +13,9 @@ var HolidayBalance = DS.Model.extend({
   remaining: attr('number'),
 
   periodHoliday: function() {
-    var holidayStart=moment(this.get('holidayYearStartDate')).format('DD MMM YYYY');
+    var holidayStart=moment(this.get('holidayYearStartDate'));
     var holidayEnd= moment(holidayStart).subtract(1, 'days').add(1, 'year').format('DD MMM YYYY');
-    return `(${holidayStart} - ${holidayEnd})`;
+    return `(${holidayStart.format('DD MMM YYYY')} - ${holidayEnd})`;
   }.property('holidayYearStartDate')
 
 });
