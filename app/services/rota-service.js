@@ -76,6 +76,20 @@ export default Ember.Service.extend({
     });
   },
 
+  _shiftMatches: function(shift, date, shiftDateAsMoment) {
+    let startDateTime = moment(shift.start, "HHmm");
+    let endDateTime = moment(shift.end, "HHmm");
+
+    let endCheckTime = shiftDateAsMoment.clone().hour(endDateTime.hour());
+    endCheckTime.minute(endDateTime.minute());
+
+    if (endDateTime.isBefore(startDateTime)) {
+      endCheckTime.add(1, 'days');
+    }
+
+    return endCheckTime.isAfter(date);
+  },
+
   getNextShift: function(date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
     var sortedSchedules = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
       content: [],
@@ -99,17 +113,7 @@ export default Ember.Service.extend({
           let shifts = schedule.get('shifts') || [];
 
           foundShift = shifts.find(shift => {
-            let startDateTime = moment(shift.start, "HHmm");
-            let endDateTime = moment(shift.end, "HHmm");
-
-            let endCheckTime = scheduleMoment.clone().hour(endDateTime.hour());
-            endCheckTime.minute(endDateTime.minute());
-
-            if (endDateTime.isBefore(startDateTime)) {
-              endCheckTime.add(1, 'days');
-            }
-
-            return endCheckTime.isAfter(date);
+            return this._shiftMatches(shift, date, scheduleMoment);
           });
 
           return foundShift;
