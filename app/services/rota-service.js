@@ -90,42 +90,49 @@ export default Ember.Service.extend({
     return endCheckTime.isAfter(date);
   },
 
+  _findShift: function(schedules, date) {
+    var sortedSchedules = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
+      content: schedules,
+      sortProperties: ['shiftDate', 'shiftTimes.0']
+    });
+
+    let today = moment(date).startOf('day');
+
+    let foundShift;
+
+    let scheduleCount = sortedSchedules.get('length');
+
+    for (let i=0; i<scheduleCount; i++) {
+      let schedule = sortedSchedules.objectAt(i);
+      let scheduleMoment = moment(schedule.get('shiftDate'));
+      if (scheduleMoment.isSame(today) || scheduleMoment.isAfter(today)) {
+        let shifts = schedule.get('shifts') || [];
+
+        foundShift = shifts.find(shift => {
+          return this._shiftMatches(shift, date, scheduleMoment);
+        });
+
+        if (!Ember.isBlank(foundShift)) {
+          break;
+        }
+      }
+    }
+
+    return foundShift;
+  },
+
   // TODO SJ these params should be fetched from
   // config. probably. They don't make much sense in the context of
   // this function, but are needed in order to fetch the data if not
   // there. Or maybe it should assume data already there. Throw an
   // exception if the promise isn't there maybe???
   getNextShift: function(date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
-    var sortedSchedules = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
-      content: [],
-      sortProperties: ['shiftDate', 'shiftTimes.0']
-    });
-
     if (!this.scheduleFetchPromise) {
       this.scheduleFetchPromise = this._fetchSchedules(date, prevWeeks, futureWeeks);
     }
 
     return this.scheduleFetchPromise.then(schedules => {
-      console.log('getNextShift - resolved');
-      sortedSchedules.set('content', schedules);
-      let today = moment(date).startOf('day');
-
-      let foundShift;
-
-      sortedSchedules.find(schedule => {
-        let scheduleMoment = moment(schedule.get('shiftDate'));
-        if (scheduleMoment.isSame(today) || scheduleMoment.isAfter(today)) {
-          let shifts = schedule.get('shifts') || [];
-
-          foundShift = shifts.find(shift => {
-            return this._shiftMatches(shift, date, scheduleMoment);
-          });
-
-          return foundShift;
-        }
-      });
-
-      return foundShift;
+      return this._findShift(schedules, date);
     });
   },
 
