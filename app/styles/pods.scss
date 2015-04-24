@@ -9,4 +9,8 @@
 // or
 // ember g style components/[component-folder] -p
 
-
+@import "components/rota-day/style";
+@import "components/rota-shift/style";
+@import "components/tool-tip/style";
+@import "components/rota-bar/style";
+@import "components/holiday-info/style";

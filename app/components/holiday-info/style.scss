@@ -1,0 +1,11 @@
+.holiday-info {
+  padding: rem(16);
+  text-align: center;
+}
+
+.holiday-info--range {
+  padding-bottom:rem(12);
+  @include font-size(s);
+  color: $color-grey;
+}
+

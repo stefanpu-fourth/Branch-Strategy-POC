@@ -4,7 +4,7 @@ import CardItemMixin from 'ess/mixins/card-item';
 export default Ember.Component.extend(CardItemMixin, {
   tagName: 'ul',
 
-  classNames: ['rota__week'],
+  classNames: ['rota-week'],
 
   week: null,
   shifts: null,

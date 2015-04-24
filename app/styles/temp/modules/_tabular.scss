@@ -1,3 +1,36 @@
+// NEW SYNTAX
+// (used in rotas)
+
+.tabular--row {
+  @include display(flex);
+  @include rem(padding, 6, 0);
+  border-bottom: 1px dotted $color-grey-light;
+
+  &:first-of-type {
+    border-top: 1px dotted $color-grey-light;
+  }
+}
+
+.tabular--key,
+.tabular--val,
+.tabular--value {
+  @include flex(1);
+  font-size: rem(12);
+  line-height: rem(16);
+}
+.tabular--key {
+  text-align: left;
+}
+.tabular--val,
+.tabular--value {
+  text-align: right;
+}
+
+
+
+// OLD SYNTAX
+// (used in payslips)
+
 .tabular {
 	//border-top: 1px dotted $color-grey-light;
 	margin-top: -1px;

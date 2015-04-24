@@ -3,9 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   tagName: 'span',
 
-  classNames: ['rota__shift'],
-
-  classNameBindings: ['selected:rota__selected'],
+  classNames: ['rota-shift'],
 
   attributeBindings: ['style'],
 
@@ -24,26 +22,32 @@ export default Ember.Component.extend({
     return Ember.isEqual(this.get('shift'), this.get('selectedShift'));
   }.property('shift', 'selectedShift'),
 
-  getStartPercent: function(shift) {
-    var start = this.getIntTime(shift.start);
+  selectedClass: function() {
+    return this.get('selected') ? '-active' : '';
+  }.property('selected'),
 
-    return (start/(60*24)) * 100;
+  convertToMinutes: function(time) {
+    var hours   = parseInt(time.substring(0, 2));
+    var minutes = parseInt(time.substring(2, 4));
+
+    return (hours * 60) + minutes;
   },
 
-  getIntTime: function(time) {
-    var hour = parseInt(time.substring(0, 2));
-    var minutes = parseInt(time.substring(2, 4));
-    return (hour * 60) + minutes;
+  getStartPercent: function(shift) {
+    var shiftStart = this.convertToMinutes(shift.start);
+
+    return ((100 / this.convertToMinutes('2400'))*shiftStart);
   },
 
   getDurationPercent: function(shift) {
-    var start = this.getIntTime(shift.start);
-    var end = this.getIntTime(shift.end);
-    if (end < start) {
-      end = end + this.getIntTime('2400');
+    var shiftStart = this.convertToMinutes(shift.start);
+    var shiftEnd   = this.convertToMinutes(shift.end);
+
+    if (shiftStart > shiftEnd) {
+      shiftEnd = this.convertToMinutes('2400');
     }
 
-    return ((end - start)/(60*24)) * 100;
+    return ((100 / this.convertToMinutes('2400'))*(shiftEnd - shiftStart));
   },
 
   actions: {

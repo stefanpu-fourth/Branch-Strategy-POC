@@ -6,7 +6,7 @@ import Ember from 'ember';
 import moment from 'ess/helpers/moment';
 
 moduleForComponent('rota-day', {
-  needs: ['helper:moment', 'component:rota-bar'],
+  needs: ['helper:moment', 'component:rota-bar', 'component:svg-icon'],
   // Specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar']
   beforeEach: function () {

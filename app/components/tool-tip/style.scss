@@ -1,0 +1,71 @@
+.tool-tip {
+  display: inline-block;
+
+  min-width: rem(240);
+
+  padding: rem(16);
+
+  position: absolute;
+  bottom: rem(44);
+  left: 0;
+  z-index: 2000;
+
+  background-color: rgba($color-grey-darker, .8);
+
+  @include font-size(s);
+  color: $color-white;
+
+  pointer-events: none;
+
+  // properties to animate
+  opacity: 0;
+  @include transform( translateY(rem(-16)));
+
+  will-change:
+    opacity,
+    transform;
+
+  @include transition(.2s ease);
+
+  &::before {
+    content: "";
+
+    display: block;
+
+    width: 0;
+    height: 0;
+
+    position: absolute;
+    bottom: rem(-16);
+    left: rem(16);
+
+    border: {
+      width: 0 0 rem(16) rem(16);
+      style: solid;
+      color: transparent rgba($color-grey-darker, .8);
+    }
+
+    font-size: 0;
+  }
+
+  &.-active {
+    opacity: 1;
+    @include transform( translateY(0));
+  }
+
+  // -RIGHT
+  &.-right {
+    left:  auto;
+    right: 0;
+
+    &::before {
+      left:  auto;
+      right: rem(16);
+    }
+  }
+
+  // SVG ICON
+  & .svg-icon {
+    color: $color-grey-light;
+  }
+}

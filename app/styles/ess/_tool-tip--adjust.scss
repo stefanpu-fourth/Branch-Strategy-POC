@@ -1,0 +1,72 @@
+@include respond(0, 640) {
+
+  .rota-shift .tool-tip {
+    display: none;
+  }
+
+  .rota-shift--solid::after {
+    content: "";
+
+    display: block;
+
+    width: 0;
+    height: 0;
+
+    position: absolute;
+    bottom: rem(20);
+    left: rem(8);
+
+    border: {
+      width: 0 0 rem(16) rem(16);
+      style: solid;
+      color: transparent $color-grey-darker;
+    }
+
+    font-size: 0;
+
+    // animation props
+    opacity: 0;
+
+    will-change: opacity;
+    @include transition(opacity .2s ease);
+  }
+  .rota-shift--solid.-active::after {
+    opacity: 1;
+  }
+
+  .rota-day .tool-tip--replace {
+    padding: 0;
+
+    background-color: $color-grey-darker;
+
+    @include font-size(s);
+    color: $color-white;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    // properties to animate
+    opacity: 0;
+    max-height: 0;
+
+    will-change:
+      padding,
+      opacity,
+      max-height;
+
+    @include transition(.2s ease);
+    }
+
+    .rota-day.-active .tool-tip--replace {
+      padding: rem(16);
+      opacity: 1;
+      max-height: rem(100);
+    }
+}
+
+@include respond(640) {
+  .rota-day .tool-tip--replace {
+    display: none;
+  }
+}

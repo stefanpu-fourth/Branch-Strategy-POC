@@ -1,8 +1,15 @@
+.rota-week.card {
+  padding:          rem(16);
+  background-color: $color-white;
+  border: 1px solid $color-grey-lighter;
+  height:auto;
+}
+
 .card {
     @include perspective(1000);
     float: left;
     position: relative;
-    //padding: rem(16);
+    padding: rem(16);
     @include rem(margin, 0, 8);
     text-align: center;
     height: 388px;
