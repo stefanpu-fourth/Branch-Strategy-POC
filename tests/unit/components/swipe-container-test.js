@@ -5,7 +5,7 @@ import {
 import Ember from 'ember';
 
 moduleForComponent('swipe-container', {
-  needs: ['component:swipe-tabs', 'component:swipe-tab']
+  needs: ['component:swipe-tabs', 'component:swipe-tab', 'component:svg-icon']
 });
 
 test('it renders', function(assert) {
