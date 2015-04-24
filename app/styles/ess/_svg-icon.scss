@@ -3,7 +3,7 @@
 
     // making size relative to their context (ie text)
     width:    1.2em;
-    height:   auto;
+    height:   1.2em;
 
     // must use position:relative here
     // as translateX creates new stacking order
@@ -19,4 +19,15 @@
 
     fill:currentColor;
     stroke-width:0; // reguired for buttons that for some unknown reason add a stroke to SVGs
+}
+
+
+// TODO
+
+.payslip__show .svg-icon,
+.payslip__download .svg-icon {
+  top: rem(-8);
+  left: rem(-8);
+  float: left;
+  color: $color-grey-dark;
 }
