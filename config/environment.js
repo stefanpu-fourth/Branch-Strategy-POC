@@ -45,13 +45,14 @@ module.exports = function(environment) {
     }
   };
 
+  ENV.user = 57354;
+
   if(environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.user = 57354;
     ENV.apiBaseUrl = "http://fourth-employee-selfservice-dev.cloudapp.net:8080";
   }
 
