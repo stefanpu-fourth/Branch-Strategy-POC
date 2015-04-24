@@ -35,9 +35,9 @@ test('it fetches the appropriate data from the store', function(assert) {
   assert.ok(service);
   service.getRotaWeeks(new Date(2015, 3, 2));
   sinon.assert.calledWith(store.find, 'rota-schedule', {
-    requestedDate: '2015-04-02', // obviously months are zero based when calling Date.now()...
-    numPreviousWeeks: 2,
-    numFutureWeeks: 2
+    RequestDate: '2015-04-02', // obviously months are zero based when calling Date.now()...
+    NoPreviousWeeks: 2,
+    NoFutureWeeks: 2
   });
 });
 

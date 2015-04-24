@@ -111,9 +111,9 @@ export default Ember.Service.extend({
   _fetchSchedules: function(date, prevWeeks, futureWeeks) {
     var store = this.get('store');
     var fetchedSchedules = store.find('rota-schedule', {
-      requestedDate: moment(date).format('YYYY-MM-DD'),
-      numPreviousWeeks: prevWeeks,
-      numFutureWeeks: futureWeeks
+      RequestDate: moment(date).format('YYYY-MM-DD'),
+      NoPreviousWeeks: prevWeeks,
+      NoFutureWeeks: futureWeeks
     }).then(schedules => {
       schedules.forEach(day => {
         var times = day.get('shiftTimes');

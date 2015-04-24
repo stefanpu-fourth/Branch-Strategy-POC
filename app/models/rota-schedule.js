@@ -11,5 +11,8 @@ export default DS.Model.extend({
   isMain: attr('boolean'),
   shiftTimes: attr(),
   rotaStart: attr('date'),
-  rotaStartDayOfWeek: attr('number')
+  rotaStartDayOfWeek: attr('number'),
+
+  shifts: null // populated after load by the rota service
+  // TODO - probably means some functionality needs to move here.
 });
