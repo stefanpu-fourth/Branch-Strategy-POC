@@ -1,4 +1,5 @@
 .details {
+  background:#eee;
 	&__employee, &__employer, &__employment {
 		@include flex(1);
 		background:$color-white;

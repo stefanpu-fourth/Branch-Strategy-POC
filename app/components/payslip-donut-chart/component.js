@@ -36,6 +36,9 @@ export default Ember.Component.extend({
     if (isActive) {
       takeHome = this.get('takeHome');
       dashOffset = circumference - (circumference * takeHome);
+      if (dashOffset<0) {
+        dashOffset=0;
+      }
     } else {
       dashOffset = circumference;
     }
