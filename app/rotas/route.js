@@ -14,7 +14,7 @@ export default Ember.Route.extend({
 
   setupController: function (controller, model) {
     controller.setProperties({
-      'attrs.holiday': model.holidayBalance.findBy('id', '1'),
+      'attrs.holiday': model.holidayBalance,
       'attrs.rotaWeeks': model.rotaWeeks,
       'selectedShift': model.nextShift,
       'selectedIndex': 2
