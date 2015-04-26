@@ -26,6 +26,7 @@ export default Ember.Component.extend({
     return this.get('selected') ? '-active' : '';
   }.property('selected'),
 
+  // TODO SJ - this behaviour belongs on the shift object itself
   convertToMinutes: function(time) {
     var hours   = parseInt(time.substring(0, 2));
     var minutes = parseInt(time.substring(3, 5));
