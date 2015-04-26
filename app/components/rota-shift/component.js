@@ -14,7 +14,7 @@ export default Ember.Component.extend({
   style: function() {
     var shift = this.get('shift');
     if (shift) {
-      return `left: ${this.getStartPercent(shift)}%; width: ${this.getDurationPercent(shift)}%`.htmlSafe();
+      return `left: ${this.get('startPercent')}%; width: ${this.get('durationPercent')}%`.htmlSafe();
     }
   }.property('shift'),
 
@@ -33,22 +33,30 @@ export default Ember.Component.extend({
     return (hours * 60) + minutes;
   },
 
-  getStartPercent: function(shift) {
-    var shiftStart = this.convertToMinutes(shift.start);
+  shiftStartAsMinutes: function() {
+    return this.convertToMinutes(this.get('shift.start'));
+  }.property('shift.start'),
+
+  shiftEndAsMinutes: function() {
+    return this.convertToMinutes(this.get('shift.end'));
+  }.property('shift.end'),
+
+  startPercent: function() {
+    var shiftStart = this.get('shiftStartAsMinutes');
 
     return ((100 / this.convertToMinutes('2400'))*shiftStart);
-  },
+  }.property('shiftStartAsMinutes'),
 
-  getDurationPercent: function(shift) {
-    var shiftStart = this.convertToMinutes(shift.start);
-    var shiftEnd   = this.convertToMinutes(shift.end);
+  durationPercent: function() {
+    var shiftStart = this.get('shiftStartAsMinutes');
+    var shiftEnd   = this.get('shiftEndAsMinutes');
 
     if (shiftStart > shiftEnd) {
       shiftEnd = this.convertToMinutes('2400');
     }
 
     return ((100 / this.convertToMinutes('2400'))*(shiftEnd - shiftStart));
-  },
+  }.property('shiftStartAsMinutes', 'shiftEndAsMinutes'),
 
   actions: {
     selectSegment: function() {
