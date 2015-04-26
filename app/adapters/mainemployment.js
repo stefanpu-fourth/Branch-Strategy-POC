@@ -1,3 +1,7 @@
-import DS from 'ember-data';
+import EssAdapter from './ess';
 
-export default DS.FixtureAdapter.extend({});
+export default EssAdapter.extend({
+  pathForType: function() {
+    return "mainemployment";
+  }
+});
