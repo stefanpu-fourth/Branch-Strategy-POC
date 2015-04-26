@@ -28,7 +28,7 @@ export default Ember.Component.extend({
 
   convertToMinutes: function(time) {
     var hours   = parseInt(time.substring(0, 2));
-    var minutes = parseInt(time.substring(2, 4));
+    var minutes = parseInt(time.substring(3, 5));
 
     return (hours * 60) + minutes;
   },
