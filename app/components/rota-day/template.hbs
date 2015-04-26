@@ -9,23 +9,23 @@
     {{moment day.shiftDate format="ddd D"}}
   </div>
   {{#if day.shifts}}
-  <span class="rota-day--hours">
-    {{svg-icon name="clock"}}
-    {{#each day.shifts as |shift index|}}
-      {{#if index}}<span class="rota__split">&amp;</span>{{/if}}
-      {{shift.start}}-{{shift.end}}
-    {{/each}}
-  </span>
+    <span class="rota-day--hours">
+      {{svg-icon name="clock"}}
+      {{#each day.shifts as |shift index|}}
+        {{#if index}}<span class="rota__split">&amp;</span>{{/if}}
+        {{shift.start}}-{{shift.end}}
+      {{/each}}
+    </span>
   {{/if}}
   {{#if isNotRota}}
-  <span class="rota-day--hours">
-    {{day.type}}
-  </span>
+    <span class="rota-day--hours">
+      {{day.type}}
+    </span>
   {{/if}}
 </div>
 {{rota-bar
-   shifts=day.shifts
-   empty=isNotRota
-   selectedShift=selectedShift
-   selectTarget=selectTarget
+  shifts=day.shifts
+  empty=isNotRota
+  selectedShift=selectedShift
+  selectTarget=selectTarget
 }}

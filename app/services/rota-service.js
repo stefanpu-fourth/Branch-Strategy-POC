@@ -31,8 +31,15 @@ export default Ember.Service.extend({
 
   store: Ember.inject.service(),
 
+  scheduleFetchPromise: null,
+
   getRotaWeeks: function(date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
-    return this._fetchSchedules(date, prevWeeks, futureWeeks).then(schedules => {
+    if (!this.scheduleFetchPromise) {
+      this.scheduleFetchPromise = this._fetchSchedules(date, prevWeeks, futureWeeks);
+    }
+
+    return this.scheduleFetchPromise.then(schedules => {
+      console.log('getRotaWeeks resolved');
       this.set('fetchedSchedules.content', schedules);
       var start = moment(this.get('fetchedSchedules.firstObject.shiftDate'));
       var rotaWeeks = [];
@@ -69,51 +76,72 @@ export default Ember.Service.extend({
     });
   },
 
-  getNextShift: function(date = Date.now()) {
+  _shiftMatches: function(shift, date, shiftDateAsMoment) {
+    let startDateTime = moment(shift.start, "HHmm");
+    let endDateTime = moment(shift.end, "HHmm");
+
+    let endCheckTime = shiftDateAsMoment.clone().hour(endDateTime.hour());
+    endCheckTime.minute(endDateTime.minute());
+
+    if (endDateTime.isBefore(startDateTime)) {
+      endCheckTime.add(1, 'days');
+    }
+
+    return endCheckTime.isAfter(date);
+  },
+
+  _findShift: function(schedules, date) {
     var sortedSchedules = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
-      content: [],
+      content: schedules,
       sortProperties: ['shiftDate', 'shiftTimes.0']
     });
 
-    return this._fetchSchedules(date, 0, 2).then(schedules => {
-      sortedSchedules.set('content', schedules);
-      let today = moment(date).startOf('day');
+    let today = moment(date).startOf('day');
 
-      let foundShift;
+    let foundShift;
 
-      sortedSchedules.find(day => {
-        let dayMoment = moment(day.get('shiftDate'));
-        if (dayMoment.isSame(today) || dayMoment.isAfter(today)) {
-          let shifts = day.get('shifts') || [];
+    let scheduleCount = sortedSchedules.get('length');
 
-          foundShift = shifts.find(shift => {
-            let startDateTime = moment(shift.start, "HHmm");
-            let endDateTime = moment(shift.end, "HHmm");
+    for (let i=0; i<scheduleCount; i++) {
+      let schedule = sortedSchedules.objectAt(i);
+      let scheduleMoment = moment(schedule.get('shiftDate'));
+      if (scheduleMoment.isSame(today) || scheduleMoment.isAfter(today)) {
+        let shifts = schedule.get('shifts') || [];
 
-            let endCheckTime = dayMoment.clone().hour(endDateTime.hour());
-            endCheckTime.minute(endDateTime.minute());
+        foundShift = shifts.find(shift => {
+          return this._shiftMatches(shift, date, scheduleMoment);
+        });
 
-            if (endDateTime.isBefore(startDateTime)) {
-              endCheckTime.add(1, 'days');
-            }
-
-            return endCheckTime.isAfter(date);
-          });
-
-          return foundShift;
+        if (!Ember.isBlank(foundShift)) {
+          break;
         }
-      });
+      }
+    }
 
-      return foundShift;
+    return foundShift;
+  },
+
+  // TODO SJ these params should be fetched from
+  // config. probably. They don't make much sense in the context of
+  // this function, but are needed in order to fetch the data if not
+  // there. Or maybe it should assume data already there. Throw an
+  // exception if the promise isn't there maybe???
+  getNextShift: function(date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
+    if (!this.scheduleFetchPromise) {
+      this.scheduleFetchPromise = this._fetchSchedules(date, prevWeeks, futureWeeks);
+    }
+
+    return this.scheduleFetchPromise.then(schedules => {
+      return this._findShift(schedules, date);
     });
   },
 
   _fetchSchedules: function(date, prevWeeks, futureWeeks) {
     var store = this.get('store');
     var fetchedSchedules = store.find('rota-schedule', {
-      requestedDate: moment(date).format('YYYY-MM-DD'),
-      numPreviousWeeks: prevWeeks,
-      numFutureWeeks: futureWeeks
+      RequestDate: moment(date).format('YYYY-MM-DD'),
+      NoPreviousWeeks: prevWeeks,
+      NoFutureWeeks: futureWeeks
     }).then(schedules => {
       schedules.forEach(day => {
         var times = day.get('shiftTimes');
