@@ -134,8 +134,7 @@ export default Ember.Service.extend({
   },
 
   _fetchSchedules: function(date, prevWeeks, futureWeeks) {
-    var store = this.get('store');
-    var fetchedSchedules = store.find('rota-schedule', {
+    return this.get('store').find('rota-schedule', {
       RequestDate: moment(date).format('YYYY-MM-DD'),
       NoPreviousWeeks: prevWeeks,
       NoFutureWeeks: futureWeeks
@@ -145,6 +144,5 @@ export default Ember.Service.extend({
       });
       return schedules;
     });
-    return fetchedSchedules;
   }
 });
