@@ -2,10 +2,10 @@
   {{yield}}
 </div>
 {{#unless isTouch}}
-  <div {{bind-attr class=":swipe__arrow :swipe__left isFirst:disabled"}} {{action "prevPage"}}>
+  <div {{bind-attr class=":swipe--arrow :swipe-left isFirst:disabled"}} {{action "prevPage"}}>
     {{svg-icon name="chevron-left"}}
   </div>
-  <div {{bind-attr class=":swipe__arrow :swipe__right isLast:disabled"}} {{action "nextPage"}}>
+  <div {{bind-attr class=":swipe--arrow :swipe-right isLast:disabled"}} {{action "nextPage"}}>
     {{svg-icon name="chevron-right"}}
   </div>
 {{/unless}}

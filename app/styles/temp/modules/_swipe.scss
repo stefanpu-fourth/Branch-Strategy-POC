@@ -1,85 +1,86 @@
 .swipe {
-    background: $color-grey-lightest;
-    border-bottom: 1px solid $color-grey-light;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    &--wrap {
-        width: 92340px;
-        //needs to be dynamic
-        position: relative;
-        visibility: hidden;
-        transform: translate3d(0, 0, 0);
-        @include rem(margin, 16, 24);
-        @include clearfix;
-    }
-    &__pie {
-        height: 0;
-        padding-bottom: 100%;
-        position: relative;
-    }
-    &--actions {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-    }
-    &--close {
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin: -1px;
-        border-radius: 0;
-    }
-    &--moving {
-        @include transition(all 0.25s ease-out);
-    }
-    &--dragging {
-        @include transition(none);
-    }
-    &__tabs {
-        width: 100%;
-        white-space: nowrap;
-        overflow-y: hidden;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        font-size: rem(13);
-        background: $color-grey-lightest;
-        border-top: 1px dotted $color-grey-light;
-        @include display(flex);
-        position: relative;
-        z-index: 1;
-    }
-    &__tablink {
-        cursor: pointer;
-        display: inline-block;
-        height: 2.5rem;
-        line-height: 2.5rem;
-        color: $color-grey;
-        text-align: center;
-        &--rota {
-            @include flex(1 0 114px);
-        }
-        &--payslip {
-            @include flex(1 0 60px);
-        }
-        &--active {
-            position: relative;
-            color: $color-grey-darkest;
-            &:after {
-                content: "";
-                position: absolute;
-                top: 0;
-                right:0;
-                left: 0;
-                height: 4px;
-                @include border-radius(2px);
-            }
-        }
-    }
+  background: $color-grey-lightest;
+  border-bottom: 1px solid $color-grey-light;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
-.swipe__arrow {
+.swipe--wrap {
+  width: 92340px;
+  //needs to be dynamic
+  position: relative;
+  visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  @include rem(margin, 16, 24);
+  @include clearfix;
+}
+
+.swipe--actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.swipe--close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: -1px;
+  border-radius: 0;
+}
+
+.swipe--moving {
+  @include transition(all 0.25s ease-out);
+}
+
+.swipe--dragging {
+  @include transition(none);
+}
+
+.swipe--tabs {
+  width: 100%;
+  white-space: nowrap;
+  overflow-y: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  font-size: rem(13);
+  background: $color-grey-lightest;
+  border-top: 1px dotted $color-grey-light;
+  @include display(flex);
+  position: relative;
+  z-index: 1;
+}
+.swipe--tablink {
+  cursor: pointer;
+  display: inline-block;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  color: $color-grey;
+  text-align: center;
+  &.-rota {
+      @include flex(1 0 114px);
+  }
+  &.-payslip {
+      @include flex(1 0 60px);
+  }
+  &.-active {
+      position: relative;
+      color: $color-grey-darkest;
+      &:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right:0;
+          left: 0;
+          height: 4px;
+          @include border-radius(2px);
+      }
+  }
+}
+
+.swipe--arrow {
   display: inline-block;
 
   height: rem(80);
@@ -108,7 +109,7 @@
     box-shadow .2s cubic-bezier(0, .7, .6, 2.5)
   );
 
-  &.swipe__left {
+  &.swipe-left {
     left: 0;
     -webkit-border-top-right-radius:    rem(36) rem(40);
             border-top-right-radius:    rem(36) rem(40);
@@ -120,7 +121,7 @@
     }
   }
 
-  &.swipe__right {
+  &.swipe-right {
     right: 0;
     -webkit-border-top-left-radius:    rem(36) rem(40);
             border-top-left-radius:    rem(36) rem(40);
