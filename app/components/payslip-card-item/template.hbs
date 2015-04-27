@@ -1,7 +1,7 @@
 <div class="card__wrap {{if flipped 'card__wrap--flipped'}}">
   <div class="card__front">
     <h1>{{formattedProcessingDate}}</h1>
-    {{payslip-donut-chart grossPay=payslip.grossPay netPay=payslip.netPay isActive=isActive}}
+    {{payslip-donut-chart grossPay=payslip.currentGrossPay netPay=payslip.netPay isActive=isActive}}
     <a class="notALink payslip__show card__flipme" {{action 'flip'}}>
       {{svg-icon name="paper-list"}}
       <span>{{t 'payslips.breakdown'}}</span>
@@ -55,23 +55,35 @@
         <dd class="tabular__value"><strong>&pound;{{payslip.totalDeductions}}</strong></dd>
       </dl>
 
-      <h3 class="tabular__sub">This Period Totals</h3>
+      <h3 class="tabular__sub">{{t 'payslips.periodTotals'}}</h3>
       <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">Total Gross Pay</dt>
-        <dd class="tabular__value">&pound;1,023.45</dd>
+        <dt class="tabular__key tabular__key--wide">{{t 'payslips.grossPay'}}</dt>
+        <dd class="tabular__value">&pound;{{payslip.currentGrossPay}}</dd>
       </dl>
       <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">Gross For Tax</dt>
-        <dd class="tabular__value">&pound;1,023.45</dd>
+        <dt class="tabular__key tabular__key--wide">{{t 'payslips.taxablePay'}}</dt>
+        <dd class="tabular__value">&pound;{{payslip.grossTaxable}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">Earnings for National Insurance</dt>
-        <dd class="tabular__value">&pound;1,023.45</dd>
-      </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">Employer Pension Contribution</dt>
-        <dd class="tabular__value">&pound;00.00</dd>
-      </dl>
+
+      {{#if payslip.grossNIContribution}}
+        <dl class="tabular__row">
+          <dt class="tabular__key tabular__key--wide">{{t 'payslips.earningsNI'}}</dt>
+          <dd class="tabular__value">&pound;{{payslip.grossNIContribution}}</dd>
+        </dl>
+      {{/if}}
+      {{#if payslip.employeePension}}
+        <dl class="tabular__row">
+          <dt class="tabular__key tabular__key--wide">{{t 'payslips.employerPensionContrib'}}</dt>
+          <dd class="tabular__value">&pound;{{payslip.employeePension}}</dd>
+        </dl>
+      {{/if}}
+      {{#if payslip.employerSHPTotal}}
+        <dl class="tabular__row">
+          <dt class="tabular__key tabular__key--wide">{{t 'payslips.employerStakePensionContrib'}}</dt>
+          <dd class="tabular__value">&pound;{{payslip.employerSHPTotal}}</dd>
+        </dl>
+      {{/if}}
+
       <h3 class="tabular__sub">Year To Date Totals</h3>
       <dl class="tabular__row">
         <dt class="tabular__key tabular__key--wide">Total Gross Pay</dt>
@@ -89,6 +101,7 @@
         <dt class="tabular__key tabular__key--wide">Employer Pension Contribution</dt>
         <dd class="tabular__value">&pound;00.00</dd>
       </dl>
+
       <h3 class="tabular__sub">Misc</h3>
       <dl class="tabular__row">
         <dt class="tabular__key">Week</dt>

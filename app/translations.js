@@ -17,7 +17,13 @@ export default {
       payments: 'Payments',
       totalPayments: 'Total Payments',
       deductions: 'Deductions',
-      totalDeductions: 'Total Deductions'
+      totalDeductions: 'Total Deductions',
+      periodTotals: 'This Period Totals',
+      grossPay: 'Gross Pay',
+      taxablePay: 'Taxable Pay',
+      earningsNI: 'Earnings for National Insurance',
+      employerPensionContrib: 'Employer Pension Contribution',
+      employerStakePensionContrib: 'Employer Stakeholder Pension Contribution'
     },
     rotas: {
       holidayInformation: 'Holiday Information',

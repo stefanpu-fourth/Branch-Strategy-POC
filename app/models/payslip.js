@@ -9,6 +9,10 @@ var Payslip = DS.Model.extend({
   accountName: attr('string'),
   companyName: attr('string'),
   currentGrossPay: attr('number'),
+  employeePension: attr('number'), //TODO: confirm with Anya
+  employerSHPTotal: attr('number'), //TODO: confirm with Anya
+  grossNIContribution: attr('number'), //TODO: Confirm with Anya
+  grossTaxable: attr('number'),
   netPay: attr('number'),
   processingDate: attr('string'),
 
