@@ -116,7 +116,7 @@ export default Ember.Component.extend({
 
   didInsertElement: function() {
     var transitionEvents = this.get('transitionEvents');
-    var $wrap = this.$('.swipe__wrap');
+    var $wrap = this.$('.swipe--wrap');
     var $window = this.$(window);
     var $arrows = this.$('.swipe__arrow');
 
@@ -141,7 +141,7 @@ export default Ember.Component.extend({
 
     $window.off('resize', this.boundResizeHandler);
     $window.off('panend', this.boundPanEndHandler);
-    this.$('.swipe__wrap').off(transitionEvents);
+    this.$('.swipe--wrap').off(transitionEvents);
     this.$('.swipe__arrow').off('panstart');
   },
 

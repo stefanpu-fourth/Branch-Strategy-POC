@@ -20,52 +20,57 @@
         background: $color-white;
         border: 1px solid $color-grey-light;
     }
-
-    &__wrap {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        @include transition(all 0.4s);
-        @include transform-style(preserve-3d);
-        &--flipped {
-            @include respond(0, 640) {
-                @include transform(rotateY(180deg));
-            }
-        }
-    }
-    &__front, &__back {
-        background: $color-white;
-        border: 1px solid $color-grey-light;
-        @include backface-visibility(hidden);
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        padding: 1rem;
-        @include respond(640) {
-            background: none;
-            border: 0;
-            width: 50%;
-            position: relative;
-        }
-    }
-    &__front {
-        z-index: 2;
-        @include respond(640) {
-            float: left;
-        }
-    }
-    &__back {
-        @include transform(rotateY(-180deg));
-        overflow: auto;
-        @include respond(640) {
-            float: right;
-            @include transform(rotateY(0deg));
-            height: 386px;
-            -webkit-overflow-scrolling: touch;
-        }
-    }
 }
+
+.card--wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  @include transition(all 0.4s);
+  @include transform-style(preserve-3d);
+  &--flipped {
+      @include respond(0, 640) {
+          @include transform(rotateY(180deg));
+      }
+  }
+}
+
+.card--front, .card--back {
+  background: $color-white;
+  border: 1px solid $color-grey-light;
+  @include backface-visibility(hidden);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  @include respond(640) {
+      background: none;
+      border: 0;
+      width: 50%;
+      position: relative;
+  }
+}
+
+.card--front {
+  z-index: 2;
+  @include respond(640) {
+      float: left;
+  }
+}
+
+.card--back {
+  @include transform(rotateY(-180deg));
+  overflow: auto;
+  @include respond(640) {
+      float: right;
+      @include transform(rotateY(0deg));
+      height: 386px;
+      -webkit-overflow-scrolling: touch;
+  }
+}
+
+
