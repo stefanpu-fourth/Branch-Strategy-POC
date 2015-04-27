@@ -10,7 +10,10 @@ export default {
       historic: 'Historic Breakdown',
       download: 'Download payslip (.pdf)',
       totalPay: 'Total',
-      takeHome: 'Take home'
+      takeHome: 'Take home',
+      name: 'Name',
+      company: 'Company',
+      netPayment: 'Net Payment'
     },
     rotas: {
       holidayInformation: 'Holiday Information',

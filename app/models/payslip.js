@@ -4,17 +4,19 @@ import Ember from 'ember';
 var attr = DS.attr;
 
 var Payslip = DS.Model.extend({
-  grossPay: Ember.computed.alias('currentGrossPay'),
+  accountName: attr('string'),
+  companyName: attr('string'),
+  currentGrossPay: attr('number'),
   netPay: attr('number'),
   processingDate: attr('string'),
 
-  currentGrossPay: attr('number'),
+  payslipElements: DS.hasMany('payslipElement'),
+
+  grossPay: Ember.computed.alias('currentGrossPay'),
 
   formattedProcessingDate: function () {
     return moment(this.get('processingDate')).format('DD MMM');
-  }.property('processingDate'),
-
-  payslipElements: DS.hasMany('payslipElement')
+  }.property('processingDate')
 });
 
 export default Payslip;

@@ -17,6 +17,20 @@
         {{svg-icon name="x"}}
       </a>
       <h3 class="tabular__sub tabular__sub--title">19 March 2015</h3>
+
+      <dl class="tabular__row">
+        <dt class="tabular__key tabular__key--wide">{{t 'payslips.name'}}</dt>
+        <dd class="tabular__value">{{payslip.accountName}}</dd>
+      </dl>
+      <dl class="tabular__row">
+        <dt class="tabular__key tabular__key--wide">{{t 'payslips.company'}}</dt>
+        <dd class="tabular__value">{{payslip.companyName}}</dd>
+      </dl>
+      <dl class="tabular__row">
+        <dt class="tabular__key tabular__key--wide">{{t 'payslips.netPayment'}}</dt>
+        <dd class="tabular__value">&pound;{{payslip.netPay}}</dd>
+      </dl>
+
       <h3 class="tabular__sub tabular__sub--highlight brand-bg">Payments</h3>
       <dl class="tabular__row">
         <dt class="tabular__key tabular__key--wide">Hours () Bartender 40/5 120 @ &pound;7.50</dt>
