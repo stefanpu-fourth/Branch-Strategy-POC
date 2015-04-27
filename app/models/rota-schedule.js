@@ -13,6 +13,26 @@ export default DS.Model.extend({
   rotaStart: attr('date'),
   rotaStartDayOfWeek: attr('number'),
 
-  shifts: null // populated after load by the rota service
+  shifts: null, // populated after load by the rota service
   // TODO - probably means some functionality needs to move here.
+
+  calculateShifts: function() {
+    var times = this.get('shiftTimes');
+    if (times) {
+      let newShifts = times.map((startTime, index) => {
+        if ((index % 2) === 0) {
+          var endTime = times[index + 1];
+          if (startTime !== endTime) {
+            return {
+              start: startTime,
+              end: endTime,
+              location: this.get('location'),
+              jobTitle: this.get('jobTitle')
+            };
+          }
+        }
+      });
+      this.set('shifts', newShifts.filter(shift => { return shift !== undefined; }));
+    }
+  }
 });
