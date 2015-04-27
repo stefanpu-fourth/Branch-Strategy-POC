@@ -14,4 +14,8 @@
     background-color: $color-white;
     border: 1px solid $color-grey;
   }
+
+  &.-past {
+    background-color: $color-grey-lightest;
+  }
 }
