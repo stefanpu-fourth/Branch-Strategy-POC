@@ -13,7 +13,11 @@ export default {
       takeHome: 'Take home',
       name: 'Name',
       company: 'Company',
-      netPayment: 'Net Payment'
+      netPayment: 'Net Payment',
+      payments: 'Payments',
+      totalPayments: 'Total Payments',
+      deductions: 'Deductions',
+      totalDeductions: 'Total Deductions'
     },
     rotas: {
       holidayInformation: 'Holiday Information',

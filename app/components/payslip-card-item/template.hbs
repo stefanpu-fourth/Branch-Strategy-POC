@@ -31,32 +31,30 @@
         <dd class="tabular__value">&pound;{{payslip.netPay}}</dd>
       </dl>
 
-      <h3 class="tabular__sub tabular__sub--highlight brand-bg">Payments</h3>
+      <h3 class="tabular__sub tabular__sub--highlight brand-bg">{{t 'payslips.payments'}}</h3>
+      {{#each payslip.payments as |payment|}}
+        <dl class="tabular__row">
+          <dt class="tabular__key tabular__key--wide">{{payment.description}}</dt>
+          <dd class="tabular__value">&pound;{{payment.amount}}</dd>
+        </dl>
+      {{/each}}
       <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">Hours () Bartender 40/5 120 @ &pound;7.50</dt>
-        <dd class="tabular__value">&pound;900.00</dd>
+        <dt class="tabular__key tabular__key--wide"><strong>{{t 'payslips.totalPayments'}}</strong></dt>
+        <dd class="tabular__value"><strong>&pound;{{payslip.currentGrossPay}}</strong></dd>
       </dl>
+
+      <h3 class="tabular__sub">{{t 'payslips.deductions'}}</h3>
+      {{#each payslip.deductions as |deduction|}}
+        <dl class="tabular__row">
+          <dt class="tabular__key tabular__key--wide">{{deduction.description}}</dt>
+          <dd class="tabular__value">&pound;{{deduction.amount}}</dd>
+        </dl>
+      {{/each}}
       <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">Tips () Bartender 40/5 1 @ &pound;123.45</dt>
-        <dd class="tabular__value">&pound;123.45</dd>
+        <dt class="tabular__key tabular__key--wide"><strong>{{t 'payslips.totalDeductions'}}</strong></dt>
+        <dd class="tabular__value"><strong>&pound;{{payslip.totalDeductions}}</strong></dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide"><strong>Total Payments</strong></dt>
-        <dd class="tabular__value"><strong>&pound;1,023.45</strong></dd>
-      </dl>
-      <h3 class="tabular__sub">Deductions</h3>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">Tax</dt>
-        <dd class="tabular__value">&pound;37.80</dd>
-      </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">NI</dt>
-        <dd class="tabular__value">&pound;43.25</dd>
-      </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide"><strong>Total Deductions</strong></dt>
-        <dd class="tabular__value"><strong>&pound;81.05</strong></dd>
-      </dl>
+
       <h3 class="tabular__sub">This Period Totals</h3>
       <dl class="tabular__row">
         <dt class="tabular__key tabular__key--wide">Total Gross Pay</dt>
