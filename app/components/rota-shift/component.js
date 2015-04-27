@@ -15,7 +15,6 @@ export default Ember.Component.extend({
     var dayIndex = this.get('dayIndex');
     var shiftStart = parseInt(this.get('shift.start'));
     var classes = '';
-console.log(this.get('shift.start') + ': ' + shiftStart);
 
     if (dayIndex < 2) {
       classes += '-bottom ';
