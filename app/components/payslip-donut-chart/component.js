@@ -8,7 +8,7 @@ var formattedCurrencyProperty = function(unformattedProp, currencySymbolProp) {
 };
 
 export default Ember.Component.extend({
-  classNames: ['payslip__pie', 'card__flipme'],
+  classNames: ['payslip--pie', 'card__flipme'],
 
   netPay: null,
   grossPay: null,
@@ -28,7 +28,7 @@ export default Ember.Component.extend({
   pathStyles: function () {
     var isActive = this.get('isActive');
     var el = this.element;
-    var path = el.querySelector('.payslip__chartpath');
+    var path = el.querySelector('.payslip--chartpath');
     var circumference = path.getTotalLength();
     var dashOffset;
     var takeHome;

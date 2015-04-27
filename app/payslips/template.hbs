@@ -10,7 +10,7 @@
       {{payslip-card-item payslip=payslip index=index selectedIndex=attrs.selectedIndex}}
     {{/each}}
   {{/swipe-container}}
-  <div class="payslip__breakdown">
+  <div class="payslip--breakdown">
     <h2>{{t 'payslips.historic'}}</h2>
     {{payslips-time-chart
       payslips=payslips selectedIndex=attrs.selectedIndex setSelectedIndex="setSelectedIndex"}}

@@ -2,11 +2,11 @@
   <div class="card__front">
     <h1>{{formattedProcessingDate}}</h1>
     {{payslip-donut-chart grossPay=payslip.grossPay netPay=payslip.netPay isActive=isActive}}
-    <a class="notALink payslip__show card__flipme" {{action 'flip'}}>
+    <a class="notALink payslip--show card__flipme" {{action 'flip'}}>
       {{svg-icon name="paper-list"}}
       <span>{{t 'payslips.breakdown'}}</span>
     </a>
-    <a href="#" class="payslip__download">
+    <a href="#" class="payslip--download">
       {{svg-icon name="download"}}
       <span>{{t 'payslips.download'}}</span>
     </a>
