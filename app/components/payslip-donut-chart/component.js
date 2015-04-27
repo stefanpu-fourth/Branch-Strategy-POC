@@ -8,7 +8,7 @@ var formattedCurrencyProperty = function(unformattedProp, currencySymbolProp) {
 };
 
 export default Ember.Component.extend({
-  classNames: ['payslip--pie', 'card__flipme'],
+  classNames: ['payslip--pie'],
 
   netPay: null,
   grossPay: null,
