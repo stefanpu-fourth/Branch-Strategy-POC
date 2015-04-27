@@ -34,5 +34,13 @@ export default DS.Model.extend({
       });
       this.set('shifts', newShifts.filter(shift => { return shift !== undefined; }));
     }
+  },
+
+  shiftDateAsMoment: function() {
+    return moment(this.get('shiftDate'));
+  }.property('shiftDate'),
+
+  isBetweenMoments: function(m1, m2) {
+    return this.get('shiftDateAsMoment').isBetween(m1, m2);
   }
 });

@@ -47,11 +47,9 @@ export default Ember.Service.extend({
         let shiftStart = start.clone().add(7 * i, 'days');
         let filterStart = shiftStart.clone().subtract(1, 'days');
         let end = shiftStart.clone().add(7, 'days');
-        let shifts = [];
-        schedules.forEach(s => {
-          if (moment(s.get('shiftDate')).isBetween(filterStart, end)) {
-            shifts.push(s);
-          }
+
+        let shifts = schedules.filter(s => {
+          return s.isBetweenMoments(filterStart, end);
         });
 
         let shiftDates = shifts.map(s => { return s.get('shiftDate'); });
