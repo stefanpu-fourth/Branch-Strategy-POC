@@ -3,8 +3,14 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   model: function () {
+    var employement = this.store.all('mainemployment');
+
+    if (Ember.isEmpty(employement)) {
+      employement = this.store.find('mainemployment');
+    }
+
     return Ember.RSVP.hash({
-      employment: this.store.find('mainemployment'),
+      employment: employement,
       employee: this.store.find('employee', 1)
     });
   },
