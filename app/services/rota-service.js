@@ -57,7 +57,9 @@ export default Ember.Service.extend({
         shifts.forEach((s, index) => {
           var dupeIndex = shiftDates.lastIndexOf(s.get('shiftDate'));
           if (dupeIndex !== index) {
-            shifts[dupeIndex].get('shifts').forEach(ds => { s.get('shifts').push(ds); });
+            shifts[dupeIndex].get('shifts').forEach(ds => {
+              s.get('shifts').push(ds);
+            });
             shifts.splice(dupeIndex, 1);
             shiftDates.splice(dupeIndex, 1);
             s.set('shifts', s.get('shifts').sort(function(a, b) {
