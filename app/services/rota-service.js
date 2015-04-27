@@ -52,7 +52,7 @@ export default Ember.Service.extend({
           return s.isBetweenMoments(filterStart, end);
         });
 
-        let shiftDates = shifts.map(s => { return s.get('shiftDate'); });
+        let shiftDates = shifts.mapBy('shiftDate');
 
         shifts.forEach((s, index) => {
           var dupeIndex = shiftDates.lastIndexOf(s.get('shiftDate'));
