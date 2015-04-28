@@ -5,7 +5,7 @@ export default Ember.Component.extend({
 
   classNames: ['rota-day'],
 
-  classNameBindings: ['isInPast:-past', 'isSelected:-active'],
+  classNameBindings: ['isInPast:-past', 'isSelected:-active', 'dayModifier'],
 
   day: null,
   selectedShift: null,
@@ -28,6 +28,11 @@ export default Ember.Component.extend({
   isInPast: function() {
     return this.get('shiftDateAsMoment').isBefore(moment().startOf('day'));
   }.property('shiftDateAsMoment'),
+
+  dayModifier: function() {
+    var dayIndex = parseInt(this.get('dayIndex')) + 1;
+    return '-day-' + dayIndex;
+  }.property('dayIndex'),
 
   isNotRota: function() {
     var type = this.get('day.type');
