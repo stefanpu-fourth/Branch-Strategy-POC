@@ -123,8 +123,10 @@ export default Ember.Component.extend({
     //bind handlers
     this.boundResizeHandler = run.bind(this, 'resizeHandler');
     this.boundPanEndHandler = run.bind(this, 'panEnd');
+    this.boundKeydownHandler = run.bind(this, 'keydownHandler');
     $window.on('resize', this.boundResizeHandler);
     $window.on('panend', this.boundPanEndHandler);
+    $window.on('keydown', this.boundKeydownHandler);
     $wrap.on(transitionEvents, run.bind(this, 'transitionEnd'));
     $arrows.on('panstart', function(evt) {
       evt.stopPropagation();
@@ -141,6 +143,7 @@ export default Ember.Component.extend({
 
     $window.off('resize', this.boundResizeHandler);
     $window.off('panend', this.boundPanEndHandler);
+    $window.off('keydown', this.boundKeydownHandler);
     this.$('.swipe--wrap').off(transitionEvents);
     this.$('.swipe--arrow').off('panstart');
   },
@@ -165,6 +168,14 @@ export default Ember.Component.extend({
 
   panStart: function() {
     this.set('isPanning', true);
+  },
+
+  keydownHandler: function(e) {
+    if (e.keyCode === 37) {
+      this.send('prevPage');
+    } else if (e.keyCode === 39) {
+      this.send('nextPage');
+    }
   },
 
   actions: {
