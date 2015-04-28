@@ -1,7 +1,7 @@
 .rota-day {
   margin: {
     top:    0;
-    bottom: 0;
+    bottom: rem(8);
   }
 
   position: relative;
@@ -17,13 +17,12 @@
     margin-bottom .25s ease
   );
 
-  &.-past {
-    opacity: .33;
-    @include filter(grayscale(50%));
-  }
-
   &.-present {
     font-weight: bold;
+  }
+
+  &.-past {
+    color: $color-grey;
   }
 }
 
