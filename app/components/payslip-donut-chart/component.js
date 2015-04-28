@@ -1,11 +1,4 @@
 import Ember from 'ember';
-import i18n from 'ess/i18n';
-
-var formattedCurrencyProperty = function(unformattedProp, currencySymbolProp) {
-  return Ember.computed(unformattedProp, function() {
-    return i18n.toCurrency(this.get(unformattedProp), { unit: this.get(currencySymbolProp) });
-  });
-};
 
 export default Ember.Component.extend({
   classNames: ['payslip--pie'],
@@ -13,12 +6,6 @@ export default Ember.Component.extend({
   netPay: null,
   grossPay: null,
   isActive: null,
-
-  currencySymbol: '£',
-
-  formattedNetPay: formattedCurrencyProperty('netPay', 'currencySymbol'),
-
-  formattedGrossPay: formattedCurrencyProperty('grossPay', 'currencySymbol'),
 
   takeHome: function () {
     var props = this.getProperties('grossPay', 'netPay');
