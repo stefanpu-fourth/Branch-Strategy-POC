@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import i18n from 'fourth-components/i18n';
+import i18n from 'ess/i18n';
 
 export default Ember.Component.extend({
   classNames: ['payslip--line'],

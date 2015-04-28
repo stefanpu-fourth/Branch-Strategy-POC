@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import i18n from 'fourth-components/i18n';
+import i18n from 'ess/i18n';
 
 var formattedCurrencyProperty = function(unformattedProp, currencySymbolProp) {
   return Ember.computed(unformattedProp, function() {
