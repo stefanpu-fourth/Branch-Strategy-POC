@@ -138,23 +138,28 @@
         </dl>
       {{/if}}
 
-      <h3 class="tabular__sub">Misc</h3>
+      <h3 class="tabular__sub">{{t 'payslips.payslipDetails'}}</h3>
       <dl class="tabular__row">
-        <dt class="tabular__key">Week</dt>
-        <dd class="tabular__value">1</dd>
+        <dt class="tabular__key">{{t 'payslips.payPeriod'}}</dt>
+        <dd class="tabular__value">{{payslip.monthWeekNumber}}</dd>
       </dl>
       <dl class="tabular__row">
-        <dt class="tabular__key">Employee No.</dt>
-        <dd class="tabular__value">123456</dd>
+        <dt class="tabular__key">{{t 'payslips.employeeNumber'}}</dt>
+        <dd class="tabular__value">{{payslip.employeeNumber}}</dd>
       </dl>
       <dl class="tabular__row">
-        <dt class="tabular__key">Tax Code</dt>
-        <dd class="tabular__value">1000L M1</dd>
+        <dt class="tabular__key">{{t 'payslips.niNumber'}}</dt>
+        <dd class="tabular__value">{{payslip.nationalInsuranceNumber}}</dd>
       </dl>
       <dl class="tabular__row">
-        <dt class="tabular__key">Etc</dt>
-        <dd class="tabular__value">Etc</dd>
+        <dt class="tabular__key">{{t 'payslips.taxCode'}}</dt>
+        <dd class="tabular__value">{{payslip.taxCode}}</dd>
       </dl>
+      <dl class="tabular__row">
+        <dt class="tabular__key">{{t 'payslips.payMethod'}}</dt>
+        <dd class="tabular__value">{{payslip.paymentMethodDescription}}</dd>
+      </dl>
+
     </div>
   </div>
 </div>

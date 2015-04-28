@@ -35,7 +35,13 @@ export default {
       employeeAVCYTD: 'Employee AVC YTD',
       employeeFSAVCYTD: 'Employeee FSAVC YTD',
       payFromPreviousEmploymentYTD: 'Pay from Previous Employment YTD',
-      taxFromPreviousEmploymentYTD: 'Tax for Previous Employment YTD'
+      taxFromPreviousEmploymentYTD: 'Tax for Previous Employment YTD',
+      payslipDetails: 'Payslip Details',
+      payPeriod: 'Week/Month',
+      employeeNumber: 'Employee No.',
+      niNumber: 'NI Number',
+      taxCode: 'Tax Code',
+      payMethod: 'Pay Method'
     },
     rotas: {
       holidayInformation: 'Holiday Information',
