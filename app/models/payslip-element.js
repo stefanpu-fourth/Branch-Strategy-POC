@@ -14,6 +14,6 @@ export default DS.Model.extend({
     var props = this.getProperties('description', 'rate', 'units');
     var displayUnits = props.rate && props.units;
 
-    return displayUnits ? `${props.description} ${props.units}@${props.rate}` : props.description;
+    return displayUnits ? `${props.description} ${props.units}@${props.rate.toFixed(2)}` : props.description;
   }.property('description', 'rate', 'units')
 });
