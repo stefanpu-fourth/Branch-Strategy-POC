@@ -4,12 +4,14 @@
    selectedIndex=selectedIndex
    setSelectedIndex="setSelectedIndex"
 }}
-  {{#each attrs.rotaWeeks as |rotaWeek|}}
+  {{#each attrs.rotaWeeks as |rotaWeek index|}}
     {{rota-week
        week=rotaWeek
        shifts=rotaWeek.shifts
        selectedShift=selectedShift
        selectTarget=this
+       index=index
+       selectedIndex=selectedIndex
     }}
   {{/each}}
 {{/swipe-container}}
