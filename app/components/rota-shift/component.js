@@ -63,7 +63,7 @@ export default Ember.Component.extend({
   startPercent: function() {
     var shiftStart = this.get('shiftStartAsMinutes');
 
-    return ((100 / this.convertToMinutes('2400'))*shiftStart);
+    return ((100 / this.convertToMinutes('24:00'))*shiftStart);
   }.property('shiftStartAsMinutes'),
 
   durationPercent: function() {
@@ -71,10 +71,10 @@ export default Ember.Component.extend({
     var shiftEnd   = this.get('shiftEndAsMinutes');
 
     if (shiftStart > shiftEnd) {
-      shiftEnd = this.convertToMinutes('2400');
+      shiftEnd = this.convertToMinutes('24:00');
     }
 
-    return ((100 / this.convertToMinutes('2400'))*(shiftEnd - shiftStart));
+    return ((100 / this.convertToMinutes('24:00'))*(shiftEnd - shiftStart));
   }.property('shiftStartAsMinutes', 'shiftEndAsMinutes'),
 
   actions: {
