@@ -34,7 +34,7 @@
       <h3 class="tabular__sub tabular__sub--highlight brand-bg">{{t 'payslips.payments'}}</h3>
       {{#each payslip.payments as |payment|}}
         <dl class="tabular__row">
-          <dt class="tabular__key tabular__key--wide">{{payment.description}}</dt>
+          <dt class="tabular__key tabular__key--wide">{{payment.label}}</dt>
           <dd class="tabular__value">&pound;{{payment.amount}}</dd>
         </dl>
       {{/each}}
@@ -46,7 +46,7 @@
       <h3 class="tabular__sub">{{t 'payslips.deductions'}}</h3>
       {{#each payslip.deductions as |deduction|}}
         <dl class="tabular__row">
-          <dt class="tabular__key tabular__key--wide">{{deduction.description}}</dt>
+          <dt class="tabular__key tabular__key--wide">{{deduction.label}}</dt>
           <dd class="tabular__value">&pound;{{deduction.amount}}</dd>
         </dl>
       {{/each}}

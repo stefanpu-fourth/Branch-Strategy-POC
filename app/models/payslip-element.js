@@ -8,5 +8,12 @@ export default DS.Model.extend({
   description: attr('string'),
   isGross: attr('boolean'),
   rate: attr('number'),
-  units: attr('number')
+  units: attr('number'),
+
+  label: function () {
+    var props = this.getProperties('description', 'rate', 'units');
+    var displayUnits = props.rate && props.units;
+
+    return displayUnits ? `${props.description} ${props.units}@${props.rate}` : props.description;
+  }.property('description', 'rate', 'units')
 });
