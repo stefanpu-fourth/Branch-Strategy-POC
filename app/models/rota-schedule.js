@@ -31,6 +31,8 @@ export default DS.Model.extend({
             };
           }
         }
+
+        return undefined;
       });
       this.set('shifts', newShifts.filter(shift => { return shift !== undefined; }));
     }
