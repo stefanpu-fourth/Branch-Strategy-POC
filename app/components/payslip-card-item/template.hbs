@@ -64,7 +64,6 @@
         <dt class="tabular__key tabular__key--wide">{{t 'payslips.taxablePay'}}</dt>
         <dd class="tabular__value">&pound;{{payslip.grossTaxable}}</dd>
       </dl>
-
       {{#if payslip.grossNIContribution}}
         <dl class="tabular__row">
           <dt class="tabular__key tabular__key--wide">{{t 'payslips.earningsNI'}}</dt>
@@ -84,23 +83,60 @@
         </dl>
       {{/if}}
 
-      <h3 class="tabular__sub">Year To Date Totals</h3>
+      <h3 class="tabular__sub">{{t 'payslips.yearToDateTotals'}}</h3>
       <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">Total Gross Pay</dt>
-        <dd class="tabular__value">&pound;1,023.45</dd>
+        <dt class="tabular__key tabular__key--wide">{{t 'payslips.grossPayYTD'}}</dt>
+        <dd class="tabular__value">&pound;{{payslip.totalGrossPayToDate}}</dd>
       </dl>
       <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">Gross For Tax</dt>
-        <dd class="tabular__value">&pound;1,023.45</dd>
+        <dt class="tabular__key tabular__key--wide">{{t 'payslips.taxablePayYTD'}}</dt>
+        <dd class="tabular__value">&pound;{{payslip.grossPayForTaxToDate}}</dd>
       </dl>
       <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">Earnings for National Insurance</dt>
-        <dd class="tabular__value">&pound;1,023.45</dd>
+        <dt class="tabular__key tabular__key--wide">{{t 'payslips.taxYTD'}}</dt>
+        <dd class="tabular__value">&pound;{{payslip.taxDueToDate}}</dd>
       </dl>
       <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">Employer Pension Contribution</dt>
-        <dd class="tabular__value">&pound;00.00</dd>
+        <dt class="tabular__key tabular__key--wide">{{t 'payslips.nationalInsuranceYTD'}}</dt>
+        <dd class="tabular__value">&pound;{{payslip.grossNIContributionToDate}}</dd>
       </dl>
+      <dl class="tabular__row">
+        <dt class="tabular__key tabular__key--wide">{{t 'payslips.employerNIContribYTD'}}</dt>
+        <dd class="tabular__value">&pound;{{payslip.niContributionToDate}}</dd>
+      </dl>
+      <dl class="tabular__row">
+        <dt class="tabular__key tabular__key--wide">{{t 'payslips.employerPensionContribYTD'}}</dt>
+        <dd class="tabular__value">&pound;{{payslip.employerPensionToDate}}</dd>
+      </dl>
+      <dl class="tabular__row">
+        <dt class="tabular__key tabular__key--wide">{{t 'payslips.employeePensionContribYTD'}}</dt>
+        <dd class="tabular__value">&pound;{{payslip.employeePensionToDate}}</dd>
+      </dl>
+
+      {{#if payslip.employeeAVCToDate}}
+        <dl class="tabular__row">
+          <dt class="tabular__key tabular__key--wide">{{t 'payslips.employeeAVCYTD'}}</dt>
+          <dd class="tabular__value">&pound;{{payslip.employeeAVCToDate}}</dd>
+        </dl>
+      {{/if}}
+      {{#if payslip.employeeFSAVCToDate}}
+        <dl class="tabular__row">
+          <dt class="tabular__key tabular__key--wide">{{t 'payslips.employeeFSAVCYTD'}}</dt>
+          <dd class="tabular__value">&pound;{{payslip.employeeFSAVCToDate}}</dd>
+        </dl>
+      {{/if}}
+      {{#if payslip.payPreEmployment}}
+        <dl class="tabular__row">
+          <dt class="tabular__key tabular__key--wide">{{t 'payslips.payFromPreviousEmploymentYTD'}}</dt>
+          <dd class="tabular__value">&pound;{{payslip.payPreEmployment}}</dd>
+        </dl>
+      {{/if}}
+      {{#if payslip.taxPreEmployment}}
+        <dl class="tabular__row">
+          <dt class="tabular__key tabular__key--wide">{{t 'payslips.taxFromPreviousEmploymentYTD'}}</dt>
+          <dd class="tabular__value">&pound;{{payslip.taxPreEmployment}}</dd>
+        </dl>
+      {{/if}}
 
       <h3 class="tabular__sub">Misc</h3>
       <dl class="tabular__row">

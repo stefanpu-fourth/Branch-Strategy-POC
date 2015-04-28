@@ -23,7 +23,19 @@ export default {
       taxablePay: 'Taxable Pay',
       earningsNI: 'Earnings for National Insurance',
       employerPensionContrib: 'Employer Pension Contribution',
-      employerStakePensionContrib: 'Employer Stakeholder Pension Contribution'
+      employerStakePensionContrib: 'Employer Stakeholder Pension Contribution',
+      yearToDateTotals: 'Year To Date Totals',
+      grossPayYTD: 'Gross Pay YTD',
+      taxablePayYTD: 'Taxable Pay YTD',
+      taxYTD: 'Tax YTD',
+      nationalInsuranceYTD: 'National Insurance YTD',
+      employerNIContribYTD: 'Employer NI Contribution YTD',
+      employerPensionContribYTD: 'Employer Pension Contribution YTD',
+      employeePensionContribYTD: 'Employee Pension Contribution YTD',
+      employeeAVCYTD: 'Employee AVC YTD',
+      employeeFSAVCYTD: 'Employeee FSAVC YTD',
+      payFromPreviousEmploymentYTD: 'Pay from Previous Employment YTD',
+      taxFromPreviousEmploymentYTD: 'Tax for Previous Employment YTD'
     },
     rotas: {
       holidayInformation: 'Holiday Information',

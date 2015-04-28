@@ -9,12 +9,24 @@ var Payslip = DS.Model.extend({
   accountName: attr('string'),
   companyName: attr('string'),
   currentGrossPay: attr('number'),
-  employeePension: attr('number'), //TODO: confirm with Anya
-  employerSHPTotal: attr('number'), //TODO: confirm with Anya
-  grossNIContribution: attr('number'), //TODO: Confirm with Anya
+  employeeAVCToDate: attr('number'),
+  employeeFSAVCToDate: attr('number'),
+  employeePension: attr('number'),
+  employeePensionToDate: attr('number'),
+  employerPensionToDate: attr('number'),
+  employerSHPTotal: attr('number'),
+  grossNIContribution: attr('number'),
+  grossNIContributionToDate: attr('number'),
+  grossPayForTaxToDate: attr('number'),
+  grossPayYearToDate: attr('number'),
   grossTaxable: attr('number'),
+  niContributionToDate: attr('number'),
   netPay: attr('number'),
+  payPreEmployment: attr('number'),
   processingDate: attr('string'),
+  taxDueToDate: attr('number'),
+  taxPreEmployment: attr('number'),
+  totalGrossPayToDate: attr('number'),
 
   payslipElements: DS.hasMany('payslipElement'),
 
