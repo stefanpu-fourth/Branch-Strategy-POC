@@ -48,19 +48,19 @@ export default Ember.Service.extend({
         let filterStart = shiftStart.clone().subtract(1, 'days');
         let end = shiftStart.clone().add(7, 'days');
 
-        let shifts = schedules.filter(s => {
+        let schedulesForDate = schedules.filter(s => {
           return s.isBetweenMoments(filterStart, end);
         });
 
-        let shiftDates = shifts.mapBy('shiftDate');
+        let shiftDates = schedulesForDate.mapBy('shiftDate');
 
-        shifts.forEach((s, index) => {
+        schedulesForDate.forEach((s, index) => {
           var dupeIndex = shiftDates.lastIndexOf(s.get('shiftDate'));
           if (dupeIndex !== index) {
-            shifts[dupeIndex].get('shifts').forEach(ds => {
+            schedulesForDate[dupeIndex].get('shifts').forEach(ds => {
               s.get('shifts').push(ds);
             });
-            shifts.splice(dupeIndex, 1);
+            schedulesForDate.splice(dupeIndex, 1);
             shiftDates.splice(dupeIndex, 1);
             s.set('shifts', s.get('shifts').sort(function(a, b) {
               return a.start.localeCompare(b.start);
@@ -68,7 +68,7 @@ export default Ember.Service.extend({
           }
         });
 
-        rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, shifts));
+        rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, schedulesForDate));
       }
 
       return rotaWeeks;
