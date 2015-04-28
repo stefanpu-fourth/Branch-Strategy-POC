@@ -6,8 +6,13 @@ var computed = Ember.computed;
 var filterBy = computed.filterBy;
 
 var Payslip = DS.Model.extend({
+  address1: attr('string'),
+  address2: attr('string'),
+  address3: attr('string'),
+  address4: attr('string'),
   accountName: attr('string'),
   companyName: attr('string'),
+  county: attr('string'),
   currentGrossPay: attr('number'),
   employeeAVCToDate: attr('number'),
   employeeFSAVCToDate: attr('number'),
@@ -28,11 +33,14 @@ var Payslip = DS.Model.extend({
   paymentMethodDescription: attr('string'),
   payPeriod: attr('string'),
   payPreEmployment: attr('number'),
+  postCode: attr('string'),
   processingDate: attr('string'),
   taxCode: attr('string'),
   taxDueToDate: attr('number'),
   taxPreEmployment: attr('number'),
   totalGrossPayToDate: attr('number'),
+  town: attr('string'),
+
   payslipElements: DS.hasMany('payslipElement'),
 
   grossPay: computed.alias('currentGrossPay'),

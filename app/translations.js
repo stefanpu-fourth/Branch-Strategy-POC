@@ -41,7 +41,8 @@ export default {
       employeeNumber: 'Employee No.',
       niNumber: 'NI Number',
       taxCode: 'Tax Code',
-      payMethod: 'Pay Method'
+      payMethod: 'Pay Method',
+      address: 'Address'
     },
     rotas: {
       holidayInformation: 'Holiday Information',

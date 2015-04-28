@@ -160,6 +160,30 @@
         <dd class="tabular__value">{{payslip.paymentMethodDescription}}</dd>
       </dl>
 
+      <dl class="tabular__row">
+        <dt class="tabular__key">{{t 'payslips.address'}}</dt>
+        <dd class="tabular__value tabular__value--wide">
+          {{payslip.accountName}}
+          <br />{{payslip.address1}}
+          {{#if payslip.address2}}
+            <br />{{payslip.address2}}
+          {{/if}}
+          {{#if payslip.address3}}
+            <br />{{payslip.address3}}
+          {{/if}}
+          {{#if payslip.address4}}
+            <br />{{payslip.address4}}
+          {{/if}}
+          {{#if payslip.town}}
+            <br />{{payslip.town}}
+          {{/if}}
+          {{#if payslip.county}}
+            <br />{{payslip.county}}
+          {{/if}}
+          <br />{{payslip.postCode}}
+        </dd>
+      </dl>
+
     </div>
   </div>
 </div>
