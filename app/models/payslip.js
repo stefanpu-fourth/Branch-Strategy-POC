@@ -18,6 +18,7 @@ var Payslip = DS.Model.extend({
   employeeFSAVCToDate: attr('number'),
   employeeNumber: attr('string'),
   employeePension: attr('number'),
+  employerPensionContribution: attr('number'),
   employeePensionToDate: attr('number'),
   employerPensionToDate: attr('number'),
   employerSHPTotal: attr('number'),
@@ -47,10 +48,15 @@ var Payslip = DS.Model.extend({
   payments: filterBy('payslipElements', 'category', 'Payment'),
   deductions: filterBy('payslipElements', 'category', 'Deduction'),
 
+  currentPayPeriod: function () {
+    var props = this.getProperties('payPeriod', 'monthWeekNumber');
+    return props.payPeriod || props.monthWeekNumber;
+  }.property('payPeriod', 'monthWeekNumber'),
+
   totalDeductions: function () {
-    var props = this.getProperties('grossPay', 'netPay');
-    return (props.grossPay - props.netPay).toFixed(2);
-  }.property('grossPay', 'netPay'),
+    var props = this.getProperties('currentGrossPay', 'netPay');
+    return (props.currentGrossPay - props.netPay).toFixed(2);
+  }.property('currentGrossPay', 'netPay'),
 
   formattedProcessingDate: function () {
     return moment(this.get('processingDate')).format('DD MMM');

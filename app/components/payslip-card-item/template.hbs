@@ -70,16 +70,16 @@
           <dd class="tabular__value">&pound;{{payslip.grossNIContribution}}</dd>
         </dl>
       {{/if}}
-      {{#if payslip.employeePension}}
+      {{#if payslip.employerPensionContribution}}
         <dl class="tabular__row">
           <dt class="tabular__key tabular__key--wide">{{t 'payslips.employerPensionContrib'}}</dt>
-          <dd class="tabular__value">&pound;{{payslip.employeePension}}</dd>
+          <dd class="tabular__value">&pound;{{payslip.employerPensionContribution}}</dd>
         </dl>
       {{/if}}
-      {{#if payslip.employerSHPTotal}}
+      {{#if payslip.employeePension}}
         <dl class="tabular__row">
           <dt class="tabular__key tabular__key--wide">{{t 'payslips.employerStakePensionContrib'}}</dt>
-          <dd class="tabular__value">&pound;{{payslip.employerSHPTotal}}</dd>
+          <dd class="tabular__value">&pound;{{payslip.employeePension}}</dd>
         </dl>
       {{/if}}
 
@@ -140,8 +140,8 @@
 
       <h3 class="tabular__sub">{{t 'payslips.payslipDetails'}}</h3>
       <dl class="tabular__row">
-        <dt class="tabular__key">{{t 'payslips.payPeriod'}}</dt>
-        <dd class="tabular__value">{{payslip.monthWeekNumber}}</dd>
+        <dt class="tabular__key">{{t 'payslips.week'}}/{{t 'payslips.month'}}</dt>
+        <dd class="tabular__value">{{payslip.currentPayPeriod}}</dd>
       </dl>
       <dl class="tabular__row">
         <dt class="tabular__key">{{t 'payslips.employeeNumber'}}</dt>
