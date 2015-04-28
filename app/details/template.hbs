@@ -82,7 +82,9 @@
           {{#if attrs.employee.address3}}
             <br />{{attrs.employee.address3}}
           {{/if}}
+          {{#if attrs.employee.town}}
             <br />{{attrs.employee.town}}
+          {{/if}}
           {{#if attrs.employee.county}}
             <br />{{attrs.employee.county}}
           {{/if}}
@@ -132,14 +134,14 @@
       <dl class="tabular--row">
         <dt class="tabular--key">{{t 'details.address'}}</dt>
         <dd class="tabular--value -wide">
-          {{attrs.employment.companyAddress1}}
+          {{employment.companyAddress1}}
           {{#if employment.companyAddress2}}
           <br />{{employment.companyAddress2}}
           {{/if}}
-          {{#if attrs.employment.companyAddress3}}
+          {{#if employment.companyAddress3}}
           <br />{{employment.companyAddress3}}
           {{/if}}
-          {{#if attrs.employment.companyTown}}
+          {{#if employment.companyTown}}
           <br />{{employment.companyTown}}
           {{/if}}
           {{#if employment.companyCounty}}
