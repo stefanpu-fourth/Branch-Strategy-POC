@@ -2,7 +2,7 @@ import Ember from 'ember';
 import i18n from 'fourth-components/i18n';
 
 export default Ember.Component.extend({
-  classNames: ['payslip__line'],
+  classNames: ['payslip--line'],
 
   payslips: null,
 
