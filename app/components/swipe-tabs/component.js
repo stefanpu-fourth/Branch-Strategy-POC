@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['swipe__tabs'],
+  classNames: ['swipe--tabs'],
 
   collection: null,
 
@@ -14,7 +14,7 @@ export default Ember.Component.extend({
   setScrollLeft: function () {
     var index = this.get('selectedIndex') || 0;
     var $container = this.$();
-    var $tabs = $container.children('.swipe__tablink');
+    var $tabs = $container.children('.swipe--tablink');
     var $activeTab = $tabs.eq(index);
 
     if ($activeTab.length) {

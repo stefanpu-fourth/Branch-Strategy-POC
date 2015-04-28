@@ -1,168 +1,168 @@
-<div class="card__wrap {{if flipped 'card__wrap--flipped'}}">
-  <div class="card__front">
+<div class="card--wrap {{if flipped '-flipped'}}">
+  <div class="card--front">
     <h1>{{formattedProcessingDate}}</h1>
     {{payslip-donut-chart grossPay=payslip.currentGrossPay netPay=payslip.netPay isActive=isActive}}
-    <a class="notALink payslip__show card__flipme" {{action 'flip'}}>
+    <a class="notALink payslip--show" {{action 'flip'}}>
       {{svg-icon name="paper-list"}}
       <span>{{t 'payslips.breakdown'}}</span>
     </a>
-    <a href="#" class="payslip__download">
+    <a href="#" class="payslip--download">
       {{svg-icon name="download"}}
       <span>{{t 'payslips.download'}}</span>
     </a>
   </div>
-  <div class="card__back">
+  <div class="card--back">
     <div class="tabular">
-      <a class="notALink tabular__close" {{action 'flip'}}>
+      <a class="notALink tabular--close" {{action 'flip'}}>
         {{svg-icon name="x"}}
       </a>
-      <h3 class="tabular__sub tabular__sub--title">19 March 2015</h3>
+      <h3 class="tabular--sub -title">19 March 2015</h3>
 
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">{{t 'payslips.name'}}</dt>
-        <dd class="tabular__value">{{payslip.accountName}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide">{{t 'payslips.name'}}</dt>
+        <dd class="tabular--value">{{payslip.accountName}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">{{t 'payslips.company'}}</dt>
-        <dd class="tabular__value">{{payslip.companyName}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide">{{t 'payslips.company'}}</dt>
+        <dd class="tabular--value">{{payslip.companyName}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">{{t 'payslips.netPayment'}}</dt>
-        <dd class="tabular__value">&pound;{{payslip.netPay}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide">{{t 'payslips.netPayment'}}</dt>
+        <dd class="tabular--value">&pound;{{payslip.netPay}}</dd>
       </dl>
 
-      <h3 class="tabular__sub tabular__sub--highlight brand-bg">{{t 'payslips.payments'}}</h3>
+      <h3 class="tabular--sub -highlight brand-bg">{{t 'payslips.payments'}}</h3>
       {{#each payslip.payments as |payment|}}
-        <dl class="tabular__row">
-          <dt class="tabular__key tabular__key--wide">{{payment.label}}</dt>
-          <dd class="tabular__value">&pound;{{payment.amount}}</dd>
+        <dl class="tabular--row">
+          <dt class="tabular--key -wide">{{payment.label}}</dt>
+          <dd class="tabular--value">&pound;{{payment.amount}}</dd>
         </dl>
       {{/each}}
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide"><strong>{{t 'payslips.totalPayments'}}</strong></dt>
-        <dd class="tabular__value"><strong>&pound;{{payslip.currentGrossPay}}</strong></dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide"><strong>{{t 'payslips.totalPayments'}}</strong></dt>
+        <dd class="tabular--value"><strong>&pound;{{payslip.currentGrossPay}}</strong></dd>
       </dl>
 
-      <h3 class="tabular__sub">{{t 'payslips.deductions'}}</h3>
+      <h3 class="tabular--sub">{{t 'payslips.deductions'}}</h3>
       {{#each payslip.deductions as |deduction|}}
-        <dl class="tabular__row">
-          <dt class="tabular__key tabular__key--wide">{{deduction.label}}</dt>
-          <dd class="tabular__value">&pound;{{deduction.amount}}</dd>
+        <dl class="tabular--row">
+          <dt class="tabular--key -wide">{{deduction.label}}</dt>
+          <dd class="tabular--value">&pound;{{deduction.amount}}</dd>
         </dl>
       {{/each}}
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide"><strong>{{t 'payslips.totalDeductions'}}</strong></dt>
-        <dd class="tabular__value"><strong>&pound;{{payslip.totalDeductions}}</strong></dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide"><strong>{{t 'payslips.totalDeductions'}}</strong></dt>
+        <dd class="tabular--value"><strong>&pound;{{payslip.totalDeductions}}</strong></dd>
       </dl>
 
-      <h3 class="tabular__sub">{{t 'payslips.periodTotals'}}</h3>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">{{t 'payslips.grossPay'}}</dt>
-        <dd class="tabular__value">&pound;{{payslip.currentGrossPay}}</dd>
+      <h3 class="tabular--sub">{{t 'payslips.periodTotals'}}</h3>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide">{{t 'payslips.grossPay'}}</dt>
+        <dd class="tabular--value">&pound;{{payslip.currentGrossPay}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">{{t 'payslips.taxablePay'}}</dt>
-        <dd class="tabular__value">&pound;{{payslip.grossTaxable}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide">{{t 'payslips.taxablePay'}}</dt>
+        <dd class="tabular--value">&pound;{{payslip.grossTaxable}}</dd>
       </dl>
       {{#if payslip.grossNIContribution}}
-        <dl class="tabular__row">
-          <dt class="tabular__key tabular__key--wide">{{t 'payslips.earningsNI'}}</dt>
-          <dd class="tabular__value">&pound;{{payslip.grossNIContribution}}</dd>
+        <dl class="tabular--row">
+          <dt class="tabular--key -wide">{{t 'payslips.earningsNI'}}</dt>
+          <dd class="tabular--value">&pound;{{payslip.grossNIContribution}}</dd>
         </dl>
       {{/if}}
       {{#if payslip.employerPensionContribution}}
-        <dl class="tabular__row">
-          <dt class="tabular__key tabular__key--wide">{{t 'payslips.employerPensionContrib'}}</dt>
-          <dd class="tabular__value">&pound;{{payslip.employerPensionContribution}}</dd>
+        <dl class="tabular--row">
+          <dt class="tabular--key -wide">{{t 'payslips.employerPensionContrib'}}</dt>
+          <dd class="tabular--value">&pound;{{payslip.employerPensionContribution}}</dd>
         </dl>
       {{/if}}
       {{#if payslip.employeePension}}
-        <dl class="tabular__row">
-          <dt class="tabular__key tabular__key--wide">{{t 'payslips.employerStakePensionContrib'}}</dt>
-          <dd class="tabular__value">&pound;{{payslip.employeePension}}</dd>
+        <dl class="tabular--row">
+          <dt class="tabular--key -wide">{{t 'payslips.employerStakePensionContrib'}}</dt>
+          <dd class="tabular--value">&pound;{{payslip.employeePension}}</dd>
         </dl>
       {{/if}}
 
-      <h3 class="tabular__sub">{{t 'payslips.yearToDateTotals'}}</h3>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">{{t 'payslips.grossPayYTD'}}</dt>
-        <dd class="tabular__value">&pound;{{payslip.totalGrossPayToDate}}</dd>
+      <h3 class="tabular--sub">{{t 'payslips.yearToDateTotals'}}</h3>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide">{{t 'payslips.grossPayYTD'}}</dt>
+        <dd class="tabular--value">&pound;{{payslip.totalGrossPayToDate}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">{{t 'payslips.taxablePayYTD'}}</dt>
-        <dd class="tabular__value">&pound;{{payslip.grossPayForTaxToDate}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide">{{t 'payslips.taxablePayYTD'}}</dt>
+        <dd class="tabular--value">&pound;{{payslip.grossPayForTaxToDate}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">{{t 'payslips.taxYTD'}}</dt>
-        <dd class="tabular__value">&pound;{{payslip.taxDueToDate}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide">{{t 'payslips.taxYTD'}}</dt>
+        <dd class="tabular--value">&pound;{{payslip.taxDueToDate}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">{{t 'payslips.nationalInsuranceYTD'}}</dt>
-        <dd class="tabular__value">&pound;{{payslip.grossNIContributionToDate}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide">{{t 'payslips.nationalInsuranceYTD'}}</dt>
+        <dd class="tabular--value">&pound;{{payslip.grossNIContributionToDate}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">{{t 'payslips.employerNIContribYTD'}}</dt>
-        <dd class="tabular__value">&pound;{{payslip.niContributionToDate}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide">{{t 'payslips.employerNIContribYTD'}}</dt>
+        <dd class="tabular--value">&pound;{{payslip.niContributionToDate}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">{{t 'payslips.employerPensionContribYTD'}}</dt>
-        <dd class="tabular__value">&pound;{{payslip.employerPensionToDate}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide">{{t 'payslips.employerPensionContribYTD'}}</dt>
+        <dd class="tabular--value">&pound;{{payslip.employerPensionToDate}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key tabular__key--wide">{{t 'payslips.employeePensionContribYTD'}}</dt>
-        <dd class="tabular__value">&pound;{{payslip.employeePensionToDate}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key -wide">{{t 'payslips.employeePensionContribYTD'}}</dt>
+        <dd class="tabular--value">&pound;{{payslip.employeePensionToDate}}</dd>
       </dl>
 
       {{#if payslip.employeeAVCToDate}}
-        <dl class="tabular__row">
-          <dt class="tabular__key tabular__key--wide">{{t 'payslips.employeeAVCYTD'}}</dt>
-          <dd class="tabular__value">&pound;{{payslip.employeeAVCToDate}}</dd>
+        <dl class="tabular--row">
+          <dt class="tabular--key -wide">{{t 'payslips.employeeAVCYTD'}}</dt>
+          <dd class="tabular--value">&pound;{{payslip.employeeAVCToDate}}</dd>
         </dl>
       {{/if}}
       {{#if payslip.employeeFSAVCToDate}}
-        <dl class="tabular__row">
-          <dt class="tabular__key tabular__key--wide">{{t 'payslips.employeeFSAVCYTD'}}</dt>
-          <dd class="tabular__value">&pound;{{payslip.employeeFSAVCToDate}}</dd>
+        <dl class="tabular--row">
+          <dt class="tabular--key -wide">{{t 'payslips.employeeFSAVCYTD'}}</dt>
+          <dd class="tabular--value">&pound;{{payslip.employeeFSAVCToDate}}</dd>
         </dl>
       {{/if}}
       {{#if payslip.payPreEmployment}}
-        <dl class="tabular__row">
-          <dt class="tabular__key tabular__key--wide">{{t 'payslips.payFromPreviousEmploymentYTD'}}</dt>
-          <dd class="tabular__value">&pound;{{payslip.payPreEmployment}}</dd>
+        <dl class="tabular--row">
+          <dt class="tabular--key -wide">{{t 'payslips.payFromPreviousEmploymentYTD'}}</dt>
+          <dd class="tabular--value">&pound;{{payslip.payPreEmployment}}</dd>
         </dl>
       {{/if}}
       {{#if payslip.taxPreEmployment}}
-        <dl class="tabular__row">
-          <dt class="tabular__key tabular__key--wide">{{t 'payslips.taxFromPreviousEmploymentYTD'}}</dt>
-          <dd class="tabular__value">&pound;{{payslip.taxPreEmployment}}</dd>
+        <dl class="tabular--row">
+          <dt class="tabular--key -wide">{{t 'payslips.taxFromPreviousEmploymentYTD'}}</dt>
+          <dd class="tabular--value">&pound;{{payslip.taxPreEmployment}}</dd>
         </dl>
       {{/if}}
 
-      <h3 class="tabular__sub">{{t 'payslips.payslipDetails'}}</h3>
-      <dl class="tabular__row">
-        <dt class="tabular__key">{{t 'payslips.week'}}/{{t 'payslips.month'}}</dt>
-        <dd class="tabular__value">{{payslip.currentPayPeriod}}</dd>
+      <h3 class="tabular--sub">{{t 'payslips.payslipDetails'}}</h3>
+      <dl class="tabular--row">
+        <dt class="tabular--key">{{t 'payslips.week'}}/{{t 'payslips.month'}}</dt>
+        <dd class="tabular--value">{{payslip.currentPayPeriod}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key">{{t 'payslips.employeeNumber'}}</dt>
-        <dd class="tabular__value">{{payslip.employeeNumber}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key">{{t 'payslips.employeeNumber'}}</dt>
+        <dd class="tabular--value">{{payslip.employeeNumber}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key">{{t 'payslips.niNumber'}}</dt>
-        <dd class="tabular__value">{{payslip.nationalInsuranceNumber}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key">{{t 'payslips.niNumber'}}</dt>
+        <dd class="tabular--value">{{payslip.nationalInsuranceNumber}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key">{{t 'payslips.taxCode'}}</dt>
-        <dd class="tabular__value">{{payslip.taxCode}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key">{{t 'payslips.taxCode'}}</dt>
+        <dd class="tabular--value">{{payslip.taxCode}}</dd>
       </dl>
-      <dl class="tabular__row">
-        <dt class="tabular__key">{{t 'payslips.payMethod'}}</dt>
-        <dd class="tabular__value">{{payslip.paymentMethodDescription}}</dd>
+      <dl class="tabular--row">
+        <dt class="tabular--key">{{t 'payslips.payMethod'}}</dt>
+        <dd class="tabular--value">{{payslip.paymentMethodDescription}}</dd>
       </dl>
 
-      <dl class="tabular__row">
-        <dt class="tabular__key">{{t 'payslips.address'}}</dt>
-        <dd class="tabular__value tabular__value--wide">
+      <dl class="tabular--row">
+        <dt class="tabular--key">{{t 'payslips.address'}}</dt>
+        <dd class="tabular--value tabular--value--wide">
           {{payslip.accountName}}
           <br />{{payslip.address1}}
           {{#if payslip.address2}}

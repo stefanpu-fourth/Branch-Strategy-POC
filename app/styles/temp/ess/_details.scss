@@ -1,5 +1,6 @@
 .details {
   background:#eee;
+  padding: .1rem;
 	&__employee, &__employer, &__employment {
 		@include flex(1);
 		background:$color-white;

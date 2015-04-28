@@ -1,12 +1,25 @@
 .tool-tip {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+}
+
+.tool-tip--content {
   display: inline-block;
 
-  min-width: rem(240);
+  width: auto;
+  white-space: nowrap;
 
   padding: rem(16);
 
   position: absolute;
-  bottom: rem(44);
+  top: auto;
+  right: auto;
+  bottom: calc(100% + 24px);
   left: 0;
   z-index: 2000;
 
@@ -54,13 +67,28 @@
   }
 
   // -RIGHT
-  &.-right {
+  .tool-tip.-right & {
     left:  auto;
     right: 0;
 
     &::before {
       left:  auto;
       right: rem(16);
+    }
+  }
+
+  // -BOTTOM
+  .tool-tip.-bottom & {
+    top: calc(100% + 24px);
+    bottom: auto;
+
+    &::before {
+      top: rem(-16);
+      bottom: auto;
+      border: {
+        width: 0 rem(16) rem(16) 0;
+        color: rgba($color-grey-darker, .8) transparent;
+      }
     }
   }
 

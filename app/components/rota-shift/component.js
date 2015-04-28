@@ -11,6 +11,20 @@ export default Ember.Component.extend({
   selectedShift: null,
   selectTarget: null,
 
+  tooltipLocation: function() {
+    var dayIndex = this.get('dayIndex');
+    var shiftStart = parseInt(this.get('shift.start'));
+    var classes = '';
+
+    if (dayIndex < 2) {
+      classes += '-bottom ';
+    }
+    if (shiftStart > 11) {
+      classes += '-right ';
+    }
+    return classes;
+  }.property('dayIndex', 'shift.start'),
+
   style: function() {
     var shift = this.get('shift');
     if (shift) {
@@ -25,6 +39,10 @@ export default Ember.Component.extend({
   selectedClass: function() {
     return this.get('selected') ? '-active' : '';
   }.property('selected'),
+
+  pastClass: function() {
+    return this.get('isInPast') ? '-past' : '';
+  }.property('isInPast'),
 
   // TODO SJ - this behaviour belongs on the shift object itself
   convertToMinutes: function(time) {

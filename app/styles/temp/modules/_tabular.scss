@@ -32,86 +32,92 @@
 // (used in payslips)
 
 .tabular {
-	//border-top: 1px dotted $color-grey-light;
-	margin-top: -1px;
-	&__heading {
-		text-align:center;
-		padding-bottom:1rem;
-	}
-	&__sub {
-		font-size: rem(12);
-		font-weight: bold;
-		background: $color-grey-lighter;
-		margin-top:-1px;
-		position: relative;
-		height: 2rem;
-		line-height: 2rem;
-		&--highlight {
-			border-top: 1px solid $color-white;
-		}
-		&--title {
-			@include respond(640) {
-				display: none;
-			};
-		}
-	}
-	&__row {
-		@include display(flex);
-		border-bottom: 1px dotted $color-grey-light;
-		@include rem(padding, 6, 0);
-		&:first-of-type {
-			border-top: 1px dotted $color-grey-light;
-		}
-		&:nth-child(even) {
-			//background: $color-grey-lightest;
-		}
-		&--nobg {
-			&:nth-child(even) {
-				background: transparent;
-			}
-		}
-
-	}
-	&__key {
-		@include flex(1);
-		text-align: left;
-		font-size: rem(12);
-		line-height: rem(16);
-
-		//@include rem(padding, 4, 0, 4, 8);
-
-		&--wide {
-			@include flex(2);
-		}
-	}
-	&__value {
-		@include flex(1);
-		text-align: right;
-		font-size: rem(12);
-		line-height: rem(16);
-		//@include rem(padding, 4, 8, 4, 0);
-		&--wide {
-			@include flex(2);
-		}
-	}
-	&__close {
-		position:absolute;
-		top: rem(15);
-		right: 1rem;
-		z-index: 2;
-		background: none;
-		border:0;
-		border-radius:0;
-		border-left:1px solid $color-white;
-		height:rem(32);
-		width:rem(32);
-		line-height:rem(32);
-		svg {
-			width: rem(12);
-			height: rem(12);
-		}
-		@include respond(640) {
-			display: none;
-		};
-	}
+  //border-top: 1px dotted $color-grey-light;
+  margin-top: -1px;
 }
+
+.tabular--heading {
+  text-align:center;
+  padding-bottom:1rem;
+}
+
+.tabular--sub {
+  font-size: rem(12);
+  font-weight: bold;
+  background: $color-grey-lighter;
+  margin-top:-1px;
+  position: relative;
+  height: 2rem;
+  line-height: 2rem;
+  &.-highlight {
+    border-top: 1px solid $color-white;
+  }
+  &.-title {
+    @include respond(640) {
+      display: none;
+    };
+  }
+}
+
+.tabular--row {
+  @include display(flex);
+  border-bottom: 1px dotted $color-grey-light;
+  @include rem(padding, 6, 0);
+  &:first-of-type {
+    border-top: 1px dotted $color-grey-light;
+  }
+  &:nth-child(even) {
+    //background: $color-grey-lightest;
+  }
+  &.-nobg {
+    &:nth-child(even) {
+      background: transparent;
+    }
+  }
+}
+
+.tabular--key {
+  @include flex(1);
+  text-align: left;
+  font-size: rem(12);
+  line-height: rem(16);
+
+  //@include rem(padding, 4, 0, 4, 8);
+
+  &.-wide {
+    @include flex(2);
+  }
+}
+
+.tabular--value {
+  @include flex(1);
+    text-align: right;
+    font-size: rem(12);
+    line-height: rem(16);
+    //@include rem(padding, 4, 8, 4, 0);
+    &.-wide {
+      @include flex(2);
+    }
+}
+
+.tabular--close {
+  position:absolute;
+  top: rem(15);
+  right: 1rem;
+  z-index: 2;
+  background: none;
+  border:0;
+  border-radius:0;
+  border-left:1px solid $color-white;
+  height:rem(32);
+  width:rem(32);
+  line-height:rem(32);
+  svg {
+    width: rem(12);
+    height: rem(12);
+  }
+  @include respond(640) {
+    display: none;
+  };
+}
+
