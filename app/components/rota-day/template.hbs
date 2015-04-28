@@ -6,7 +6,7 @@
     <span class="rota-day--hours">
       {{svg-icon name="clock"}}
       {{#each day.shifts as |shift index|}}
-        {{#if index}}<span class="rota__split">&amp;</span>{{/if}}
+        {{#if index}}<span>&amp;</span>{{/if}}
         {{shift.start}}-{{shift.end}}
       {{/each}}
     </span>
