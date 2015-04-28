@@ -28,113 +28,113 @@
       </dl>
       <dl class="tabular--row">
         <dt class="tabular--key -wide">{{t 'payslips.netPayment'}}</dt>
-        <dd class="tabular--value">&pound;{{payslip.netPay}}</dd>
+        <dd class="tabular--value">{{currency payslip.netPay unit='£'}}</dd>
       </dl>
 
       <h3 class="tabular--sub -highlight brand-bg">{{t 'payslips.payments'}}</h3>
       {{#each payslip.payments as |payment|}}
         <dl class="tabular--row">
           <dt class="tabular--key -wide">{{payment.label}}</dt>
-          <dd class="tabular--value">&pound;{{payment.amount}}</dd>
+          <dd class="tabular--value">{{currency payment.amount unit='£'}}</dd>
         </dl>
       {{/each}}
       <dl class="tabular--row">
         <dt class="tabular--key -wide"><strong>{{t 'payslips.totalPayments'}}</strong></dt>
-        <dd class="tabular--value"><strong>&pound;{{payslip.currentGrossPay}}</strong></dd>
+        <dd class="tabular--value">{{currency payslip.currentGrossPay unit='£'}}</dd>
       </dl>
 
       <h3 class="tabular--sub">{{t 'payslips.deductions'}}</h3>
       {{#each payslip.deductions as |deduction|}}
         <dl class="tabular--row">
           <dt class="tabular--key -wide">{{deduction.label}}</dt>
-          <dd class="tabular--value">&pound;{{deduction.amount}}</dd>
+          <dd class="tabular--value">{{currency deduction.amount unit='£'}}</dd>
         </dl>
       {{/each}}
       <dl class="tabular--row">
         <dt class="tabular--key -wide"><strong>{{t 'payslips.totalDeductions'}}</strong></dt>
-        <dd class="tabular--value"><strong>&pound;{{payslip.totalDeductions}}</strong></dd>
+        <dd class="tabular--value">{{currency payslip.totalDeductions unit='£'}}</dd>
       </dl>
 
       <h3 class="tabular--sub">{{t 'payslips.periodTotals'}}</h3>
       <dl class="tabular--row">
         <dt class="tabular--key -wide">{{t 'payslips.grossPay'}}</dt>
-        <dd class="tabular--value">&pound;{{payslip.currentGrossPay}}</dd>
+        <dd class="tabular--value">{{currency payslip.currentGrossPay unit='£'}}</dd>
       </dl>
       <dl class="tabular--row">
         <dt class="tabular--key -wide">{{t 'payslips.taxablePay'}}</dt>
-        <dd class="tabular--value">&pound;{{payslip.grossTaxable}}</dd>
+        <dd class="tabular--value">{{currency payslip.grossTaxable unit='£'}}</dd>
       </dl>
       {{#if payslip.grossNIContribution}}
         <dl class="tabular--row">
           <dt class="tabular--key -wide">{{t 'payslips.earningsNI'}}</dt>
-          <dd class="tabular--value">&pound;{{payslip.grossNIContribution}}</dd>
+          <dd class="tabular--value">{{currency payslip.grossNIContribution unit='£'}}</dd>
         </dl>
       {{/if}}
       {{#if payslip.employerPensionContribution}}
         <dl class="tabular--row">
           <dt class="tabular--key -wide">{{t 'payslips.employerPensionContrib'}}</dt>
-          <dd class="tabular--value">&pound;{{payslip.employerPensionContribution}}</dd>
+          <dd class="tabular--value">{{currency payslip.employerPensionContribution unit='£'}}</dd>
         </dl>
       {{/if}}
       {{#if payslip.employeePension}}
         <dl class="tabular--row">
           <dt class="tabular--key -wide">{{t 'payslips.employerStakePensionContrib'}}</dt>
-          <dd class="tabular--value">&pound;{{payslip.employeePension}}</dd>
+          <dd class="tabular--value">{{currency payslip.employeePension unit='£'}}</dd>
         </dl>
       {{/if}}
 
       <h3 class="tabular--sub">{{t 'payslips.yearToDateTotals'}}</h3>
       <dl class="tabular--row">
         <dt class="tabular--key -wide">{{t 'payslips.grossPayYTD'}}</dt>
-        <dd class="tabular--value">&pound;{{payslip.totalGrossPayToDate}}</dd>
+        <dd class="tabular--value">{{currency payslip.totalGrossPayToDate unit='£'}}</dd>
       </dl>
       <dl class="tabular--row">
         <dt class="tabular--key -wide">{{t 'payslips.taxablePayYTD'}}</dt>
-        <dd class="tabular--value">&pound;{{payslip.grossPayForTaxToDate}}</dd>
+        <dd class="tabular--value">{{currency payslip.grossPayForTaxToDate unit='£'}}</dd>
       </dl>
       <dl class="tabular--row">
         <dt class="tabular--key -wide">{{t 'payslips.taxYTD'}}</dt>
-        <dd class="tabular--value">&pound;{{payslip.taxDueToDate}}</dd>
+        <dd class="tabular--value">{{currency payslip.taxDueToDate unit='£'}}</dd>
       </dl>
       <dl class="tabular--row">
         <dt class="tabular--key -wide">{{t 'payslips.nationalInsuranceYTD'}}</dt>
-        <dd class="tabular--value">&pound;{{payslip.grossNIContributionToDate}}</dd>
+        <dd class="tabular--value">{{currency payslip.grossNIContributionToDate unit='£'}}</dd>
       </dl>
       <dl class="tabular--row">
         <dt class="tabular--key -wide">{{t 'payslips.employerNIContribYTD'}}</dt>
-        <dd class="tabular--value">&pound;{{payslip.niContributionToDate}}</dd>
+        <dd class="tabular--value">{{currency payslip.niContributionToDate unit='£'}}</dd>
       </dl>
       <dl class="tabular--row">
         <dt class="tabular--key -wide">{{t 'payslips.employerPensionContribYTD'}}</dt>
-        <dd class="tabular--value">&pound;{{payslip.employerPensionToDate}}</dd>
+        <dd class="tabular--value">{{currency payslip.employerPensionToDate unit='£'}}</dd>
       </dl>
       <dl class="tabular--row">
         <dt class="tabular--key -wide">{{t 'payslips.employeePensionContribYTD'}}</dt>
-        <dd class="tabular--value">&pound;{{payslip.employeePensionToDate}}</dd>
+        <dd class="tabular--value">{{currency payslip.employeePensionToDate unit='£'}}</dd>
       </dl>
 
       {{#if payslip.employeeAVCToDate}}
         <dl class="tabular--row">
           <dt class="tabular--key -wide">{{t 'payslips.employeeAVCYTD'}}</dt>
-          <dd class="tabular--value">&pound;{{payslip.employeeAVCToDate}}</dd>
+          <dd class="tabular--value">{{currency payslip.employeeAVCToDate unit='£'}}</dd>
         </dl>
       {{/if}}
       {{#if payslip.employeeFSAVCToDate}}
         <dl class="tabular--row">
           <dt class="tabular--key -wide">{{t 'payslips.employeeFSAVCYTD'}}</dt>
-          <dd class="tabular--value">&pound;{{payslip.employeeFSAVCToDate}}</dd>
+          <dd class="tabular--value">{{currency payslip.employeeFSAVCToDate unit='£'}}</dd>
         </dl>
       {{/if}}
       {{#if payslip.payPreEmployment}}
         <dl class="tabular--row">
           <dt class="tabular--key -wide">{{t 'payslips.payFromPreviousEmploymentYTD'}}</dt>
-          <dd class="tabular--value">&pound;{{payslip.payPreEmployment}}</dd>
+          <dd class="tabular--value">{{currency payslip.payPreEmployment unit='£'}}</dd>
         </dl>
       {{/if}}
       {{#if payslip.taxPreEmployment}}
         <dl class="tabular--row">
           <dt class="tabular--key -wide">{{t 'payslips.taxFromPreviousEmploymentYTD'}}</dt>
-          <dd class="tabular--value">&pound;{{payslip.taxPreEmployment}}</dd>
+          <dd class="tabular--value">{{currency payslip.taxPreEmployment unit='£'}}</dd>
         </dl>
       {{/if}}
 
