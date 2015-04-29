@@ -2,8 +2,8 @@ import DS from 'ember-data';
 
 var attr = DS.attr;
 
-var Employee = DS.Model.extend({
-  surName: attr('string'),
+export default DS.Model.extend({
+  surname: attr('string'),
   firstNames: attr('string'),
   preferredName: attr('string'),
   dateOfBirth: attr('string'), //TODO: change to date or similar for API integration
@@ -19,45 +19,15 @@ var Employee = DS.Model.extend({
   mobileTel: attr('string'),
   workEmail: attr('string'),
   homeEmail: attr('string'),
-  niNumber: attr('string'),
+  nationalInsuranceNumber: attr('string'),
   nationality: attr('string'),
   employeeNumber: attr('string'),
   startDate: attr('string'), //TODO: change to date or similar for API integration
-  serviceDuration: attr('string'),
+  lengthOfService: attr('string'),
 
   fullName: function () {
-    var props = this.getProperties('firstNames', 'surName');
-    return `${props.firstNames} ${props.surName}`;
+    var props = this.getProperties('firstNames', 'surname');
+    return `${props.firstNames} ${props.surname}`;
   }.property('firstNames', 'surName')
 
 });
-
-Employee.reopenClass({
-  FIXTURES: [
-    {
-      id: 1,
-      surName: 'Flintstone',
-      firstNames: 'Fred',
-      employeeNumber: '000001',
-      startDate: '2013-07-24 00:00:00',
-      serviceDuration: '2 years',
-      niNumber: 'SN000001B',
-      nationality: 'RockLander',
-      gender: 'Male',
-      address1: '301 Cobblestone Way',
-      address2: 'Bedrock',
-      address3: 'RockLand',
-      town: 'CityStone',
-      county: 'Louisiana',
-      country: 'United States',
-      postCode: '70777',
-      dateOfBirth: '1993-11-30 00:00:00',
-      homeTel: '01234 567 890',
-      mobileTel: '01234 567 890',
-      workEmail: 'fred.flintstone@fourth.com',
-      homeEmail: 'fred.flintstone@rock.com'
-    }
-  ]
-});
-
-export default Employee;

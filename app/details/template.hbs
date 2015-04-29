@@ -23,16 +23,16 @@
         <dd class="tabular--value -wide">
           {{employment.locationAddress1}}
           {{#if employment.locationAddress2}}
-          <br />{{employment.locationAddress2}}
+            <br />{{employment.locationAddress2}}
           {{/if}}
-           {{#if employment.locationAddress3}}
-          <br />{{employment.locationAddress3}}
+          {{#if employment.locationAddress3}}
+            <br />{{employment.locationAddress3}}
           {{/if}}
           {{#if employment.locationTown}}
-          <br />{{employment.locationTown}}
+            <br />{{employment.locationTown}}
           {{/if}}
           {{#if employment.locationCounty}}
-          <br />{{employment.locationCounty}}
+            <br />{{employment.locationCounty}}
           {{/if}}
           <br />{{employment.locationPostCode}}
         </dd>
@@ -65,11 +65,11 @@
       </dl>
       <dl class="tabular--row -nobg">
         <dt class="tabular--key">{{t 'details.employee.serviceDuration'}}</dt>
-        <dd class="tabular--value">{{attrs.employee.serviceDuration}}</dd>
+        <dd class="tabular--value">{{attrs.employee.lengthOfService}}</dd>
       </dl>
       <dl class="tabular--row -nobg">
         <dt class="tabular--key">{{t 'details.employee.niNumber'}}</dt>
-        <dd class="tabular--value">{{attrs.employee.niNumber}}</dd>
+        <dd class="tabular--value">{{attrs.employee.nationalInsuranceNumber}}</dd>
       </dl>
       <dl class="tabular--row -nobg">
         <dt class="tabular--key">{{t 'details.address'}}</dt>
@@ -92,14 +92,18 @@
           {{/if}}
           <br />{{attrs.employee.postCode}}</dd>
       </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.homeTel'}}</dt>
-        <dd class="tabular--value">{{attrs.employee.homeTel}}</dd>
-      </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.mobileTel'}}</dt>
-        <dd class="tabular--value">{{attrs.employee.mobileTel}}</dd>
-      </dl>
+      {{#if attrs.employee.homeTel}}
+        <dl class="tabular--row -nobg">
+          <dt class="tabular--key">{{t 'details.employee.homeTel'}}</dt>
+          <dd class="tabular--value">{{attrs.employee.homeTel}}</dd>
+        </dl>
+      {{/if}}
+      {{#if attrs.employee.mobileTel}}
+        <dl class="tabular--row -nobg">
+          <dt class="tabular--key">{{t 'details.employee.mobileTel'}}</dt>
+          <dd class="tabular--value">{{attrs.employee.mobileTel}}</dd>
+        </dl>
+      {{/if}}
       <dl class="tabular--row -nobg">
         <dt class="tabular--key">{{t 'details.employee.homeEmail'}}</dt>
         <dd class="tabular--value -wide">{{attrs.employee.homeEmail}}</dd>
@@ -135,16 +139,16 @@
         <dd class="tabular--value -wide">
           {{employment.companyAddress1}}
           {{#if employment.companyAddress2}}
-          <br />{{employment.companyAddress2}}
+            <br />{{employment.companyAddress2}}
           {{/if}}
           {{#if employment.companyAddress3}}
-          <br />{{employment.companyAddress3}}
+            <br />{{employment.companyAddress3}}
           {{/if}}
           {{#if employment.companyTown}}
-          <br />{{employment.companyTown}}
+            <br />{{employment.companyTown}}
           {{/if}}
           {{#if employment.companyCounty}}
-          <br />{{employment.companyCounty}}
+            <br />{{employment.companyCounty}}
           {{/if}}
           <br />{{employment.companyPostCode}}
         </dd>
