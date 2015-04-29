@@ -60,7 +60,7 @@
   will-change: transform;
   @include transition(.5s .3s ease);
 
-  .card--active & {
+  .swipe-item.-active & {
     @include transform(scaleX(1));
   }
 }

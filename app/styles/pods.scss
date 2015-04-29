@@ -9,8 +9,20 @@
 // or
 // ember g style components/[component-folder] -p
 
-@import "components/rota-day/style";
-@import "components/rota-shift/style";
+@import "components/swipe-container/style";
+@import "components/swipe-item/style";
+@import "components/swipe-tabs/style";
+@import "components/swipe-tab/style";
+
+@import "components/flip-card/style";
+
 @import "components/tool-tip/style";
+
+@import "components/rota-day/style";
 @import "components/rota-bar/style";
+@import "components/rota-shift/style";
+
+@import "components/payslip-overview/style";
+@import "components/payslip-detail/style";
+
 @import "components/holiday-info/style";
