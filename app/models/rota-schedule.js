@@ -18,8 +18,9 @@ export default DS.Model.extend({
 
   calculateShifts: function() {
     var times = this.get('shiftTimes');
+    let newShifts = [];
     if (times) {
-      let newShifts = times.map((startTime, index) => {
+      newShifts = times.map((startTime, index) => {
         if ((index % 2) === 0) {
           var endTime = times[index + 1];
           if (startTime !== endTime) {
@@ -34,8 +35,8 @@ export default DS.Model.extend({
 
         return undefined;
       });
-      this.set('shifts', newShifts.compact());
     }
+    this.set('shifts', newShifts.compact());
   },
 
   shiftDateAsMoment: function() {

@@ -59,6 +59,50 @@ test('it groups the rotaSchedule objects into rota weeks', function(assert) {
   });
 });
 
+test('it consolidates days in rota weeks', function(assert) {
+  var service = this.subject({ store: store });
+
+  Ember.run(() => {
+    // first up add in a shift on a day
+    var record = records.get(4);
+    record.shiftTimes = ['0700', '1300'];
+
+    var shiftDate = record.get('shiftDate');
+
+    records.push(store.createRecord('rota-schedule', {
+      shiftDate: shiftDate,
+      shiftTimes: ['1400', '1500']
+    }));
+    records.push(store.createRecord('rota-schedule', {
+      shiftDate: shiftDate,
+      shiftTimes: ['1600', '1700']
+    }));
+
+    record = records.get(20);
+    shiftDate = record.get('shiftDate');
+    records.push(store.createRecord('rota-schedule', {
+      shiftDate: shiftDate,
+      shiftTimes: ['1400', '1500']
+    }));
+    records.push(store.createRecord('rota-schedule', {
+      shiftDate: shiftDate,
+      shiftTimes: ['1600', '1700']
+    }));
+
+    var weeksPromise = service.getRotaWeeks(new Date(2015, 3, 2));
+
+    weeksPromise.then(weeks => {
+      assert.equal(weeks.get('firstObject.start').format('YYYY-MM-DD'), '2015-03-30', 'first shift is present');
+      assert.equal(weeks.get('lastObject.start').format('YYYY-MM-DD'), '2015-04-27', 'last shift is present');
+      assert.equal(weeks.get('length'), 5, 'expected number of rota weeks loaded');
+      weeks.forEach(week => {
+        var formattedShiftStart = week.get('start').format('YYYY-MM-DD');
+        assert.equal(week.get('shifts.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
+      });
+    });
+  });
+});
+
 test('it can get the next shift when there is one', function(assert) {
   var service = this.subject({ store: store });
 
