@@ -39,7 +39,6 @@ export default Ember.Service.extend({
     }
 
     return this.scheduleFetchPromise.then(schedules => {
-      console.log('getRotaWeeks resolved');
       this.set('fetchedSchedules.content', schedules);
       var start = moment(this.get('fetchedSchedules.firstObject.shiftDate'));
       var rotaWeeks = [];
