@@ -52,11 +52,12 @@ export default Ember.Service.extend({
           return s.isBetweenMoments(filterStart, end);
         });
 
-        let shiftDates = schedulesForDate.mapBy('shiftDate');
+        let shiftDates = schedulesForDate.mapBy('shiftDate').map(d => d.valueOf());
 
         schedulesForDate.forEach((s, index) => {
-          var dupeIndex = shiftDates.lastIndexOf(s.get('shiftDate'));
-          if (dupeIndex !== index) {
+          let shiftDate = s.get('shiftDate').valueOf();
+          let dupeIndex = shiftDates.lastIndexOf(shiftDate);
+          while (dupeIndex !== index) {
             schedulesForDate[dupeIndex].get('shifts').forEach(ds => {
               s.get('shifts').push(ds);
             });
@@ -65,6 +66,7 @@ export default Ember.Service.extend({
             s.set('shifts', s.get('shifts').sort(function(a, b) {
               return a.start.localeCompare(b.start);
             }));
+            dupeIndex = shiftDates.lastIndexOf(shiftDate);
           }
         });
 
