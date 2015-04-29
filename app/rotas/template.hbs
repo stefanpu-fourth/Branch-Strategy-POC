@@ -5,14 +5,21 @@
    setSelectedIndex="setSelectedIndex"
 }}
   {{#each attrs.rotaWeeks as |rotaWeek index|}}
-    {{rota-week
-       week=rotaWeek
-       shifts=rotaWeek.shifts
-       selectedShift=selectedShift
-       selectTarget=this
-       index=index
-       selectedIndex=selectedIndex
+    {{#swipe-item
+      index=index
+      selectedIndex=selectedIndex
     }}
+      <div class="card">
+        {{rota-week
+         week=rotaWeek
+         shifts=rotaWeek.shifts
+         selectedShift=selectedShift
+         selectTarget=this
+         index=index
+         selectedIndex=selectedIndex
+        }}
+      </div>
+    {{/swipe-item}}
   {{/each}}
 {{/swipe-container}}
 {{holiday-info info=holiday}}

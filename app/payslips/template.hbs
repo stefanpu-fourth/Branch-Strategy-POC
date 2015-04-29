@@ -4,10 +4,31 @@
     tabPropertyKey="formattedProcessingDate"
     selectedIndex=attrs.selectedIndex
     setSelectedIndex="setSelectedIndex"
-    cardSpacing=12
   }}
     {{#each payslips as |payslip index|}}
-      {{payslip-card-item payslip=payslip index=index selectedIndex=attrs.selectedIndex}}
+      {{#swipe-item
+        index=index
+        selectedIndex=attrs.selectedIndex
+      }}
+        {{#flip-card
+          height="388"
+          breakpoint="640"}}
+          <div class="flip-card--front">
+            {{payslip-overview
+              payslip=payslip
+              index=index
+              selectedIndex=attrs.selectedIndex
+            }}
+          </div>
+          <div class="flip-card--back">
+            {{payslip-detail
+              payslip=payslip
+              index=index
+              selectedIndex=attrs.selectedIndex
+            }}
+          </div>
+        {{/flip-card}}
+      {{/swipe-item}}
     {{/each}}
   {{/swipe-container}}
   <div class="payslip--breakdown">
