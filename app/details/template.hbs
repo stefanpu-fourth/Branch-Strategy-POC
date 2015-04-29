@@ -92,14 +92,18 @@
           {{/if}}
           <br />{{attrs.employee.postCode}}</dd>
       </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.homeTel'}}</dt>
-        <dd class="tabular--value">{{attrs.employee.homeTel}}</dd>
-      </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.mobileTel'}}</dt>
-        <dd class="tabular--value">{{attrs.employee.mobileTel}}</dd>
-      </dl>
+      {{#if attrs.employee.homeTel}}
+        <dl class="tabular--row -nobg">
+          <dt class="tabular--key">{{t 'details.employee.homeTel'}}</dt>
+          <dd class="tabular--value">{{attrs.employee.homeTel}}</dd>
+        </dl>
+      {{/if}}
+      {{#if attrs.employee.mobileTel}}
+        <dl class="tabular--row -nobg">
+          <dt class="tabular--key">{{t 'details.employee.mobileTel'}}</dt>
+          <dd class="tabular--value">{{attrs.employee.mobileTel}}</dd>
+        </dl>
+      {{/if}}
       <dl class="tabular--row -nobg">
         <dt class="tabular--key">{{t 'details.employee.homeEmail'}}</dt>
         <dd class="tabular--value -wide">{{attrs.employee.homeEmail}}</dd>
