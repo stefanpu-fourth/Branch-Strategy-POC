@@ -3,7 +3,7 @@ import DS from 'ember-data';
 var attr = DS.attr;
 
 var Employee = DS.Model.extend({
-  surName: attr('string'),
+  surname: attr('string'),
   firstNames: attr('string'),
   preferredName: attr('string'),
   dateOfBirth: attr('string'), //TODO: change to date or similar for API integration
@@ -19,15 +19,15 @@ var Employee = DS.Model.extend({
   mobileTel: attr('string'),
   workEmail: attr('string'),
   homeEmail: attr('string'),
-  niNumber: attr('string'),
+  nationalInsuranceNumber: attr('string'),
   nationality: attr('string'),
   employeeNumber: attr('string'),
   startDate: attr('string'), //TODO: change to date or similar for API integration
-  serviceDuration: attr('string'),
+  lengthOfService: attr('string'),
 
   fullName: function () {
-    var props = this.getProperties('firstNames', 'surName');
-    return `${props.firstNames} ${props.surName}`;
+    var props = this.getProperties('firstNames', 'surname');
+    return `${props.firstNames} ${props.surname}`;
   }.property('firstNames', 'surName')
 
 });
