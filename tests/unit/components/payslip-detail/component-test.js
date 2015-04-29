@@ -2,10 +2,16 @@ import {
   moduleForComponent,
   test
 } from 'ember-qunit';
+import Ember from 'ember';
+import t from 'ess/helpers/t';
+import currency from 'ess/helpers/currency';
 
 moduleForComponent('payslip-detail', {
-  // Specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar']
+  needs: ['component:svg-icon'],
+  beforeEach: function() {
+    Ember.Handlebars.registerHelper('t', t);
+    Ember.Handlebars.registerHelper('currency', currency);
+  }
 });
 
 test('it renders', function(assert) {

@@ -3,7 +3,7 @@ import {
   test
 } from 'ember-qunit';
 
-moduleForComponent('card-flip', {
+moduleForComponent('flip-card', {
   // Specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar']
 });
