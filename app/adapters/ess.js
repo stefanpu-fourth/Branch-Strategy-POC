@@ -1,7 +1,10 @@
 import SirenAdapter from './siren';
 import config from 'ess/config/environment';
+import Ember from 'ember';
 
 export default SirenAdapter.extend({
+  appStateService: Ember.inject.service(),
+
   headers: function() {
     var headers = {
       "X-Fourth-Version": 0,
@@ -16,6 +19,6 @@ export default SirenAdapter.extend({
   }.property(),
 
   namespace: function() {
-    return `employees/${config.user}`;
+    return `employees/${this.get('appStateService.authenticatedEmployeeId')}`;
   }.property()
 });
