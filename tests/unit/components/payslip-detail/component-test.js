@@ -4,12 +4,14 @@ import {
 } from 'ember-qunit';
 import Ember from 'ember';
 import t from 'ess/helpers/t';
+import moment from 'ess/helpers/moment';
 import currency from 'ess/helpers/currency';
 
 moduleForComponent('payslip-detail', {
   needs: ['component:svg-icon'],
   beforeEach: function() {
     Ember.Handlebars.registerHelper('t', t);
+    Ember.Handlebars.registerHelper('moment', moment);
     Ember.Handlebars.registerHelper('currency', currency);
   }
 });

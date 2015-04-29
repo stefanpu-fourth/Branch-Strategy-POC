@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  appStateService: Ember.inject.service(),
 
   model: function () {
     var employement = this.store.all('mainemployment');
@@ -11,7 +12,7 @@ export default Ember.Route.extend({
 
     return Ember.RSVP.hash({
       employment: employement,
-      employee: this.store.find('employee', 1)
+      employee: this.store.find('employee', this.get('appStateService.authenticatedEmployeeId'))
     });
   },
 
@@ -19,5 +20,4 @@ export default Ember.Route.extend({
     controller.set('attrs.employment', model.employment);
     controller.set('attrs.employee', model.employee);
   }
-
 });

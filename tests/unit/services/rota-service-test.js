@@ -4,21 +4,24 @@ import {
 } from 'ember-qunit';
 
 import Ember from 'ember';
+import RotaSchedule from 'ess/models/rota-schedule';
 
 var store = {};
 var records;
 
-var RotaSchedule = DS.Model.extend();
-
 moduleFor('service:rota-service', {
   beforeEach: function() {
+    var container = this.container;
+    DS._setupContainer(container);
+    store = container.lookup('store:main');
+    container.register('model:rota-schedule', RotaSchedule);
     records = [];
     store.find = sinon.stub().returns(Ember.RSVP.resolve(records));
 
     var m = moment(new Date(2015, 2, 30));
 
     for (let i=0;i<35;i++) {
-      records.push(Ember.Object.create({
+      records.push(store.createRecord('rota-schedule', {
         shiftDate: m.format('YYYY-MM-DD')
       }));
       m.add(1, 'day');
@@ -95,22 +98,23 @@ test("merged schedules correctly sort their shifts", function(assert) {
 
   var shiftDate = record.get('shiftDate');
 
-  // add a shift record on the same day with the shift we're searching for
-  // this is the shift we'll be looking for
-  records.push(Ember.Object.create({
-    shiftDate: shiftDate,
-    shiftTimes: ['0700', '1200']
-  }));
+  Ember.run(() => {
+    // add a shift record on the same day with the shift we're searching for
+    // this is the shift we'll be looking for
 
-  // and add a shift to a record in the past
-  record = records.get(1);
-  record.shiftTimes = ['0600', '1200'];
+    records.push(store.createRecord('rota-schedule', {
+      shiftDate: shiftDate,
+      shiftTimes: ['0700', '1200']
+    }));
 
-  var shiftPromise = service.getNextShift(shiftDate);
-
-  return shiftPromise.then(fetchedShift => {
-    // fetched shift should be one from the merged-in record
-    assert.equal(fetchedShift.start, '0700');
-    assert.equal(fetchedShift.end, '1200');
+    // and add a shift to a record in the past
+    record = records.get(1);
+    record.shiftTimes = ['0600', '1200'];
+    var shiftPromise = service.getNextShift(shiftDate);
+    shiftPromise.then(fetchedShift => {
+      // fetched shift should be one from the merged-in record
+      assert.equal(fetchedShift.start, '0700');
+      assert.equal(fetchedShift.end, '1200');
+    });
   });
 });

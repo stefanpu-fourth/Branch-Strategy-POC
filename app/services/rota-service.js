@@ -39,7 +39,6 @@ export default Ember.Service.extend({
     }
 
     return this.scheduleFetchPromise.then(schedules => {
-      console.log('getRotaWeeks resolved');
       this.set('fetchedSchedules.content', schedules);
       var start = moment(this.get('fetchedSchedules.firstObject.shiftDate'));
       var rotaWeeks = [];
@@ -48,20 +47,20 @@ export default Ember.Service.extend({
         let shiftStart = start.clone().add(7 * i, 'days');
         let filterStart = shiftStart.clone().subtract(1, 'days');
         let end = shiftStart.clone().add(7, 'days');
-        let shifts = [];
-        schedules.forEach(s => {
-          if (moment(s.get('shiftDate')).isBetween(filterStart, end)) {
-            shifts.push(s);
-          }
+
+        let schedulesForDate = schedules.filter(s => {
+          return s.isBetweenMoments(filterStart, end);
         });
 
-        let shiftDates = shifts.map(s => { return s.get('shiftDate'); });
+        let shiftDates = schedulesForDate.mapBy('shiftDate');
 
-        shifts.forEach((s, index) => {
+        schedulesForDate.forEach((s, index) => {
           var dupeIndex = shiftDates.lastIndexOf(s.get('shiftDate'));
           if (dupeIndex !== index) {
-            shifts[dupeIndex].get('shifts').forEach(ds => { s.get('shifts').push(ds); });
-            shifts.splice(dupeIndex, 1);
+            schedulesForDate[dupeIndex].get('shifts').forEach(ds => {
+              s.get('shifts').push(ds);
+            });
+            schedulesForDate.splice(dupeIndex, 1);
             shiftDates.splice(dupeIndex, 1);
             s.set('shifts', s.get('shifts').sort(function(a, b) {
               return a.start.localeCompare(b.start);
@@ -69,7 +68,7 @@ export default Ember.Service.extend({
           }
         });
 
-        rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, shifts));
+        rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, schedulesForDate));
       }
 
       return rotaWeeks;
@@ -137,33 +136,15 @@ export default Ember.Service.extend({
   },
 
   _fetchSchedules: function(date, prevWeeks, futureWeeks) {
-    var store = this.get('store');
-    var fetchedSchedules = store.find('rota-schedule', {
+    return this.get('store').find('rota-schedule', {
       RequestDate: moment(date).format('YYYY-MM-DD'),
       NoPreviousWeeks: prevWeeks,
       NoFutureWeeks: futureWeeks
     }).then(schedules => {
       schedules.forEach(day => {
-        var times = day.get('shiftTimes');
-        if (times) {
-          let newShifts = times.map(function(startTime, index) {
-            if ((index % 2) === 0) {
-              var endTime = times[index + 1];
-              if (startTime !== endTime) {
-                return {
-                  start: startTime,
-                  end: endTime,
-                  location: day.get('location'),
-                  jobTitle: day.get('jobTitle')
-                };
-              }
-            }
-          });
-          day.set('shifts', newShifts.filter(shift => { return shift !== undefined; }));
-        }
+        day.calculateShifts();
       });
       return schedules;
     });
-    return fetchedSchedules;
   }
 });
