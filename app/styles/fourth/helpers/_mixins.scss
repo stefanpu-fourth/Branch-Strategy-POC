@@ -134,12 +134,15 @@
   color: inherit;
   overflow: visible;
   letter-spacing: inherit;
-  background: $color-grey-lightest;
-  border: 1px solid $color-grey-light;
+  background-color: $color-grey;
+  color: $color-white;
   text-transform: uppercase;
   @include font-size(s);
   min-width:rem(36);
   &:focus {
     outline: 0;
+  }
+  .svg-icon {
+    color: $color-grey-lighter;
   }
 }
