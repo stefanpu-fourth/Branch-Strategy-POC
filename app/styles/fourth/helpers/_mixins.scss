@@ -118,6 +118,35 @@
 
 
 
+// HIDDEN SCROLLBARS
+// - desktop users only
+// shows no scrollbars by default
+// scrollbars appear on hover over element
+
+// example usage:
+// .my-element {
+//   @include hidden-scrollbars();
+// }
+
+@mixin hidden-scrollbar() {
+  & {
+    overflow-y: hidden;
+  }
+  &:hover {
+    overflow-y: auto;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 // TODO: REVIEW
 
 @mixin button() {
