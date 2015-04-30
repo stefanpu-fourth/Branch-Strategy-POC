@@ -66,18 +66,7 @@
     @include transform( translateY(0));
   }
 
-  // -RIGHT
-  .tool-tip.-right & {
-    left:  auto;
-    right: 0;
-
-    &::before {
-      left:  auto;
-      right: rem(16);
-    }
-  }
-
-  // -BOTTOM
+  // modifier: BOTTOM
   .tool-tip.-bottom & {
     top: calc(100% + 24px);
     bottom: auto;
@@ -88,6 +77,28 @@
       border: {
         width: 0 rem(16) rem(16) 0;
         color: rgba($color-grey-darker, .8) transparent;
+      }
+    }
+  }
+
+  // modifier: RIGHT
+  .tool-tip.-right & {
+    left:  auto;
+    right: 0;
+
+    &::before {
+      left:  auto;
+      right: rem(16);
+      border-width: 0 rem(16) rem(16) 0;
+    }
+  }
+
+  // modifier: BOTTOM RIGHT
+  .tool-tip.-bottom.-right & {
+    &::before {
+      border: {
+        width: rem(16) rem(16) 0 0;
+        color: transparent rgba($color-grey-darker, .8);
       }
     }
   }
