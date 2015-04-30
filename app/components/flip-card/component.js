@@ -25,7 +25,7 @@ export default Ember.Component.extend({
     this.boundResizeHandler = run.bind(this, 'resizeHandler');
     this.$(window).on('resize', this.boundResizeHandler);
 
-    run.once(this, 'resizeHandler');
+    run.scheduleOnce('afterRender', this, 'resizeHandler');
   },
 
   willDestroyElement: function() {
@@ -33,6 +33,7 @@ export default Ember.Component.extend({
   },
 
   resizeHandler: function() {
+console.log(this.$().width());
     var breakpoint = parseInt(this.get('breakpoint'));
 
     if (breakpoint) {
