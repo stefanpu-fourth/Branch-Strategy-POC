@@ -35,6 +35,7 @@
   }
 
   &.-active {
+    z-index: 1000;
     &::before {
       top:rem(-8);
       right:rem(-8);
@@ -58,7 +59,7 @@
   @include transform-origin(0 0);
   @include transform(scaleX(0));
   will-change: transform;
-  @include transition(.5s .3s ease);
+  @include transition(all .5s .3s ease, z-index 0 0);
 
   .card--active & {
     @include transform(scaleX(1));
