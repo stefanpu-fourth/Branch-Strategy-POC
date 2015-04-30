@@ -33,7 +33,6 @@ export default Ember.Component.extend({
   },
 
   resizeHandler: function() {
-console.log(this.$().width());
     var breakpoint = parseInt(this.get('breakpoint'));
 
     if (breakpoint) {
