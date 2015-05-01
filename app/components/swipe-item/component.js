@@ -1,7 +1,5 @@
 import Ember from 'ember';
 
-var run = Ember.run;
-
 export default Ember.Component.extend({
 
   tagName: 'div',
@@ -37,11 +35,11 @@ export default Ember.Component.extend({
 
   didInsertElement: function() {
     //bind handlers
-    this.boundResizeHandler = run.bind(this, 'resizeHandler');
+    this.boundResizeHandler = Ember.run.bind(this, 'resizeHandler');
     this.$(window).on('resize', this.boundResizeHandler);
 
     //init viewport
-    run.once(this, 'resizeHandler');
+    Ember.run.once(this, 'resizeHandler');
   },
 
   willDestroyElement: function () {
