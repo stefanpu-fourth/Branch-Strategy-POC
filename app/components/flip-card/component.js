@@ -21,15 +21,23 @@ export default Ember.Component.extend({
     return `height: ${cardHeight}px;`.htmlSafe();
   }.property('height'),
 
+  nsResize: function () {
+    var namespace = Ember.guidFor(this);
+    return `resize.${namespace}`;
+  }.property(),
+
   didInsertElement: function() {
+    var evt = this.get('nsResize');
+
     this.boundResizeHandler = run.bind(this, 'resizeHandler');
-    this.$(window).on('resize', this.boundResizeHandler);
+    this.$(window).on(evt, this.boundResizeHandler);
 
     run.scheduleOnce('afterRender', this, 'resizeHandler');
   },
 
   willDestroyElement: function() {
-    this.$(window).off('resize', this.boundResizeHandler);
+    var evt = this.get('nsResize');
+    this.$(window).off(evt, this.boundResizeHandler);
   },
 
   resizeHandler: function() {
