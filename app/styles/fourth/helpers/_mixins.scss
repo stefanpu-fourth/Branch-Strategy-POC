@@ -150,6 +150,33 @@
 
 
 
+// AURA
+// adds an animated box-shadow to a clicked element
+// note: will override the following properties:
+// box-shadow
+// transition
+
+// accepts an optional color
+// default is the default button color
+
+// example usage:
+// .my-button {
+//   @include button();
+//   @include aura()
+// }
+
+@mixin aura($color: $color-grey) {
+  box-shadow: 0 0 0 0 rgba($color, .2);
+  will-change: box-shadow;
+  @include transition(box-shadow .2s $bounce);
+
+  &:active {
+    box-shadow: 0 0 0 10px rgba($color, .2);
+  }
+}
+
+
+
 // TODO: REVIEW
 
 @mixin button() {
@@ -177,4 +204,5 @@
   .svg-icon {
     color: $color-grey-lighter;
   }
+  @include aura();
 }
