@@ -13,20 +13,23 @@
         {{#flip-card
           height="388"
           breakpoint="640"}}
-          <div class="flip-card--front">
+
+          {{#flip-card-front}}
             {{payslip-overview
               payslip=payslip
               index=index
               selectedIndex=attrs.selectedIndex
             }}
-          </div>
-          <div class="flip-card--back">
+          {{/flip-card-front}}
+
+          {{#flip-card-back}}
             {{payslip-detail
               payslip=payslip
               index=index
               selectedIndex=attrs.selectedIndex
             }}
-          </div>
+          {{/flip-card-back}}
+
         {{/flip-card}}
       {{/swipe-item}}
     {{/each}}
