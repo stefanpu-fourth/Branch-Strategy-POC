@@ -16,6 +16,15 @@ export default DS.Model.extend({
   shifts: null, // populated after load by the rota service
   // TODO - probably means some functionality needs to move here.
 
+  isNotRota: function() {
+    var type = this.get('type');
+
+    var onOff = /^(on|off|unavailable)$/i;
+
+    return !(onOff.test(type));
+  }.property('type'),
+
+
   calculateShifts: function() {
     var times = this.get('shiftTimes');
     let newShifts = [];
@@ -28,7 +37,9 @@ export default DS.Model.extend({
               start: startTime,
               end: endTime,
               location: this.get('location'),
-              jobTitle: this.get('jobTitle')
+              jobTitle: this.get('jobTitle'),
+              type: this.get('type'),
+              isNotRota: this.get('isNotRota')
             };
           }
         }

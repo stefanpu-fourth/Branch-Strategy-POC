@@ -55,12 +55,20 @@ export default Ember.Service.extend({
         let shiftDates = schedulesForDate.mapBy('shiftDate').map(d => d.valueOf());
 
         schedulesForDate.forEach((s, index) => {
+          let dayTypes = new Ember.Set();
+          if (s.get('isNotRota') && (s.get('shifts.length') === 0)) {
+            dayTypes.add(s.get('type'));
+          }
           let shiftDate = s.get('shiftDate').valueOf();
           let dupeIndex = shiftDates.lastIndexOf(shiftDate);
           while (dupeIndex !== index) {
-            schedulesForDate[dupeIndex].get('shifts').forEach(ds => {
+            let dupeSchedule = schedulesForDate[dupeIndex];
+            dupeSchedule.get('shifts').forEach(ds => {
               s.get('shifts').push(ds);
             });
+            if (s.get('isNotRota') && (s.get('shifts.length') === 0)) {
+              dayTypes.add(dupeSchedule.get('type'));
+            }
             schedulesForDate.splice(dupeIndex, 1);
             shiftDates.splice(dupeIndex, 1);
             s.set('shifts', s.get('shifts').sort(function(a, b) {
@@ -68,6 +76,7 @@ export default Ember.Service.extend({
             }));
             dupeIndex = shiftDates.lastIndexOf(shiftDate);
           }
+          s.set('displayTypes', dayTypes.toArray().sort());
         });
 
         rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, schedulesForDate));

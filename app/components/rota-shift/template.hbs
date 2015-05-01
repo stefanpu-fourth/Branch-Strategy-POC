@@ -1,6 +1,6 @@
 <span class="rota-shift--solid {{selectedClass}} {{pastClass}} brand-bg brand-before-bg" {{action 'selectSegment'}}>
   {{#tool-tip classNameBindings="tooltipLocation" active=selected}}
-    <p>{{svg-icon name="clock"}} {{selectedShift.start}}-{{selectedShift.end}}</p>
+    <p>{{svg-icon name="clock"}} {{#if selectedShift.isNotRota}}{{selectedShift.type}} {{/if}}{{selectedShift.start}}-{{selectedShift.end}}</p>
     <p>{{svg-icon name="location"}} {{selectedShift.location}}</p>
     <p>{{svg-icon name="user"}} {{selectedShift.jobTitle}}</p>
   {{/tool-tip}}
