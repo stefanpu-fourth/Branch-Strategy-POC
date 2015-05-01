@@ -33,7 +33,7 @@ export default Ember.Component.extend({
   },
 
   resizeHandler: function() {
-    var breakpoint = parseInt(this.get('breakpoint'));
+    var breakpoint = parseInt(this.get('breakpoint'), 10);
 
     if (breakpoint) {
       var cardWidth = this.$().width();
