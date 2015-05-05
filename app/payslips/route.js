@@ -17,6 +17,7 @@ export default Ember.Route.extend({
   setupController: function (controller, model) {
     controller.set('attrs.payslips.content', model);
     controller.set('attrs.selectedIndex', null);
+    controller.set('attrs.isPanning', true);
   },
 
   actions: {
@@ -31,6 +32,7 @@ export default Ember.Route.extend({
       }
 
       this.set('controller.attrs.selectedIndex', index);
+      this.set('controller.attrs.isPanning', typeof currentIndex === 'undefined' || currentIndex === null);
     }
   }
 
