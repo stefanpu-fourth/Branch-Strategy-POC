@@ -12,7 +12,7 @@ export default Ember.Route.extend({
     var rotaService = this.get('rotaService');
     return Ember.RSVP.hash({
       holidayBalance: holidayBalance,
-      rotaWeeks: rotaService.getRotaWeeks(new Date(2015, 3, 14)),
+      rotaWeeks: rotaService.getRotaWeeks(new Date()),
       nextShift: rotaService.getNextShift()
     });
   },
