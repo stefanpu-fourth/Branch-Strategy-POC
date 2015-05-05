@@ -6,6 +6,7 @@
     isPanning=attrs.isPanning
     setSelectedIndex="setSelectedIndex"
     cardSpacing=12
+    myClass="-payslip"
   }}
     {{#each payslips as |payslip index|}}
       {{payslip-card-item payslip=payslip index=index selectedIndex=attrs.selectedIndex}}
