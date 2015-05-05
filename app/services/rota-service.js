@@ -78,9 +78,7 @@ export default Ember.Service.extend({
             }));
             dupeIndex = shiftDates.lastIndexOf(shiftDate);
           }
-          var dayTypesArray = dayTypes.toArray().sort();
-          s.set('displayTypes', dayTypesArray);
-          s.set('hasDisplayableType', dayTypesArray.length !== 0);
+          s.set('displayTypes', dayTypes.toArray().sort());
         });
 
         rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, schedulesForDate));

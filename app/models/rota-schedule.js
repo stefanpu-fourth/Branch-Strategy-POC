@@ -15,7 +15,10 @@ export default DS.Model.extend({
   rotaStartDayOfWeek: attr('number'),
 
   shifts: null, // populated after load by the rota service
+  displayTypes: [],   // also populated after load
   // TODO - probably means some functionality needs to move here.
+
+  hasDisplayableType: Ember.computed.bool('displayTypes.length'),
 
   // TODO - this logic is flawed and reliant upon particular words
   // this should probably be moved to a back-end provided field
