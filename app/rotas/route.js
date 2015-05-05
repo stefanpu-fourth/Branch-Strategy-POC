@@ -22,7 +22,7 @@ export default Ember.Route.extend({
       'attrs.holiday': model.holidayBalance,
       'attrs.rotaWeeks': model.rotaWeeks,
       'selectedShift': model.nextShift,
-      'selectedIndex': 2
+      'selectedIndex': null
     });
   }
 });
