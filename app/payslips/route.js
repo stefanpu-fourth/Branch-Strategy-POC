@@ -24,7 +24,7 @@ export default Ember.Route.extend({
     setSelectedIndex: function (index) {
       var attrs = this.get('controller.attrs');
       var currentIndex = attrs.selectedIndex;
-      var hasCurrentIndex = typeof currentIndex !== 'undefined' || currentIndex !== null;
+      var hasCurrentIndex = typeof currentIndex !== 'undefined' && currentIndex !== null;
 
       //set the value of index to be index or the length of the collection - 1
       index = typeof index !== 'undefined' && index !== null ? index : attrs.payslips.get('content.length') - 1;
