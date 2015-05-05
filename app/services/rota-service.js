@@ -66,6 +66,8 @@ export default Ember.Service.extend({
             dupeSchedule.get('shifts').forEach(ds => {
               s.get('shifts').push(ds);
             });
+            // TODO: we're only merging in types when we have shifts in other records - this may be flawed
+            // essentially this is a workaround to deal with back-end data
             if (s.get('isNotRota') && (s.get('shifts.length') === 0)) {
               dayTypes.add(dupeSchedule.get('type'));
             }
@@ -76,7 +78,9 @@ export default Ember.Service.extend({
             }));
             dupeIndex = shiftDates.lastIndexOf(shiftDate);
           }
-          s.set('displayTypes', dayTypes.toArray().sort());
+          var dayTypesArray = dayTypes.toArray().sort();
+          s.set('displayTypes', dayTypesArray);
+          s.set('hasDisplayableType', dayTypesArray.length !== 0);
         });
 
         rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, schedulesForDate));

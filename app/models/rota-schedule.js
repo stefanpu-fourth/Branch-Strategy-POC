@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 var attr = DS.attr;
 
@@ -16,6 +17,8 @@ export default DS.Model.extend({
   shifts: null, // populated after load by the rota service
   // TODO - probably means some functionality needs to move here.
 
+  // TODO - this logic is flawed and reliant upon particular words
+  // this should probably be moved to a back-end provided field
   isNotRota: function() {
     var type = this.get('type');
 
@@ -23,7 +26,6 @@ export default DS.Model.extend({
 
     return !(onOff.test(type));
   }.property('type'),
-
 
   calculateShifts: function() {
     var times = this.get('shiftTimes');
@@ -33,14 +35,10 @@ export default DS.Model.extend({
         if ((index % 2) === 0) {
           var endTime = times[index + 1];
           if (startTime !== endTime) {
-            return {
+            return Ember.merge(this.getProperties('jobTitle', 'type', 'isNotRota', 'location'), {
               start: startTime,
-              end: endTime,
-              location: this.get('location'),
-              jobTitle: this.get('jobTitle'),
-              type: this.get('type'),
-              isNotRota: this.get('isNotRota')
-            };
+              end: endTime
+            });
           }
         }
 

@@ -11,7 +11,7 @@
       {{/each}}
     </span>
   {{/if}}
-  {{#if day.displayTypes.length}}
+  {{#if day.hasDisplayableType}}
     <span class="rota-day--hours">
       {{#each day.displayTypes as |daytype index|}}
         {{#if index}}<span>&amp;</span>{{/if}}
