@@ -1,11 +1,14 @@
 import {
   moduleFor,
   test
-} from 'ember-qunit';
+}
+from 'ember-qunit';
 import Ember from 'ember';
 
 var mockController = Ember.Object.extend({
-  attrs: {}
+  attrs: {
+    payslips: Ember.ArrayProxy.create({ content: Ember.A([1, 2, 3]) })
+  }
 });
 
 moduleFor('route:payslips', {
@@ -17,7 +20,7 @@ test('it exists', function(assert) {
   assert.ok(route);
 });
 
-test('setSelectedIndex action set the selectedIndex property on the controllers attrs hash', function (assert) {
+test('setSelectedIndex action set the selectedIndex property on the controllers attrs hash', function(assert) {
   var route = this.subject();
   var controller;
 
@@ -26,9 +29,9 @@ test('setSelectedIndex action set the selectedIndex property on the controllers 
 
     route.set('controller', controller);
 
-    //called with no arguments should default to 0
+    //called with no arguments should default to length of model collection minus 1
     route.send('setSelectedIndex');
-    assert.equal(controller.get('attrs.selectedIndex'), 0, 'controller.attrs.selectedIndex is equal to 0 after "setSelectedIndex" action');
+    assert.equal(controller.get('attrs.selectedIndex'), 2, 'controller.attrs.selectedIndex is equal to 2 after "setSelectedIndex" action');
 
     route.send('setSelectedIndex', 11);
     assert.equal(controller.get('attrs.selectedIndex'), 11, 'controller.attrs.selectedIndex is equal to 11 after "setSelectedIndex(11)" action');
