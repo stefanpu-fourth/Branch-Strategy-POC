@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 var attr = DS.attr;
 
@@ -14,28 +15,40 @@ export default DS.Model.extend({
   rotaStartDayOfWeek: attr('number'),
 
   shifts: null, // populated after load by the rota service
+  displayTypes: [],   // also populated after load
   // TODO - probably means some functionality needs to move here.
+
+  hasDisplayableType: Ember.computed.bool('displayTypes.length'),
+
+  // TODO - this logic is flawed and reliant upon particular words
+  // this should probably be moved to a back-end provided field
+  isNotRota: function() {
+    var type = this.get('type');
+
+    var onOff = /^(on|off|unavailable)$/i;
+
+    return !(onOff.test(type));
+  }.property('type'),
 
   calculateShifts: function() {
     var times = this.get('shiftTimes');
+    let newShifts = [];
     if (times) {
-      let newShifts = times.map((startTime, index) => {
+      newShifts = times.map((startTime, index) => {
         if ((index % 2) === 0) {
           var endTime = times[index + 1];
           if (startTime !== endTime) {
-            return {
+            return Ember.merge(this.getProperties('jobTitle', 'type', 'isNotRota', 'location'), {
               start: startTime,
-              end: endTime,
-              location: this.get('location'),
-              jobTitle: this.get('jobTitle')
-            };
+              end: endTime
+            });
           }
         }
 
         return undefined;
       });
-      this.set('shifts', newShifts.compact());
     }
+    this.set('shifts', newShifts.compact());
   },
 
   shiftDateAsMoment: function() {

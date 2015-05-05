@@ -32,13 +32,5 @@ export default Ember.Component.extend({
   dayModifier: function() {
     var dayIndex = parseInt(this.get('dayIndex')) + 1;
     return '-day-' + dayIndex;
-  }.property('dayIndex'),
-
-  isNotRota: function() {
-    var type = this.get('day.type');
-
-    var onOff = /^o(n|ff)$/i;
-
-    return !(onOff.test(type));
-  }.property('day.type')
+  }.property('dayIndex')
 });
