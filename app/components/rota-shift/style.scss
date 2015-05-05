@@ -59,7 +59,7 @@
   @include transform-origin(0 0);
   @include transform(scaleX(0));
   will-change: transform;
-  @include transition(all .5s .3s ease, z-index 0 0);
+  @include transition(all .5s .3s ease);
 
   .card--active & {
     @include transform(scaleX(1));
