@@ -5,6 +5,6 @@ export default Ember.Component.extend(CardItemMixin, {
   classNames: ['payslip'],
 
   formattedProcessingDate: function() {
-    return moment(this.get('payslip.processingDate')).format('ddd Do MMM YYYY');
+    return moment(this.get('payslip.processingDate')).format('DD MMM YYYY');
   }.property('payslip.processingDate')
 });
