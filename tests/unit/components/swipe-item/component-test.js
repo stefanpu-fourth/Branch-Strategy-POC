@@ -31,11 +31,11 @@ test('isActive is true when index is equal to selectedIndex', function(assert) {
   Ember.run(() => {
     component.set('index', 0);
     component.set('selectedIndex', 1);
-    assert.ok(component.get('isActive'), false, 'index: 0; selectedIndex: 1; isActive: false;');
+    assert.ok(!component.get('isActive'), 'index: 0; selectedIndex: 1; isActive: false;');
 
     component.set('index', 1);
     component.set('selectedIndex', 1);
-    assert.ok(component.get('isActive'), true, 'index: 1; selectedIndex: 1; isActive: true;');
+    assert.ok(component.get('isActive'), 'index: 1; selectedIndex: 1; isActive: true;');
 
   });
 });
