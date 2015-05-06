@@ -130,10 +130,10 @@
 
 // example usage:
 // .overflows-vertical {
-//   @include hidden-scrollbars(y);
+//   @include hidden-scrollbar(y);
 // }
 // .overflows-everywhere {
-//   @include hidden-scrollbars();
+//   @include hidden-scrollbar();
 // }
 
 @mixin hidden-scrollbar($dir: null) {
