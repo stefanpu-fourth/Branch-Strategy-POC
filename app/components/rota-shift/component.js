@@ -40,12 +40,12 @@ export default Ember.Component.extend({
     var oldDayEnd = this.get('dayEnd');
     var dayEnd = oldDayEnd;
     if (dayEnd === null) {
-      // TODO: default the dayEnd to 2am
-      dayEnd = 2 * 60;
+      // TODO: default the dayEnd to midnight (looks better than 6pm)
+      dayEnd = 0 * 60;
     }
 
     // make sure dayEnd is after the start
-    if (dayEnd < dayStart) {
+    if (dayEnd <= dayStart) {
       dayEnd = dayEnd + wholeDay;
     }
 
@@ -68,7 +68,7 @@ export default Ember.Component.extend({
       classes.push('-center');
     }
     return classes.join(' ');
-  }.property('dayIndex', 'shift.start'),
+  }.property('dayIndex', 'shift.startAsMinutes', 'dayMiddle'),
 
   style: function() {
     var shift = this.get('shift');
