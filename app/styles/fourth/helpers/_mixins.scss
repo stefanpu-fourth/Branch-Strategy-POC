@@ -234,6 +234,13 @@
   @include rem(margin, 5);
   @include rem(padding, 0 ,10);
 
+  @if $fullwidth {
+    margin: {
+      left: auto;
+      right: auto;
+    }
+  }
+
   border: none;
   @include border-radius(rem(4));
   background-color: $color-bg;
@@ -242,7 +249,10 @@
   color: $color-text;
   line-height: rem(32);
   white-space: nowrap;
-  text-transform: uppercase;
+  text: {
+    transform: uppercase;
+    decoration: none;
+  }
 
   cursor: pointer;
   -ms-touch-action: manipulation; /* IE10  */
@@ -252,6 +262,10 @@
 
   &:focus {
     outline: 0;
+  }
+
+  &:hover {
+    text-decoration: none;
   }
 
   .svg-icon {
