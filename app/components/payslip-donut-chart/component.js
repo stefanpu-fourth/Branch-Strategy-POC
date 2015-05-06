@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['payslip--pie'],
+  classNames: ['payslip-donut-chart'],
 
   netPay: null,
   grossPay: null,
@@ -15,7 +15,7 @@ export default Ember.Component.extend({
   pathStyles: function () {
     var isActive = this.get('isActive');
     var el = this.element;
-    var path = el.querySelector('.payslip--chartpath');
+    var path = el.querySelector('.payslip-donut-chart--path');
     var circumference = path.getTotalLength();
     var dashOffset;
     var takeHome;
@@ -34,8 +34,8 @@ export default Ember.Component.extend({
   }.property('isActive', 'takeHome'),
 
   actions: {
-    flipMe: function() {
-      this.get('parentView').send('flip');
+    flipCard: function() {
+      this.get('parentView').send('flipCard');
     }
   }
 });
