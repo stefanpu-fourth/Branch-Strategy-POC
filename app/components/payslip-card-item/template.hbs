@@ -1,6 +1,6 @@
 <div class="card--wrap {{if flipped '-flipped'}}">
   <div class="card--front">
-    <h1>{{formattedProcessingDate}}</h1>
+    <h1>{{moment payslip.processingDate format="DD MMM YYYY"}}</h1>
     {{payslip-donut-chart grossPay=payslip.currentGrossPay netPay=payslip.netPay isActive=isActive}}
     <a class="notALink payslip--show" {{action 'flip'}}>
       {{svg-icon name="paper-list"}}
@@ -130,7 +130,7 @@
       </dl>
       <dl class="tabular--row">
         <dt class="tabular--key -wide">{{t 'payslips.date'}}</dt>
-        <dd class="tabular--value">{{formattedProcessingDate}}</dd>
+        <dd class="tabular--value">{{moment payslip.processingDate format="DD MMM YYYY"}}</dd>
       </dl>
       <dl class="tabular--row">
         <dt class="tabular--key -wide">{{t 'payslips.company'}}</dt>
