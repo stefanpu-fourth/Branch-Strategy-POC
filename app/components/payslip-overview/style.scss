@@ -2,3 +2,9 @@
   height: 100%;
   text-align: center;
 }
+
+.payslip--show-breakdown,
+.payslip--download {
+  @include button(fullwidth);
+  max-width: rem(300);
+}
