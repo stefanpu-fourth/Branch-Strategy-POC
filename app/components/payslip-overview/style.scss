@@ -3,8 +3,8 @@
   text-align: center;
 }
 
-.payslip--show-breakdown,
-.payslip--download {
+.payslip-overview--show-breakdown,
+.payslip-overview--download-pdf {
   @include button(fullwidth);
   max-width: rem(300);
 }
