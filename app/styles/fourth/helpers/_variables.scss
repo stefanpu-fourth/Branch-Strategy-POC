@@ -41,6 +41,9 @@
    $color-body-text:  $color-grey-darkest;
    $color-headline:   $color-grey;
 
+// EASING
+   $bounce: cubic-bezier(0, .7, .6, 2.6);
+
 // BOURBON PREFIXER OVERIDE
    $prefix-for-mozilla:  false;
    $prefix-for-opera:    false;

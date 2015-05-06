@@ -31,7 +31,7 @@
 
     opacity:  .33;
 
-    @include transition(.2s cubic-bezier(0, .7, .6, 2.5));
+    @include transition(.2s $bounce);
   }
 
   &.-active {

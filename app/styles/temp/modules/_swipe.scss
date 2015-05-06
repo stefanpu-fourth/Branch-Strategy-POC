@@ -98,16 +98,7 @@
   line-height: rem(80);
   text-align: center;
 
-  box-shadow: 0 0 0 0 rgba($color-grey-darker, .2);
-
-  will-change:
-    opacity,
-    box-shadow;
-
-  @include transition(
-    opacity .5s ease,
-    box-shadow .2s cubic-bezier(0, .7, .6, 2.5)
-  );
+  @include aura($color-grey-darker);
 
   &.swipe-left {
     left: 0;
@@ -131,11 +122,6 @@
     & .svg-icon {
       margin-right: rem(-10);
     }
-  }
-
-  &:active
-  {
-    box-shadow: 0 0 0 12px rgba($color-grey-darker, .2);
   }
 
   &.disabled {

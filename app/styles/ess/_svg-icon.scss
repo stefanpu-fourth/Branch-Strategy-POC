@@ -20,14 +20,3 @@
     fill:currentColor;
     stroke-width:0; // reguired for buttons that for some unknown reason add a stroke to SVGs
 }
-
-
-// TODO
-
-.payslip--show .svg-icon,
-.payslip--download .svg-icon {
-  top: rem(-8);
-  left: rem(-8);
-  float: left;
-  color: $color-grey-dark;
-}
