@@ -90,7 +90,7 @@
     box-shadow: 0 0 0 12px rgba($color-grey-darker, .2);
   }
 
-  &.disabled {
+  &.-disabled {
     opacity: .1;
     pointer-events: none;
   }

@@ -7,5 +7,11 @@ export default Ember.Component.extend({
   isActive: function () {
     var props = this.getProperties('index', 'selectedIndex');
     return props.index === props.selectedIndex;
-  }.property('index', 'selectedIndex')
+  }.property('index', 'selectedIndex'),
+
+  actions: {
+    flipCard: function() {
+      this.get('parentView').send('flipCard');
+    }
+  }
 });
