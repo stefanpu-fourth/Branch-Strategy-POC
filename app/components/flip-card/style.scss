@@ -26,8 +26,6 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   @include backface-visibility(hidden);
-
-  @include hidden-scrollbar(y);
 }
 .flip-card--front {
   z-index: 2;
