@@ -52,20 +52,33 @@ export default Ember.Service.extend({
           return s.isBetweenMoments(filterStart, end);
         });
 
-        let shiftDates = schedulesForDate.mapBy('shiftDate');
+        let shiftDates = schedulesForDate.mapBy('shiftDate').map(d => d.valueOf());
 
         schedulesForDate.forEach((s, index) => {
-          var dupeIndex = shiftDates.lastIndexOf(s.get('shiftDate'));
-          if (dupeIndex !== index) {
-            schedulesForDate[dupeIndex].get('shifts').forEach(ds => {
+          let dayTypes = new Ember.Set();
+          if (s.get('isNotRota') && (s.get('shifts.length') === 0)) {
+            dayTypes.add(s.get('type'));
+          }
+          let shiftDate = s.get('shiftDate').valueOf();
+          let dupeIndex = shiftDates.lastIndexOf(shiftDate);
+          while (dupeIndex !== index) {
+            let dupeSchedule = schedulesForDate[dupeIndex];
+            dupeSchedule.get('shifts').forEach(ds => {
               s.get('shifts').push(ds);
             });
+            // TODO: we're only merging in types when we have shifts in other records - this may be flawed
+            // essentially this is a workaround to deal with back-end data
+            if (dupeSchedule.get('isNotRota') && (dupeSchedule.get('shifts.length') === 0)) {
+              dayTypes.add(dupeSchedule.get('type'));
+            }
             schedulesForDate.splice(dupeIndex, 1);
             shiftDates.splice(dupeIndex, 1);
             s.set('shifts', s.get('shifts').sort(function(a, b) {
               return a.start.localeCompare(b.start);
             }));
+            dupeIndex = shiftDates.lastIndexOf(shiftDate);
           }
+          s.set('displayTypes', dayTypes.toArray().sort());
         });
 
         rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, schedulesForDate));

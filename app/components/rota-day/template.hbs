@@ -4,22 +4,25 @@
   </div>
   {{#if day.shifts}}
     <span class="rota-day--hours">
-      {{svg-icon name="clock"}}
+      &nbsp;{{svg-icon name="clock"}}
       {{#each day.shifts as |shift index|}}
         {{#if index}}<span>&amp;</span>{{/if}}
         {{shift.start}}-{{shift.end}}
       {{/each}}
     </span>
   {{/if}}
-  {{#if isNotRota}}
+  {{#if day.hasDisplayableType}}
     <span class="rota-day--hours">
-      {{day.type}}
+      {{#each day.displayTypes as |daytype index|}}
+        {{#if index}}<span>&amp;</span>{{/if}}
+        {{daytype}}
+      {{/each}}
     </span>
   {{/if}}
 </div>
 {{rota-bar
   shifts=day.shifts
-  empty=isNotRota
+  empty=day.hasDisplayableType
   selectedShift=selectedShift
   selectTarget=selectTarget
   dayIndex=dayIndex

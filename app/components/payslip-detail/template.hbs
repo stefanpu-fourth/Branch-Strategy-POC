@@ -2,20 +2,7 @@
   <a class="notALink flip-card--trigger" {{action "flipCard" target="parentView"}}>
     {{svg-icon name="x"}}
   </a>
-  <h3 class="tabular--sub -title">{{formattedProcessingDate}}</h3>
-
-  <dl class="tabular--row">
-    <dt class="tabular--key -wide">{{t 'payslips.name'}}</dt>
-    <dd class="tabular--value">{{payslip.accountName}}</dd>
-  </dl>
-  <dl class="tabular--row">
-    <dt class="tabular--key -wide">{{t 'payslips.company'}}</dt>
-    <dd class="tabular--value">{{payslip.companyName}}</dd>
-  </dl>
-  <dl class="tabular--row">
-    <dt class="tabular--key -wide">{{t 'payslips.netPayment'}}</dt>
-    <dd class="tabular--value">{{currency payslip.netPay unit='£'}}</dd>
-  </dl>
+  <h3 class="tabular--sub -title">{{moment payslip.processingDate format="DD MMM YYYY"}}</h3>
 
   <h3 class="tabular--sub -highlight brand-bg">{{t 'payslips.payments'}}</h3>
   {{#each payslip.payments as |payment|}}
@@ -26,7 +13,7 @@
   {{/each}}
   <dl class="tabular--row">
     <dt class="tabular--key -wide"><strong>{{t 'payslips.totalPayments'}}</strong></dt>
-    <dd class="tabular--value">{{currency payslip.currentGrossPay unit='£'}}</dd>
+    <dd class="tabular--value"><strong>{{currency payslip.currentGrossPay unit='£'}}</strong></dd>
   </dl>
 
   <h3 class="tabular--sub">{{t 'payslips.deductions'}}</h3>
@@ -38,7 +25,7 @@
   {{/each}}
   <dl class="tabular--row">
     <dt class="tabular--key -wide"><strong>{{t 'payslips.totalDeductions'}}</strong></dt>
-    <dd class="tabular--value">{{currency payslip.totalDeductions unit='£'}}</dd>
+    <dd class="tabular--value"><strong>{{currency payslip.totalDeductions unit='£'}}</strong></dd>
   </dl>
 
   <h3 class="tabular--sub">{{t 'payslips.periodTotals'}}</h3>
@@ -125,6 +112,18 @@
   {{/if}}
 
   <h3 class="tabular--sub">{{t 'payslips.payslipDetails'}}</h3>
+  <dl class="tabular--row">
+    <dt class="tabular--key -wide">{{t 'payslips.name'}}</dt>
+    <dd class="tabular--value">{{payslip.accountName}}</dd>
+  </dl>
+  <dl class="tabular--row">
+    <dt class="tabular--key -wide">{{t 'payslips.date'}}</dt>
+    <dd class="tabular--value">{{moment payslip.processingDate format="DD MMM YYYY"}}</dd>
+  </dl>
+  <dl class="tabular--row">
+    <dt class="tabular--key -wide">{{t 'payslips.company'}}</dt>
+    <dd class="tabular--value">{{payslip.companyName}}</dd>
+  </dl>
   <dl class="tabular--row">
     <dt class="tabular--key">{{t 'payslips.week'}}/{{t 'payslips.month'}}</dt>
     <dd class="tabular--value">{{payslip.currentPayPeriod}}</dd>

@@ -3,7 +3,9 @@
     collection=payslips
     tabPropertyKey="formattedProcessingDate"
     selectedIndex=attrs.selectedIndex
+    isPanning=attrs.isPanning
     setSelectedIndex="setSelectedIndex"
+    myClass="-payslip"
   }}
     {{#each payslips as |payslip index|}}
       {{#swipe-item

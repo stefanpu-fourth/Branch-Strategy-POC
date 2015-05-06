@@ -52,6 +52,9 @@ export default Ember.Component.extend({
 
     this.$().highcharts({
       title: null,
+      credits: {
+        enabled: false
+      },
       chart: {
         type: 'spline',
         marginLeft: 0,
