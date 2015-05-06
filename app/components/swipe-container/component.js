@@ -65,12 +65,12 @@ var panEndHandler = function(e) {
 
 export default Ember.Component.extend({
 
-  classNames: ['swipe'],
+  classNames: ['swipe-container'],
 
   collection: null,
   tabPropertyKey: null,
   selectedIndex: null,
-  cardSpacing: 16,
+  itemSpacing: 16,
 
   deltaX: 0,
   viewPortWidth: 0,
@@ -82,15 +82,15 @@ export default Ember.Component.extend({
     var selectedIndex = this.get('selectedIndex') || 0;
     var viewPortWidth = this.get('viewPortWidth');
     var deltaX = this.get('deltaX');
-    var cardSpacing = this.get('cardSpacing');
-    var wrapOffset = -Math.abs(selectedIndex * (viewPortWidth - (cardSpacing * 3))) + deltaX;
-    var margin = cardSpacing * 1.5;
+    var itemSpacing = this.get('itemSpacing');
+    var wrapOffset = -Math.abs(selectedIndex * (viewPortWidth - (itemSpacing * 3))) + deltaX;
+    var margin = itemSpacing * 1.5;
 
     return `transform: translate3d(${wrapOffset}px, 0, 0);
       -webkit-transform: translate3d(${wrapOffset}px, 0, 0);
       margin-left: ${margin}px;
       visibility: visible;`.htmlSafe();
-  }.property('selectedIndex', 'viewPortWidth', 'deltaX', 'cardSpacing'),
+  }.property('selectedIndex', 'viewPortWidth', 'deltaX', 'itemSpacing'),
 
   isFirst: function () {
     return this.get('selectedIndex') === 0;
@@ -116,9 +116,9 @@ export default Ember.Component.extend({
 
   didInsertElement: function() {
     var transitionEvents = this.get('transitionEvents');
-    var $wrap = this.$('.swipe--wrap');
+    var $wrap = this.$('.swipe-container--wrap');
     var $window = this.$(window);
-    var $arrows = this.$('.swipe--arrow');
+    var $arrows = this.$('.swipe-container--arrow');
 
     //bind handlers
     this.boundResizeHandler = run.bind(this, 'resizeHandler');
@@ -144,8 +144,8 @@ export default Ember.Component.extend({
     $window.off('resize', this.boundResizeHandler);
     $window.off('panend', this.boundPanEndHandler);
     $window.off('keydown', this.boundKeydownHandler);
-    this.$('.swipe--wrap').off(transitionEvents);
-    this.$('.swipe--arrow').off('panstart');
+    this.$('.swipe-container--wrap').off(transitionEvents);
+    this.$('.swipe-container--arrow').off('panstart');
   },
 
   resizeHandler: function() {

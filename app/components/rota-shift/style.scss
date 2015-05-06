@@ -62,7 +62,7 @@
   // NB this transition here must explicitly target transform, as "all" will catch the z-index
   @include transition(transform .5s ease .3s, z-index 0s 0s);
 
-  .card--active & {
+  .swipe-item.-active & {
     @include transform(scaleX(1));
   }
 }

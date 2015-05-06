@@ -5,11 +5,33 @@
     selectedIndex=attrs.selectedIndex
     isPanning=attrs.isPanning
     setSelectedIndex="setSelectedIndex"
-    cardSpacing=12
     myClass="-payslip"
   }}
     {{#each payslips as |payslip index|}}
-      {{payslip-card-item payslip=payslip index=index selectedIndex=attrs.selectedIndex}}
+      {{#swipe-item
+        index=index
+        selectedIndex=attrs.selectedIndex
+      }}
+        {{#flip-card height="388" breakpoint="640"}}
+
+          {{#flip-card-front}}
+            {{payslip-overview
+              payslip=payslip
+              index=index
+              selectedIndex=attrs.selectedIndex
+            }}
+          {{/flip-card-front}}
+
+          {{#flip-card-back}}
+            {{payslip-detail
+              payslip=payslip
+              index=index
+              selectedIndex=attrs.selectedIndex
+            }}
+          {{/flip-card-back}}
+
+        {{/flip-card}}
+      {{/swipe-item}}
     {{/each}}
   {{/swipe-container}}
   <div class="payslip--breakdown">

@@ -1,4 +1,4 @@
-.swipe {
+.swipe-container {
   background: $color-grey-lightest;
   border-bottom: 1px solid $color-grey-light;
   width: 100%;
@@ -6,7 +6,7 @@
   position: relative;
 }
 
-.swipe--wrap {
+.swipe-container--wrap {
   width: 92340px;
   //needs to be dynamic
   position: relative;
@@ -14,6 +14,14 @@
   transform: translate3d(0, 0, 0);
   @include rem(margin, 16, 24);
   @include clearfix;
+
+  &.-moving {
+    @include transition(all 0.25s ease-out);
+  }
+
+  &.-dragging {
+    @include transition(none);
+  }
 }
 
 .swipe--actions {
@@ -31,56 +39,9 @@
   border-radius: 0;
 }
 
-.swipe--moving {
-  @include transition(all 0.25s ease-out);
-}
-
-.swipe--dragging {
-  @include transition(none);
-}
-
-.swipe--tabs {
-  width: 100%;
-  white-space: nowrap;
-  overflow-y: hidden;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  font-size: rem(13);
-  background: $color-grey-lightest;
-  border-top: 1px dotted $color-grey-light;
-  @include display(flex);
-  position: relative;
-  z-index: 1;
-}
-.swipe--tablink {
-  cursor: pointer;
-  display: inline-block;
-  height: 2.5rem;
-  line-height: 2.5rem;
-  color: $color-grey;
-  text-align: center;
-  &.-rota {
-      @include flex(1 0 114px);
-  }
-  &.-payslip {
-      @include flex(1 0 60px);
-  }
-  &.-active {
-      position: relative;
-      color: $color-grey-darkest;
-      &:after {
-          content: "";
-          position: absolute;
-          top: 0;
-          right:0;
-          left: 0;
-          height: 4px;
-          @include border-radius(2px);
-      }
-  }
-}
-
-.swipe--arrow {
+// arrows
+// for non-touch interaction
+.swipe-container--arrow {
   display: inline-block;
 
   height: rem(80);
@@ -100,7 +61,7 @@
 
   @include aura($color-grey-darker);
 
-  &.swipe-left {
+  &.-left {
     left: 0;
     -webkit-border-top-right-radius:    rem(36) rem(40);
             border-top-right-radius:    rem(36) rem(40);
@@ -112,7 +73,7 @@
     }
   }
 
-  &.swipe-right {
+  &.-right {
     right: 0;
     -webkit-border-top-left-radius:    rem(36) rem(40);
             border-top-left-radius:    rem(36) rem(40);
@@ -122,6 +83,11 @@
     & .svg-icon {
       margin-right: rem(-10);
     }
+  }
+
+  &:active
+  {
+    box-shadow: 0 0 0 12px rgba($color-grey-darker, .2);
   }
 
   &.disabled {

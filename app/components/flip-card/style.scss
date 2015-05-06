@@ -1,0 +1,68 @@
+.flip-card {
+  display:block;
+  @include perspective(1000);
+  position: relative;
+}
+
+.flip-card--wrap {
+  display: block;
+  height: 100%;
+  border: 1px solid $color-grey-lighter;
+  @include transition(all .4s);
+  @include transform-style(preserve-3d);
+}
+
+.flip-card--front,
+.flip-card--back {
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: rem(16);
+  background-color: $color-white;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  @include backface-visibility(hidden);
+}
+.flip-card--front {
+  z-index: 2;
+}
+.flip-card--back {
+  @include transform(rotateY(-180deg));
+}
+
+
+// modifier: FLIPPED
+.flip-card.-flipped {
+  .flip-card--wrap {
+    @include transform(rotateY(180deg));
+  }
+}
+
+
+// modifier: SIDE-BY-SIDE
+.flip-card.-side-by-side {
+  background-color: $color-white;
+
+  .flip-card--front,
+  .flip-card--back {
+    display: block;
+    width: 50%;
+    float: left;
+    position: static;
+  }
+  .flip-card--back {
+    @include transform(rotateY(0));
+  }
+
+  .flip-card--trigger {
+    display: none;
+  }
+}
+
+
+
+

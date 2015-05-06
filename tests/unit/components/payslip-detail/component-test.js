@@ -7,9 +7,9 @@ import t from 'ess/helpers/t';
 import moment from 'ess/helpers/moment';
 import currency from 'ess/helpers/currency';
 
-moduleForComponent('payslip-card-item', {
-  needs: ['component:payslip-donut-chart', 'component:svg-icon'],
-  beforeEach: function () {
+moduleForComponent('payslip-detail', {
+  needs: ['component:svg-icon'],
+  beforeEach: function() {
     Ember.Handlebars.registerHelper('t', t);
     Ember.Handlebars.registerHelper('moment', moment);
     Ember.Handlebars.registerHelper('currency', currency);
@@ -26,22 +26,4 @@ test('it renders', function(assert) {
   // Renders the component to the page
   this.render();
   assert.equal(component._state, 'inDOM');
-});
-
-test('isActive adds card--active class to component div', function (assert) {
-  assert.expect(1);
-
-  var component = this.subject();
-  var $el;
-
-  //render component
-  this.render();
-
-  //element is not available until rendered
-  $el = component.$();
-
-  Ember.run(() => {
-    component.set('isActive', true);
-    assert.ok($el.hasClass('card--active'), 'card element has class card--active');
-  });
 });

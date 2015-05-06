@@ -1,16 +1,16 @@
 import Ember from 'ember';
 
-export default Ember.Mixin.create({
-  tagName: 'section',
-  classNames: ['card'],
-  classNameBindings: ['isActive:card--active'],
+export default Ember.Component.extend({
+
+  tagName: 'div',
+  classNames: ['swipe-item'],
+  classNameBindings: ['isActive:-active'],
   attributeBindings: ['style'],
 
   index: null,
   selectedIndex: null,
 
-  flipped: false,
-  cardSpacing: 24,
+  itemSpacing: 24,
   width: 1000,
 
   isActive: function () {
@@ -19,16 +19,16 @@ export default Ember.Mixin.create({
   }.property('index', 'selectedIndex'),
 
   style: function() {
-    var margin = this.get('cardSpacing') / 2;
+    var margin = this.get('itemSpacing') / 2;
     return `margin-left: ${margin}px; margin-right: ${margin}px; width: ${this.get('width')}px`.htmlSafe();
-  }.property('cardSpacing', 'width'),
+  }.property('itemSpacing', 'width'),
 
   willInsertElement: function() {
     var parent = this.get('parentView');
     if (parent) {
-      var spacing = parent.get('cardSpacing');
+      var spacing = parent.get('itemSpacing');
       if (spacing !== undefined) {
-        this.set('cardSpacing', spacing);
+        this.set('itemSpacing', spacing);
       }
     }
   },
@@ -47,12 +47,6 @@ export default Ember.Mixin.create({
   },
 
   resizeHandler: function() {
-    this.set('width', this.$(window).width() - (this.get('cardSpacing') * 4));
-  },
-
-  actions: {
-    flip: function () {
-      this.toggleProperty('flipped');
-    }
+    this.set('width', this.$(window).width() - (this.get('itemSpacing') * 4));
   }
 });

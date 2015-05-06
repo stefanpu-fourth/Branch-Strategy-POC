@@ -30,7 +30,7 @@ export default Ember.Component.extend({
   }.property('shiftDateAsMoment'),
 
   dayModifier: function() {
-    var dayIndex = parseInt(this.get('dayIndex')) + 1;
+    var dayIndex = parseInt(this.get('dayIndex'), 10) + 1;
     return '-day-' + dayIndex;
   }.property('dayIndex')
 });

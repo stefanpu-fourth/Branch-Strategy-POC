@@ -13,7 +13,7 @@ export default Ember.Component.extend({
 
   tooltipLocation: function() {
     var dayIndex = this.get('dayIndex');
-    var shiftStart = parseInt(this.get('shift.start'));
+    var shiftStart = parseInt(this.get('shift.start'), 10);
     var classes = '';
 
     if (dayIndex < 2) {
