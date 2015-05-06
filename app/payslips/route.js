@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import Pageable from 'ess/mixins/route-pageable';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(Pageable, {
 
   model: function () {
     var processingDate = moment().subtract(12, 'months').format('YYYY-MM-DD');
