@@ -31,5 +31,11 @@ export default Ember.Component.extend({
     }
 
     return `stroke-dasharray: ${circumference}px, ${circumference}px; stroke-dashoffset: ${dashOffset}px;`.htmlSafe();
-  }.property('isActive', 'takeHome')
+  }.property('isActive', 'takeHome'),
+
+  actions: {
+    flipMe: function() {
+      this.get('parentView').send('flip');
+    }
+  }
 });

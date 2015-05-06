@@ -13,6 +13,7 @@ export default {
       takeHome: 'Take home',
       name: 'Name',
       company: 'Company',
+      date: 'Date',
       netPayment: 'Net Payment',
       payments: 'Payments',
       totalPayments: 'Total Payments',
