@@ -79,6 +79,10 @@ export default Ember.Component.extend({
 
   tap: function() {
       var target = this.get("selectTarget");
-      target.send('setSelectedShift', this.get('shift'));
+      if (this.get('selected')) {
+        target.send('setSelectedShift', null);
+      } else {
+        target.send('setSelectedShift', this.get('shift'));
+      }
     }
 });
