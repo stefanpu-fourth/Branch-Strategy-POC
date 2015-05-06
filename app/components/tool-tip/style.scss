@@ -23,7 +23,7 @@
   left: 0;
   z-index: 2000;
 
-  background-color: rgba($color-grey-darker, .8);
+  background-color: rgba($color-grey-dark, .9);
 
   @include font-size(s);
   color: $color-white;
@@ -55,7 +55,7 @@
     border: {
       width: 0 0 rem(16) rem(16);
       style: solid;
-      color: transparent rgba($color-grey-darker, .8);
+      color: transparent rgba($color-grey-dark, .9);
     }
 
     font-size: 0;

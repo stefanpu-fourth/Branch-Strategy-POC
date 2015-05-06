@@ -118,28 +118,155 @@
 
 
 
-// TODO: REVIEW
+// HIDDEN SCROLLBARS
+// - desktop users only
+// shows no scrollbars by default
+// scrollbars appear on hover over element
 
-@mixin button() {
-  -ms-touch-action: manipulation; /* IE10  */
-    touch-action: manipulation;     /* IE11+ */
-    display: inline-block;
-  @include rem(padding, 5, 10);
-  white-space: nowrap;
-  cursor: pointer;
-  border: 0;
-  border-radius: rem(4);
-  -webkit-appearance: none;
-  position: relative;
-  color: inherit;
+// accepts arguments:
+// "x" for hidden horizontal scrollbars
+// "y" for hidden vertical scrollbars
+// if no argument is passed it will be applied to both directions
+
+// example usage:
+// .overflows-vertical {
+//   @include hidden-scrollbars(y);
+// }
+// .overflows-everywhere {
+//   @include hidden-scrollbars();
+// }
+
+@mixin hidden-scrollbar($dir: null) {
+
+  @if $dir == "x" or $dir == "y" {
+    $dir: -#{$dir};
+  }
+
+  overflow#{$dir}: hidden;
+  &:hover {
+    overflow#{$dir}: auto;
+  }
+}
+
+
+
+// AURA
+// adds an animated box-shadow to a clicked element
+// note: will override the following properties:
+// box-shadow
+// transition
+
+// accepts an optional color
+// default is the default button color
+
+// example usage:
+// .my-button {
+//   @include button();
+//   @include aura()
+// }
+
+// dependencies:
+//   $bounce variable
+
+@mixin aura($color: $color-grey) {
+  box-shadow: 0 0 0 0 rgba($color, .2);
+  will-change: box-shadow;
+  @include transition(box-shadow .2s $bounce);
+
+  &:active {
+    box-shadow: 0 0 0 10px rgba($color, .2);
+  }
+}
+
+
+
+// BUTTON
+// adds button appearance and behaviour to an element
+// note that buttons are not styled by default
+
+// accepts comma-separated arguments:
+// "primary" to create a more evident button (use sparingly)
+// "secondary" to create a text link style button
+// "fullwidth" to create a button that horizontally spans the entire parent element
+
+// example usage:
+// .my-button {
+//   @include button(primary, fullwidth);
+// }
+
+// dependencies:
+//   aura mixin
+
+@mixin button($style...) {
+  // settings for default buttons
+  $display:    inline-block;
+  $width:      auto;
+  $color-bg:   $color-grey;
+  $color-text: $color-white;
+  $fullwidth:  false;
+
+  // update variables
+  // if any of the allowed styles have been passed
+  @if length($style) > 0 {
+    @for $i from 1 through length($style) {
+      @if #{nth($style, $i)} == "primary" {
+        $color-bg: $color-grey-darker;
+      }
+      @if #{nth($style, $i)} == "secondary" {
+        $color-bg:   transparent;
+        $color-text: $color-grey-darker;
+      }
+      @if #{nth($style, $i)} == "fullwidth" {
+        $display:   block;
+        $width:     100;
+        $fullwidth: true;
+      }
+    }
+  }
+
+  // styling
+  display: $display;
+  @include appearance(none);
   overflow: visible;
-  letter-spacing: inherit;
-  background: $color-grey-lightest;
-  border: 1px solid $color-grey-light;
-  text-transform: uppercase;
+
+  position: relative;
+
+  @include rem(margin, 5);
+  @include rem(padding, 0 ,10);
+
+  border: none;
+  @include border-radius(rem(4));
+  background-color: $color-bg;
+
   @include font-size(s);
-  min-width:rem(36);
+  color: $color-text;
+  line-height: rem(32);
+  white-space: nowrap;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  -ms-touch-action: manipulation; /* IE10  */
+      touch-action: manipulation; /* IE11+ */
+
+  @include aura($color-bg);
+
   &:focus {
     outline: 0;
+  }
+
+  .svg-icon {
+    color: rgba($color-text, .8);
+    &:first-child {
+      margin-right: .5em;
+      @if $fullwidth {
+        float: left;
+      }
+    }
+    &:last-child {
+      margin-left: .5em;
+      @if $fullwidth {
+        float: right;
+      }
+    }
   }
 }
