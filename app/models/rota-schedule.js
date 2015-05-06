@@ -38,7 +38,7 @@ export default DS.Model.extend({
         if ((index % 2) === 0) {
           var endTime = times[index + 1];
           if (startTime !== endTime) {
-            return Ember.merge(this.getProperties('jobTitle', 'type', 'isNotRota', 'location'), {
+            return Ember.merge(this.getProperties('jobTitle', 'type', 'location'), {
               start: startTime,
               end: endTime
             });

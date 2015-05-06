@@ -58,8 +58,9 @@
 .rota-shift--solid {
   @include transform-origin(0 0);
   @include transform(scaleX(0));
-  will-change: transform;
-  @include transition(all .5s .3s ease, z-index 0 0);
+  will-change: transform, z-index;
+  // NB this transition here must explicitly target transform, as "all" will catch the z-index
+  @include transition(transform .5s ease .3s, z-index 0s 0s);
 
   .card--active & {
     @include transform(scaleX(1));

@@ -68,7 +68,7 @@ export default Ember.Service.extend({
             });
             // TODO: we're only merging in types when we have shifts in other records - this may be flawed
             // essentially this is a workaround to deal with back-end data
-            if (s.get('isNotRota') && (s.get('shifts.length') === 0)) {
+            if (dupeSchedule.get('isNotRota') && (dupeSchedule.get('shifts.length') === 0)) {
               dayTypes.add(dupeSchedule.get('type'));
             }
             schedulesForDate.splice(dupeIndex, 1);
