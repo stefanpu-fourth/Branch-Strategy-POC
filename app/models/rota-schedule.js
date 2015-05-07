@@ -75,6 +75,28 @@ export default DS.Model.extend({
     this.set('shifts', newShifts.compact());
   },
 
+  overlappingShifts: function() {
+    var overlaps = [];
+    var shifts = this.get('shifts');
+
+    shifts.forEach(function(shift, index) {
+      var endTime = shift.get('endAsMinutes');
+      var overlapping = shifts.filter(function(innerShift, innerIndex) {
+        return innerIndex > index && (endTime > innerShift.get('startAsMinutes'));
+      });
+      if (overlapping.length > 0) {
+        // we've found overlaps, so make an overlap item
+        overlaps.push({
+          startAsMinutes: Math.min(...overlapping.mapBy('startAsMinutes')),
+          endAsMinutes: Math.min(endTime, ...overlapping.mapBy('endAsMinutes')),
+          shifts: [].concat(shift).concat(overlapping)
+        });
+      }
+    });
+
+    return overlaps;
+  }.property('shifts'),
+
   shiftDateAsMoment: function() {
     return moment(this.get('shiftDate'));
   }.property('shiftDate'),
