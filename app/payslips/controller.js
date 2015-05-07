@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import Pageable from 'ess/mixins/controller-pageable';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(Pageable, {
 
   queryParams: [ 'sort', 'filters' ],
 

@@ -1,11 +1,12 @@
 import Ember from 'ember';
+import Pageable from 'ess/mixins/route-pageable';
 
 var paramParams = {
     refreshModel: true,
     replace: true
 };
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(Pageable, {
 
   queryParams: {
     sort: paramParams,
