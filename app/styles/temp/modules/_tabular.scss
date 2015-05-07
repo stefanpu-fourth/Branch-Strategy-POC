@@ -42,13 +42,13 @@
 }
 
 .tabular--sub {
-  font-size: rem(12);
   font-weight: bold;
   background: $color-grey-lighter;
   margin-top:-1px;
   position: relative;
   height: 2rem;
   line-height: 2rem;
+  text-align: center;
   &.-highlight {
     border-top: 1px solid $color-white;
   }

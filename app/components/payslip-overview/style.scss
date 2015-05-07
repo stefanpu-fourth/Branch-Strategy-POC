@@ -1,3 +1,19 @@
 .payslip-overview {
+  height: 100%;
   text-align: center;
+}
+
+.payslip-overview--title {
+  @include font-size(l);
+}
+
+.payslip-overview--show-breakdown,
+.payslip-overview--download-pdf {
+  @include button(fullwidth);
+  max-width: rem(300);
+}
+.payslip-overview--show-breakdown {
+  @include respond(640) {
+    display: none;
+  };
 }

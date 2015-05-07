@@ -1,15 +1,16 @@
-<div class="payslip--numbers" {{action 'flipMe'}}>
-  <span class="payslip--total">{{t 'payslips.totalPay'}}: {{currency grossPay unit='£'}}</span>
-  <span class="payslip--takehome">{{t 'payslips.takeHome'}}:</span>
-  <span class="payslip--net"><span>{{currency netPay unit='£'}}</span></span>
+<div class="payslip-donut-chart--numbers" {{action "flipCard"}}>
+  <span class="payslip-donut-chart--total">{{t 'payslips.totalPay'}}: {{currency grossPay unit='£'}}</span>
+  <span class="payslip-donut-chart--take-home">{{t 'payslips.takeHome'}}:</span>
+  <span class="payslip-donut-chart--net"><span>{{currency netPay unit='£'}}</span></span>
 </div>
-<div class="payslip--chart">
-  <div class="payslip--chartbg">
+
+<div class="payslip-donut-chart--chart">
+  <div class="payslip-donut-chart--chart-bg">
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
       <path d="M150,6c78.5,0,144,65.5,144,144s-65.5,144-144,144S6,228.5,6,150 S71.5,6,150,6z" /> </svg>
   </div>
-  <div class="payslip--chartanimate brand-stroke">
+  <div class="payslip-donut-chart--animate brand-stroke">
   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
-    <path class="payslip--chartpath brand-stroke" style={{pathStyles}} d="M150,6c78.5,0,144,65.5,144,144s-65.5,144-144,144S6,228.5,6,150 S71.5,6,150,6z" /> </svg>
+    <path class="payslip-donut-chart--path brand-stroke" style={{pathStyles}} d="M150,6c78.5,0,144,65.5,144,144s-65.5,144-144,144S6,228.5,6,150 S71.5,6,150,6z" /> </svg>
 </div>
 </div>

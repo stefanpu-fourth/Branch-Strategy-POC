@@ -1,8 +1,11 @@
 <div class="tabular">
-  <a class="notALink flip-card--trigger" {{action "flipCard" target="parentView"}}>
-    {{svg-icon name="x"}}
-  </a>
-  <h3 class="tabular--sub -title">{{moment payslip.processingDate format="DD MMM YYYY"}}</h3>
+
+  <h3 class="tabular--sub -title">
+    {{moment payslip.processingDate format="DD MMM YYYY"}}
+    <a class="notALink payslip-detail--show-overview flip-card--trigger" {{action "flipCard" target="parentView"}}>
+      {{svg-icon name="x"}}
+    </a>
+  </h3>
 
   <h3 class="tabular--sub -highlight brand-bg">{{t 'payslips.payments'}}</h3>
   {{#each payslip.payments as |payment|}}
