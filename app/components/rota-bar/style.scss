@@ -1,26 +1,28 @@
 .rota-bar {
   display: block;
-
   width: 100%;
   height: rem(12);
   margin-bottom: rem(3);
-
   position: relative;
-
   background-color: $color-grey-lighter;
   @include border-radius(rem(6));
-
-  &.-empty {
-    background-color: $color-white;
-    border: 1px solid $color-grey;
-  }
-
   &.-past {
     background-color: $color-grey-lightest;
   }
-
-  &.-past.-empty {
-    background-color: $color-white;
-    border-color: $color-grey-lighter;
+}
+.empty-shift {
+  width: 100%;
+  left: 0;
+}
+.empty {
+  border: 1px solid $color-grey;
+  background-color: #fff;
+}
+.rota-shift--solid {
+  @include transform-origin(0 0);
+  @include transform(scaleX(0));
+  @include transition(transform .5s ease .3s);
+  .swipe-item.-active & {
+    @include transform(scaleX(1));
   }
 }
