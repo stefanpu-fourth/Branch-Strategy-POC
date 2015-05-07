@@ -1,0 +1,45 @@
+<div class="tabular">
+  <dl class="tabular--row">
+    <dt class="tabular--key">{{t 'details.name'}}</dt>
+    <dd class="tabular--value">{{employment.companyName}}</dd>
+  </dl>
+  <dl class="tabular--row">
+    <dt class="tabular--key">{{t 'details.address'}}</dt>
+    <dd class="tabular--value -wide">
+      {{employment.companyAddress1}}
+      {{#if employment.companyAddress2}}
+        <br />{{employment.companyAddress2}}
+      {{/if}}
+      {{#if employment.companyAddress3}}
+        <br />{{employment.companyAddress3}}
+      {{/if}}
+      {{#if employment.companyTown}}
+        <br />{{employment.companyTown}}
+      {{/if}}
+      {{#if employment.companyCounty}}
+        <br />{{employment.companyCounty}}
+      {{/if}}
+      <br />{{employment.companyPostCode}}
+    </dd>
+  </dl>
+  <dl class="tabular--row">
+    <dt class="tabular--key">{{t 'details.phone'}}</dt>
+    <dd class="tabular--value">{{employment.companyPhone}}</dd>
+  </dl>
+  <dl class="tabular--row">
+    <dt class="tabular--key">{{t 'details.fax'}}</dt>
+    <dd class="tabular--value">{{employment.companyFax}}</dd>
+  </dl>
+  <dl class="tabular--row">
+    <dt class="tabular--key">{{t 'details.employer.taxOfficeName'}}</dt>
+    <dd class="tabular--value">{{employment.taxOfficeName}}</dd>
+  </dl>
+  <dl class="tabular--row">
+    <dt class="tabular--key">{{t 'details.employer.taxOfficeNumber'}}</dt>
+    <dd class="tabular--value">{{employment.taxOfficeNumber}}</dd>
+  </dl>
+  <dl class="tabular--row">
+    <dt class="tabular--key">{{t 'details.employer.payeReference'}}</dt>
+    <dd class="tabular--value">{{employment.payeReference}}</dd>
+  </dl>
+</div>
