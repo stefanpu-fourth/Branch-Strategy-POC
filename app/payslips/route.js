@@ -2,8 +2,8 @@ import Ember from 'ember';
 import Pageable from 'ess/mixins/route-pageable';
 
 var paramParams = {
-    refreshModel: true,
-    replace: true
+  refreshModel: true,
+  replace: true
 };
 
 export default Ember.Route.extend(Pageable, {
@@ -13,18 +13,18 @@ export default Ember.Route.extend(Pageable, {
     filters: paramParams
   },
 
-  model: function (params) {
+  model: function(params) {
     return this.store.find('payslip', params);
   },
 
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.set('attrs.payslips.content', model);
     controller.set('attrs.selectedIndex', null);
     controller.set('attrs.isPanning', true);
   },
 
   actions: {
-    setSelectedIndex: function (index) {
+    setSelectedIndex: function(index) {
       var attrs = this.get('controller.attrs');
       var currentIndex = attrs.selectedIndex;
       var hasCurrentIndex = typeof currentIndex !== 'undefined' && currentIndex !== null;

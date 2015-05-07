@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import RoutePaginationMixin from '../../../mixins/route-pageable';
+import RoutePageableMixin from '../../../mixins/route-pageable';
 import { module, test } from 'qunit';
 
 module('RoutePageableMixin');
