@@ -1,17 +1,20 @@
 import ODataAdapter from './odata';
 import Sortable from 'ess/mixins/adapter-sortable';
+import Filterable from 'ess/mixins/adapter-filterable';
 
-export default ODataAdapter.extend(Sortable, {
+export default ODataAdapter.extend(Sortable, Filterable, {
 
   getODataUrlParts(type, query) {
-      var { sort } = query;
+      var { sort, filters } = query;
 
       delete query.sort;
+      delete query.filters;
 
       return [
           this.urlPrefix(),
           this.pathForType(type.typeKey),
           '?',
+          this.getFiltersString(filters),
           this.getSortString(sort.by, sort.dir)
       ];
   }

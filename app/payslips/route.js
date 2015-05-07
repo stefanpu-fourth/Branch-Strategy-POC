@@ -8,26 +8,13 @@ var paramParams = {
 export default Ember.Route.extend({
 
   queryParams: {
-    sort: paramParams
+    sort: paramParams,
+    filters: paramParams
   },
 
   model: function (params) {
     return this.store.find('payslip', params);
   },
-
-  /*model: function (params) {
-    /*var processingDate = moment().subtract(12, 'months').format('YYYY-MM-DD');
-    var payslips = this.store.all('payslip');
-    if (!Ember.isEmpty(payslips)) {
-      return payslips;
-    }
-
-    return this.store.find('payslip', {
-      'ProcessingDate': processingDate
-    });
-
-    return this.store.find('payslip', params);
-  },*/
 
   setupController: function (controller, model) {
     controller.set('attrs.payslips.content', model);
