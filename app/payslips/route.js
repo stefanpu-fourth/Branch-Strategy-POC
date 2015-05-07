@@ -1,10 +1,22 @@
 import Ember from 'ember';
-import Pageable from 'ess/mixins/route-pageable';
 
-export default Ember.Route.extend(Pageable, {
+var paramParams = {
+    refreshModel: true,
+    replace: true
+};
 
-  model: function () {
-    var processingDate = moment().subtract(12, 'months').format('YYYY-MM-DD');
+export default Ember.Route.extend({
+
+  queryParams: {
+    sort: paramParams
+  },
+
+  model: function (params) {
+    return this.store.find('payslip', params);
+  },
+
+  /*model: function (params) {
+    /*var processingDate = moment().subtract(12, 'months').format('YYYY-MM-DD');
     var payslips = this.store.all('payslip');
     if (!Ember.isEmpty(payslips)) {
       return payslips;
@@ -13,7 +25,9 @@ export default Ember.Route.extend(Pageable, {
     return this.store.find('payslip', {
       'ProcessingDate': processingDate
     });
-  },
+
+    return this.store.find('payslip', params);
+  },*/
 
   setupController: function (controller, model) {
     controller.set('attrs.payslips.content', model);

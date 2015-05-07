@@ -1,7 +1,22 @@
-import EssAdapter from './ess';
+import ODataAdapter from './odata';
+import Sortable from 'ess/mixins/adapter-sortable';
 
-export default EssAdapter.extend({
-  _buildOdataUrl: function(type, qstring) {
+export default ODataAdapter.extend(Sortable, {
+
+  getODataUrlParts(type, query) {
+      var { sort } = query;
+
+      delete query.sort;
+
+      return [
+          this.urlPrefix(),
+          this.pathForType(type.typeKey),
+          '?',
+          this.getSortString(sort.by, sort.dir)
+      ];
+  }
+
+  /*_buildOdataUrl: function(type, qstring) {
     return `${this.urlPrefix()}/${this.pathForType(type.typeKey)}?${qstring}`;
   },
 
@@ -12,5 +27,5 @@ export default EssAdapter.extend({
     }
     var url = this._buildOdataUrl(type, qstring);
     return this.ajax(url);
-  }
+  }*/
 });
