@@ -2,10 +2,14 @@ import {
   moduleForComponent,
   test
 } from 'ember-qunit';
+import Ember from 'ember';
+import t from 'ess/helpers/t';
 
 moduleForComponent('hr-card', {
-  // Specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar']
+  needs: ['component:svg-icon'],
+  beforeEach: function() {
+    Ember.Handlebars.registerHelper('t', t);
+  }
 });
 
 test('it renders', function(assert) {
