@@ -1,18 +1,22 @@
-<div class="details">
+<div class="hr-details">
 
-  <div class="card">
-    <h1>{{t 'details.employee.details'}}</h1>
-    {{hr-employee employee=attrs.employee}}
-  </div>
+  {{hr-card employee=attrs.employee employment=employment}}
 
-  <div class="card">
-    <h1>{{t 'details.employer.details'}}</h1>
-    {{hr-employer employment=employment}}
-  </div>
+  <div class="hr-details--cards">
+    <div class="hr-details--card">
+      <h1 class="hr-details--header brand-after-bg">{{t 'details.employee.details'}}</h1>
+      {{hr-employee employee=attrs.employee}}
+    </div>
 
-  <div class="card">
-    <h1>{{t 'details.employment.details'}}</h1>
-    {{hr-employment employment=employment}}
+    <div class="hr-details--card">
+      <h1 class="hr-details--header brand-after-bg">{{t 'details.employer.details'}}</h1>
+      {{hr-employer employment=employment}}
+    </div>
+
+    <div class="hr-details--card">
+      <h1 class="hr-details--header brand-after-bg">{{t 'details.employment.details'}}</h1>
+      {{hr-employment employment=employment}}
+    </div>
   </div>
 
 </div>
