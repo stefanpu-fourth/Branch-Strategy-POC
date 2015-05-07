@@ -59,7 +59,7 @@ var Payslip = DS.Model.extend({
   }.property('currentGrossPay', 'netPay'),
 
   formattedProcessingDate: function () {
-    return moment(this.get('processingDate')).format('DD MMM');
+    return moment(this.get('processingDate')).format('D MMM');
   }.property('processingDate')
 });
 

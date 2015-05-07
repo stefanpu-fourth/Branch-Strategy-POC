@@ -10,7 +10,7 @@ var RotaWeek = Ember.Object.extend({
   }.property('start'),
 
   formattedDateRange: function() {
-    return moment(this.get('start')).format("DD MMM") + " - " + moment(this.get('end')).format("DD MMM");
+    return moment(this.get('start')).format("D MMM") + " - " + moment(this.get('end')).format("D MMM");
   }.property('start', 'end')
 });
 
