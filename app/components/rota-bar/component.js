@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: ['rota-bar'],
-  classNameBindings: ['isInPast:-past'],
+  classNameBindings: ['empty:-empty', 'isInPast:-past'],
 
   shifts: null,
   empty: null,

@@ -1,16 +1,9 @@
-{{#unless empty}}
-  {{#each shifts as |shift|}}
-    {{rota-shift
-       shift=shift
-       selectedShift=selectedShift
-       selectTarget=selectTarget
-       isInPast=isInPast
-       dayIndex=dayIndex
-    }}
-  {{/each}}
-{{else}}
-  <span class="rota-shift empty-shift">
-    <span class="rota-shift--solid empty">
-    </span>
-  </span>
-{{/unless}}
+{{#each shifts as |shift|}}
+  {{rota-shift
+     shift=shift
+     selectedShift=selectedShift
+     selectTarget=selectTarget
+     isInPast=isInPast
+     dayIndex=dayIndex
+  }}
+{{/each}}
