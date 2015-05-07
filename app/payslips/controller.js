@@ -1,11 +1,22 @@
 import Ember from 'ember';
+import Pageable from 'ess/mixins/controller-pageable';
 
-var PayslipContainer = Ember.ArrayProxy.extend(Ember.SortableMixin, {
-  sortProperties: ['processingDate']
-});
+export default Ember.Controller.extend(Pageable, {
 
-export default Ember.Controller.extend({
+  queryParams: ['sort', 'filters'],
+
+  sort: {
+    by: 'processingDate',
+    dir: 'desc'
+  },
+
+  filters: [{
+    key: 'processingDate',
+    operator: 'ge',
+    value: moment().subtract(12, 'months').format('YYYY-MM-DD')
+  }],
+
   attrs: {
-    payslips: PayslipContainer.create()
+    payslips: Ember.ArrayProxy.create()
   }
 });

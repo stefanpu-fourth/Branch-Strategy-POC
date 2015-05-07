@@ -1,27 +1,30 @@
 import Ember from 'ember';
+import Pageable from 'ess/mixins/route-pageable';
 
-export default Ember.Route.extend({
+var paramParams = {
+  refreshModel: true,
+  replace: true
+};
 
-  model: function () {
-    var processingDate = moment().subtract(12, 'months').format('YYYY-MM-DD');
-    var payslips = this.store.all('payslip');
-    if (!Ember.isEmpty(payslips)) {
-      return payslips;
-    }
+export default Ember.Route.extend(Pageable, {
 
-    return this.store.find('payslip', {
-      'ProcessingDate': processingDate
-    });
+  queryParams: {
+    sort: paramParams,
+    filters: paramParams
   },
 
-  setupController: function (controller, model) {
+  model: function(params) {
+    return this.store.find('payslip', params);
+  },
+
+  setupController: function(controller, model) {
     controller.set('attrs.payslips.content', model);
     controller.set('attrs.selectedIndex', null);
     controller.set('attrs.isPanning', true);
   },
 
   actions: {
-    setSelectedIndex: function (index) {
+    setSelectedIndex: function(index) {
       var attrs = this.get('controller.attrs');
       var currentIndex = attrs.selectedIndex;
       var hasCurrentIndex = typeof currentIndex !== 'undefined' && currentIndex !== null;
