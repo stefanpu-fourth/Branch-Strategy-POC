@@ -56,6 +56,8 @@ export default Ember.Service.extend({
 
         schedulesForDate.forEach((s, index) => {
           let dayTypes = new Ember.Set();
+          // reset calculated shifts, as otherwise for subsequent calls we get lots of duplicates
+          s.calculateShifts();
           if (s.get('isNotRota') && (s.get('shifts.length') === 0)) {
             dayTypes.add(s.get('type'));
           }
