@@ -5,16 +5,16 @@ var run = Ember.run;
 export default Ember.Component.extend({
   tagName: 'div',
   classNames: ['flip-card'],
-  classNameBindings: ['isFlipped:-flipped', 'showSideBySide:-side-by-side'],
+  classNameBindings: ['isFlipped:-flipped', 'isFlippable:-flippable'],
 
   attributeBindings: ['style'],
 
   height: 240,
 
   isFlipped: false,
+  isFlippable: false,
 
   breakpoint: null,
-  showSideBySide: false,
 
   style: function() {
     var cardHeight = this.get('height');
@@ -45,8 +45,8 @@ export default Ember.Component.extend({
 
     if (breakpoint) {
       var cardWidth = this.$().width();
-      this.set('showSideBySide', breakpoint <= cardWidth);
-      if (this.showSideBySide) {
+      this.set('isFlippable', breakpoint > cardWidth);
+      if (!this.isFlippable) {
         this.set('isFlipped', false);
       }
     }
@@ -54,10 +54,10 @@ export default Ember.Component.extend({
 
   actions: {
     flipCard: function() {
-      if (this.showSideBySide) {
-        this.set('isFlipped', false);
-      } else {
+      if (this.isFlippable) {
         this.toggleProperty('isFlipped');
+      } else {
+        this.set('isFlipped', false);
       }
     }
   }

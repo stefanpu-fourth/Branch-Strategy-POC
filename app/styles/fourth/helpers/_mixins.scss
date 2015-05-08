@@ -123,28 +123,29 @@
 // shows no scrollbars by default
 // scrollbars appear on hover over element
 
-// accepts arguments:
-// "x" for hidden horizontal scrollbars
-// "y" for hidden vertical scrollbars
-// if no argument is passed it will be applied to both directions
-
 // example usage:
-// .overflows-vertical {
-//   @include hidden-scrollbar(y);
-// }
-// .overflows-everywhere {
-//   @include hidden-scrollbar();
+// .overflow-element {
+//   overflow: auto;
+//   @include hidden-scrollbars;
 // }
 
-@mixin hidden-scrollbar($dir: null) {
-
-  @if $dir == "x" or $dir == "y" {
-    $dir: -#{$dir};
+@mixin hidden-scrollbars {
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
   }
 
-  overflow#{$dir}: hidden;
   &:hover {
-    overflow#{$dir}: auto;
+    &::-webkit-scrollbar {
+      background-color:$color-grey-lighter;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color:$color-grey-light;
+    }
+  }
+
+  & {
+    -ms-overflow-style: -ms-autohiding-scrollbar;
   }
 }
 
