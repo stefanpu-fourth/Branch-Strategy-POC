@@ -6,3 +6,10 @@
   border: 1px solid $color-grey-lighter;
   height: auto;
 }
+.card--title {
+  @include font-size(l);
+
+  &.-center {
+    text-align: center;
+  }
+}
