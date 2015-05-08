@@ -42,6 +42,9 @@ module.exports = function(environment) {
           direction: 6
         }
       }
+    },
+    pagination: {
+      pageSize: 12
     }
   };
 
