@@ -99,6 +99,13 @@ test('it consolidates days in rota weeks', function(assert) {
         var formattedShiftStart = week.get('start').format('YYYY-MM-DD');
         assert.equal(week.get('shifts.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
       });
+
+      assert.equal(record.shifts.length, 2, 'shifts get merged as expected');
+
+      weeksPromise = service.getRotaWeeks(new Date(2015, 3, 2));
+      weeksPromise.then(weeks => {
+        assert.equal(record.shifts.length, 2, 'shifts merged as expected after second call to getRotaWeeks');
+      });
     });
   });
 });
