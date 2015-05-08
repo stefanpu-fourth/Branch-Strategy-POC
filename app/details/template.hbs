@@ -1,178 +1,22 @@
-<div class="details">
-  <div class="details--employment">
-    <div class="tabular">
-      <h2 class="tabular--heading">{{t 'details.employment.details'}}</h2>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.employment.location'}}</dt>
-        <dd class="tabular--value">{{employment.locationName}}</dd>
-      </dl>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.employment.division'}}</dt>
-        <dd class="tabular--value">{{employment.division}}</dd>
-      </dl>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.employment.jobTitle'}}</dt>
-        <dd class="tabular--value">{{employment.jobTitle}}</dd>
-      </dl>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.employment.payType'}}</dt>
-        <dd class="tabular--value">{{employment.payType}}</dd>
-      </dl>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.address'}}</dt>
-        <dd class="tabular--value -wide">
-          {{employment.locationAddress1}}
-          {{#if employment.locationAddress2}}
-            <br />{{employment.locationAddress2}}
-          {{/if}}
-          {{#if employment.locationAddress3}}
-            <br />{{employment.locationAddress3}}
-          {{/if}}
-          {{#if employment.locationTown}}
-            <br />{{employment.locationTown}}
-          {{/if}}
-          {{#if employment.locationCounty}}
-            <br />{{employment.locationCounty}}
-          {{/if}}
-          <br />{{employment.locationPostCode}}
-        </dd>
-      </dl>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.phone'}}</dt>
-        <dd class="tabular--value">{{employment.locationPhone}}</dd>
-      </dl>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.fax'}}</dt>
-        <dd class="tabular--value">{{employment.locationFax}}</dd>
-      </dl>
+<div class="hr-details">
+
+  {{hr-card employee=attrs.employee employment=employment}}
+
+  <div class="hr-details--cards">
+    <div class="hr-details--card">
+      <h1 class="hr-details--header brand-after-bg">{{t 'details.employee.details'}}</h1>
+      {{hr-employee employee=attrs.employee}}
+    </div>
+
+    <div class="hr-details--card">
+      <h1 class="hr-details--header brand-after-bg">{{t 'details.employer.details'}}</h1>
+      {{hr-employer employment=employment}}
+    </div>
+
+    <div class="hr-details--card">
+      <h1 class="hr-details--header brand-after-bg">{{t 'details.employment.details'}}</h1>
+      {{hr-employment employment=employment}}
     </div>
   </div>
 
-  <div class="details--employee">
-    <div class="tabular">
-      <h2 class="tabular--heading">{{t 'details.employee.details'}}</h2>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.name'}}</dt>
-        <dd class="tabular--value">{{attrs.employee.fullName}}</dd>
-      </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.employeeNumber'}}</dt>
-        <dd class="tabular--value">{{attrs.employee.employeeNumber}}</dd>
-      </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.startDate'}}</dt>
-        <dd class="tabular--value">{{startDateFormat}}</dd>
-      </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.serviceDuration'}}</dt>
-        <dd class="tabular--value">{{attrs.employee.lengthOfService}}</dd>
-      </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.niNumber'}}</dt>
-        <dd class="tabular--value">{{attrs.employee.nationalInsuranceNumber}}</dd>
-      </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.address'}}</dt>
-        <dd class="tabular--value -wide">
-          {{attrs.employee.address1}}
-          {{#if attrs.employee.address2}}
-            <br />{{attrs.employee.address2}}
-          {{/if}}
-          {{#if attrs.employee.address3}}
-            <br />{{attrs.employee.address3}}
-          {{/if}}
-          {{#if attrs.employee.town}}
-            <br />{{attrs.employee.town}}
-          {{/if}}
-          {{#if attrs.employee.county}}
-            <br />{{attrs.employee.county}}
-          {{/if}}
-          {{#if attrs.employee.country}}
-            <br />{{attrs.employee.country}}
-          {{/if}}
-          <br />{{attrs.employee.postCode}}</dd>
-      </dl>
-      {{#if attrs.employee.homeTel}}
-        <dl class="tabular--row -nobg">
-          <dt class="tabular--key">{{t 'details.employee.homeTel'}}</dt>
-          <dd class="tabular--value">{{attrs.employee.homeTel}}</dd>
-        </dl>
-      {{/if}}
-      {{#if attrs.employee.mobileTel}}
-        <dl class="tabular--row -nobg">
-          <dt class="tabular--key">{{t 'details.employee.mobileTel'}}</dt>
-          <dd class="tabular--value">{{attrs.employee.mobileTel}}</dd>
-        </dl>
-      {{/if}}
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.homeEmail'}}</dt>
-        <dd class="tabular--value -wide">{{attrs.employee.homeEmail}}</dd>
-      </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.workEmail'}}</dt>
-        <dd class="tabular--value -wide">{{attrs.employee.workEmail}}</dd>
-      </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.nationality'}}</dt>
-        <dd class="tabular--value -wide">{{attrs.employee.nationality}}</dd>
-      </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.dateOfBirth'}}</dt>
-        <dd class="tabular--value">{{dateOfBirthFormat}}</dd>
-      </dl>
-      <dl class="tabular--row -nobg">
-        <dt class="tabular--key">{{t 'details.employee.gender'}}</dt>
-        <dd class="tabular--value -wide">{{attrs.employee.gender}}</dd>
-      </dl>
-    </div>
-  </div>
-
-  <div class="details--employer">
-    <div class="tabular">
-      <h2 class="tabular--heading">{{t 'details.employer.details'}}</h2>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.name'}}</dt>
-        <dd class="tabular--value">{{employment.companyName}}</dd>
-      </dl>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.address'}}</dt>
-        <dd class="tabular--value -wide">
-          {{employment.companyAddress1}}
-          {{#if employment.companyAddress2}}
-            <br />{{employment.companyAddress2}}
-          {{/if}}
-          {{#if employment.companyAddress3}}
-            <br />{{employment.companyAddress3}}
-          {{/if}}
-          {{#if employment.companyTown}}
-            <br />{{employment.companyTown}}
-          {{/if}}
-          {{#if employment.companyCounty}}
-            <br />{{employment.companyCounty}}
-          {{/if}}
-          <br />{{employment.companyPostCode}}
-        </dd>
-      </dl>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.phone'}}</dt>
-        <dd class="tabular--value">{{employment.companyPhone}}</dd>
-      </dl>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.fax'}}</dt>
-        <dd class="tabular--value">{{employment.companyFax}}</dd>
-      </dl>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.employer.taxOfficeName'}}</dt>
-        <dd class="tabular--value">{{employment.taxOfficeName}}</dd>
-      </dl>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.employer.taxOfficeNumber'}}</dt>
-        <dd class="tabular--value">{{employment.taxOfficeNumber}}</dd>
-      </dl>
-      <dl class="tabular--row">
-        <dt class="tabular--key">{{t 'details.employer.payeReference'}}</dt>
-        <dd class="tabular--value">{{employment.payeReference}}</dd>
-      </dl>
-    </div>
-  </div>
 </div>

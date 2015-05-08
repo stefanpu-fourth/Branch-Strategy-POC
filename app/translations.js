@@ -60,6 +60,9 @@ export default {
       address: 'Address',
       phone: 'Phone',
       fax: 'Fax',
+      card: {
+        subHeader: 'With {{employer}} for {{employmentDuration}}'
+      },
       employment: {
         details: 'Main Employment',
         division: 'Division',
