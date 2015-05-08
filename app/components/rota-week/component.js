@@ -8,5 +8,9 @@ export default Ember.Component.extend({
   week: null,
   shifts: null,
   selectedShift: null,
-  selectTarget: null
+  selectTarget: null,
+
+  tap: function() {
+    this.set('selectedShift',null);
+  }
 });
