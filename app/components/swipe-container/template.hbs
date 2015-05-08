@@ -1,11 +1,11 @@
-<div {{bind-attr style=wrapStyles}} {{bind-attr class=":swipe-container--wrap isPanning:-dragging isMoving:-moving"}}>
+<div style={{wrapStyles}} class="swipe-container--wrap {{if isPanning '-dragging'}} {{if isMoving '-moving'}}">
   {{yield}}
 </div>
 {{#unless isTouch}}
-  <div {{bind-attr class=":swipe-container--arrow :-left isFirst:-disabled"}} {{action "prevPage"}}>
+  <div class="swipe-container--arrow -left {{if isFirst '-disabled'}}" {{action "prevPage"}}>
     {{svg-icon name="chevron-left"}}
   </div>
-  <div {{bind-attr class=":swipe-container--arrow :-right isLast:-disabled"}} {{action "nextPage"}}>
+  <div class="swipe-container--arrow -right {{if isLast '-disabled'}}" {{action "nextPage"}}>
     {{svg-icon name="chevron-right"}}
   </div>
 {{/unless}}
