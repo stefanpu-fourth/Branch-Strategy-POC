@@ -4,15 +4,27 @@
   width: 100%;
   height: rem(12);
   margin-bottom: rem(3);
-
   position: relative;
-
   background-color: $color-grey-lighter;
   @include border-radius(rem(6));
 
-  &.-empty {
-    background-color: $color-white;
-    border: 1px solid $color-grey;
+  &.-empty::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    left: 1px;
+    background-color: #fff;
+    @include border-radius(rem(5));
+    will-change: transform;
+    @include transform(scaleX(0));
+    @include transform-origin(0 0);
+    @include transition(1s ease);
+  }
+  .swipe-item.-active &.-empty::after {
+    @include transform(scaleX(1));
   }
 
   &.-past {
@@ -20,7 +32,7 @@
   }
 
   &.-past.-empty {
-    background-color: $color-white;
+    background-color: $color-grey-lightest;
     border-color: $color-grey-lighter;
   }
 }
