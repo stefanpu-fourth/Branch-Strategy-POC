@@ -46,7 +46,7 @@ export default Ember.Component.extend({
     if (breakpoint) {
       var cardWidth = this.$().width();
       this.set('isFlippable', breakpoint > cardWidth + 72);
-      if (!this.isFlippable) {
+      if (!this.get('isFlippable')) {
         this.set('isFlipped', false);
       }
     }
@@ -54,7 +54,7 @@ export default Ember.Component.extend({
 
   actions: {
     flipCard: function() {
-      if (this.isFlippable) {
+      if (this.get('isFlippable')) {
         this.toggleProperty('isFlipped');
       } else {
         this.set('isFlipped', false);
