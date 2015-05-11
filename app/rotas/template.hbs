@@ -3,7 +3,6 @@
    tabPropertyKey="formattedDateRange"
    selectedIndex=selectedIndex
    setSelectedIndex="setSelectedIndex"
-   myClass="-rota"
    isPanning=isPanning
 }}
   {{#each attrs.rotaWeeks as |rotaWeek index|}}
@@ -21,4 +20,12 @@
     {{/swipe-item}}
   {{/each}}
 {{/swipe-container}}
+{{swipe-tabs
+  collection=attrs.rotaWeeks
+  selectedIndex=selectedIndex
+  tabPropertyKey="formattedDateRange"
+  setSelectedIndex="setSelectedIndex"
+  cssNamespace="-rota"
+}}
+
 {{holiday-info info=holiday}}
