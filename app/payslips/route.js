@@ -14,7 +14,10 @@ export default Ember.Route.extend(Pageable, {
   },
 
   model: function(params) {
-    return this.store.find('payslip', params);
+    return new Ember.RSVP.Promise((resolve) => {
+      var records = this.store.all('payslip');
+      return records.get('length') ? resolve(records) : resolve(this.store.find('payslip', params));
+    });
   },
 
   setupController: function(controller, model) {
