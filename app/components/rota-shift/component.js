@@ -19,8 +19,11 @@ export default Ember.Component.extend({
     if (dayIndex < 2) {
       classes += '-bottom ';
     }
-    if (shiftStart > 11) {
+
+    if (shiftStart > 13) {
       classes += '-right ';
+    } else if (shiftStart > 6) {
+      classes += '-center ';
     }
     return classes;
   }.property('dayIndex', 'shift.start'),

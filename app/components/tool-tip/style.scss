@@ -1,3 +1,7 @@
+$tool-tip--bg:    rgba($color-grey-dark, .9);
+$tool-tip--color: $color-white;
+$tool-tip--icon:  $color-grey-light;
+
 .tool-tip {
   display: block;
   position: absolute;
@@ -20,23 +24,20 @@
   top: auto;
   right: auto;
   bottom: calc(100% + 24px);
-  left: 0;
+  left: rem(-16);
   z-index: 2000;
 
-  background-color: rgba($color-grey-dark, .9);
+  background-color: $tool-tip--bg;
 
   @include font-size(s);
-  color: $color-white;
+  color: $tool-tip--color;
 
   pointer-events: none;
 
   // properties to animate
   opacity: 0;
-  @include transform( translateY(rem(-16)));
 
-  will-change:
-    opacity,
-    transform;
+  will-change: opacity;
 
   @include transition(.2s ease);
 
@@ -53,9 +54,9 @@
     left: rem(16);
 
     border: {
-      width: 0 0 rem(16) rem(16);
+      width: rem(16) rem(8) 0 rem(8);
       style: solid;
-      color: transparent rgba($color-grey-dark, .9);
+      color: $tool-tip--bg transparent;
     }
 
     font-size: 0;
@@ -63,48 +64,52 @@
 
   &.-active {
     opacity: 1;
-    @include transform( translateY(0));
   }
 
-  // modifier: BOTTOM
-  .tool-tip.-bottom & {
+  // SVG ICON
+  & .svg-icon {
+    color: $tool-tip--icon;
+  }
+}
+
+// modifier: BOTTOM
+.tool-tip.-bottom {
+  & .tool-tip--content {
     top: calc(100% + 24px);
     bottom: auto;
 
     &::before {
       top: rem(-16);
       bottom: auto;
-      border: {
-        width: 0 rem(16) rem(16) 0;
-        color: rgba($color-grey-darker, .8) transparent;
-      }
+      border-width: 0 rem(8) rem(16) rem(8);
     }
   }
+}
 
-  // modifier: RIGHT
-  .tool-tip.-right & {
+// modifier: RIGHT
+.tool-tip.-right {
+  & .tool-tip--content {
     left:  auto;
-    right: 0;
+    right: rem(-16);
 
     &::before {
       left:  auto;
       right: rem(16);
-      border-width: 0 rem(16) rem(16) 0;
     }
   }
+}
 
-  // modifier: BOTTOM RIGHT
-  .tool-tip.-bottom.-right & {
+// modifier: CENTER
+.tool-tip.-center {
+  margin-left: 50%;
+
+  & .tool-tip--content {
+    left: 0;
+    @include transform(translateX(-50%));
+
     &::before {
-      border: {
-        width: rem(16) rem(16) 0 0;
-        color: transparent rgba($color-grey-darker, .8);
-      }
+      margin-left: rem(-8);
+      left: 50%;
     }
-  }
-
-  // SVG ICON
-  & .svg-icon {
-    color: $color-grey-light;
   }
 }
