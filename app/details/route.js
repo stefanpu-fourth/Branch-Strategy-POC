@@ -3,6 +3,8 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   appStateService: Ember.inject.service(),
 
+  title: 'HR DETAILS',
+
   model: function () {
     var employement = this.store.all('mainemployment');
 
