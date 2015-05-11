@@ -7,7 +7,7 @@ export default Ember.Controller.extend(Pageable, {
 
   sort: {
     by: 'processingDate',
-    dir: 'desc'
+    dir: 'asc'
   },
 
   filters: [{
