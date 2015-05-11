@@ -3,6 +3,8 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['swipe--tabs'],
 
+  cssNamespace: null,
+
   collection: null,
 
   selectedIndex: null,

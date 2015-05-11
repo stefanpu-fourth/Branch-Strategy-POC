@@ -6,7 +6,7 @@
   -webkit-overflow-scrolling: touch;
   font-size: rem(13);
   background: $color-grey-lightest;
-  border-top: 1px dotted $color-grey-light;
+  border-bottom: 1px dotted $color-grey-light;
   @include display(flex);
   position: relative;
   z-index: 1;
