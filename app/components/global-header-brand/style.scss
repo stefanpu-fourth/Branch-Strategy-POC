@@ -1,0 +1,10 @@
+.global-header-brand {
+  height:rem(40);
+  @include rem(padding, 12, 16);
+
+  & img,
+  & svg {
+    height: rem(24);
+    width: auto;
+  }
+}
