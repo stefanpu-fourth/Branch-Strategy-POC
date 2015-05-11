@@ -2,16 +2,15 @@ import Ember from 'ember';
 
 var run = Ember.run;
 var horizontalPanHandler = function(e) {
-  if (!this.get('isPanning')) {
+  if (!this.isPanning) {
     return;
   }
   var evt = e.originalEvent;
   var gesture = evt.gesture;
   var deltaX = gesture.deltaX;
   var deltaY = gesture.deltaY;
-  var isMoving = this.get('isMoving');
 
-  if (isMoving || Math.abs(deltaY) > Math.abs(deltaX)) {
+  if (this.isMoving || Math.abs(deltaY) > Math.abs(deltaX)) {
     return;
   }
 
@@ -72,6 +71,12 @@ export default Ember.Component.extend({
   selectedIndex: null,
   itemSpacing: 16,
 
+  setTripleSpacing: function() {
+    this.tripleSpacing = this.itemSpacing * 3;
+  }.observes('itemSpacing'),
+
+  tripleSpacing: 16 * 3,
+
   deltaX: 0,
   viewPortWidth: 0,
 
@@ -79,17 +84,12 @@ export default Ember.Component.extend({
   isPanning: false,
 
   wrapStyles: function () {
-    var selectedIndex = this.get('selectedIndex') || 0;
-    var viewPortWidth = this.get('viewPortWidth');
-    var deltaX = this.get('deltaX');
-    var itemSpacing = this.get('itemSpacing');
-    var wrapOffset = -Math.abs(selectedIndex * (viewPortWidth - (itemSpacing * 3))) + deltaX;
-    var margin = itemSpacing * 1.5;
+    var selectedIndex = this.selectedIndex || 0;
+
+    var wrapOffset = -(selectedIndex * (this.viewPortWidth - this.tripleSpacing)) + this.deltaX;
 
     return `transform: translate3d(${wrapOffset}px, 0, 0);
-      -webkit-transform: translate3d(${wrapOffset}px, 0, 0);
-      margin-left: ${margin}px;
-      visibility: visible;`.htmlSafe();
+      -webkit-transform: translate3d(${wrapOffset}px, 0, 0);`.htmlSafe();
   }.property('selectedIndex', 'viewPortWidth', 'deltaX', 'itemSpacing'),
 
   isFirst: function () {
@@ -149,7 +149,11 @@ export default Ember.Component.extend({
   },
 
   resizeHandler: function() {
-    this.set('viewPortWidth', this.$(window).width());
+    // automatically work out what our item spacing should be from the size of the container margins
+    var margins = this.$().innerWidth() - this.$('.swipe-container--wrap').innerWidth();
+    this.set('itemSpacing', margins / 3);
+
+    this.set('viewPortWidth', this.$().innerWidth());
   },
 
   pageChanging: function() {

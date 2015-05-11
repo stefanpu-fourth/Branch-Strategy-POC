@@ -24,15 +24,6 @@
   @include hidden-scrollbars;
 }
 
-
-// modifier: FLIPPED
-.flip-card.-flipped {
-  .flip-card--wrap {
-    @include transform(rotateY(180deg));
-  }
-}
-
-
 // modifier: SIDE-BY-SIDE
 .flip-card.-side-by-side {
   background-color: $color-white;
@@ -78,5 +69,28 @@
   }
   .flip-card--back {
     @include transform(rotateY(-180deg));
+    display: none;
+  }
+
+  // animating gets programatically set when we're animating (via transition)
+  // and programatically removed when the transition is done
+  &.-animating {
+    .flip-card--front, .flip-card--back {
+      display: block !important;
+    }
+  }
+
+  // modifier: FLIPPED
+  &.-flipped {
+    .flip-card--wrap {
+      @include transform(rotateY(180deg));
+    }
+
+    .flip-card--back {
+      display: block;
+    }
+    .flip-card--front {
+      display: none;
+    }
   }
 }

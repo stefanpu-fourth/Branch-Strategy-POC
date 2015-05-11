@@ -6,17 +6,17 @@
 }
 
 .swipe-container--wrap {
-  width: 92340px;
-  //needs to be dynamic
+  // width now dynamic
+  width: auto;
+  white-space: nowrap;
   position: relative;
-  visibility: hidden;
-  display: flex;
   transform: translate3d(0, 0, 0);
+  will-change: transform;
   @include rem(margin, 16, 24);
   @include clearfix;
 
   &.-moving {
-    @include transition(all 0.25s ease-out);
+    @include transition(transform 0.25s ease-out);
   }
 
   &.-dragging {
