@@ -1,4 +1,7 @@
 import Ember from 'ember';
+import i18n from 'ess/i18n';
+
+var dayMonthFormat = i18n.t('dateFormats.dayMonth');
 
 var RotaWeek = Ember.Object.extend({
   start: null,
@@ -10,7 +13,7 @@ var RotaWeek = Ember.Object.extend({
   }.property('start'),
 
   formattedDateRange: function() {
-    return moment(this.get('start')).format("DD MMM") + " - " + moment(this.get('end')).format("DD MMM");
+    return moment(this.get('start')).format(dayMonthFormat) + " - " + moment(this.get('end')).format(dayMonthFormat);
   }.property('start', 'end')
 });
 

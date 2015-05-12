@@ -1,9 +1,11 @@
 import DS from 'ember-data';
 import Ember from 'ember';
+import i18n from 'ess/i18n';
 
 var attr = DS.attr;
 var computed = Ember.computed;
 var filterBy = computed.filterBy;
+var dayMonthFormat = i18n.t('dateFormats.dayMonth');
 
 var Payslip = DS.Model.extend({
   address1: attr('string'),
@@ -59,7 +61,7 @@ var Payslip = DS.Model.extend({
   }.property('currentGrossPay', 'netPay'),
 
   formattedProcessingDate: function () {
-    return moment(this.get('processingDate')).format('DD MMM');
+    return moment(this.get('processingDate')).format(dayMonthFormat);
   }.property('processingDate')
 });
 

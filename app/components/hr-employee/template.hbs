@@ -5,7 +5,7 @@
   </dl>
   <dl class="tabular--row -nobg">
     <dt class="tabular--key">{{t 'details.employee.startDate'}}</dt>
-    <dd class="tabular--value">{{startDateFormat}}</dd>
+    <dd class="tabular--value">{{moment employee.startDate format="dayMonthYear"}}</dd>
   </dl>
   <dl class="tabular--row -nobg">
     <dt class="tabular--key">{{t 'details.employee.niNumber'}}</dt>
@@ -67,7 +67,7 @@
   </dl>
   <dl class="tabular--row -nobg">
     <dt class="tabular--key">{{t 'details.employee.dateOfBirth'}}</dt>
-    <dd class="tabular--value">{{dateOfBirthFormat}}</dd>
+    <dd class="tabular--value">{{moment employee.dateOfBirth format="dayMonthYear"}}</dd>
   </dl>
   <dl class="tabular--row -nobg">
     <dt class="tabular--key">{{t 'details.employee.gender'}}</dt>

@@ -1,6 +1,8 @@
 import DS from 'ember-data';
+import i18n from 'ess/i18n';
 
 var attr = DS.attr;
+var dayMonthYearFormat = i18n.t('dateFormats.dayMonthYear');
 
 var HolidayBalance = DS.Model.extend({
   allowed: attr('number'),
@@ -14,8 +16,8 @@ var HolidayBalance = DS.Model.extend({
 
   periodHoliday: function() {
     var holidayStart=moment(this.get('holidayYearStartDate'));
-    var holidayEnd= moment(holidayStart).subtract(1, 'days').add(1, 'year').format('DD MMM YYYY');
-    return `(${holidayStart.format('DD MMM YYYY')} - ${holidayEnd})`;
+    var holidayEnd= moment(holidayStart).subtract(1, 'days').add(1, 'year').format(dayMonthYearFormat);
+    return `(${holidayStart.format(dayMonthYearFormat)} - ${holidayEnd})`;
   }.property('holidayYearStartDate')
 
 });
