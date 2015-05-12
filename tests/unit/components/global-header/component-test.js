@@ -19,3 +19,15 @@ test('it renders', function(assert) {
   this.render();
   assert.equal(component._state, 'inDOM');
 });
+
+test('it has correct tag- and class-name', function(assert) {
+  assert.expect(2);
+
+  var correctTag = 'nav';
+  var correctClass = 'global-header';
+
+  console.log(this.$().prop('tagName') + ' | ' + correctTag);
+
+  assert.equal(this.$().prop('tagName').toLowerCase() === correctTag, true, 'tagName is correct');
+  assert.equal(this.$().hasClass(correctClass), true, 'className is correct');
+});
