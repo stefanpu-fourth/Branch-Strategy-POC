@@ -77,6 +77,13 @@ export default Ember.Component.extend({
 
   tripleSpacing: 16 * 3,
 
+  setMaxOffset: function() {
+    // we can't entirely guarantee when tripleSpacing will get updated, so do that calc inside here
+    this.maxOffset = -((this.get('collection.length') - 1) * (this.viewPortWidth - (this.itemSpacing * 3)));
+  }.observes('itemSpacing', 'collection', 'collection.length', 'viewPortWidth'),
+
+  maxOffset: 0,
+
   deltaX: 0,
   viewPortWidth: 0,
 
@@ -87,6 +94,13 @@ export default Ember.Component.extend({
     var selectedIndex = this.selectedIndex || 0;
 
     var wrapOffset = -(selectedIndex * (this.viewPortWidth - this.tripleSpacing)) + this.deltaX;
+
+    // Rubber-banding...
+    if (wrapOffset > 0) {
+      wrapOffset = wrapOffset / 2;
+    } else if (wrapOffset < this.maxOffset) {
+      wrapOffset = this.maxOffset + ((wrapOffset - this.maxOffset) / 2);
+    }
 
     return `transform: translate3d(${wrapOffset}px, 0, 0);
       -webkit-transform: translate3d(${wrapOffset}px, 0, 0);`.htmlSafe();
