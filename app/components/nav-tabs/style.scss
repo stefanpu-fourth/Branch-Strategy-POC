@@ -1,0 +1,84 @@
+.nav-tabs {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  position: relative;
+
+  line-height: 0; // added to remove the default margin on inline-blocks
+  text-align: center;
+}
+
+.nav-tabs--list {
+  display: inline-block;
+  max-width: 100%;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  position: relative;
+
+  list-style: none;
+  white-space: nowrap;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-tabs--tab {
+  display: inline-block;
+  width: auto;
+  height: rem(40);
+
+  margin: 0;
+  padding: {
+    left: rem(16);
+    right: rem(16);
+  }
+
+  position: relative;
+
+  @include font-size(s);
+  white-space: nowrap;
+  line-height: rem(40);
+  color: $color-grey;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  will-change: color;
+
+  @include transition( 500ms ease );
+
+  &::after {
+    content: "";
+
+    display: block;
+
+    height: rem(4);
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    @include border-radius(rem(2));
+
+    @include transform( translate3d( 0, rem(5), 0 ) );
+
+    @include transition( 500ms ease );
+  }
+
+  &.active {
+    color: $color-grey-darkest;
+
+    &::after {
+      @include transform( translate3d( 0, 0, 0 ) );
+    }
+  }
+
+  &:hover {
+  text-decoration: none;
+  }
+}
