@@ -65,9 +65,11 @@
 
     @include border-radius(rem(2));
 
+    will-change: transform;
+
     @include transform( translate3d( 0, rem(5), 0 ) );
 
-    @include transition( 500ms ease );
+    @include transition( transform 500ms ease );
   }
 
   &.active {
