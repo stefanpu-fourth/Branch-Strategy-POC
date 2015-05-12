@@ -5,6 +5,7 @@ module.exports = function(environment) {
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
+    gaTracker:'UA-62678526-2',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -72,7 +73,7 @@ module.exports = function(environment) {
   }
 
   if(environment === 'production') {
-
+    ENV.gaTracker = 'UA-62678526-1';
   }
 
   return ENV;
