@@ -20,18 +20,4 @@ var HolidayBalance = DS.Model.extend({
 
 });
 
-HolidayBalance.reopenClass({
-  FIXTURES: [{
-    id: 1,
-    allowed: 20,
-    booked: 3,
-    taken: 4,
-    reserved: 1,
-    accrued: 5,
-    holidayYearStartDate: '2015-03-31 00:00:00',
-    type : 'Days',
-    remaining: 13
-  }]
-});
-
 export default HolidayBalance;
