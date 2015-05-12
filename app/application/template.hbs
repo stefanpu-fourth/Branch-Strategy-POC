@@ -4,19 +4,20 @@
     {{partial "partials/fourth-logo"}}
   {{/global-header-brand}}
 
-  <nav class="nav">
-    <ul>
-      <li>
-        {{#link-to 'rotas' class="nav link brand-after-bg"}}{{t 'menu.rotas'}} {{/link-to}}
-      </li>
-      <li>
-        {{#link-to 'payslips' class="nav link brand-after-bg"}}{{t 'menu.payslips'}}{{/link-to}}
-      </li>
-      <li>
-        {{#link-to 'details' class="nav link brand-after-bg"}}{{t 'menu.details'}}{{/link-to}}
-      </li>
-    </ul>
-  </nav>
+  {{#nav-tabs}}
+    {{#link-to "rotas" class="nav-tabs--tab brand-after-bg"}}
+      {{t 'menu.rotas'}}
+    {{/link-to}}
+
+    {{#link-to "payslips" class="nav-tabs--tab brand-after-bg"}}
+      {{t 'menu.payslips'}}
+    {{/link-to}}
+
+    {{#link-to "details" class="nav-tabs--tab brand-after-bg"}}
+      {{t "menu.details"}}
+    {{/link-to}}
+
+  {{/nav-tabs}}
 
 {{/global-header}}
 
