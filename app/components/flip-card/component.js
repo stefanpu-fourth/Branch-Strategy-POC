@@ -5,7 +5,7 @@ var run = Ember.run;
 export default Ember.Component.extend({
   tagName: 'div',
   classNames: ['flip-card'],
-  classNameBindings: ['isFlipped:-flipped', 'isFlippable:-flippable'],
+  classNameBindings: ['isFlipped:-flipped', 'isFlippable:-flippable', 'isAnimating:-animating'],
 
   attributeBindings: ['style'],
 
@@ -13,6 +13,7 @@ export default Ember.Component.extend({
 
   isFlipped: false,
   isFlippable: false,
+  isAnimating: false,
 
   breakpoint: null,
 
@@ -26,11 +27,20 @@ export default Ember.Component.extend({
     return `resize.${namespace}`;
   }.property(),
 
+  transitionEvents: function () {
+    var namespace = Ember.guidFor(this);
+    var evts = ['transitionend', 'webkitTransitionEnd', 'oTransitionEnd', 'MSTransitionEnd'];
+    return evts.map(str => { return `${str}.${namespace}`; }).join(' ');
+  }.property(),
+
   didInsertElement: function() {
     var evt = this.get('nsResize');
 
     this.boundResizeHandler = run.bind(this, 'resizeHandler');
     this.$(window).on(evt, this.boundResizeHandler);
+
+    this.boundTransitionHandler = run.bind(this, 'transitionEnd');
+    this.$().on(this.get('transitionEvents'), this.boundTransitionHandler);
 
     run.scheduleOnce('afterRender', this, 'resizeHandler');
   },
@@ -38,6 +48,7 @@ export default Ember.Component.extend({
   willDestroyElement: function() {
     var evt = this.get('nsResize');
     this.$(window).off(evt, this.boundResizeHandler);
+    this.$().off(this.get('transitionEvents'), this.boundTransitionHandler);
   },
 
   resizeHandler: function() {
@@ -45,17 +56,22 @@ export default Ember.Component.extend({
 
     if (breakpoint) {
       var cardWidth = this.$().width();
-      this.set('isFlippable', breakpoint > cardWidth);
-      if (!this.isFlippable) {
+      this.set('isFlippable', breakpoint > cardWidth + 72);
+      if (!this.get('isFlippable')) {
         this.set('isFlipped', false);
       }
     }
   },
 
+  transitionEnd: function() {
+    this.set('isAnimating', false);
+  },
+
   actions: {
     flipCard: function() {
-      if (this.isFlippable) {
+      if (this.get('isFlippable')) {
         this.toggleProperty('isFlipped');
+        this.set('isAnimating', true);
       } else {
         this.set('isFlipped', false);
       }
