@@ -10,43 +10,14 @@ export default Ember.Component.extend({
   index: null,
   selectedIndex: null,
 
-  itemSpacing: 24,
-  width: 1000,
-
   isActive: function () {
     var props = this.getProperties('index', 'selectedIndex');
     return props.index === props.selectedIndex;
   }.property('index', 'selectedIndex'),
 
   style: function() {
-    var margin = this.get('itemSpacing') / 2;
-    return `margin-left: ${margin}px; margin-right: ${margin}px; width: ${this.get('width')}px`.htmlSafe();
-  }.property('itemSpacing', 'width'),
-
-  willInsertElement: function() {
-    var parent = this.get('parentView');
-    if (parent) {
-      var spacing = parent.get('itemSpacing');
-      if (spacing !== undefined) {
-        this.set('itemSpacing', spacing);
-      }
-    }
-  },
-
-  didInsertElement: function() {
-    //bind handlers
-    this.boundResizeHandler = Ember.run.bind(this, 'resizeHandler');
-    this.$(window).on('resize', this.boundResizeHandler);
-
-    //init viewport
-    Ember.run.once(this, 'resizeHandler');
-  },
-
-  willDestroyElement: function () {
-    this.$(window).off('resize', this.boundResizeHandler);
-  },
-
-  resizeHandler: function() {
-    this.set('width', this.$(window).width() - (this.get('itemSpacing') * 4));
-  }
+    var margin = (this.get('parentView.itemSpacing') / 2) || 0;
+    var width = this.get('parentView.viewPortWidth') - (margin * 8);
+    return `margin-left: ${margin}px; margin-right: ${margin}px; width: ${width}px`.htmlSafe();
+  }.property('parentView.itemSpacing', 'parentView.viewPortWidth')
 });
