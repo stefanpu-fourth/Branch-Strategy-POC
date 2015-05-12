@@ -5,10 +5,16 @@ var Router = Ember.Router.extend({
   location: config.locationType,
 
   notifyGoogleAnalytics: function() {
-    return ga('send', 'pageview', {
-      'page': this.get('url'),
-      'title': document.title
-    });
+    var url = this.get('url');
+
+    window.setTimeout(function() {
+      ga('send', 'pageview', {
+        'page': url,
+        'title': document.title
+      });
+    }, 1);
+
+    return true;
   }.on('didTransition')
 
 });
