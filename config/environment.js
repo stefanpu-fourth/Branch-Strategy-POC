@@ -45,7 +45,12 @@ module.exports = function(environment) {
     },
     pagination: {
       pageSize: 12
-    }
+    },
+    employees: [
+      24,
+      10571,
+      57354
+    ]
   };
 
   ENV.user = 57354;
