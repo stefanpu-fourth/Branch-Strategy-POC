@@ -48,7 +48,6 @@ module.exports = function(environment) {
     },
     employees: [
       24,
-      10571,
       57354
     ]
   };
