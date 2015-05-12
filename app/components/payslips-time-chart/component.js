@@ -43,6 +43,7 @@ export default Ember.Component.extend({
   },
 
   pointClickHandler: function (e) {
+    ga('send', 'event', 'payslip', 'click', 'Historic point');
     this.sendAction('setSelectedIndex', e.point.index);
   },
 
