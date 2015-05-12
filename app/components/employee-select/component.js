@@ -1,13 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: [ 'employee-select' ],
+  classNames: ['employee-select'],
   employees: [],
   employeeIds: [],
   selectedEmployeeId: null,
 
-  init: function () {
-    this.set('employeeIds', this.get('employees').map(function (item) {
+  init: function() {
+    this.set('employeeIds', this.get('employees').map(function(item) {
       return item.get('id');
     }));
 
@@ -18,7 +18,7 @@ export default Ember.Component.extend({
     return this._super();
   },
 
-  change: function () {
+  change: function() {
     this.sendAction('setCurrentEmployee', this.get('selectedEmployeeId'));
   }
 });

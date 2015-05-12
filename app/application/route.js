@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import config from 'ess/config/environment';
 
 export default Ember.Route.extend({
   appStateService: Ember.inject.service(),
@@ -9,6 +10,10 @@ export default Ember.Route.extend({
 
   afterModel: function(rootResource) {
     this.set('appStateService.rootResource', rootResource.get('firstObject'));
+  },
+
+  setupController: function(controller) {
+    controller.set('showEmployeeDropdown', config.showEmployeeDropdown);
   },
 
   refreshCurrentRoute: function () {

@@ -1,10 +1,11 @@
 <header class="header">
-  {{employee-select
-    employees=model
-    selectedEmployeeId=appStateService.authenticatedEmployeeId
-    setCurrentEmployee="setCurrentEmployee"
-  }}
-
+  {{#if showEmployeeDropdown}}
+    {{employee-select
+      employees=model
+      selectedEmployeeId=appStateService.authenticatedEmployeeId
+      setCurrentEmployee="setCurrentEmployee"
+    }}
+  {{/if}}
   <div class="header--brand">
     <svg class="header--logo" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 176 50.5" enable-background="new 0 0 176 50.5" xml:space="preserve">
       <path fill="#93C13E" d="M25.2,0C11.3,0,0,11.3,0,25.2c0,13.9,11.3,25.2,25.2,25.2c13.9,0,25.2-11.3,25.2-25.2

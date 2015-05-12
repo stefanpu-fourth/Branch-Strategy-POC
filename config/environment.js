@@ -49,7 +49,8 @@ module.exports = function(environment) {
     employees: [
       24,
       57354
-    ]
+    ],
+    showEmployeeDropdown: false
   };
 
   ENV.user = 57354;
@@ -76,7 +77,7 @@ module.exports = function(environment) {
   }
 
   if(environment === 'production') {
-
+    ENV.showEmployeeDropdown = true;
   }
 
   return ENV;
