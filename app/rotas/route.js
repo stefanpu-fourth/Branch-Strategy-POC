@@ -1,11 +1,12 @@
 import Ember from 'ember';
+import config from 'ess/config/environment';
 
 export default Ember.Route.extend({
   rotaService: Ember.inject.service(),
 
   model: function () {
     var holidayBalance = this.store.all('holidayBalance');
-    if (Ember.isEmpty(holidayBalance)) {
+    if (Ember.isEmpty(holidayBalance) || !config.cacheResources) {
       holidayBalance = this.store.find('holidayBalance');
     }
 

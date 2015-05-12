@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import config from 'ess/config/environment';
 
 export default Ember.Route.extend({
   appStateService: Ember.inject.service(),
@@ -6,7 +7,7 @@ export default Ember.Route.extend({
   model: function () {
     var employement = this.store.all('mainemployment');
 
-    if (Ember.isEmpty(employement)) {
+    if (Ember.isEmpty(employement) || !config.cacheResources) {
       employement = this.store.find('mainemployment');
     }
 

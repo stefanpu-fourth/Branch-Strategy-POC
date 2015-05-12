@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Pageable from 'ess/mixins/route-pageable';
+import config from 'ess/config/environment';
 
 var paramParams = {
   refreshModel: true,
@@ -16,7 +17,7 @@ export default Ember.Route.extend(Pageable, {
   model: function(params) {
     return new Ember.RSVP.Promise((resolve) => {
       var records = this.store.all('payslip');
-      return records.get('length') ? resolve(records) : resolve(this.store.find('payslip', params));
+      return records.get('length') && !config.cacheResources ? resolve(records) : resolve(this.store.find('payslip', params));
     });
   },
 
