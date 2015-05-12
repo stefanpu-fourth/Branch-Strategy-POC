@@ -1,4 +1,8 @@
-import EssAdapter from './ess';
+import DS from 'ember-data';
+
+export default DS.FixtureAdapter.extend({});
+
+/*import EssAdapter from './ess';
 
 export default EssAdapter.extend({
   pathForType: function() {
@@ -8,4 +12,4 @@ export default EssAdapter.extend({
   namespace: function() {
     return "";
   }.property()
-});
+});*/

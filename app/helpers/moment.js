@@ -1,6 +1,8 @@
 import Ember from 'ember';
+import i18n from 'ess/i18n';
 
 export default Ember.Handlebars.makeBoundHelper(function(value, options) {
-  options.hash.format = options.hash.format || 'YYYY-MM-DD';
-  return new Ember.Handlebars.SafeString(moment(value).format(options.hash.format));
+  var fm = options.hash.format;
+  var format = fm ? i18n.t(`dateFormats.${fm}`) : i18n.t('dateFormats.default');
+  return new Ember.Handlebars.SafeString(moment(value).format(format));
 });

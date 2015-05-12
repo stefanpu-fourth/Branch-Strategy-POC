@@ -1,7 +1,7 @@
 <div class="tabular">
 
   <h3 class="tabular--sub -title">
-    {{moment payslip.processingDate format="DD MMM YYYY"}}
+    {{moment payslip.processingDate format="dayMonthYear"}}
     <a class="notALink payslip-detail--show-overview flip-card--trigger" {{action "flipCard" target="parentView"}}>
       {{svg-icon name="x"}}
     </a>
@@ -121,7 +121,7 @@
   </dl>
   <dl class="tabular--row">
     <dt class="tabular--key -wide">{{t 'payslips.date'}}</dt>
-    <dd class="tabular--value">{{moment payslip.processingDate format="DD MMM YYYY"}}</dd>
+    <dd class="tabular--value">{{moment payslip.processingDate format="dayMonthYear"}}</dd>
   </dl>
   <dl class="tabular--row">
     <dt class="tabular--key -wide">{{t 'payslips.company'}}</dt>

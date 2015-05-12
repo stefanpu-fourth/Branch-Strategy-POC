@@ -5,7 +5,7 @@
   </dl>
   <dl class="tabular--row -nobg">
     <dt class="tabular--key">{{t 'details.employee.startDate'}}</dt>
-    <dd class="tabular--value">{{startDateFormat}}</dd>
+    <dd class="tabular--value">{{moment employee.startDate format="dayMonthYear"}}</dd>
   </dl>
   <dl class="tabular--row -nobg">
     <dt class="tabular--key">{{t 'details.employee.niNumber'}}</dt>
@@ -15,30 +15,39 @@
     <dt class="tabular--key">{{t 'details.address'}}</dt>
     <dd class="tabular--value -wide">
       {{employee.address1}}
-      {{#if employeeaddress2}}
+      {{#if employee.address2}}
         <br />{{employee.address2}}
       {{/if}}
-      {{#if employeeaddress3}}
+      {{#if employee.address3}}
         <br />{{employee.address3}}
       {{/if}}
-      {{#if employeetown}}
+      {{#if employee.address4}}
+        <br />{{employee.address4}}
+      {{/if}}
+      {{#if employee.town}}
         <br />{{employee.town}}
       {{/if}}
-      {{#if employeecounty}}
+      {{#if employee.county}}
         <br />{{employee.county}}
       {{/if}}
-      {{#if employeecountry}}
+      {{#if employee.country}}
         <br />{{employee.country}}
       {{/if}}
-      <br />{{employee.postCode}}</dd>
+      {{#if employee.postCode}}
+        <br />{{employee.postCode}}
+      {{/if}}
+      {{#if employee.postalCode}}
+        <br />{{employee.postalCode}}
+      {{/if}}
+      </dd>
   </dl>
-  {{#if employeehomeTel}}
+  {{#if employee.homeTel}}
     <dl class="tabular--row -nobg">
       <dt class="tabular--key">{{t 'details.employee.homeTel'}}</dt>
       <dd class="tabular--value">{{employee.homeTel}}</dd>
     </dl>
   {{/if}}
-  {{#if employeemobileTel}}
+  {{#if employee.mobileTel}}
     <dl class="tabular--row -nobg">
       <dt class="tabular--key">{{t 'details.employee.mobileTel'}}</dt>
       <dd class="tabular--value">{{employee.mobileTel}}</dd>
@@ -58,7 +67,7 @@
   </dl>
   <dl class="tabular--row -nobg">
     <dt class="tabular--key">{{t 'details.employee.dateOfBirth'}}</dt>
-    <dd class="tabular--value">{{dateOfBirthFormat}}</dd>
+    <dd class="tabular--value">{{moment employee.dateOfBirth format="dayMonthYear"}}</dd>
   </dl>
   <dl class="tabular--row -nobg">
     <dt class="tabular--key">{{t 'details.employee.gender'}}</dt>

@@ -1,5 +1,4 @@
-<h1 class="card--title -center">{{moment week.start format="DD MMM"}} - {{moment week.end format="DD MMM"}}</h1>
-
+<h1 class="card--title -center">{{week.formattedDateRange}}</h1>
 {{#each shifts as |shiftDay index|}}
   {{rota-day
      day=shiftDay

@@ -1,7 +1,7 @@
 .payslip-donut-chart {
   position: relative;
   width: 100%;
-  height: 222px;
+  height: 214px;
   @include rem(margin, 12, 0, 16, 0);
   cursor: pointer;
 
@@ -48,7 +48,7 @@
 }
 .payslip-donut-chart--chart-bg,
 .payslip-donut-chart--animate {
-  width: 222px;
+  width: 214px;
   position:absolute;
   top: 0;
   left: 0;

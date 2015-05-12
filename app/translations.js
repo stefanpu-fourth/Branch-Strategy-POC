@@ -90,6 +90,12 @@ export default {
         taxOfficeNumber: 'Tax Office Number',
         payeReference: 'PAYE Reference'
       }
+    },
+    dateFormats: {
+      dayMonthYear: "D MMM YYYY",
+      dayMonth: "D MMM",
+      weekdayDay: "ddd D",
+      "default": "D MMM YYYY"
     }
   }
 };
