@@ -50,7 +50,8 @@ module.exports = function(environment) {
       24,
       57354
     ],
-    showEmployeeDropdown: false
+    showEmployeeDropdown: false,
+    cacheResources: true
   };
 
   ENV.user = 57354;
@@ -78,6 +79,7 @@ module.exports = function(environment) {
 
   if(environment === 'production') {
     ENV.showEmployeeDropdown = true;
+    ENV.cacheResources = false;
   }
 
   return ENV;
