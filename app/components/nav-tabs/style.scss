@@ -49,7 +49,7 @@
 
   will-change: color;
 
-  @include transition( 500ms ease );
+  @include transition( color 500ms ease );
 
   &::after {
     content: "";
