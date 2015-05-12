@@ -12,6 +12,10 @@ export default Ember.Component.extend({
   actions: {
     flipCard: function() {
       this.get('parentView').send('flipCard');
+    },
+    downloadPayslip: function() {
+      ga('send', 'event', 'payslip', 'click', 'Download payslip');
+      return true;
     }
   }
 });
