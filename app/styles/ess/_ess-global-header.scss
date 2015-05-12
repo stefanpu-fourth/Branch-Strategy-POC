@@ -1,0 +1,7 @@
+.global-header-brand {
+  @include respond(640) {
+    position: absolute;
+    top: 0;
+    left:0;
+  }
+}
