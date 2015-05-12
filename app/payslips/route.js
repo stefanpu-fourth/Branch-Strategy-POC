@@ -9,6 +9,8 @@ var paramParams = {
 
 export default Ember.Route.extend(Pageable, {
 
+  title: 'MY PAYSLIPS',
+
   queryParams: {
     sort: paramParams,
     filters: paramParams
