@@ -3,7 +3,9 @@
     "document",
     "window",
     "-Promise",
-    "moment"
+    "moment",
+    "$",
+    "ga"
   ],
   "browser": true,
   "boss": true,
