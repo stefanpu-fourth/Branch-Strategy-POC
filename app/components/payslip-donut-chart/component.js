@@ -35,6 +35,7 @@ export default Ember.Component.extend({
 
   actions: {
     flipCard: function() {
+      ga('send', 'event', 'payslip', 'click', 'Donut');
       this.get('parentView').send('flipCard');
     }
   }
