@@ -59,6 +59,7 @@ var panEndHandler = function(e) {
   }
 
   if (index !== selectedIndex) {
+    ga('send', 'event', 'carousel', 'swipe', 'Swipe container');
     this.sendAction('setSelectedIndex', index);
   }
 };
@@ -185,12 +186,14 @@ export default Ember.Component.extend({
 
     prevPage: function () {
       if (!this.get('isFirst') && this.get('moreThanOne')) {
+        ga('send', 'event', 'carousel', 'click', 'Swipe arrow');
         this.sendAction('setSelectedIndex', this.get('selectedIndex') - 1);
       }
     },
 
     nextPage: function () {
       if (!this.get('isLast') && this.get('moreThanOne')) {
+        ga('send', 'event', 'carousel', 'click', 'Swipe arrow');
         this.sendAction('setSelectedIndex', this.get('selectedIndex') + 1);
       }
     }
