@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import config from 'ess/config/environment';
 
 export function initialize(/*container, application */) {
