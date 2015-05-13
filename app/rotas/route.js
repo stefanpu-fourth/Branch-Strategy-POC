@@ -33,5 +33,11 @@ default Ember.Route.extend(SetSelectedIndex, {
       'attrs.selectedIndex': null,
       'attrs.isPanning': true
     });
+  },
+
+  actions: {
+    setSelectedShift: function(shift) {
+      this.set('attrs.selectedShift', shift);
+    }
   }
 });
