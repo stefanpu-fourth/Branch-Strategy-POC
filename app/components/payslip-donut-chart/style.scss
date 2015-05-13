@@ -49,6 +49,7 @@
 .payslip-donut-chart--chart-bg,
 .payslip-donut-chart--animate {
   width: 214px;
+  height: 214px;
   position:absolute;
   top: 0;
   left: 0;
@@ -60,6 +61,7 @@
   }
   @include respond(640) {
     width: 266px;
+    height: 266px;
   };
 }
 .payslip-donut-chart--animate {
