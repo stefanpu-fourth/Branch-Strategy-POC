@@ -116,15 +116,15 @@
 
   <h3 class="tabular--sub">{{t 'payslips.payslipDetails'}}</h3>
   <dl class="tabular--row">
-    <dt class="tabular--key -wide">{{t 'payslips.name'}}</dt>
-    <dd class="tabular--value">{{payslip.accountName}}</dd>
+    <dt class="tabular--key">{{t 'payslips.name'}}</dt>
+    <dd class="tabular--value">{{payslip.fullName}}</dd>
   </dl>
   <dl class="tabular--row">
-    <dt class="tabular--key -wide">{{t 'payslips.date'}}</dt>
+    <dt class="tabular--key">{{t 'payslips.date'}}</dt>
     <dd class="tabular--value">{{moment payslip.processingDate format="dayMonthYear"}}</dd>
   </dl>
   <dl class="tabular--row">
-    <dt class="tabular--key -wide">{{t 'payslips.company'}}</dt>
+    <dt class="tabular--key">{{t 'payslips.company'}}</dt>
     <dd class="tabular--value">{{payslip.companyName}}</dd>
   </dl>
   <dl class="tabular--row">
@@ -151,8 +151,8 @@
   <dl class="tabular--row">
     <dt class="tabular--key">{{t 'payslips.address'}}</dt>
     <dd class="tabular--value tabular--value--wide">
-      {{#if payslip.accountName}}
-        {{payslip.accountName}}
+      {{#if payslip.fullName}}
+        {{payslip.fullName}}
         <br />
       {{/if}}
       {{payslip.address1}}
