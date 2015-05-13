@@ -1,3 +1,4 @@
+/* globals ga */
 import config from 'ess/config/environment';
 
 export function initialize(/*container, application */) {
