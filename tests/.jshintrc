@@ -23,7 +23,8 @@
     "currentPath",
     "currentRouteName",
     "sinon",
-    "moment"
+    "moment",
+    "ga"
   ],
   "node": false,
   "browser": false,

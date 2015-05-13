@@ -1,8 +1,10 @@
+/* globals ga */
 import Ember from 'ember';
 import { initialize } from '../../../initializers/init-user';
 import { module, test } from 'qunit';
 
 var container, application;
+
 
 module('InitUserInitializer', {
   beforeEach: function() {
@@ -14,10 +16,17 @@ module('InitUserInitializer', {
   }
 });
 
-// Replace this with your real tests.
-test('it works', function(assert) {
+test('it works Create GA', function(assert) {
+  window.ga=sinon.spy();
   initialize(container, application);
+  //First argument is create
+  assert.equal('create', window.ga.args[0][0]);
+});
 
-  // you would normally confirm the results of the initializer here
-  assert.ok(true);
+test('it works Auto GA', function(assert) {
+  window.ga=sinon.spy();
+  initialize(container, application);
+  //Third argument is auto
+  assert.equal('auto', window.ga.args[0][2]);
+
 });
