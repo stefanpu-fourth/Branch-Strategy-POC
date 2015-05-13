@@ -5,7 +5,7 @@ var run = Ember.run;
 export default Ember.Component.extend({
   tagName: 'div',
   classNames: ['flip-card'],
-  classNameBindings: ['isFlipped:-flipped', 'isFlippable:-flippable', 'isAnimating:-animating'],
+  classNameBindings: ['isFlipped:-flipped', 'isFlippable:-flippable:-side-by-side', 'isAnimating:-animating'],
 
   attributeBindings: ['style'],
 

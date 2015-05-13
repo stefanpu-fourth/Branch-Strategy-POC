@@ -8,8 +8,3 @@
   @include button(fullwidth);
   max-width: rem(300);
 }
-.payslip-overview--show-breakdown {
-  @include respond(640) {
-    display: none;
-  };
-}

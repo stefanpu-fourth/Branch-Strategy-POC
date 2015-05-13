@@ -1,96 +1,83 @@
-.flip-card {
-  display:block;
-  position: relative;
+.flip-card,
+.flip-card--wrap,
+.flip-card--front,
+.flip-card--back {
+  display: block;
+}
+
+.flip-card,
+.flip-card--wrap {
+  width: 100%;
+  height: 100%;
 }
 
 .flip-card--wrap {
-  display: block;
-  height: 100%;
-  border: 1px solid $color-grey-lighter;
-  @include transition(all .4s);
+  position: relative;
 }
 
 .flip-card--front,
 .flip-card--back {
-  display: block;
-  width: 50%;
   height: 100%;
-  float: left;
   padding: rem(16);
-  background-color: $color-white;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  @include backface-visibility(visible);
-  @include hidden-scrollbars;
+  overflow: auto;
 }
 
-// modifier: SIDE-BY-SIDE
-.flip-card.-side-by-side {
-  background-color: $color-white;
-
-  .flip-card--front,
-  .flip-card--back {
-    display: block;
-    width: 50%;
-    float: left;
-    position: static;
-    @include backface-visibility(hidden);
-  }
-  .flip-card--back {
-    @include transform(rotateY(0));
-  }
-
-  .flip-card--trigger {
-    display: none;
-  }
-}
 
 // modifier: FLIPPABLE
 .flip-card.-flippable {
-  background-color: transparent;
   @include perspective(1000);
 
   .flip-card--wrap {
+    position: relative;
     @include transform-style(preserve-3d);
   }
+
   .flip-card--front,
   .flip-card--back {
     width: 100%;
     position: absolute;
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
-    background-color: $color-white;
+    background-color:$color-white;
+    border: 1px solid $color-grey-lighter;
     @include backface-visibility(hidden);
+
+    will-change: transform;
+    @include transition(transform .4s ease);
   }
   .flip-card--front {
-    z-index: 2;
+    z-index: 2; // required for firefox
+    @include transform(rotateY(0deg));
   }
   .flip-card--back {
     @include transform(rotateY(-180deg));
-    display: none;
-  }
-
-  // animating gets programatically set when we're animating (via transition)
-  // and programatically removed when the transition is done
-  &.-animating {
-    .flip-card--front, .flip-card--back {
-      display: block !important;
-    }
   }
 
   // modifier: FLIPPED
   &.-flipped {
-    .flip-card--wrap {
+    .flip-card--front {
       @include transform(rotateY(180deg));
     }
-
     .flip-card--back {
-      display: block;
+      @include transform(rotateY(0));
     }
-    .flip-card--front {
-      display: none;
-    }
+  }
+}
+
+// modifier: SIDE-BY-SIDE
+.flip-card.-side-by-side {
+
+  .flip-card--wrap {
+    background-color:$color-white;
+    border: 1px solid $color-grey-lighter;
+  }
+  .flip-card--front,
+  .flip-card--back {
+    width: 50%;
+    float: left;
+  }
+
+  .payslip-overview--show-breakdown {
+    display: none;
   }
 }
