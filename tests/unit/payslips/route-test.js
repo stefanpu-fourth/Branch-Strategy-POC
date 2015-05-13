@@ -25,12 +25,14 @@ test('setSelectedIndex action set the selectedIndex property on the controllers 
   var controller;
 
   Ember.run(() => {
-    controller = mockController.create({});
+    controller = mockController.create({ attrs: {} });
 
     route.set('controller', controller);
+    route.set('controller.attrs.defaultIndex', 2);
 
     //called with no arguments should default to length of model collection minus 1
     route.send('setSelectedIndex');
+
     assert.equal(controller.get('attrs.selectedIndex'), 2, 'controller.attrs.selectedIndex is equal to 2 after "setSelectedIndex" action');
 
     route.send('setSelectedIndex', 11);
