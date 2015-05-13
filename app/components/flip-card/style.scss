@@ -20,6 +20,7 @@
   height: 100%;
   padding: rem(16);
   overflow: auto;
+  @include hidden-scrollbars;
 }
 
 
