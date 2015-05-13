@@ -9,6 +9,7 @@ export default Ember.Component.extend({
 
   day: null,
   selectedShift: null,
+  selectedOverlap: null,
   selectTarget: null,
 
   shiftDateAsMoment: function() {
