@@ -8,7 +8,7 @@ export default Ember.Mixin.create({
       var hasCurrentIndex = typeof currentIndex !== 'undefined' && currentIndex !== null;
 
       //set the value of index to be index or the length of the collection - 1
-      index = typeof index !== 'undefined' && index !== null ? index : attrs.payslips.get('content.length') - 1;
+      index = typeof index !== 'undefined' && index !== null ? index : attrs[this.collectionName].get('content.length') - 1;
 
       //don't set the index if it hasn't changed
       if (hasCurrentIndex && index === currentIndex) {
