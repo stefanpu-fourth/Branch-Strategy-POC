@@ -12,8 +12,6 @@ export default Ember.Route.extend(Pageable, SetSelectedIndex, {
 
   title: 'MY PAYSLIPS',
 
-  collectionName: 'payslips',
-
   queryParams: {
     sort: paramParams,
     filters: paramParams
@@ -27,8 +25,11 @@ export default Ember.Route.extend(Pageable, SetSelectedIndex, {
   },
 
   setupController: function(controller, model) {
-    controller.set('attrs.payslips.content', model);
-    controller.set('attrs.selectedIndex', null);
-    controller.set('attrs.isPanning', true);
+    controller.setProperties({
+      'attrs.payslips.content': model,
+      'attrs.defaultIndex': model.get('length') - 1,
+      'attrs.selectedIndex': null,
+      'attrs.isPanning': true
+    });
   }
 });

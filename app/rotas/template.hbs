@@ -1,20 +1,20 @@
 {{#swipe-container
    collection=attrs.rotaWeeks
    tabPropertyKey="formattedDateRange"
-   selectedIndex=selectedIndex
+   selectedIndex=attrs.selectedIndex
    setSelectedIndex="setSelectedIndex"
    isPanning=isPanning
 }}
   {{#each attrs.rotaWeeks as |rotaWeek index|}}
-    {{#swipe-item index=index selectedIndex=selectedIndex}}
+    {{#swipe-item index=index selectedIndex=attrs.selectedIndex}}
       <div class="card">
         {{rota-week
          week=rotaWeek
          shifts=rotaWeek.shifts
-         selectedShift=selectedShift
+         selectedShift=attrs.selectedShift
          selectTarget=this
          index=index
-         selectedIndex=selectedIndex
+         selectedIndex=attrs.selectedIndex
         }}
       </div>
     {{/swipe-item}}
@@ -22,10 +22,10 @@
 {{/swipe-container}}
 {{swipe-tabs
   collection=attrs.rotaWeeks
-  selectedIndex=selectedIndex
+  selectedIndex=attrs.selectedIndex
   tabPropertyKey="formattedDateRange"
   setSelectedIndex="setSelectedIndex"
   cssNamespace="-rota"
 }}
 
-{{holiday-info info=holiday}}
+{{holiday-info info=attrs.holiday}}
