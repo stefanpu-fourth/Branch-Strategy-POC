@@ -12,7 +12,8 @@ export default Ember.Route.extend({
     this.set('appStateService.rootResource', rootResource.get('firstObject'));
   },
 
-  setupController: function(controller) {
+  setupController: function(controller, model) {
+    controller.set('model', model);
     controller.set('showEmployeeDropdown', config.showEmployeeDropdown);
   },
 
