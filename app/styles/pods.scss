@@ -9,6 +9,11 @@
 // or
 // ember g style components/[component-folder] -p
 
+@import "components/global-header/style";
+@import "components/global-header-brand/style";
+
+@import "components/nav-tabs/style";
+
 @import "components/employee-select/style";
 
 @import "components/swipe-container/style";
