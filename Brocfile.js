@@ -9,6 +9,11 @@ var app = new EmberApp({
     esnext: true,
     disableTestGenerator: false
   },
+  inlineContent: {
+    'google-analytics': {
+      file: 'vendor/ga.js'
+    }
+  },
   sassOptions: {
     includePaths: ['app']
   }
