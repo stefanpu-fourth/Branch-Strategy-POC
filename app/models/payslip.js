@@ -59,10 +59,8 @@ var Payslip = DS.Model.extend({
 
   pdfURL: function () {
     var url = config.apiBaseUrl;
-    //TODO: Lines 57, 58 should replace 59 after SF integration
-    /*var employees = this.store.all('root');
-    var employeeId = employees.get('firstObject.id');*/
-    var employeeId = 422;
+    var employees = this.store.all('root');
+    var employeeId = employees.get('firstObject.id');
     var payslipId = this.get('id');
 
     return `${url}/employees/${employeeId}/payslips/${payslipId}.pdf`;
