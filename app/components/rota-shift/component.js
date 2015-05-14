@@ -21,11 +21,11 @@ export default Ember.Component.extend({
   }.property('dayStart', 'dayEnd'),
 
   dayMiddle: function() {
-    return this.get('dayStart') + (this.get('dayDuration') / 3);
+    return this.get('dayStart') + (this.get('dayDuration') / 2);
   }.property('dayDuration', 'dayStart'),
 
-  dayLate: function() {
-    return this.get('dayStart') + (this.get('dayDuration') * 2 / 3);
+  dayEarly: function() {
+    return this.get('dayStart') + (this.get('dayDuration') / 4);
   }.property('dayDuration', 'dayStart'),
 
   willInsertElement: function() {
@@ -62,13 +62,13 @@ export default Ember.Component.extend({
     if (dayIndex < 2) {
       classes.push('-bottom');
     }
-    if (shiftStart > this.get('dayLate')) {
+    if (shiftStart > this.get('dayMiddle')) {
       classes.push('-right');
-    } else if (shiftStart > this.get('dayMiddle')) {
+    } else if (shiftStart > this.get('dayEarly')) {
       classes.push('-center');
     }
     return classes.join(' ');
-  }.property('dayIndex', 'shift.startAsMinutes', 'dayMiddle'),
+  }.property('dayIndex', 'shift.startAsMinutes', 'dayMiddle', 'dayEarly'),
 
   style: function() {
     var shift = this.get('shift');
