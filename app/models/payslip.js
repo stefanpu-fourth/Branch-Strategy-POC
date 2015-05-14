@@ -1,6 +1,7 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 import i18n from 'ess/i18n';
+import config from 'ess/config/environment';
 
 var attr = DS.attr;
 var computed = Ember.computed;
@@ -55,6 +56,17 @@ var Payslip = DS.Model.extend({
   grossPay: computed.alias('currentGrossPay'),
   payments: filterBy('payslipElements', 'category', 'Payment'),
   deductions: filterBy('payslipElements', 'category', 'Deduction'),
+
+  pdfURL: function () {
+    var url = config.apiBaseUrl;
+    //TODO: Lines 57, 58 should replace 59 after SF integration
+    /*var employees = this.store.all('root');
+    var employeeId = employees.get('firstObject.id');*/
+    var employeeId = 422;
+    var payslipId = this.get('id');
+
+    return `${url}/employees/${employeeId}/payslips/${payslipId}.pdf`;
+  }.property(),
 
   currentPayPeriod: function () {
     var props = this.getProperties('payPeriod', 'monthWeekNumber');
