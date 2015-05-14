@@ -1,0 +1,18 @@
+.global-header-brand {
+  @include respond(640) {
+    position: absolute;
+    top: 0;
+    left:0;
+  }
+}
+
+@include respond(0, 640) {
+  .nav-tabs--list {
+    @include display(flex);
+    width: 100%;
+  }
+
+  .nav-tabs--tab {
+    @include flex(1);
+  }
+}

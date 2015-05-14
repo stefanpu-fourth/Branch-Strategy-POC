@@ -48,8 +48,8 @@ module.exports = function(environment) {
       pageSize: 12
     },
     employees: [
-      24,
-      57354
+      57354,
+      24
     ],
     showEmployeeDropdown: false,
     cacheResources: true
