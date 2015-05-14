@@ -36,6 +36,10 @@ export default Ember.Service.extend({
 
   scheduleFetchPromise: null,
 
+  // default start/end times - these should get replaced from metadata fetched from API
+  startAsMinutes: 0,
+  endAsMinutes: 0,
+
   getRotaWeeks: function(date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
     if (!this.scheduleFetchPromise) {
       this.scheduleFetchPromise = this._fetchSchedules(date, prevWeeks, futureWeeks);
@@ -159,6 +163,11 @@ export default Ember.Service.extend({
       NoPreviousWeeks: prevWeeks,
       NoFutureWeeks: futureWeeks
     }).then(schedules => {
+      this.setProperties({
+        startAsMinutes: schedules.get('meta.startAsMinutes'),
+        endAsMinutes: schedules.get('meta.endAsMinutes')
+      });
+
       schedules.forEach(day => {
         day.calculateShifts();
       });

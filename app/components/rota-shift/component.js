@@ -9,6 +9,8 @@ export default Ember.Component.extend({
 
   attributeBindings: ['style'],
 
+  rotaService: Ember.inject.service(),
+
   shift: null,
   selectedShift: null,
   selectTarget: null,
@@ -29,19 +31,15 @@ export default Ember.Component.extend({
   }.property('dayDuration', 'dayStart'),
 
   willInsertElement: function() {
-    // Set defaults for dayStart and dayEnd if they're not already set
-    // TODO: Come up with a better way of determining this data
+    // Set defaults for dayStart and dayEnd
     var dayStart = this.get('dayStart');
     if (dayStart === null) {
-      // TODO: default the dayStart to 6am
-      dayStart = 6 * 60;
-      this.set('dayStart', dayStart);
+      this.set('dayStart', this.get('rotaService.startAsMinutes'));
     }
     var oldDayEnd = this.get('dayEnd');
     var dayEnd = oldDayEnd;
     if (dayEnd === null) {
-      // TODO: default the dayEnd to midnight (looks better than 6pm)
-      dayEnd = 0 * 60;
+      dayEnd = this.get('rotaService.endAsMinutes');
     }
 
     // make sure dayEnd is after the start
