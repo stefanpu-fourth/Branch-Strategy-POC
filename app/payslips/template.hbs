@@ -1,46 +1,65 @@
-{{#swipe-container
-  collection=attrs.payslips
-  tabPropertyKey="formattedProcessingDate"
-  selectedIndex=attrs.selectedIndex
-  isPanning=attrs.isPanning
-  setSelectedIndex="setSelectedIndex"
-}}
-  {{#each attrs.payslips as |payslip index|}}
-    {{#swipe-item
-      index=index
-      selectedIndex=attrs.selectedIndex
-    }}
-      {{#flip-card height="388" breakpoint="640"}}
+{{#if attrs.payslips.length}}
+  {{#swipe-container
+    collection=attrs.payslips
+    tabPropertyKey="formattedProcessingDate"
+    selectedIndex=attrs.selectedIndex
+    isPanning=attrs.isPanning
+    setSelectedIndex="setSelectedIndex"
+  }}
+    {{#each attrs.payslips as |payslip index|}}
+      {{#swipe-item
+        index=index
+        selectedIndex=attrs.selectedIndex
+      }}
+        {{#flip-card height="388" breakpoint="640"}}
 
-        {{#flip-card-front}}
-          {{payslip-overview
-            payslip=payslip
-            index=index
-            selectedIndex=attrs.selectedIndex
-          }}
-        {{/flip-card-front}}
+          {{#flip-card-front}}
+            {{payslip-overview
+              payslip=payslip
+              index=index
+              selectedIndex=attrs.selectedIndex
+            }}
+          {{/flip-card-front}}
 
-        {{#flip-card-back}}
-          {{payslip-detail
-            payslip=payslip
-            index=index
-            selectedIndex=attrs.selectedIndex
-          }}
-        {{/flip-card-back}}
+          {{#flip-card-back}}
+            {{payslip-detail
+              payslip=payslip
+              index=index
+              selectedIndex=attrs.selectedIndex
+            }}
+          {{/flip-card-back}}
 
-      {{/flip-card}}
-    {{/swipe-item}}
-  {{/each}}
-{{/swipe-container}}
-{{swipe-tabs
-  collection=attrs.payslips
-  selectedIndex=attrs.selectedIndex
-  tabPropertyKey="formattedProcessingDate"
-  setSelectedIndex="setSelectedIndex"
-  cssNamespace="-payslip"
-}}
-<div class="payslip--breakdown">
-  <h2>{{t 'payslips.historic'}}</h2>
-  {{payslips-time-chart
-    payslips=attrs.payslips selectedIndex=attrs.selectedIndex setSelectedIndex="setSelectedIndex"}}
-</div>
+        {{/flip-card}}
+      {{/swipe-item}}
+    {{/each}}
+  {{/swipe-container}}
+  {{swipe-tabs
+    collection=attrs.payslips
+    selectedIndex=attrs.selectedIndex
+    tabPropertyKey="formattedProcessingDate"
+    setSelectedIndex="setSelectedIndex"
+    cssNamespace="-payslip"
+  }}
+  <div class="payslip--breakdown">
+    <h2>{{t 'payslips.historic'}}</h2>
+    {{payslips-time-chart
+      payslips=attrs.payslips selectedIndex=attrs.selectedIndex setSelectedIndex="setSelectedIndex"}}
+  </div>
+{{else}}
+  <div class="swipe-container">
+    <div class="swipe-container--wrap">
+      <div class="swipe-item">
+        <div class="card -empty-payslips">
+          <h1>No payslips?</h1>
+          <p>
+            You do not have any electronic payslips available just yet…
+          </p>
+          <p>
+            If you think this is incorrect then please contact your line manager or payroll department.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
+
