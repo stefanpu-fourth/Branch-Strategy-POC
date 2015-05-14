@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import Pageable from 'ess/mixins/route-pageable';
-import SetSelectedIndex from 'ess/mixins/route-set-selected-index';
 import config from 'ess/config/environment';
 
 var paramParams = {
@@ -8,7 +7,7 @@ var paramParams = {
   replace: true
 };
 
-export default Ember.Route.extend(Pageable, SetSelectedIndex, {
+export default Ember.Route.extend(Pageable, {
 
   title: 'MY PAYSLIPS',
 
