@@ -1,12 +1,8 @@
 import Ember from 'ember';
-import SetSelectedIndex from 'ess/mixins/route-set-selected-index';
 import config from 'ess/config/environment';
 
-export
-default Ember.Route.extend(SetSelectedIndex, {
+export default Ember.Route.extend({
   rotaService: Ember.inject.service(),
-
-  collectionName: 'rotaWeeks',
 
   title: 'MY ROTAS',
 
@@ -33,11 +29,5 @@ default Ember.Route.extend(SetSelectedIndex, {
       'attrs.selectedIndex': null,
       'attrs.isPanning': true
     });
-  },
-
-  actions: {
-    setSelectedShift: function(shift) {
-      this.set('attrs.selectedShift', shift);
-    }
   }
 });
