@@ -7,6 +7,6 @@ module('ControllerSetSelectedIndexMixin');
 // Replace this with your real tests.
 test('it works', function(assert) {
   var ControllerSetSelectedIndexObject = Ember.Object.extend(ControllerSetSelectedIndexMixin);
-  var subject = ControllerSetSelectedIndexMixin.create();
+  var subject = ControllerSetSelectedIndexObject.create();
   assert.ok(subject);
 });
