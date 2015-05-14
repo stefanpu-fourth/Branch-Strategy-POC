@@ -49,7 +49,10 @@ module.exports = function(environment) {
     },
     employees: [
       57354,
-      24
+      422,
+      61377,
+      60191,
+      50724
     ],
     showEmployeeDropdown: false,
     cacheResources: true
