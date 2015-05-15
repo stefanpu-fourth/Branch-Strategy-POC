@@ -9,14 +9,21 @@ export default Ember.Component.extend({
 
   attributeBindings: ['style'],
 
-  rotaService: Ember.inject.service(),
-
   shift: null,
   selectedShift: null,
   selectTarget: null,
 
-  dayStart: null,
-  dayEnd: null,
+  dayStart: function() {
+    return this.get('shift.meta.dayStartAsMinutes') || 0;
+  }.property('shift.meta.dayStartAsMinutes'),
+
+  dayEnd: function() {
+    var dayEnd = this.get('shift.meta.dayEndAsMinutes') || 0;
+    if (dayEnd <= this.get('dayStart')) {
+      dayEnd = dayEnd + (24 * 60);
+    }
+    return dayEnd;
+  }.property('shift.meta.dayEndAsMinutes', 'dayStart'),
 
   dayDuration: function() {
     return this.get('dayEnd') - this.get('dayStart');
@@ -29,30 +36,6 @@ export default Ember.Component.extend({
   dayEarly: function() {
     return this.get('dayStart') + (this.get('dayDuration') / 4);
   }.property('dayDuration', 'dayStart'),
-
-  init: function() {
-    // Set defaults for dayStart and dayEnd
-    var dayStart = this.get('dayStart');
-    if (dayStart === null) {
-      this.set('dayStart', this.get('rotaService.startAsMinutes'));
-    }
-    var oldDayEnd = this.get('dayEnd');
-    var dayEnd = oldDayEnd;
-    if (dayEnd === null) {
-      dayEnd = this.get('rotaService.endAsMinutes');
-    }
-
-    // make sure dayEnd is after the start
-    if (dayEnd <= dayStart) {
-      dayEnd = dayEnd + wholeDay;
-    }
-
-    if (dayEnd !== oldDayEnd) {
-      this.set('dayEnd', dayEnd);
-    }
-
-    return this._super();
-  },
 
   tooltipLocation: function() {
     var dayIndex = this.get('dayIndex');

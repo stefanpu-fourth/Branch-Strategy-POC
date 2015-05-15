@@ -3,20 +3,18 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['rota-hour-bars'],
 
-  rotaService: Ember.inject.service(),
-
-  // default period in hours - can be overridden
+  // defaults for dayStart, dayEnd in minutes, and period in hours - can be overridden
+  dayStart: 0,
+  dayEnd: 0,
   period: 3,
 
   // bars array to denote % positions through the day
-  bars: null,
-
-  init: function() {
+  bars: function() {
     // generate some bars to display
     // we need our start/end times
     // also what frequency
-    var start = this.get('rotaService.startAsMinutes');
-    var end = this.get('rotaService.endAsMinutes');
+    var start = this.get('dayStart') || 0;
+    var end = this.get('dayEnd') || 0;
     if (end <= start) {
       end = end + (24 * 60);
     }
@@ -34,8 +32,6 @@ export default Ember.Component.extend({
       barTime = barTime + period;
     }
 
-    this.set('bars', bars);
-
-    return this._super();
-  }
+    return bars;
+  }.property('dayStart', 'dayEnd', 'period')
 });

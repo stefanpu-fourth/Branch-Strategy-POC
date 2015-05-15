@@ -53,7 +53,7 @@ export default DS.Model.extend({
     return !(onOff.test(type));
   }.property('type'),
 
-  calculateShifts: function() {
+  calculateShifts: function(meta) {
     var times = this.get('shiftTimes');
     let newShifts = [];
     if (times) {
@@ -63,7 +63,8 @@ export default DS.Model.extend({
           if (startTime !== endTime) {
             return Shift.create(Ember.merge(this.getProperties('jobTitle', 'type', 'location'), {
               start: startTime,
-              end: endTime
+              end: endTime,
+              meta: meta
             }));
           }
         }
