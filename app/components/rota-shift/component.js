@@ -81,6 +81,7 @@ export default Ember.Component.extend({
   }.property('shiftStartAsMinutes', 'shiftEndAsMinutes'),
 
   tap: function() {
+      ga('send', 'event', 'rota', 'click', 'Shift details');
       var target = this.get("selectTarget");
       if (this.get('selected')) {
         target.send('setSelectedShift', null);

@@ -5,6 +5,7 @@ module.exports = function(environment) {
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
+    gaTracker:'UA-62678526-2',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -48,7 +49,10 @@ module.exports = function(environment) {
     },
     employees: [
       57354,
-      24
+      422,
+      61377,
+      60191,
+      50724
     ],
     showEmployeeDropdown: false,
     cacheResources: true
@@ -78,6 +82,7 @@ module.exports = function(environment) {
   }
 
   if(environment === 'production') {
+    ENV.gaTracker = 'UA-62678526-1';
     ENV.showEmployeeDropdown = true;
     ENV.cacheResources = false;
   }

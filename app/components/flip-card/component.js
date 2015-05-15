@@ -5,7 +5,7 @@ var run = Ember.run;
 export default Ember.Component.extend({
   tagName: 'div',
   classNames: ['flip-card'],
-  classNameBindings: ['isFlipped:-flipped', 'isFlippable:-flippable:-side-by-side', 'isAnimating:-animating'],
+  classNameBindings: ['isFlipped:-flipped', 'isFlippable:-flippable', 'isAnimating:-animating'],
 
   attributeBindings: ['style'],
 
@@ -55,8 +55,7 @@ export default Ember.Component.extend({
     var breakpoint = parseInt(this.get('breakpoint'), 10);
 
     if (breakpoint) {
-      var cardWidth = this.$().width();
-      this.set('isFlippable', breakpoint > cardWidth + 72);
+      this.set('isFlippable', breakpoint > window.outerWidth);
       if (!this.get('isFlippable')) {
         this.set('isFlipped', false);
       }

@@ -6,7 +6,7 @@ export default Ember.Route.extend({
 
   title: 'MY ROTAS',
 
-  model: function () {
+  model: function() {
     var holidayBalance = this.store.all('holidayBalance');
     if (Ember.isEmpty(holidayBalance) || !config.cacheResources) {
       holidayBalance = this.store.find('holidayBalance');
@@ -20,12 +20,14 @@ export default Ember.Route.extend({
     });
   },
 
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.setProperties({
-      'attrs.holiday': model.holidayBalance,
+      'attrs.holiday': model.holidayBalance.get('firstObject'),
       'attrs.rotaWeeks': model.rotaWeeks,
-      'selectedShift': model.nextShift,
-      'selectedIndex': null
+      'attrs.defaultIndex': 2,
+      'attrs.selectedShift': model.nextShift,
+      'attrs.selectedIndex': null,
+      'attrs.isPanning': true
     });
   }
 });

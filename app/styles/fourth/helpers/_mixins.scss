@@ -130,9 +130,6 @@
 // }
 
 @mixin hidden-scrollbars {
-  & {
-    -webkit-overflow-scrolling: touch;
-  }
   &::-webkit-scrollbar,
   &::-webkit-scrollbar-thumb {
     background-color: transparent;

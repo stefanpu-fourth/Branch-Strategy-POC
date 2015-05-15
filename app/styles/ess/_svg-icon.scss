@@ -11,6 +11,9 @@
     // including menu
     position: relative;
     top:      .18em;
+
+    // fix for Safari on Mac
+    vertical-align: top;
 }
 
 .svg-icon--svg {
