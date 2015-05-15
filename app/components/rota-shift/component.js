@@ -30,7 +30,7 @@ export default Ember.Component.extend({
     return this.get('dayStart') + (this.get('dayDuration') / 4);
   }.property('dayDuration', 'dayStart'),
 
-  willInsertElement: function() {
+  init: function() {
     // Set defaults for dayStart and dayEnd
     var dayStart = this.get('dayStart');
     if (dayStart === null) {
@@ -50,6 +50,8 @@ export default Ember.Component.extend({
     if (dayEnd !== oldDayEnd) {
       this.set('dayEnd', dayEnd);
     }
+
+    return this._super();
   },
 
   tooltipLocation: function() {

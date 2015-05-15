@@ -11,7 +11,7 @@ export default Ember.Component.extend({
   // bars array to denote % positions through the day
   bars: null,
 
-  willInsertElement: function() {
+  init: function() {
     // generate some bars to display
     // we need our start/end times
     // also what frequency
@@ -35,5 +35,7 @@ export default Ember.Component.extend({
     }
 
     this.set('bars', bars);
+
+    return this._super();
   }
 });
