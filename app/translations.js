@@ -44,7 +44,10 @@ export default {
       niNumber: 'NI Number',
       taxCode: 'Tax Code',
       payMethod: 'Pay Method',
-      address: 'Address'
+      address: 'Address',
+      noPayslips: 'No payslips?',
+      noPayslipsAvailable: 'You do not have any electronic payslips available just yet…',
+      noPayslipsAdvice: 'If you think this is incorrect then please contact your line manager or payroll department.'
     },
     rotas: {
       holidayInformation: 'Holiday Information',
