@@ -14,17 +14,22 @@ var Router = Ember.Router.extend({
     return this.get('application.employment').get('locationName');
   }.property('application.employment'),
 
+  getCompany: function() {
+    return this.get('application.employment').get('companyName');
+  }.property('application.employment'),
+
   getCurrentTitle: function() {
     var title = this.get('application.currentRouteName');
     return this.container.lookup(`route:${title}`).get('title');
   }.property('application.currentRouteName'),
 
   notifyGoogleAnalytics: function() {
-    var props = this.getProperties('url', 'getCurrentTitle', 'getLocation');
+    var props = this.getProperties('url', 'getCurrentTitle', 'getLocation', 'getCompany');
     ga('send', 'pageview', {
       'page': props.url,
       'title': props.getCurrentTitle,
-      'dimension1': props.getLocation
+      'dimension1': props.getLocation,
+      'dimension2': props.getCompany
     });
 
     return true;
