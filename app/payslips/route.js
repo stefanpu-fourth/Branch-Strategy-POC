@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import FindWithCache from 'ess/mixins/route-find-with-cache';
 import Pageable from 'ess/mixins/route-pageable';
 
 var paramParams = {
@@ -6,7 +7,7 @@ var paramParams = {
   replace: true
 };
 
-export default Ember.Route.extend(Pageable, {
+export default Ember.Route.extend(Pageable, FindWithCache, {
 
   title: 'MY PAYSLIPS',
 
@@ -16,7 +17,7 @@ export default Ember.Route.extend(Pageable, {
   },
 
   model: function(params) {
-    return this.store.find('payslip', params);
+    return this.findWithCache('payslip', params);
   },
 
   setupController: function(controller, model) {

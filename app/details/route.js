@@ -1,14 +1,15 @@
 import Ember from 'ember';
+import FindWithCache from 'ess/mixins/route-find-with-cache';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(FindWithCache, {
   appStateService: Ember.inject.service(),
 
   title: 'HR DETAILS',
 
   model: function () {
     return Ember.RSVP.hash({
-      employment: this.store.find('mainemployment'),
-      employee: this.store.find('employee', this.get('appStateService.authenticatedEmployeeId'))
+      employment: this.findWithCache('mainemployment'),
+      employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId'))
     });
   },
 
