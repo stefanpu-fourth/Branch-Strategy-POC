@@ -24,7 +24,7 @@ export default Ember.Route.extend({
 
   afterModel: function (model) {
     model.rotaSchedules.forEach(day => {
-      day.calculateShifts();
+      day.calculateShifts(model.rotaSchedules.get('meta'));
     });
   },
 

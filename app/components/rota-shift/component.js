@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+var wholeDay = 24*60;
+
 export default Ember.Component.extend({
   tagName: 'span',
 
@@ -11,29 +13,52 @@ export default Ember.Component.extend({
   selectedShift: null,
   selectTarget: null,
 
+  dayStart: function() {
+    return this.get('shift.meta.dayStartAsMinutes') || 0;
+  }.property('shift.meta.dayStartAsMinutes'),
+
+  dayEnd: function() {
+    var dayEnd = this.get('shift.meta.dayEndAsMinutes') || 0;
+    if (dayEnd <= this.get('dayStart')) {
+      dayEnd = dayEnd + (24 * 60);
+    }
+    return dayEnd;
+  }.property('shift.meta.dayEndAsMinutes', 'dayStart'),
+
+  dayDuration: function() {
+    return this.get('dayEnd') - this.get('dayStart');
+  }.property('dayStart', 'dayEnd'),
+
+  dayMiddle: function() {
+    return this.get('dayStart') + (this.get('dayDuration') / 2);
+  }.property('dayDuration', 'dayStart'),
+
+  dayEarly: function() {
+    return this.get('dayStart') + (this.get('dayDuration') / 4);
+  }.property('dayDuration', 'dayStart'),
+
   tooltipLocation: function() {
     var dayIndex = this.get('dayIndex');
-    var shiftStart = parseInt(this.get('shift.start'), 10);
-    var classes = '';
+    var shiftStart = this.get('shift.startAsMinutes');
+    var classes = [];
 
     if (dayIndex < 2) {
-      classes += '-bottom ';
+      classes.push('-bottom');
     }
-
-    if (shiftStart > 13) {
-      classes += '-right ';
-    } else if (shiftStart > 6) {
-      classes += '-center ';
+    if (shiftStart > this.get('dayMiddle')) {
+      classes.push('-right');
+    } else if (shiftStart > this.get('dayEarly')) {
+      classes.push('-center');
     }
-    return classes;
-  }.property('dayIndex', 'shift.start'),
+    return classes.join(' ');
+  }.property('dayIndex', 'shift.startAsMinutes', 'dayMiddle', 'dayEarly'),
 
   style: function() {
     var shift = this.get('shift');
     if (shift) {
       return `left: ${this.get('startPercent')}%; width: ${this.get('durationPercent')}%`.htmlSafe();
     }
-  }.property('shift'),
+  }.property('shift', 'startPercent', 'durationPercent'),
 
   selected: function() {
     return Ember.isEqual(this.get('shift'), this.get('selectedShift'));
@@ -47,47 +72,33 @@ export default Ember.Component.extend({
     return this.get('isInPast') ? '-past' : '';
   }.property('isInPast'),
 
-  // TODO SJ - this behaviour belongs on the shift object itself
-  convertToMinutes: function(time) {
-    var hours   = parseInt(time.substring(0, 2));
-    var minutes = parseInt(time.substring(3, 5));
-
-    return (hours * 60) + minutes;
-  },
-
-  shiftStartAsMinutes: function() {
-    return this.convertToMinutes(this.get('shift.start'));
-  }.property('shift.start'),
-
-  shiftEndAsMinutes: function() {
-    return this.convertToMinutes(this.get('shift.end'));
-  }.property('shift.end'),
-
   startPercent: function() {
-    var shiftStart = this.get('shiftStartAsMinutes');
+    var dayStart = this.get('dayStart');
+    var shiftStart = Math.max(this.get('shift.startAsMinutes'), dayStart);
 
-    return ((100 / this.convertToMinutes('24:00'))*shiftStart);
-  }.property('shiftStartAsMinutes'),
+    return ((100 / this.get('dayDuration'))*(shiftStart - dayStart));
+  }.property('shift.startAsMinutes', 'dayStart', 'dayDuration'),
 
   durationPercent: function() {
-    var shiftStart = this.get('shiftStartAsMinutes');
-    var shiftEnd   = this.get('shiftEndAsMinutes');
+    var dayEnd = this.get('dayEnd');
+    var shiftStart = Math.max(this.get('shift.startAsMinutes'), this.get('dayStart'));
+    var shiftEnd   = Math.min(this.get('shift.endAsMinutes'), dayEnd);
 
     if (shiftStart > shiftEnd) {
-      shiftEnd = this.convertToMinutes('24:00');
+      shiftEnd = Math.min(shiftEnd + wholeDay, dayEnd);
     }
 
-    return ((100 / this.convertToMinutes('24:00'))*(shiftEnd - shiftStart));
-  }.property('shiftStartAsMinutes', 'shiftEndAsMinutes'),
+    return ((100 / this.get('dayDuration'))*(shiftEnd - shiftStart));
+  }.property('shift.startAsMinutes', 'shift.endAsMinutes', 'dayStart', 'dayEnd', 'dayDuration'),
 
   tap: function() {
-      ga('send', 'event', 'rota', 'click', 'Shift details');
-      var target = this.get("selectTarget");
-      if (this.get('selected')) {
-        target.send('setSelectedShift', null);
-      } else {
-        target.send('setSelectedShift', this.get('shift'));
-      }
-      return false;
+    ga('send', 'event', 'rota', 'click', 'Shift details');
+    var target = this.get("selectTarget");
+    if (this.get('selected')) {
+      target.send('setSelectedShift', null);
+    } else {
+      target.send('setSelectedShift', this.get('shift'));
     }
+    return false;
+  }
 });

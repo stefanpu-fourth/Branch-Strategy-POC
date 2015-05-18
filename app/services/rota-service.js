@@ -18,10 +18,11 @@ var RotaWeek = Ember.Object.extend({
 });
 
 RotaWeek.reopenClass({
-  forDate: function(date, shifts) {
+  forDate: function(date, shifts, meta) {
     return RotaWeek.create({
       start: moment(date),
-      shifts: shifts
+      shifts: shifts,
+      meta: meta
     });
   }
 });
@@ -39,6 +40,7 @@ export default Ember.Service.extend({
     this.set('fetchedSchedules.content', schedules);
     var start = moment(this.get('fetchedSchedules.firstObject.shiftDate'));
     var rotaWeeks = [];
+    var meta = schedules.get('meta') || this.get('meta');
 
     for (let i = 0; i < prevWeeks + futureWeeks + 1; i++) {
       let shiftStart = start.clone().add(7 * i, 'days');
@@ -54,7 +56,7 @@ export default Ember.Service.extend({
       schedulesForDate.forEach((s, index) => {
         let dayTypes = new Ember.Set();
         // reset calculated shifts, as otherwise for subsequent calls we get lots of duplicates
-        s.calculateShifts();
+        s.calculateShifts(meta);
         if (s.get('isNotRota') && (s.get('shifts.length') === 0)) {
           dayTypes.add(s.get('type'));
         }
@@ -80,7 +82,7 @@ export default Ember.Service.extend({
         s.set('displayTypes', dayTypes.toArray().sort());
       });
 
-      rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, schedulesForDate));
+      rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, schedulesForDate, meta));
     }
 
     return rotaWeeks;
