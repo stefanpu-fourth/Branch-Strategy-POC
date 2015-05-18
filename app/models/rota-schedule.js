@@ -3,6 +3,29 @@ import Ember from 'ember';
 
 var attr = DS.attr;
 
+var Shift = Ember.Object.extend({
+  jobTitle: null,
+  type: null,
+  location: null,
+  start: null,
+  end: null,
+
+  convertToMinutes: function(time) {
+    var hours   = parseInt(time.substring(0, 2));
+    var minutes = parseInt(time.substring(3, 5));
+
+    return (hours * 60) + minutes;
+  },
+
+  startAsMinutes: function() {
+    return this.convertToMinutes(this.get('start'));
+  }.property('start'),
+
+  endAsMinutes: function() {
+    return this.convertToMinutes(this.get('end'));
+  }.property('end')
+});
+
 export default DS.Model.extend({
   type: attr('string'),
   shiftDate: attr('date'),
@@ -30,7 +53,7 @@ export default DS.Model.extend({
     return !(onOff.test(type));
   }.property('type'),
 
-  calculateShifts: function() {
+  calculateShifts: function(meta) {
     var times = this.get('shiftTimes');
     let newShifts = [];
     if (times) {
@@ -38,10 +61,11 @@ export default DS.Model.extend({
         if ((index % 2) === 0) {
           var endTime = times[index + 1];
           if (startTime !== endTime) {
-            return Ember.merge(this.getProperties('jobTitle', 'type', 'location'), {
+            return Shift.create(Ember.merge(this.getProperties('jobTitle', 'type', 'location'), {
               start: startTime,
-              end: endTime
-            });
+              end: endTime,
+              meta: meta
+            }));
           }
         }
 

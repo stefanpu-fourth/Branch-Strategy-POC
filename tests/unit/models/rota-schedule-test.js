@@ -55,3 +55,22 @@ test('it can detect non-rota days', function(assert) {
     assert.equal(model.get('isNotRota'), true);
   });
 });
+
+test('calculated shift objects can return shift times as minutes', function(assert) {
+  assert.expect(4);
+  var model = this.subject();
+
+  Ember.run(() => {
+    model.setProperties({
+      shiftTimes: ['00:00', '05:00', '17:00', '23:00']
+    });
+
+    model.calculateShifts();
+
+    var shifts = model.get('shifts');
+    assert.equal(shifts.get('0.startAsMinutes'), 0, 'first shift.startAsMinutes is 0');
+    assert.equal(shifts.get('0.endAsMinutes'), 5 * 60, 'first shift.endAsMinutes is 5 * 60');
+    assert.equal(shifts.get('1.startAsMinutes'), 17 * 60, 'second shift.startAsMinutes is 17 * 60');
+    assert.equal(shifts.get('1.endAsMinutes'), 23 * 60, 'second shift.endAsMinutes is 23 * 60');
+  });
+});
