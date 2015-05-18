@@ -10,18 +10,21 @@ var Router = Ember.Router.extend({
     return this.container.lookup('controller:application');
   }.property(),
 
+  getLocation: function() {
+    return this.get('application.employment').get('locationName');
+  }.property('application.employment'),
+
   getCurrentTitle: function() {
     var title = this.get('application.currentRouteName');
     return this.container.lookup(`route:${title}`).get('title');
   }.property('application.currentRouteName'),
 
   notifyGoogleAnalytics: function() {
-    var props = this.getProperties('url', 'getCurrentTitle');
-
+    var props = this.getProperties('url', 'getCurrentTitle', 'getLocation');
     ga('send', 'pageview', {
       'page': props.url,
       'title': props.getCurrentTitle,
-      'location': config.locationType
+      'location': props.getLocation
     });
 
     return true;

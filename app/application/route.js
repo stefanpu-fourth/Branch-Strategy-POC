@@ -13,8 +13,13 @@ export default Ember.Route.extend({
   },
 
   setupController: function(controller, model) {
-    controller.set('model', model);
-    controller.set('showEmployeeDropdown', config.showEmployeeDropdown);
+    this.store.find('mainemployment').then(employment => {
+      controller.setProperties({
+        'model': model,
+        'showEmployeeDropdown': config.showEmployeeDropdown,
+        'employment': employment.get('firstObject')
+      });
+    });
   },
 
   refreshCurrentRoute: function () {
