@@ -29,16 +29,12 @@ RotaWeek.reopenClass({
 
 export default Ember.Service.extend({
 
-  init: function() {
-    this.set('fetchedSchedules', Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
-      content: [],
-      sortProperties: ['shiftDate']
-    }));
-  },
-
   getRotaWeeks: function(schedules, date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
-    this.set('fetchedSchedules.content', schedules);
-    var start = moment(this.get('fetchedSchedules.firstObject.shiftDate'));
+    var sortedSchedules = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
+      content: schedules,
+      sortProperties: ['rotaStart', 'shiftDate', 'shiftTimes.0']
+    });
+    var start = moment(sortedSchedules.get('firstObject.rotaStart'));
     var rotaWeeks = [];
     var meta = schedules.get('meta');
 
@@ -105,7 +101,7 @@ export default Ember.Service.extend({
   _findShift: function(schedules, date) {
     var sortedSchedules = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
       content: schedules,
-      sortProperties: ['shiftDate', 'shiftTimes.0']
+      sortProperties: ['rotaStart', 'shiftDate', 'shiftTimes.0']
     });
 
     let today = moment(date).startOf('day');
@@ -133,11 +129,6 @@ export default Ember.Service.extend({
     return foundShift;
   },
 
-  // TODO SJ these params should be fetched from
-  // config. probably. They don't make much sense in the context of
-  // this function, but are needed in order to fetch the data if not
-  // there. Or maybe it should assume data already there. Throw an
-  // exception if the promise isn't there maybe???
   getNextShift: function(schedules, date = Date.now()) {
     return this._findShift(schedules, date);
   }
