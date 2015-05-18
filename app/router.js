@@ -28,8 +28,8 @@ var Router = Ember.Router.extend({
     ga('send', 'pageview', {
       'page': props.url,
       'title': props.getCurrentTitle,
-      'dimension1': props.getLocation,
-      'dimension2': props.getCompany
+      'dimension1': props.getCompany,
+      'dimension2': props.getLocation
     });
 
     return true;
