@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import config from 'ess/config/environment';
 
 export default Ember.Route.extend({
   rotaService: Ember.inject.service(),
@@ -7,13 +6,8 @@ export default Ember.Route.extend({
   title: 'MY ROTAS',
 
   model: function() {
-    var holidayBalance = this.store.all('holidayBalance');
-    if (Ember.isEmpty(holidayBalance) || !config.cacheResources) {
-      holidayBalance = this.store.find('holidayBalance');
-    }
-
     return Ember.RSVP.hash({
-      holidayBalance: holidayBalance,
+      holidayBalance: this.store.find('holidayBalance'),
       rotaSchedules: this.store.find('rota-schedule', {
         RequestDate: moment().format('YYYY-MM-DD'),
         NoPreviousWeeks: 2,
