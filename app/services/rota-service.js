@@ -40,7 +40,7 @@ export default Ember.Service.extend({
     this.set('fetchedSchedules.content', schedules);
     var start = moment(this.get('fetchedSchedules.firstObject.shiftDate'));
     var rotaWeeks = [];
-    var meta = schedules.get('meta') || this.get('meta');
+    var meta = schedules.get('meta');
 
     for (let i = 0; i < prevWeeks + futureWeeks + 1; i++) {
       let shiftStart = start.clone().add(7 * i, 'days');
