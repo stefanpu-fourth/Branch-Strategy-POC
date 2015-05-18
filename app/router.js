@@ -24,7 +24,7 @@ var Router = Ember.Router.extend({
     ga('send', 'pageview', {
       'page': props.url,
       'title': props.getCurrentTitle,
-      'location': props.getLocation
+      'dimension1': props.getLocation
     });
 
     return true;
