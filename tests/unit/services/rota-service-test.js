@@ -127,18 +127,14 @@ test('it can get the next shift when there is one', function(assert) {
 });
 
 test("won't return a next shift when there isn't one", function(assert) {
-  var service = this.subject({
-    store: store
-  });
+  var service = this.subject();
 
   var fetchedShift = service.getNextShift(records, new Date(2015, 3, 2));
   assert.equal(fetchedShift, undefined);
 });
 
 test("merged schedules correctly sort their shifts", function(assert) {
-  var service = this.subject({
-    store: store
-  });
+  var service = this.subject();
 
   // add a shift to a record late in the day
   var record = records.get(20);
