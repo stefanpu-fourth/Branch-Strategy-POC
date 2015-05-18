@@ -89,7 +89,8 @@ export default DS.Model.extend({
         overlaps.push({
           startAsMinutes: Math.min(...overlapping.mapBy('startAsMinutes')),
           endAsMinutes: Math.min(endTime, ...overlapping.mapBy('endAsMinutes')),
-          shifts: [].concat(shift).concat(overlapping)
+          shifts: [].concat(shift).concat(overlapping),
+          meta: shift.meta
         });
       }
     });

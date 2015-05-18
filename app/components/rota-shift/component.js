@@ -13,6 +13,7 @@ export default Ember.Component.extend({
   selectedShift: null,
   selectTarget: null,
 
+  // TODO: refactor to avoid duplication (see rota-overlap)
   dayStart: function() {
     return this.get('shift.meta.dayStartAsMinutes') || 0;
   }.property('shift.meta.dayStartAsMinutes'),
