@@ -54,8 +54,8 @@ module.exports = function(environment) {
       { id: 60191, token: '0000000Client60191' },
       { id: 50724, token: '0000000Client50724' }
     ],
-    showEmployeeDropdown: true,
-    cacheResources: false
+    showEmployeeDropdown: false,
+    cacheResources: true
   };
 
   ENV.user = 57354;
