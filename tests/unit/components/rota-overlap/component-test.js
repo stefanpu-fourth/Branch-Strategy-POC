@@ -2,6 +2,7 @@ import {
   moduleForComponent,
   test
 } from 'ember-qunit';
+import Ember from 'ember';
 
 moduleForComponent('rota-overlap', {
   // Specify the other units that are required for this test
@@ -14,6 +15,13 @@ test('it renders', function(assert) {
   // Creates the component instance
   var component = this.subject();
   assert.equal(component._state, 'preRender');
+
+  // put in a spoof overlap, otherwise it cannot render
+  component.set('overlap', Ember.Object.create({
+    startAsMinutes: 6 * 60,
+    shifts: [Ember.Object.create({ jobTitle: 'test', location: 'here' }), Ember.Object.create({ jobTitle: 'two', location: 'there' })],
+    meta: { dayStartAsMinutes: 0, dayEndAsMinutes: 0 }
+  }));
 
   // Renders the component to the page
   this.render();
