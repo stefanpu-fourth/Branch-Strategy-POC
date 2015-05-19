@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import config from 'ess/config/environment';
 
+var employees = Ember.A(config.employees);
+
 export default Ember.Route.extend({
   appStateService: Ember.inject.service(),
 
@@ -30,7 +32,7 @@ export default Ember.Route.extend({
 
   actions: {
     setCurrentEmployee: function (employeeId) {
-      var employee = this.store.getById('root', employeeId) || this.store.createRecord('root', { id: employeeId });
+      var employee = this.store.getById('root', employeeId) || this.store.createRecord('root', employees.findBy('id', employeeId));
       this.set('appStateService.rootResource', employee);
       this.refreshCurrentRoute();
     }

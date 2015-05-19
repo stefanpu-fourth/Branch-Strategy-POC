@@ -6,14 +6,14 @@ export default SirenAdapter.extend({
   appStateService: Ember.inject.service(),
 
   headers: function() {
-    var employeeId = this.get('appStateService.authenticatedEmployeeId');
+    var employeeToken = this.get('appStateService.authenticatedEmployeeToken');
 
-    return (employeeId && employeeId !== '0') ? {
+    return !!employeeToken ? {
       "X-Fourth-Version": 0,
-      "X-Fourth-UserID": employeeId,
+      "X-Fourth-UserID": employeeToken,
       "X-Fourth-Org": 0
     } : {};
-  }.property('appStateService.authenticatedEmployeeId'),
+  }.property('appStateService.authenticatedEmployeeToken'),
 
   host: function() {
     return config.apiBaseUrl;
