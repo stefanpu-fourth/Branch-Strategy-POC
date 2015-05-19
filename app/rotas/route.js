@@ -25,12 +25,22 @@ export default Ember.Route.extend(FindWithCache, {
 
   setupController: function(controller, model) {
     var rotaService = this.get('rotaService');
+    var rotaWeeks = rotaService.getRotaWeeks(model.rotaSchedules);
+    var selectedShift = rotaService.getNextShift(model.rotaSchedules);
+    var selectedOverlap;
+    if (selectedShift) {
+      selectedOverlap = rotaService.findOverlapForShift(rotaWeeks, selectedShift);
+    }
+    if (selectedOverlap) {
+      selectedShift = undefined;
+    }
 
     controller.setProperties({
       'attrs.holiday': model.holidayBalance.get('firstObject'),
-      'attrs.rotaWeeks': rotaService.getRotaWeeks(model.rotaSchedules),
-      'attrs.defaultIndex': 2,
-      'attrs.selectedShift': rotaService.getNextShift(model.rotaSchedules),
+      'attrs.rotaWeeks': rotaWeeks,
+      'attrs.defaultIndex': rotaService.getWeekIndexForDate(rotaWeeks),
+      'attrs.selectedShift': selectedShift,
+      'attrs.selectedOverlap': selectedOverlap,
       'attrs.selectedIndex': null,
       'attrs.isPanning': true
     });
