@@ -49,6 +49,7 @@
   @include perspective(1000);
 
   .flip-card--wrap {
+    border: none;
     @include transform-style(preserve-3d);
   }
   .flip-card--front,
@@ -60,6 +61,7 @@
     bottom: 0;
     left: 0;
     background-color: $color-white;
+    border: 1px solid $color-grey-lighter;
     @include transition(transform .4s);
     @include backface-visibility(hidden);
   }
