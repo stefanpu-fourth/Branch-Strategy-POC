@@ -46,19 +46,21 @@ moduleFor('service:rota-service', {
 
 test('it groups the rotaSchedule objects into rota weeks', function(assert) {
   var service = this.subject();
-  var weeks = service.getRotaWeeks(records);
 
-  assert.equal(weeks.get('firstObject.start').format('YYYY-MM-DD'), '2015-03-30', 'first week is present');
-  assert.equal(weeks.get('lastObject.start').format('YYYY-MM-DD'), '2015-04-27', 'last week is present');
-  assert.equal(weeks.get('length'), 5, 'expected number of rota weeks loaded');
-  weeks.forEach(week => {
-    var formattedShiftStart = week.get('start').format('YYYY-MM-DD');
-    assert.equal(week.get('shifts.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
+  Ember.run(() => {
+    var weeks = service.getRotaWeeks(records);
 
-    // days of week should all have matching rotaStart days
-    // TODO: this dancing around with using moment to process rotaStart is bad
-    var startDates = new Ember.Set(week.get('shifts').map(w => moment(w.get('rotaStart')).startOf('day').valueOf()));
-    assert.equal(startDates.length, 1, 'all dates within a week match');
+    assert.equal(weeks.get('firstObject.start').format('YYYY-MM-DD'), '2015-03-30', 'first week is present');
+    assert.equal(weeks.get('lastObject.start').format('YYYY-MM-DD'), '2015-04-27', 'last week is present');
+    assert.equal(weeks.get('length'), 5, 'expected number of rota weeks loaded');
+    weeks.forEach(week => {
+      var formattedShiftStart = week.get('start').format('YYYY-MM-DD');
+      assert.equal(week.get('shifts.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
+
+      // days of week should all have matching rotaStart days
+      var startDates = new Ember.Set(week.get('shifts').map(w => w.get('rotaStart')));
+      assert.equal(startDates.length, 1, 'all dates within a week match');
+    });
   });
 });
 
@@ -211,12 +213,11 @@ test("if we have the same days but our week starts on Sunday things still work a
       assert.equal(week.get('shifts.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
 
       // days of week should all have matching rotaStart days
-      // TODO: this dancing around with using moment to process rotaStart is bad
-      var checkDates = new Ember.Set(week.get('shifts').map(w => moment(w.get('rotaStart')).startOf('day').valueOf()));
+      var checkDates = new Ember.Set(week.get('shifts').map(w => w.get('rotaStart')));
       assert.equal(checkDates.length, 1, 'all dates within a week match');
 
       // all days within a week should be chronologically ordered
-      checkDates = week.get('shifts').map(week => moment(week.get('shiftDate')).startOf('day').valueOf());
+      checkDates = week.get('shifts').map(week => moment(week.get('shiftDate')).valueOf());
       var checkDate = checkDates[0];
       for (var i = 1; i < checkDates.length; i++) {
         assert.ok(checkDates[i] > checkDate, 'day dates are chronological');
