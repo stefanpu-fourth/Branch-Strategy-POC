@@ -275,6 +275,7 @@ test("findOverlapForShift can find matching overlaps", function(assert) {
 });
 
 test("getWeekIndexForDate will find the correct index", function(assert) {
+  assert.expect(6);
   var service = this.subject();
 
   var weeks = service.getRotaWeeks(records);
@@ -284,4 +285,5 @@ test("getWeekIndexForDate will find the correct index", function(assert) {
   assert.equal(service.getWeekIndexForDate(weeks, new Date(2015, 3, 6)), 1, 'next monday is in second week');
   assert.equal(service.getWeekIndexForDate(weeks, new Date(2014, 2, 2)), 0, 'dates before range get index zero');
   assert.equal(service.getWeekIndexForDate(weeks, new Date(2017, 1, 1)), 4, 'dates after range get last index');
+  assert.equal(service.getWeekIndexForDate([], new Date(2015, 2, 30)), 0, 'no weeks will return zero');
 });

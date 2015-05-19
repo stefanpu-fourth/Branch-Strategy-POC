@@ -6,6 +6,8 @@ export default Ember.Route.extend(FindWithCache, {
 
   title: 'MY ROTAS',
 
+  meta: null,
+
   model: function() {
     return Ember.RSVP.hash({
       holidayBalance: this.findWithCache('holidayBalance'),
@@ -18,8 +20,11 @@ export default Ember.Route.extend(FindWithCache, {
   },
 
   afterModel: function (model) {
+    this.meta = model.rotaSchedules.get('meta') || this.meta;
+    model.rotaSchedules.set('meta', this.meta);
+
     model.rotaSchedules.forEach(day => {
-      day.calculateShifts(model.rotaSchedules.get('meta'));
+      day.calculateShifts(this.meta);
     });
   },
 

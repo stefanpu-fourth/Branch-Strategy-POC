@@ -35,8 +35,6 @@ export default Ember.Service.extend({
     var rotaWeeks = [];
     var meta = schedules.get('meta');
 
-    console.log("getRotaWeeks meta is %o", meta);
-
     // reset calculated shifts, as otherwise for subsequent calls we get lots of duplicates
     schedules.forEach((s) => {
       s.calculateShifts(meta);
@@ -252,6 +250,10 @@ export default Ember.Service.extend({
 
   // utility method to work out current week from a list of weeks
   getWeekIndexForDate: function(weeks, date = Date.now()) {
+    if (weeks.length === 0) {
+      return 0;
+    }
+
     var weekIndex = weeks.indexOf(this.findWeekForDate(weeks, date));
     if (weekIndex === -1) {
       date = moment(date);
