@@ -82,7 +82,7 @@ module.exports = function(environment) {
   }
 
   if(environment === 'production') {
-    ENV.gaTracker = 'UA-62678526-1';
+    ENV.gaTracker = 'UA-62678526-2'; // production real tracker 'UA-62678526-1'
     ENV.showEmployeeDropdown = true;
     ENV.cacheResources = false;
   }
