@@ -1,19 +1,24 @@
 import Ember from 'ember';
 import FindWithCache from 'ess/mixins/route-find-with-cache';
 
+var paramParams = {
+  refreshModel: true,
+  replace: true
+};
+
 export default Ember.Route.extend(FindWithCache, {
   rotaService: Ember.inject.service(),
 
   title: 'MY ROTAS',
 
-  model: function() {
+  queryParams: {
+    filters: paramParams
+  },
+
+  model: function(params) {
     return Ember.RSVP.hash({
       holidayBalance: this.findWithCache('holidayBalance'),
-      rotaSchedules: this.findWithCache('rota-schedule', {
-        RequestDate: moment().format('YYYY-MM-DD'),
-        NoPreviousWeeks: 2,
-        NoFutureWeeks: 2
-      })
+      rotaSchedules: this.findWithCache('rota-schedule', params)
     });
   },
 

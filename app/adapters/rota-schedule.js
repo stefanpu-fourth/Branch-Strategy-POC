@@ -1,16 +1,19 @@
-import EssAdapter from './ess';
+import ODataAdapter from './odata';
+import Filterable from 'ess/mixins/adapter-filterable';
 
-export default EssAdapter.extend({
-  _buildOdataUrl: function(type, qstring) {
-    return `${this.urlPrefix()}/${this.pathForType(type.typeKey).toLowerCase()}?${qstring}`;
-  },
+export default ODataAdapter.extend(Filterable, {
+  getODataUrlParts(type, query) {
+    var {
+      filters
+    } = query;
 
-  findQuery: function(store, type, query) {
-    var qstring = '';
-    if (query.RequestDate) {
-      qstring = `$filter=RequestDate eq ${query.RequestDate} and NoPreviousWeeks eq 2 and NoFutureWeeks eq 2`;
-    }
-    var url = this._buildOdataUrl(type, qstring);
-    return this.ajax(url);
+    delete query.filters;
+
+    return [
+      this.urlPrefix(),
+      this.pathForType(type.typeKey),
+      '?',
+      this.getFiltersString(filters)
+    ];
   }
 });
