@@ -1,12 +1,19 @@
 <span class="rota-shift--solid {{selectedClass}} {{pastClass}} brand-bg brand-before-bg">
   {{#tool-tip classNameBindings="tooltipLocation" active=selected}}
-    <p> Overlap!!! </p>
     <p>{{svg-icon name="clock"}}
       {{#each overlap.shifts as |shift index|}}
         {{#if index}} / {{/if}}
         <strong>{{shift.start}}-{{shift.end}}</strong> {{shift.type}}
       {{/each}}</p>
-    <p>{{svg-icon name="location"}} {{overlap.shifts.0.location}}</p>
-    <p>{{svg-icon name="user"}} {{overlap.shifts.0.jobTitle}}</p>
+    <p>{{svg-icon name="location"}}
+      {{#each locations as |location index|}}
+        {{#if index}} / {{/if}}
+        {{location}}
+      {{/each}}</p>
+    <p>{{svg-icon name="user"}}
+      {{#each jobTitles as |title index|}}
+        {{#if index}} / {{/if}}
+        {{title}}
+      {{/each}}</p>
   {{/tool-tip}}
 </span>

@@ -92,6 +92,18 @@ export default Ember.Component.extend({
     return ((100 / this.get('dayDuration'))*(overlapEnd - overlapStart));
   }.property('overlap.startAsMinutes', 'overlap.endAsMinutes', 'dayStart', 'dayEnd', 'dayDuration'),
 
+  locations: function() {
+    var locations = new Ember.Set();
+    this.get('overlap.shifts').forEach(s => locations.add(s.get('location')));
+    return locations.toArray();
+  }.property('overlap'),
+
+  jobTitles: function() {
+    var titles = new Ember.Set();
+    this.get('overlap.shifts').forEach(s => titles.add(s.get('jobTitle')));
+    return titles.toArray();
+  }.property('overlap'),
+
   tap: function() {
     var target = this.get("selectTarget");
     if (this.get('selected')) {

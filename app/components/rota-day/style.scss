@@ -27,7 +27,7 @@
     color: $color-grey;
   }
 
-  &.active {
+  &.-active {
     z-index: 1000;
   }
 }

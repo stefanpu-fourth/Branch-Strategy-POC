@@ -18,9 +18,12 @@ export default Ember.Component.extend({
 
   isSelected: function() {
     // return true if the day's shifts array contains the selected shift
-    var shifts = this.get('day.shifts');
-    if (shifts) {
-      return shifts.indexOf(this.get('selectedShift')) !== -1;
+    var selectedShift = this.get('selectedShift');
+    var selectedOverlap = this.get('selectedOverlap');
+    if (selectedShift) {
+      return this.get('day.shifts').indexOf(selectedShift) !== -1;
+    } else if (selectedOverlap) {
+      return this.get('day.overlappingShifts').indexOf(selectedOverlap) !== -1;
     } else {
       return false;
     }
