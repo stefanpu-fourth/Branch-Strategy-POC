@@ -48,14 +48,14 @@ module.exports = function(environment) {
       pageSize: 12
     },
     employees: [
-      57354,
-      422,
-      61377,
-      60191,
-      50724
+      { id: 57354, token: '000000000TestIrene' },
+      { id: 422, token: '000000000Client422' },
+      { id: 61377, token: '0000000Client61377' },
+      { id: 60191, token: '0000000Client60191' },
+      { id: 50724, token: '0000000Client50724' }
     ],
-    showEmployeeDropdown: false,
-    cacheResources: true
+    showEmployeeDropdown: true,
+    cacheResources: false
   };
 
   ENV.user = 57354;
