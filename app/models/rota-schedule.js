@@ -11,8 +11,8 @@ var Shift = Ember.Object.extend({
   end: null,
 
   convertToMinutes: function(time) {
-    var hours   = parseInt(time.substring(0, 2));
-    var minutes = parseInt(time.substring(3, 5));
+    var hours   = parseInt(time.substring(0, 2), 10);
+    var minutes = parseInt(time.substring(3, 5), 10);
 
     return (hours * 60) + minutes;
   },
