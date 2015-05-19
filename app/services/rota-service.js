@@ -19,7 +19,11 @@ var RotaWeek = Ember.Object.extend({
 
 RotaWeek.reopenClass({
   forDate: function(date, shifts, meta) {
-    return RotaWeek.create({ start: moment(date), shifts: shifts, meta: meta });
+    return RotaWeek.create({
+      start: moment(date),
+      shifts: shifts,
+      meta: meta
+    });
   }
 });
 
@@ -32,72 +36,56 @@ export default Ember.Service.extend({
     }));
   },
 
-  store: Ember.inject.service(),
+  getRotaWeeks: function(schedules, date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
+    this.set('fetchedSchedules.content', schedules);
+    var start = moment(this.get('fetchedSchedules.firstObject.shiftDate'));
+    var rotaWeeks = [];
+    var meta = schedules.get('meta');
 
-  scheduleFetchPromise: null,
+    for (let i = 0; i < prevWeeks + futureWeeks + 1; i++) {
+      let shiftStart = start.clone().add(7 * i, 'days');
+      let filterStart = shiftStart.clone().subtract(1, 'days');
+      let end = shiftStart.clone().add(7, 'days');
 
-  // default start/end times - these should get replaced from metadata fetched from API
-  meta: {
-    dayStartAsMinutes: 0,
-    dayEndAsMinutes: 24*60
-  },
+      let schedulesForDate = schedules.filter(s => {
+        return s.isBetweenMoments(filterStart, end);
+      });
 
-  getRotaWeeks: function(date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
-    if (!this.scheduleFetchPromise) {
-      this.scheduleFetchPromise = this._fetchSchedules(date, prevWeeks, futureWeeks);
+      let shiftDates = schedulesForDate.mapBy('shiftDate').map(d => d.valueOf());
+
+      schedulesForDate.forEach((s, index) => {
+        let dayTypes = new Ember.Set();
+        // reset calculated shifts, as otherwise for subsequent calls we get lots of duplicates
+        s.calculateShifts(meta);
+        if (s.get('isNotRota') && (s.get('shifts.length') === 0)) {
+          dayTypes.add(s.get('type'));
+        }
+        let shiftDate = s.get('shiftDate').valueOf();
+        let dupeIndex = shiftDates.lastIndexOf(shiftDate);
+        while (dupeIndex !== index) {
+          let dupeSchedule = schedulesForDate[dupeIndex];
+          dupeSchedule.get('shifts').forEach(ds => {
+            s.get('shifts').push(ds);
+          });
+          // TODO: we're only merging in types when we have shifts in other records - this may be flawed
+          // essentially this is a workaround to deal with back-end data
+          if (dupeSchedule.get('isNotRota') && (dupeSchedule.get('shifts.length') === 0)) {
+            dayTypes.add(dupeSchedule.get('type'));
+          }
+          schedulesForDate.splice(dupeIndex, 1);
+          shiftDates.splice(dupeIndex, 1);
+          s.set('shifts', s.get('shifts').sort(function(a, b) {
+            return a.start.localeCompare(b.start);
+          }));
+          dupeIndex = shiftDates.lastIndexOf(shiftDate);
+        }
+        s.set('displayTypes', dayTypes.toArray().sort());
+      });
+
+      rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, schedulesForDate, meta));
     }
 
-    return this.scheduleFetchPromise.then(schedules => {
-      this.set('fetchedSchedules.content', schedules);
-      var start = moment(this.get('fetchedSchedules.firstObject.shiftDate'));
-      var rotaWeeks = [];
-      var meta = this.get('meta');
-
-      for (let i=0;i<prevWeeks + futureWeeks + 1; i++) {
-        let shiftStart = start.clone().add(7 * i, 'days');
-        let filterStart = shiftStart.clone().subtract(1, 'days');
-        let end = shiftStart.clone().add(7, 'days');
-
-        let schedulesForDate = schedules.filter(s => {
-          return s.isBetweenMoments(filterStart, end);
-        });
-
-        let shiftDates = schedulesForDate.mapBy('shiftDate').map(d => d.valueOf());
-
-        schedulesForDate.forEach((s, index) => {
-          let dayTypes = new Ember.Set();
-          // reset calculated shifts, as otherwise for subsequent calls we get lots of duplicates
-          s.calculateShifts(meta);
-          if (s.get('isNotRota') && (s.get('shifts.length') === 0)) {
-            dayTypes.add(s.get('type'));
-          }
-          let shiftDate = s.get('shiftDate').valueOf();
-          let dupeIndex = shiftDates.lastIndexOf(shiftDate);
-          while (dupeIndex !== index) {
-            let dupeSchedule = schedulesForDate[dupeIndex];
-            dupeSchedule.get('shifts').forEach(ds => {
-              s.get('shifts').push(ds);
-            });
-            // TODO: we're only merging in types when we have shifts in other records - this may be flawed
-            // essentially this is a workaround to deal with back-end data
-            if (dupeSchedule.get('isNotRota') && (dupeSchedule.get('shifts.length') === 0)) {
-              dayTypes.add(dupeSchedule.get('type'));
-            }
-            schedulesForDate.splice(dupeIndex, 1);
-            shiftDates.splice(dupeIndex, 1);
-            s.set('shifts', s.get('shifts').sort(function(a, b) {
-              return a.start.localeCompare(b.start);
-            }));
-            dupeIndex = shiftDates.lastIndexOf(shiftDate);
-          }
-          s.set('displayTypes', dayTypes.toArray().sort());
-        });
-
-        rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, schedulesForDate, meta));
-      }
-
-      return rotaWeeks;
-    });
+    return rotaWeeks;
   },
 
   _shiftMatches: function(shift, date, shiftDateAsMoment) {
@@ -126,7 +114,7 @@ export default Ember.Service.extend({
 
     let scheduleCount = sortedSchedules.get('length');
 
-    for (let i=0; i<scheduleCount; i++) {
+    for (let i = 0; i < scheduleCount; i++) {
       let schedule = sortedSchedules.objectAt(i);
       let scheduleMoment = moment(schedule.get('shiftDate'));
       if (scheduleMoment.isSame(today) || scheduleMoment.isAfter(today)) {
@@ -150,42 +138,7 @@ export default Ember.Service.extend({
   // this function, but are needed in order to fetch the data if not
   // there. Or maybe it should assume data already there. Throw an
   // exception if the promise isn't there maybe???
-  getNextShift: function(date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
-    if (!this.scheduleFetchPromise) {
-      this.scheduleFetchPromise = this._fetchSchedules(date, prevWeeks, futureWeeks);
-    }
-
-    return this.scheduleFetchPromise.then(schedules => {
-      return this._findShift(schedules, date);
-    });
-  },
-
-  _fetchSchedules: function(date, prevWeeks, futureWeeks) {
-    return this.get('store').find('rota-schedule', {
-      RequestDate: moment(date).format('YYYY-MM-DD'),
-      NoPreviousWeeks: prevWeeks,
-      NoFutureWeeks: futureWeeks
-    }).then(schedules => {
-      /* jshint ignore:start */
-      // a bug in jshint means it doesn't understand this destructuring yet
-      let { 'meta.startAsMinutes': start, 'meta.endAsMinutes': end } = schedules.getProperties('meta.startAsMinutes', 'meta.endAsMinutes');
-      start = start || 0;
-      end = end || 0;
-      // sanitise day end time so it's after the start
-      if (end <= start) {
-        end = end + (24 * 60);
-      }
-      this.setProperties({
-        'meta.dayStartAsMinutes': start,
-        'meta.dayEndAsMinutes': end
-      });
-      /* jshint ignore:end */
-
-      let meta = this.get('meta');
-      schedules.forEach(day => {
-        day.calculateShifts(meta);
-      });
-      return schedules;
-    });
+  getNextShift: function(schedules, date = Date.now()) {
+    return this._findShift(schedules, date);
   }
 });
