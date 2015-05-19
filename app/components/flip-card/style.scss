@@ -60,7 +60,7 @@
     bottom: 0;
     left: 0;
     background-color: $color-white;
-    @include transition(all .4s);
+    @include transition(transform .4s);
     @include backface-visibility(hidden);
   }
   .flip-card--front {
