@@ -7,7 +7,6 @@
   display: block;
   height: 100%;
   border: 1px solid $color-grey-lighter;
-  @include transition(all .4s);
 }
 
 .flip-card--front,
@@ -20,7 +19,6 @@
   background-color: $color-white;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  @include backface-visibility(visible);
   @include hidden-scrollbars;
 }
 
@@ -51,6 +49,7 @@
   @include perspective(1000);
 
   .flip-card--wrap {
+    border: none;
     @include transform-style(preserve-3d);
   }
   .flip-card--front,
@@ -62,14 +61,16 @@
     bottom: 0;
     left: 0;
     background-color: $color-white;
+    border: 1px solid $color-grey-lighter;
+    @include transition(transform .4s);
     @include backface-visibility(hidden);
   }
   .flip-card--front {
     z-index: 2;
   }
   .flip-card--back {
-    @include transform(rotateY(-180deg));
     display: none;
+    @include transform(rotateY(-180deg));
   }
 
   // animating gets programatically set when we're animating (via transition)
@@ -82,15 +83,14 @@
 
   // modifier: FLIPPED
   &.-flipped {
-    .flip-card--wrap {
-      @include transform(rotateY(180deg));
-    }
-
-    .flip-card--back {
-      display: block;
-    }
     .flip-card--front {
       display: none;
+      @include transform(rotateY(180deg));
+    }
+    .flip-card--back {
+      display: block;
+      z-index: 2;
+      @include transform(rotateY(0deg));
     }
   }
 }
