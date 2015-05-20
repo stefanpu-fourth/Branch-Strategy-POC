@@ -52,7 +52,8 @@ module.exports = function(environment) {
       { id: 422, token: '000000000Client422' },
       { id: 61377, token: '0000000Client61377' },
       { id: 60191, token: '0000000Client60191' },
-      { id: 50724, token: '0000000Client50724' }
+      { id: 50724, token: '0000000Client50724' },
+      { id: 52405, token: '0000000Client52405' }
     ],
     showEmployeeDropdown: false,
     cacheResources: true
