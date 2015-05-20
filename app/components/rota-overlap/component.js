@@ -1,96 +1,27 @@
 import Ember from 'ember';
+import RotaBarItem from 'ess/mixins/rota-bar-item';
 
-var wholeDay = 24*60;
-
-export default Ember.Component.extend({
-  tagName: 'span',
-
-  classNames: ['rota-shift', 'rota-overlap'],
-
-  attributeBindings: ['style'],
+export default Ember.Component.extend(RotaBarItem, {
+  classNames: ['rota-overlap'],
 
   overlap: null,
   selectedOverlap: null,
-  selectTarget: null,
 
-  // TODO: refactor to avoid duplication (see rota-shift)
-  dayStart: function() {
-    return this.get('overlap.meta.dayStartAsMinutes') || 0;
-  }.property('overlap.meta.dayStartAsMinutes'),
+  meta: function() {
+    return this.get('overlap.meta');
+  }.property('overlap.meta'),
 
-  dayEnd: function() {
-    var dayEnd = this.get('overlap.meta.dayEndAsMinutes') || 0;
-    if (dayEnd <= this.get('dayStart')) {
-      dayEnd = dayEnd + (24 * 60);
-    }
-    return dayEnd;
-  }.property('overlap.meta.dayEndAsMinutes', 'dayStart'),
+  startAsMinutes: function() {
+    return this.get('overlap.startAsMinutes');
+  }.property('overlap.startAsMinutes'),
 
-  dayDuration: function() {
-    return this.get('dayEnd') - this.get('dayStart');
-  }.property('dayStart', 'dayEnd'),
-
-  dayMiddle: function() {
-    return this.get('dayStart') + (this.get('dayDuration') / 2);
-  }.property('dayDuration', 'dayStart'),
-
-  dayEarly: function() {
-    return this.get('dayStart') + (this.get('dayDuration') / 4);
-  }.property('dayDuration', 'dayStart'),
-
-  tooltipLocation: function() {
-    var dayIndex = this.get('dayIndex');
-    var overlapStart = this.get('overlap.startAsMinutes');
-    var classes = [];
-
-    if (dayIndex < 2) {
-      classes.push('-bottom');
-    }
-    if (overlapStart > this.get('dayMiddle')) {
-      classes.push('-right');
-    } else if (overlapStart > this.get('dayEarly')) {
-      classes.push('-center');
-    }
-    return classes.join(' ');
-  }.property('dayIndex', 'overlap.startAsMinutes', 'dayMiddle', 'dayEarly'),
-
-  style: function() {
-    var overlap = this.get('overlap');
-    if (overlap) {
-      return `left: ${this.get('startPercent')}%; width: ${this.get('durationPercent')}%`.htmlSafe();
-    }
-  }.property('overlap'),
+  endAsMinutes: function() {
+    return this.get('overlap.endAsMinutes');
+  }.property('overlap.endAsMinutes'),
 
   selected: function() {
     return Ember.isEqual(this.get('overlap'), this.get('selectedOverlap'));
   }.property('overlap', 'selectedOverlap'),
-
-  selectedClass: function() {
-    return this.get('selected') ? '-active' : '';
-  }.property('selected'),
-
-  pastClass: function() {
-    return this.get('isInPast') ? '-past' : '';
-  }.property('isInPast'),
-
-  startPercent: function() {
-    var dayStart = this.get('dayStart');
-    var overlapStart = Math.max(this.get('overlap.startAsMinutes'), dayStart);
-
-    return ((100 / this.get('dayDuration'))*(overlapStart - dayStart));
-  }.property('overlap.startAsMinutes', 'dayStart', 'dayDuration'),
-
-  durationPercent: function() {
-    var dayEnd = this.get('dayEnd');
-    var overlapStart = Math.max(this.get('overlap.startAsMinutes'), this.get('dayStart'));
-    var overlapEnd   = Math.min(this.get('overlap.endAsMinutes'), dayEnd);
-
-    if (overlapStart > overlapEnd) {
-      overlapEnd = Math.min(overlapEnd + wholeDay, dayEnd);
-    }
-
-    return ((100 / this.get('dayDuration'))*(overlapEnd - overlapStart));
-  }.property('overlap.startAsMinutes', 'overlap.endAsMinutes', 'dayStart', 'dayEnd', 'dayDuration'),
 
   locations: function() {
     var locations = new Ember.Set();
@@ -105,6 +36,7 @@ export default Ember.Component.extend({
   }.property('overlap'),
 
   tap: function() {
+    ga('send', 'event', 'rota', 'click', 'Shift overlap details');
     var target = this.get("selectTarget");
     if (this.get('selected')) {
       target.send('setSelectedOverlap', null);

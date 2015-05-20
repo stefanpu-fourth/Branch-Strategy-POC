@@ -21,6 +21,8 @@ test('it renders', function(assert) {
   assert.equal(component._state, 'inDOM');
 });
 
+// whilst startPercent and durationPercent are now handled by a mixin these tests are still useful
+// as they test the mixin is being used correctly
 test('it can calculate start percent', function(assert) {
   assert.expect(4);
 

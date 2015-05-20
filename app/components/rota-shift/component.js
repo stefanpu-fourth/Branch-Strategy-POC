@@ -1,96 +1,25 @@
 import Ember from 'ember';
+import RotaBarItem from 'ess/mixins/rota-bar-item';
 
-var wholeDay = 24*60;
-
-export default Ember.Component.extend({
-  tagName: 'span',
-
-  classNames: ['rota-shift'],
-
-  attributeBindings: ['style'],
-
+export default Ember.Component.extend(RotaBarItem, {
   shift: null,
   selectedShift: null,
-  selectTarget: null,
 
-  // TODO: refactor to avoid duplication (see rota-overlap)
-  dayStart: function() {
-    return this.get('shift.meta.dayStartAsMinutes') || 0;
-  }.property('shift.meta.dayStartAsMinutes'),
+  meta: function() {
+    return this.get('shift.meta');
+  }.property('shift.meta'),
 
-  dayEnd: function() {
-    var dayEnd = this.get('shift.meta.dayEndAsMinutes') || 0;
-    if (dayEnd <= this.get('dayStart')) {
-      dayEnd = dayEnd + (24 * 60);
-    }
-    return dayEnd;
-  }.property('shift.meta.dayEndAsMinutes', 'dayStart'),
+  startAsMinutes: function() {
+    return this.get('shift.startAsMinutes');
+  }.property('shift.startAsMinutes'),
 
-  dayDuration: function() {
-    return this.get('dayEnd') - this.get('dayStart');
-  }.property('dayStart', 'dayEnd'),
-
-  dayMiddle: function() {
-    return this.get('dayStart') + (this.get('dayDuration') / 2);
-  }.property('dayDuration', 'dayStart'),
-
-  dayEarly: function() {
-    return this.get('dayStart') + (this.get('dayDuration') / 4);
-  }.property('dayDuration', 'dayStart'),
-
-  tooltipLocation: function() {
-    var dayIndex = this.get('dayIndex');
-    var shiftStart = this.get('shift.startAsMinutes');
-    var classes = [];
-
-    if (dayIndex < 2) {
-      classes.push('-bottom');
-    }
-    if (shiftStart > this.get('dayMiddle')) {
-      classes.push('-right');
-    } else if (shiftStart > this.get('dayEarly')) {
-      classes.push('-center');
-    }
-    return classes.join(' ');
-  }.property('dayIndex', 'shift.startAsMinutes', 'dayMiddle', 'dayEarly'),
-
-  style: function() {
-    var shift = this.get('shift');
-    if (shift) {
-      return `left: ${this.get('startPercent')}%; width: ${this.get('durationPercent')}%`.htmlSafe();
-    }
-  }.property('shift', 'startPercent', 'durationPercent'),
+  endAsMinutes: function() {
+    return this.get('shift.endAsMinutes');
+  }.property('shift.endAsMinutes'),
 
   selected: function() {
     return Ember.isEqual(this.get('shift'), this.get('selectedShift'));
   }.property('shift', 'selectedShift'),
-
-  selectedClass: function() {
-    return this.get('selected') ? '-active' : '';
-  }.property('selected'),
-
-  pastClass: function() {
-    return this.get('isInPast') ? '-past' : '';
-  }.property('isInPast'),
-
-  startPercent: function() {
-    var dayStart = this.get('dayStart');
-    var shiftStart = Math.max(this.get('shift.startAsMinutes'), dayStart);
-
-    return ((100 / this.get('dayDuration'))*(shiftStart - dayStart));
-  }.property('shift.startAsMinutes', 'dayStart', 'dayDuration'),
-
-  durationPercent: function() {
-    var dayEnd = this.get('dayEnd');
-    var shiftStart = Math.max(this.get('shift.startAsMinutes'), this.get('dayStart'));
-    var shiftEnd   = Math.min(this.get('shift.endAsMinutes'), dayEnd);
-
-    if (shiftStart > shiftEnd) {
-      shiftEnd = Math.min(shiftEnd + wholeDay, dayEnd);
-    }
-
-    return ((100 / this.get('dayDuration'))*(shiftEnd - shiftStart));
-  }.property('shift.startAsMinutes', 'shift.endAsMinutes', 'dayStart', 'dayEnd', 'dayDuration'),
 
   tap: function() {
     ga('send', 'event', 'rota', 'click', 'Shift details');
