@@ -11,5 +11,5 @@
 .payslip-overview--show-breakdown {
   @include respond(640) {
     display: none;
-  };
+  }
 }

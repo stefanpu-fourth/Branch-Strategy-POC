@@ -51,13 +51,12 @@ export default Ember.Component.extend({
   },
 
   resizeHandler: function() {
-    var breakpoint = parseInt(this.get('breakpoint'), 10);
+    var isFlippable = !window.matchMedia(this.breakpoint).matches;
 
-    if (breakpoint) {
-      this.set('isFlippable', breakpoint > this.$(window).outerWidth());
-      if (!this.get('isFlippable')) {
-        this.set('isFlipped', false);
-      }
+    this.set('isFlippable', isFlippable);
+
+    if (isFlippable) {
+      this.set('isFlippable', false);
     }
   },
 
