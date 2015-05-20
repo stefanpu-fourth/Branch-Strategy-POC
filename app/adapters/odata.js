@@ -20,7 +20,7 @@ export default EssAdapter.extend({
     return url;
   },
 
-  getQueryString(type, query, params) {
+  getQueryStringParts(type, query, params) {
     return params;
   }
 });
