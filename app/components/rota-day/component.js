@@ -27,7 +27,7 @@ export default Ember.Component.extend({
     } else {
       return false;
     }
-  }.property('selectedShift', 'day.shifts'),
+  }.property('selectedShift', 'selectedOverlap', 'day.shifts', 'day.overlappingShifts'),
 
   isInPast: function() {
     return this.get('shiftDateAsMoment').isBefore(moment().startOf('day'));
