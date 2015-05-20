@@ -6,29 +6,18 @@ export default EssAdapter.extend({
   },
 
   buildODataUrl(type, query) {
-    return this.getODataUrlParts(type, query)
-      .reduce((url, segment, i) => {
-        return (segment.length) ? url + this.getSlash(i) + segment : url;
-      }, '');
-  },
-
-  getSlash(i) {
-    return (i === 1) ? '/' : '';
-  },
-
-  getODataUrlParts(type, query) {
     var prefix = this.urlPrefix();
     var pathForType = this.pathForType(type.typeKey);
-    var parts = [prefix, pathForType];
+    var url = `${prefix}/${pathForType}`;
     var params = [];
 
     this.getQueryStringParts(type, query, params);
 
     if (params.length) {
-      parts = parts.concat(['?', params.join('&')]);
+      url += `?${params.join('&')}`;
     }
 
-    return parts;
+    return url;
   },
 
   getQueryString(type, query, params) {
