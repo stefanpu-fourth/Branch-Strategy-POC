@@ -3,7 +3,6 @@ import {
   test
 }
 from 'ember-qunit';
-import DS from 'ember-data';
 
 var adapter;
 var getQueryStringParts = function(type, query, params) {

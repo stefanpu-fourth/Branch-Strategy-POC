@@ -13,24 +13,15 @@ export default Ember.Mixin.create({
   },
 
   getFilterParamString(param, filter, i, filters) {
-    var key = this.getFilterKey(filter.key);
-    var operand = this.getFilterOperator(filter.operator);
+    var key = filter.key.capitalize();
+    var operator = filter.operator || 'eq';
     var and = this.getAndString(filters.length, i);
 
-    return `${param}${key} ${operand} ${filter.value}${and}`;
+    return `${param}${key} ${operator} ${filter.value}${and}`;
   },
 
-  getFilterKey(key) {
-    return key.capitalize();
-  },
-
-  getFilterOperator(operand) {
-    //TODO: Assert that we have a valid operator
-    return operand || 'eq';
-  },
-
-  getAndString(n, i) {
-    return (n > 1 && i < n - 1) ? ' and ' : '';
+  getAndString(length, index) {
+    return (length > 1 && index < length - 1) ? ' and ' : '';
   }
 
 });
