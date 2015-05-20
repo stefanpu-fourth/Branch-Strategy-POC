@@ -56,7 +56,7 @@ export default Ember.Component.extend({
     this.set('isFlippable', isFlippable);
 
     if (isFlippable) {
-      this.set('isFlippable', false);
+      this.set('isFlipped', false);
     }
   },
 
