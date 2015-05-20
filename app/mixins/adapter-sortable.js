@@ -3,12 +3,11 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
 
   getQueryStringParts(type, query, params) {
-    var sort = query.sort;
-    var sortBy = sort.by;
-    var sortDir = sort.dir;
+    var { sort } = query;
+    var { by, dir } = sort;
 
-    if (sortBy) {
-      params.push(`$orderby=${this.getSortProp(sortBy)} ${this.getSortDirection(sortDir)}`);
+    if (by) {
+      params.push(`$orderby=${this.getSortProp(by)} ${this.getSortDirection(dir)}`);
     }
 
     return this._super(type, query, params);
