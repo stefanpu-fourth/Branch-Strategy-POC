@@ -7,17 +7,9 @@ export default Ember.Mixin.create({
     var { by, dir } = sort;
 
     if (by) {
-      params.push(`$orderby=${this.getSortProp(by)} ${this.getSortDirection(dir)}`);
+      params.push(`$orderby=${by.capitalize()} ${dir || 'desc'}`);
     }
 
     return this._super(type, query, params);
-  },
-
-  getSortProp: function(sortBy) {
-    return sortBy.capitalize();
-  },
-
-  getSortDirection: function(sortDir) {
-    return sortDir || 'desc';
   }
 });

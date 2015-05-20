@@ -36,7 +36,7 @@ test('getQueryStringParts returns an array populated by the filterable mixin', f
   assert.deepEqual(result, ['$filter=Name eq Tomster and Age gte 5'], 'getQueryStringParts for filterable returns an array with a single entry for $filter');
 });
 
-test('getFilterParamString returns a string representing the pass in filter', function(assert) {
+test('getFilterParamString returns a string representing the passed in filter', function(assert) {
   var result = adapter.getFilterParamString('', {
     key: 'age',
     value: 5,
