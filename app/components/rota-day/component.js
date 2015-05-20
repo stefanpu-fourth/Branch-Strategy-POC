@@ -16,18 +16,28 @@ export default Ember.Component.extend({
     return moment(this.get('day.shiftDate'));
   }.property('day.shiftDate'),
 
-  isSelected: function() {
-    // return true if the day's shifts array contains the selected shift
+  isSelectedShift: function() {
     var selectedShift = this.get('selectedShift');
-    var selectedOverlap = this.get('selectedOverlap');
     if (selectedShift) {
       return this.get('day.shifts').indexOf(selectedShift) !== -1;
-    } else if (selectedOverlap) {
+    } else {
+      return false;
+    }
+  }.property('selectedShift', 'day.shifts'),
+
+  isSelectedOverlap: function() {
+    var selectedOverlap = this.get('selectedOverlap');
+    if (selectedOverlap) {
       return this.get('day.overlappingShifts').indexOf(selectedOverlap) !== -1;
     } else {
       return false;
     }
-  }.property('selectedShift', 'selectedOverlap', 'day.shifts', 'day.overlappingShifts'),
+  }.property('selectedOverlap', 'day.overlappingShifts'),
+
+  isSelected: function() {
+    // return true if the day's shifts array contains the selected shift
+    return this.get('isSelectedShift') || this.get('isSelectedOverlap');
+  }.property('isSelectedShift', 'isSelectedOverlap'),
 
   isInPast: function() {
     return this.get('shiftDateAsMoment').isBefore(moment().startOf('day'));

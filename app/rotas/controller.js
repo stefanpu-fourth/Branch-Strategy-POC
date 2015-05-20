@@ -6,13 +6,17 @@ export default Ember.Controller.extend(SetSelectedIndex, {
 
   actions: {
     setSelectedShift: function(shift) {
-      this.set('attrs.selectedShift', shift);
-      this.set('attrs.selectedOverlap', undefined);
+      this.setProperties({
+        'attrs.selectedShift': shift,
+        'attrs.selectedOverlap': undefined
+      });
     },
 
     setSelectedOverlap: function(overlap) {
-      this.set('attrs.selectedOverlap', overlap);
-      this.set('attrs.selectedShift', undefined);
+      this.setProperties({
+        'attrs.selectedOverlap': overlap,
+        'attrs.selectedShift': undefined
+      });
     }
   }
 });
