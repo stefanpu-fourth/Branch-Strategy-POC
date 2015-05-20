@@ -5,17 +5,9 @@ export default Ember.Component.extend(RotaBarItem, {
   shift: null,
   selectedShift: null,
 
-  meta: function() {
-    return this.get('shift.meta');
-  }.property('shift.meta'),
-
-  startAsMinutes: function() {
-    return this.get('shift.startAsMinutes');
-  }.property('shift.startAsMinutes'),
-
-  endAsMinutes: function() {
-    return this.get('shift.endAsMinutes');
-  }.property('shift.endAsMinutes'),
+  meta: Ember.computed.alias('shift.meta'),
+  startAsMinutes: Ember.computed.alias('shift.startAsMinutes'),
+  endAsMinutes: Ember.computed.alias('shift.endAsMinutes'),
 
   selected: function() {
     return Ember.isEqual(this.get('shift'), this.get('selectedShift'));

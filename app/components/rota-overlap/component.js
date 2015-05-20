@@ -7,17 +7,9 @@ export default Ember.Component.extend(RotaBarItem, {
   overlap: null,
   selectedOverlap: null,
 
-  meta: function() {
-    return this.get('overlap.meta');
-  }.property('overlap.meta'),
-
-  startAsMinutes: function() {
-    return this.get('overlap.startAsMinutes');
-  }.property('overlap.startAsMinutes'),
-
-  endAsMinutes: function() {
-    return this.get('overlap.endAsMinutes');
-  }.property('overlap.endAsMinutes'),
+  meta: Ember.computed.alias('overlap.meta'),
+  startAsMinutes: Ember.computed.alias('overlap.startAsMinutes'),
+  endAsMinutes: Ember.computed.alias('overlap.endAsMinutes'),
 
   selected: function() {
     return Ember.isEqual(this.get('overlap'), this.get('selectedOverlap'));
