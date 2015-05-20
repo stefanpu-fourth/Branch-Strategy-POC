@@ -1,8 +1,15 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  getFiltersString(filters) {
-    return filters.reduce(this.getFilterParamString.bind(this), '$filter=');
+
+  getQueryStringParts(type, query, params) {
+    var filters = query.filters;
+
+    if (filters.length) {
+      params.push(filters.reduce(this.getFilterParamString.bind(this), '$filter='));
+    }
+
+    return this._super(type, query, params);
   },
 
   getFilterParamString(param, filter, i, filters) {

@@ -16,7 +16,22 @@ export default EssAdapter.extend({
     return (i === 1) ? '/' : '';
   },
 
-  getODataUrlParts( /* type, query */ ) {
-    throw new Error("getODataUrlParts must be implemented by the target adapter");
+  getODataUrlParts(type, query) {
+    var prefix = this.urlPrefix();
+    var pathForType = this.pathForType(type.typeKey);
+    var parts = [prefix, pathForType];
+    var params = [];
+
+    this.getQueryStringParts(type, query, params);
+
+    if (params.length) {
+      parts = parts.concat(['?', params.join('&')]);
+    }
+
+    return parts;
+  },
+
+  getQueryString(type, query, params) {
+    return params;
   }
 });

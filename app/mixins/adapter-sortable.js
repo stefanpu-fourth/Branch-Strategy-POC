@@ -1,11 +1,17 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  getSortString: function(sortBy, sortDir) {
-    if (!sortBy) {
-      return '';
+
+  getQueryStringParts(type, query, params) {
+    var sort = query.sort;
+    var sortBy = sort.by;
+    var sortDir = sort.dir;
+
+    if (sortBy) {
+      params.push(`$orderby=${this.getSortProp(sortBy)} ${this.getSortDirection(sortDir)}`);
     }
-    return `&$orderby=${this.getSortProp(sortBy)} ${this.getSortDirection(sortDir)}`;
+
+    return this._super(type, query, params);
   },
 
   getSortProp: function(sortBy) {
