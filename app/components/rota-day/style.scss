@@ -6,6 +6,8 @@
 
   position: relative;
 
+  z-index: 0;
+
   @include font-size(s);
   text-align: left;
 
@@ -23,6 +25,10 @@
 
   &.-past {
     color: $color-grey;
+  }
+
+  &.-active {
+    z-index: 1000;
   }
 }
 
