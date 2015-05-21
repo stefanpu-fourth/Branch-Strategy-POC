@@ -6,7 +6,8 @@
   cursor: pointer;
 
   @include respond(640) {
-    height: 266px;
+    height: 247px;
+    width: 247px;
   }
 }
 
@@ -24,7 +25,7 @@
   z-index: 1;
   @include respond(640) {
     z-index: 0;
-  };
+  }
 }
 .payslip-donut-chart--total {
   color: $color-grey;
@@ -60,9 +61,9 @@
     stroke-width:13; fill:transparent;
   }
   @include respond(640) {
-    width: 266px;
-    height: 266px;
-  };
+    width: 247px;
+    height: 247px;
+  }
 }
 .payslip-donut-chart--animate {
   path {
