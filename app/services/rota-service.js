@@ -66,7 +66,7 @@ export default Ember.Service.extend({
       let shiftDates = schedulesForDate.mapBy('shiftDate').map(d => d.valueOf());
 
       schedulesForDate.forEach((s, index) => {
-        let dayTypes = new Ember.Set();
+        let dayTypes = new Set();
         if (s.get('isNotRota') && (s.get('shifts.length') === 0)) {
           dayTypes.add(s.get('type'));
         }
@@ -89,7 +89,7 @@ export default Ember.Service.extend({
           }));
           dupeIndex = shiftDates.lastIndexOf(shiftDate);
         }
-        s.set('displayTypes', dayTypes.toArray().sort());
+        s.set('displayTypes', [...dayTypes].sort());
       });
 
       // insert missing days here (if wanted)

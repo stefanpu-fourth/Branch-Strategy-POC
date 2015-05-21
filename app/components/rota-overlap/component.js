@@ -16,15 +16,15 @@ export default Ember.Component.extend(RotaBarItem, {
   }.property('overlap', 'selectedOverlap'),
 
   locations: function() {
-    var locations = new Ember.Set();
+    var locations = new Set();
     this.get('overlap.shifts').forEach(s => locations.add(s.get('location')));
-    return locations.toArray();
+    return [...locations];
   }.property('overlap'),
 
   jobTitles: function() {
-    var titles = new Ember.Set();
+    var titles = new Set();
     this.get('overlap.shifts').forEach(s => titles.add(s.get('jobTitle')));
-    return titles.toArray();
+    return [...titles];
   }.property('overlap'),
 
   tap: function() {
