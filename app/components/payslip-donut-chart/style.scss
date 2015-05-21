@@ -7,7 +7,10 @@
 
   @include respond(640) {
     height: 247px;
-    width: 247px;
+  }
+
+  @include respond(720) {
+    height: 266px;
   }
 }
 
@@ -63,6 +66,11 @@
   @include respond(640) {
     width: 247px;
     height: 247px;
+  }
+
+  @include respond(720) {
+    height: 266px;
+    width: 266px;
   }
 }
 .payslip-donut-chart--animate {
