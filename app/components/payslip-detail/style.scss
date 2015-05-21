@@ -3,3 +3,14 @@
   top: 0;
   right: rem(8);
 }
+
+.flip-card--front,
+.flip-card--back {
+  // explicitly set overflow to be hidden on card faces
+  overflow-y: hidden;
+
+  // but auto when card is active
+  .-active & {
+    overflow-y: auto;
+  }
+}

@@ -17,7 +17,7 @@
   float: left;
   padding: rem(16);
   background-color: $color-white;
-  overflow-y: auto;
+  // no longer have a default overflow rule on cards - these can be set in use
   -webkit-overflow-scrolling: touch;
   @include hidden-scrollbars;
 }
