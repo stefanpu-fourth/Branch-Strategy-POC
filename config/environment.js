@@ -46,22 +46,11 @@ module.exports = function(environment) {
     },
     pagination: {
       pageSize: 12
-    },
-    employees: [
-      { id: 57354, token: '000000000TestIrene' },
-      { id: 422, token: '000000000Client422' },
-      { id: 61377, token: '0000000Client61377' },
-      { id: 60191, token: '0000000Client60191' },
-      { id: 50724, token: '0000000Client50724' },
-      { id: 52405, token: '0000000Client52405' },
-      { id: 69273, token: '0000000Client69273' }
-    ],
-    showEmployeeDropdown: false,
-    cacheResources: true
+    }
   };
 
   ENV.user = 57354;
-  ENV.apiBaseUrl = "http://fourth-employee-selfservice-dev.cloudapp.net:8080";
+  ENV.apiBaseUrl = "/api";
 
   if(environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
@@ -85,8 +74,6 @@ module.exports = function(environment) {
 
   if(environment === 'production') {
     ENV.gaTracker = 'UA-62678526-1';
-    ENV.showEmployeeDropdown = true;
-    ENV.cacheResources = false;
   }
 
   return ENV;
