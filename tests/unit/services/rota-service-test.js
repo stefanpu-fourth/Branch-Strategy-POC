@@ -58,8 +58,8 @@ test('it groups the rotaSchedule objects into rota weeks', function(assert) {
       assert.equal(week.get('shifts.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
 
       // days of week should all have matching rotaStart days
-      var startDates = new Ember.Set(week.get('shifts').map(w => w.get('rotaStart')));
-      assert.equal(startDates.length, 1, 'all dates within a week match');
+      var startDates = new Set(week.get('shifts').map(w => w.get('rotaStart')));
+      assert.equal(startDates.size, 1, 'all dates within a week match');
     });
   });
 });
@@ -213,8 +213,8 @@ test("if we have the same days but our week starts on Sunday things still work a
       assert.equal(week.get('shifts.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
 
       // days of week should all have matching rotaStart days
-      var checkDates = new Ember.Set(week.get('shifts').map(w => w.get('rotaStart')));
-      assert.equal(checkDates.length, 1, 'all dates within a week match');
+      var checkDates = new Set(week.get('shifts').map(w => w.get('rotaStart')));
+      assert.equal(checkDates.size, 1, 'all dates within a week match');
 
       // all days within a week should be chronologically ordered
       checkDates = week.get('shifts').map(week => moment(week.get('shiftDate')).valueOf());
