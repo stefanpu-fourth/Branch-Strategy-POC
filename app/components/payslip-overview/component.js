@@ -10,7 +10,10 @@ export default Ember.Component.extend({
   }.property('index', 'selectedIndex'),
 
   actions: {
-    flipCard: function() {
+    flipCard: function(button) {
+      if (button) {
+        ga('send', 'event', 'payslip', 'click', 'Payslip breakdown');
+      }
       this.get('parentView').send('flipCard');
     },
     downloadPayslip: function() {

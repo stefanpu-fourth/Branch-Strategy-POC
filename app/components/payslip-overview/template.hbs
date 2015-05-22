@@ -1,6 +1,6 @@
 <h1 class="card--title -center">{{moment payslip.processingDate format="dayMonthYear"}}</h1>
 {{payslip-donut-chart grossPay=payslip.currentGrossPay netPay=payslip.netPay isActive=isActive}}
-<a class="notALink payslip-overview--show-breakdown flip-card--trigger" {{action "flipCard" target="parentView"}}>
+<a class="notALink payslip-overview--show-breakdown flip-card--trigger" {{action "flipCard" true}}>
   {{svg-icon name="paper-list"}}
   <span>{{t 'payslips.breakdown'}}</span>
 </a>
