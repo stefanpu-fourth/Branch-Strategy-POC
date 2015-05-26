@@ -3,7 +3,7 @@ $tool-tip--color: $color-white;
 $tool-tip--icon:  $color-grey-light;
 
 .tool-tip {
-  display: block;
+  display: none;
   position: absolute;
   top: 0;
   right: 0;
@@ -12,8 +12,12 @@ $tool-tip--icon:  $color-grey-light;
   z-index: 2000;
 }
 
+.tool-tip .-active {
+  display: block;
+}
+
 .tool-tip--content {
-  display: inline-block;
+  display: none;
 
   width: auto;
   white-space: nowrap;
@@ -64,6 +68,7 @@ $tool-tip--icon:  $color-grey-light;
 
   &.-active {
     opacity: 1;
+    display: inline-block;
   }
 
   // SVG ICON
