@@ -9,6 +9,9 @@ var filterBy = computed.filterBy;
 var dayMonthFormat = i18n.t('dateFormats.dayMonth');
 
 var Payslip = DS.Model.extend({
+
+  appStateService: Ember.inject.service(),
+
   address1: attr('string'),
   address2: attr('string'),
   address3: attr('string'),
@@ -59,12 +62,11 @@ var Payslip = DS.Model.extend({
 
   pdfURL: function () {
     var url = config.apiBaseUrl;
-    var employees = this.store.all('root');
-    var employeeId = employees.get('firstObject.id');
+    var employeeId = this.get('appStateService.authenticatedEmployeeId');
     var payslipId = this.get('id');
 
     return `${url}/employees/${employeeId}/payslips/${payslipId}.pdf`;
-  }.property(),
+  }.property('id', 'appStateService.authenticatedEmployeeId'),
 
   currentPayPeriod: function () {
     var props = this.getProperties('payPeriod', 'monthWeekNumber');

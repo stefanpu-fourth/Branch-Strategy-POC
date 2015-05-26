@@ -18,7 +18,7 @@ export default Ember.Component.extend({
     },
     downloadPayslip: function() {
       ga('send', 'event', 'payslip', 'click', 'Download payslip');
-      return true;
+      return false;
     }
   }
 });
