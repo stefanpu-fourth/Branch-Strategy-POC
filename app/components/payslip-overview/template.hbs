@@ -4,7 +4,7 @@
   {{svg-icon name="paper-list"}}
   <span>{{t 'payslips.breakdown'}}</span>
 </a>
-<a href="{{payslip.pdfURL}}" class="payslip-overview--download-pdf" {{action "downloadPayslip"}}>
+<a class="payslip-overview--download-pdf" {{action "downloadPayslip" payslip.pdfURL}}>
   {{svg-icon name="download"}}
   <span>{{t 'payslips.download'}}</span>
 </a>
