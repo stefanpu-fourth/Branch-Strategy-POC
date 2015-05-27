@@ -14,6 +14,12 @@ export default Ember.Route.extend({
     this.set('appStateService.rootResource', rootResource.get('firstObject'));
   },
 
+  setupController: function(controller) {
+    this.store.find('mainemployment').then(employment => {
+      controller.set('employment', employment.get('firstObject'));
+    });
+  },
+
   refreshCurrentRoute: function () {
     var handlerInfos = this.get('router.router.currentHandlerInfos');
     var handler = handlerInfos[handlerInfos.length - 1];
