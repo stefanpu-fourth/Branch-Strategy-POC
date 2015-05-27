@@ -6,7 +6,9 @@ export default Ember.Mixin.create({
   findWithCache(typeKey/*, id, preload*/) {
     var records = Ember.A();
 
-    records = this.store.all(typeKey);
+    if (arguments.length === 1) {
+      records = this.store.all(typeKey);
+    }
 
     //resolve to to found records or create a new request
     return records.get('length') ? resolve(records) : this.store.find.apply(this.store, arguments);
