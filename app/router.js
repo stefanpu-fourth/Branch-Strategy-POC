@@ -4,17 +4,13 @@ import config from './config/environment';
 var Router = Ember.Router.extend({
   location: config.locationType,
 
+  locationName: Ember.computed.alias('application.employment.locationName'),
+
+  company: Ember.computed.alias('application.employment.companyName'),
+
   application: function () {
     return this.container.lookup('controller:application');
   }.property(),
-
-  getLocation: function() {
-    return this.get('application.employment').get('locationName');
-  }.property('application.employment'),
-
-  getCompany: function() {
-    return this.get('application.employment').get('companyName');
-  }.property('application.employment'),
 
   getCurrentTitle: function() {
     var title = this.get('application.currentRouteName');
@@ -22,12 +18,12 @@ var Router = Ember.Router.extend({
   }.property('application.currentRouteName'),
 
   notifyGoogleAnalytics: function() {
-    var props = this.getProperties('url', 'getCurrentTitle', 'getLocation', 'getCompany');
+    var props = this.getProperties('url', 'getCurrentTitle', 'locationName', 'company');
     ga('send', 'pageview', {
       'page': props.url,
       'title': props.getCurrentTitle,
-      'dimension1': props.getCompany,
-      'dimension2': props.getLocation
+      'dimension1': props.company,
+      'dimension2': props.locationName
     });
 
     return true;
