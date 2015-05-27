@@ -1,8 +1,6 @@
 import Ember from 'ember';
 import config from './config/environment';
 
-//var get = Ember.get;
-
 var Router = Ember.Router.extend({
   location: config.locationType,
 
