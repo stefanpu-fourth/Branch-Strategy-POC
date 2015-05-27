@@ -41,7 +41,8 @@
 
   background-color: $color-white;
 
-  @include border-radius(50%);
+  -webkit-border-radius: 50;
+          border-radius: 50;
 
   text-align: center;
 }
@@ -58,7 +59,8 @@
 
   background-color: $color-grey-lightest;
 
-  @include border-radius( 50% );
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
 
   &::after {
     content: "";
@@ -74,7 +76,8 @@
 
     background-color: white;
 
-    @include border-radius(50%);
+    -webkit-border-radius: 50%;
+            border-radius: 50%;
   }
 }
 
@@ -109,27 +112,32 @@
 
   overflow: hidden;
 
-  @include border-radius(60px);
+  -webkit-border-radius: 60px;
+          border-radius: 60px;
 
-  @include transform-origin(0 50% 0);
-  @include animation(loading-spinner--ani 3s cubic-bezier(0, .7, .6, 2.6) infinite);
+  -webkit-transform-origin: 0 50% 0;
+          transform-origin: 0 50% 0;
+
+  -webkit-animation: loading-spinner--ani 3s cubic-bezier(0, .7, .6, 2.6) infinite;
+          animation: loading-spinner--ani 3s cubic-bezier(0, .7, .6, 2.6) infinite;
 
   &.-left {
     -webkit-border-bottom-left-radius: 0;
-    border-bottom-left-radius: 0;
+            border-bottom-left-radius: 0;
     -webkit-border-top-left-radius: 0;
-    border-top-left-radius: 0;
+            border-top-left-radius: 0;
   }
 
   &.-right {
     left: -100%;
 
     -webkit-border-bottom-right-radius: 0;
-    border-bottom-right-radius: 0;
+            border-bottom-right-radius: 0;
     -webkit-border-top-right-radius: 0;
-    border-top-right-radius: 0;
+            border-top-right-radius: 0;
 
-    @include transform-origin(100% 50% 0);
+    -webkit-transform-origin: 100% 50% 0;
+            transform-origin: 100% 50% 0;
   }
 }
 
