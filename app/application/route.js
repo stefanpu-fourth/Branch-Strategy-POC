@@ -14,7 +14,7 @@ export default Ember.Route.extend({
     this.set('appStateService.rootResource', rootResource.get('firstObject'));
   },
 
-  setupController: function(controller, model) {
+  setupController: function(controller) {
     this.store.find('mainemployment').then(employment => {
       controller.set('employment', employment.get('firstObject'));
     });
