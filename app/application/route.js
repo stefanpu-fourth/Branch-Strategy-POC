@@ -16,11 +16,7 @@ export default Ember.Route.extend({
 
   setupController: function(controller, model) {
     this.store.find('mainemployment').then(employment => {
-      controller.setProperties({
-        'model': model,
-        'showEmployeeDropdown': config.showEmployeeDropdown,
-        'employment': employment.get('firstObject')
-      });
+      controller.set('employment', employment.get('firstObject'));
     });
   },
 

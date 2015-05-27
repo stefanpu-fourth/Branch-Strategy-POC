@@ -35,7 +35,6 @@
   }
 
   &.-active {
-    z-index: 1000;
     &::before {
       top:rem(-8);
       right:rem(-8);

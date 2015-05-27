@@ -29,21 +29,33 @@ RotaWeek.reopenClass({
 
 export default Ember.Service.extend({
 
-  init: function() {
-    this.set('fetchedSchedules', Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
-      content: [],
-      sortProperties: ['shiftDate']
-    }));
-  },
-
-  getRotaWeeks: function(schedules, date = Date.now(), prevWeeks = 2, futureWeeks = 2) {
-    this.set('fetchedSchedules.content', schedules);
-    var start = moment(this.get('fetchedSchedules.firstObject.shiftDate'));
+  getRotaWeeks: function(schedules) {
+    // consolidate schedules into weeks
+    // including consolidating shifts from multiple duplicate days into one day
     var rotaWeeks = [];
     var meta = schedules.get('meta');
+    var store = schedules.get('firstObject.store');
 
-    for (let i = 0; i < prevWeeks + futureWeeks + 1; i++) {
-      let shiftStart = start.clone().add(7 * i, 'days');
+    // reset calculated shifts, as otherwise for subsequent calls we get lots of duplicates
+    schedules.forEach((s) => {
+      s.calculateShifts(meta);
+    });
+
+    // revised logic
+    // this method is now a week consolidator for the schedules passed in
+    // it should thus get the weeks from the schedules
+    // it should fill in days that were missing
+    // it should fill in weeks if they were missing - but maybe without any days?
+    //
+    // NB as the method ignored the date passed in it's been removed
+    //
+    // NB2 as we no longer pass in a date, we cannot fill in weeks missing from the beginning/end of schedule
+    // - even if we had a date this would be problematic
+
+    var weekStarts = schedules.mapBy('rotaStart').map(d => moment(d).valueOf()).uniq().sortBy();
+
+    weekStarts.forEach(function(weekDate) {
+      let shiftStart = moment(weekDate);
       let filterStart = shiftStart.clone().subtract(1, 'days');
       let end = shiftStart.clone().add(7, 'days');
 
@@ -54,9 +66,7 @@ export default Ember.Service.extend({
       let shiftDates = schedulesForDate.mapBy('shiftDate').map(d => d.valueOf());
 
       schedulesForDate.forEach((s, index) => {
-        let dayTypes = new Ember.Set();
-        // reset calculated shifts, as otherwise for subsequent calls we get lots of duplicates
-        s.calculateShifts(meta);
+        let dayTypes = new Set();
         if (s.get('isNotRota') && (s.get('shifts.length') === 0)) {
           dayTypes.add(s.get('type'));
         }
@@ -79,11 +89,50 @@ export default Ember.Service.extend({
           }));
           dupeIndex = shiftDates.lastIndexOf(shiftDate);
         }
-        s.set('displayTypes', dayTypes.toArray().sort());
+        s.set('displayTypes', [...dayTypes].sort());
+      });
+
+      // insert missing days here (if wanted)
+      var checkDay = shiftStart.clone();
+      while (checkDay.isBefore(end)) {
+        // find out if we've got this day
+        let foundDays = schedulesForDate.filter(d => moment(d.get('shiftDate')).isSame(checkDay, 'day'));
+        if (foundDays.length === 0) {
+          // add it if not
+          schedulesForDate.push(
+            store.createRecord('rota-schedule', {
+              shiftDate: checkDay.format('YYYY-MM-DD'),
+              rotaStart: shiftStart.format('YYYY-MM-DD'),
+              type: 'off'
+            })
+          );
+        }
+        checkDay.add(1, 'days');
+      }
+
+      // make sure schedulesForDate array is in order
+      schedulesForDate.sort(function(a, b) {
+        return moment(a.get('shiftDate')).startOf('day').valueOf() - moment(b.get('shiftDate')).startOf('day').valueOf();
       });
 
       rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, schedulesForDate, meta));
+    });
+
+    // insert missing weeks
+    var minDate = moment(weekStarts[0]);
+    var maxDate = moment(Math.max(...weekStarts));
+    while (minDate.isBefore(maxDate)) {
+      var week = this.findWeekForDate(rotaWeeks, minDate);
+      if (!week) {
+        rotaWeeks.pushObject(RotaWeek.forDate(minDate, [], meta));
+      }
+      minDate.add(1, 'week');
     }
+
+    // make sure our weeks are sorted in order
+    rotaWeeks.sort(function(a, b) {
+      return a.get('start').valueOf() - b.get('start').valueOf();
+    });
 
     return rotaWeeks;
   },
@@ -105,7 +154,7 @@ export default Ember.Service.extend({
   _findShift: function(schedules, date) {
     var sortedSchedules = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
       content: schedules,
-      sortProperties: ['shiftDate', 'shiftTimes.0']
+      sortProperties: ['rotaStart', 'shiftDate', 'shiftTimes.0']
     });
 
     let today = moment(date).startOf('day');
@@ -133,12 +182,54 @@ export default Ember.Service.extend({
     return foundShift;
   },
 
-  // TODO SJ these params should be fetched from
-  // config. probably. They don't make much sense in the context of
-  // this function, but are needed in order to fetch the data if not
-  // there. Or maybe it should assume data already there. Throw an
-  // exception if the promise isn't there maybe???
   getNextShift: function(schedules, date = Date.now()) {
     return this._findShift(schedules, date);
+  },
+
+  // utility method to check if a shift is in an overlap
+  // and return the first overlap the shift belongs to
+  findOverlapForShift: function(weeks, shift) {
+    var overlapFilter = function(overlap) {
+      return overlap.shifts.contains(shift);
+    };
+    for (let i = 0; i < weeks.length; i++) {
+      let week = weeks[i];
+      for (let day = 0; day < 7; day++) {
+        // do something!
+        let overlaps = week.get('shifts')[day].get('overlappingShifts').filter(overlapFilter);
+        if (overlaps && (overlaps.length !== 0)) {
+          return overlaps[0];
+        }
+      }
+    }
+  },
+
+  // utility method to work out current week from a list of weeks
+  getWeekIndexForDate: function(weeks, date = Date.now()) {
+    if (weeks.length === 0) {
+      return 0;
+    }
+
+    var weekIndex = weeks.indexOf(this.findWeekForDate(weeks, date));
+    if (weekIndex === -1) {
+      date = moment(date);
+      if (date.isBefore(weeks[0].get('start'))) {
+        weekIndex = 0;
+      } else {
+        weekIndex = weeks.length - 1;
+      }
+    }
+    return weekIndex;
+  },
+
+  findWeekForDate: function(weeks, date = Date.now()) {
+    date = moment(date);
+    var foundWeek;
+    weeks.forEach(week => {
+      if (date.isBetween(moment(week.get('start')).subtract(1, 'ms'), week.get('end'))) {
+        foundWeek = week;
+      }
+    });
+    return foundWeek;
   }
 });

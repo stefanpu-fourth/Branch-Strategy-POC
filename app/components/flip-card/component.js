@@ -5,7 +5,7 @@ var run = Ember.run;
 export default Ember.Component.extend({
   tagName: 'div',
   classNames: ['flip-card'],
-  classNameBindings: ['isFlipped:-flipped', 'isFlippable:-flippable', 'isAnimating:-animating'],
+  classNameBindings: ['isFlipped:-flipped', 'isFlippable:-flippable'],
 
   attributeBindings: ['style'],
 
@@ -13,7 +13,6 @@ export default Ember.Component.extend({
 
   isFlipped: false,
   isFlippable: false,
-  isAnimating: false,
 
   breakpoint: null,
 
@@ -52,27 +51,31 @@ export default Ember.Component.extend({
   },
 
   resizeHandler: function() {
-    var breakpoint = parseInt(this.get('breakpoint'), 10);
+    var isFlippable = !window.matchMedia(this.breakpoint).matches;
 
-    if (breakpoint) {
-      this.set('isFlippable', breakpoint > this.$(window).outerWidth());
-      if (!this.get('isFlippable')) {
-        this.set('isFlipped', false);
-      }
+    this.set('isFlippable', isFlippable);
+
+    if (isFlippable) {
+      this.set('isFlipped', false);
     }
   },
 
   transitionEnd: function() {
-    this.set('isAnimating', false);
+    this.$().removeClass('-animating');
   },
 
   actions: {
     flipCard: function() {
-      if (this.get('isFlippable')) {
-        this.toggleProperty('isFlipped');
-        this.set('isAnimating', true);
-      } else {
-        this.set('isFlipped', false);
+      var flippeable = this.get('isFlippable');
+      var hack;
+
+      if (flippeable) {
+        this.$().addClass('-animating');
+
+        //hack to force the browser to redraw before the transition starts
+        hack = this.element.offsetHeight;
+
+        this.toggleProperty('isFlipped', this.get('isFlipped'));
       }
     }
   }

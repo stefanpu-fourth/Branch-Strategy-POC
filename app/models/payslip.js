@@ -1,6 +1,7 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 import i18n from 'ess/i18n';
+import config from 'ess/config/environment';
 
 var attr = DS.attr;
 var computed = Ember.computed;
@@ -8,6 +9,9 @@ var filterBy = computed.filterBy;
 var dayMonthFormat = i18n.t('dateFormats.dayMonth');
 
 var Payslip = DS.Model.extend({
+
+  appStateService: Ember.inject.service(),
+
   address1: attr('string'),
   address2: attr('string'),
   address3: attr('string'),
@@ -55,6 +59,14 @@ var Payslip = DS.Model.extend({
   grossPay: computed.alias('currentGrossPay'),
   payments: filterBy('payslipElements', 'category', 'Payment'),
   deductions: filterBy('payslipElements', 'category', 'Deduction'),
+
+  pdfURL: function () {
+    var url = config.apiBaseUrl;
+    var employeeId = this.get('appStateService.authenticatedEmployeeId');
+    var payslipId = this.get('id');
+
+    return `${url}/employees/${employeeId}/payslips/${payslipId}.pdf`;
+  }.property('id', 'appStateService.authenticatedEmployeeId'),
 
   currentPayPeriod: function () {
     var props = this.getProperties('payPeriod', 'monthWeekNumber');

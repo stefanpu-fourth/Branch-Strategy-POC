@@ -1,13 +1,5 @@
 {{#global-header}}
 
-  {{#if showEmployeeDropdown}}
-    {{employee-select
-      employees=model
-      selectedEmployeeId=appStateService.authenticatedEmployeeId
-      setCurrentEmployee="setCurrentEmployee"
-    }}
-  {{/if}}
-
   {{#global-header-brand}}
     {{partial "partials/fourth-logo"}}
   {{/global-header-brand}}

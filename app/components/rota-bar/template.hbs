@@ -1,9 +1,18 @@
-{{#each shifts as |shift|}}
+{{#each day.shifts as |shift|}}
   {{rota-shift
-     shift=shift
-     selectedShift=selectedShift
-     selectTarget=selectTarget
-     isInPast=isInPast
-     dayIndex=dayIndex
+    shift=shift
+    selectedShift=selectedShift
+    selectTarget=selectTarget
+    isInPast=isInPast
+    dayIndex=dayIndex
+  }}
+{{/each}}
+{{#each day.overlappingShifts as |overlap|}}
+  {{rota-overlap
+    overlap=overlap
+    selectedOverlap=selectedOverlap
+    selectTarget=selectTarget
+    isInPast=isInPast
+    dayIndex=dayIndex
   }}
 {{/each}}

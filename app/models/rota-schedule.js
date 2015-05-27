@@ -11,8 +11,8 @@ var Shift = Ember.Object.extend({
   end: null,
 
   convertToMinutes: function(time) {
-    var hours   = parseInt(time.substring(0, 2));
-    var minutes = parseInt(time.substring(3, 5));
+    var hours   = parseInt(time.substring(0, 2), 10);
+    var minutes = parseInt(time.substring(3, 5), 10);
 
     return (hours * 60) + minutes;
   },
@@ -74,6 +74,29 @@ export default DS.Model.extend({
     }
     this.set('shifts', newShifts.compact());
   },
+
+  overlappingShifts: function() {
+    var overlaps = [];
+    var shifts = this.get('shifts');
+
+    shifts.forEach(function(shift, index) {
+      var endTime = shift.get('endAsMinutes');
+      var overlapping = shifts.filter(function(innerShift, innerIndex) {
+        return innerIndex > index && (endTime > innerShift.get('startAsMinutes'));
+      });
+      if (overlapping.length > 0) {
+        // we've found overlaps, so make an overlap item
+        overlaps.push({
+          startAsMinutes: Math.min(...overlapping.mapBy('startAsMinutes')),
+          endAsMinutes: Math.min(endTime, ...overlapping.mapBy('endAsMinutes')),
+          shifts: [].concat(shift).concat(overlapping),
+          meta: shift.meta
+        });
+      }
+    });
+
+    return overlaps;
+  }.property('shifts'),
 
   shiftDateAsMoment: function() {
     return moment(this.get('shiftDate'));

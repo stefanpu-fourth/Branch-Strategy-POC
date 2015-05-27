@@ -117,7 +117,7 @@ export default Ember.Component.extend({
           symbol: 'circle'
         },
         name: props.netPayTitle,
-        color: 'red', // TODO: receive brand colour
+        color: 'orange', // TODO: receive brand colour
         data: props.netPaySeries
       }]
     });
