@@ -5,8 +5,10 @@ var resolve = Ember.RSVP.resolve;
 export default Ember.Mixin.create({
   findWithCache(typeKey/*, id, preload*/) {
     var records = Ember.A();
+    var len = arguments.length;
 
-    if (arguments.length === 1) {
+    //use cache for find and findQuery
+    if (len === 1 || (len === 2 && typeof arguments[1] === 'object')) {
       records = this.store.all(typeKey);
     }
 
