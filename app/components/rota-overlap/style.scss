@@ -1,9 +1,20 @@
-.rota-shift.rota-overlap {
-  .rota-shift--solid {
-    background-color: rgba(0,0,0,0.3);
-    // had thought to use a solid colour here and adjust it with opacity
-    // as this highlight style will need to react to branding colours
-    // i.e. for a dark brand colour we'll need to use background-color: rgba(255,255,255,0.3) instead
-    // unfortunately the tooltip and the highlight bar get that opacity added to them, mucking up their display
+@include keyframes(rota-shift-overlap--ani-dark) {
+  0%, 100% {
+    background-color: rgba(0, 0, 0, .4);
+  }
+  65% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.rota-shift.-overlap .rota-shift--solid {
+  background-color: rgba(0, 0, 0, .4);
+  // had thought to use a solid colour here and adjust it with opacity
+  // as this highlight style will need to react to branding colours
+  // i.e. for a dark brand colour we'll need to use background-color: rgba(255,255,255,0.3) instead
+  // unfortunately the tooltip and the highlight bar get that opacity added to them, mucking up their display
+
+  .swipe-item.-active & {
+    @include animation(rota-shift-overlap--ani-dark 1s linear .5s 3);
   }
 }
