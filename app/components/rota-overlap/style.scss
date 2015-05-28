@@ -13,8 +13,8 @@
   // as this highlight style will need to react to branding colours
   // i.e. for a dark brand colour we'll need to use background-color: rgba(255,255,255,0.3) instead
   // unfortunately the tooltip and the highlight bar get that opacity added to them, mucking up their display
-}
 
-.swipe-item.-active .rota-shift.-overlap .rota-shift--solid {
-  @include animation(rota-shift-overlap--ani-dark 1s linear .5s 3);
+  .swipe-item.-active & {
+    @include animation(rota-shift-overlap--ani-dark 1s linear .5s 3);
+  }
 }
