@@ -2,7 +2,7 @@ import Ember from 'ember';
 import RotaBarItem from 'ess/mixins/rota-bar-item';
 
 export default Ember.Component.extend(RotaBarItem, {
-  classNames: ['rota-overlap'],
+  classNames: ['-overlap'],
 
   overlap: null,
   selectedOverlap: null,
