@@ -39,6 +39,7 @@ var Payslip = DS.Model.extend({
   nationalInsuranceCategory: attr('string'),
   nationalInsuranceNumber: attr('string'),
   niContributionToDate: attr('number'),
+  employerNIContributionToDate: attr('number'),
   netPay: attr('number'),
   netPayInWords: attr('string'),
   paymentMethodDescription: attr('string'),
