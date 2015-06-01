@@ -3,6 +3,5 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   tagName: 'span',
 
-  classNames: 'tool-tip',
-  classNameBindings: ['active:-active']
+  classNameBindings: [':tool-tip','active:-active']
 });
