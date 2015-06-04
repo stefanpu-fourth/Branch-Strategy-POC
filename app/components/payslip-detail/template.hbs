@@ -71,6 +71,10 @@
     <dd class="tabular--value">{{currency payslip.taxDueToDate unit='£'}}</dd>
   </dl>
   <dl class="tabular--row">
+    <dt class="tabular--key -wide">{{t 'payslips.earningsNIYTD'}}</dt>
+    <dd class="tabular--value">{{currency payslip.grossNIContributionToDate unit='£'}}</dd>
+  </dl>
+  <dl class="tabular--row">
     <dt class="tabular--key -wide">{{t 'payslips.nationalInsuranceYTD'}}</dt>
     <dd class="tabular--value">{{currency payslip.niContributionToDate unit='£'}}</dd>
   </dl>
