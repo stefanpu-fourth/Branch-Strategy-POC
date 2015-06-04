@@ -46,7 +46,7 @@
       <dd class="tabular--value">{{currency payslip.grossNIContribution unit='£'}}</dd>
     </dl>
   {{/if}}
-  {{#if payslip.employerPensionContribution}}
+  {{#if payslip.showEmployerPensionContribution}}
     <dl class="tabular--row">
       <dt class="tabular--key -wide">{{t 'payslips.employerPensionContrib'}}</dt>
       <dd class="tabular--value">{{currency payslip.employerPensionContribution unit='£'}}</dd>

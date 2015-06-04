@@ -6,6 +6,7 @@ import config from 'ess/config/environment';
 var attr = DS.attr;
 var computed = Ember.computed;
 var filterBy = computed.filterBy;
+var notEmpty = computed.notEmpty;
 var dayMonthFormat = i18n.t('dateFormats.dayMonth');
 
 var Payslip = DS.Model.extend({
@@ -25,6 +26,7 @@ var Payslip = DS.Model.extend({
   employeeNumber: attr('string'),
   employeePension: attr('number'),
   employerPensionContribution: attr('number'),
+  employerPensionContributionHeader: attr('string'),
   employeePensionToDate: attr('number'),
   employerPensionToDate: attr('number'),
   employerSHPTotal: attr('number'),
@@ -60,6 +62,8 @@ var Payslip = DS.Model.extend({
   grossPay: computed.alias('currentGrossPay'),
   payments: filterBy('payslipElements', 'category', 'Payment'),
   deductions: filterBy('payslipElements', 'category', 'Deduction'),
+
+  showEmployerPensionContribution: notEmpty('employerPensionContributionHeader'),
 
   pdfURL: function () {
     var url = config.apiBaseUrl;
