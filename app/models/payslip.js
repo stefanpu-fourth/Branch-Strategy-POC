@@ -29,6 +29,7 @@ var Payslip = DS.Model.extend({
   employerPensionContributionHeader: attr('string'),
   employeePensionToDate: attr('number'),
   employerPensionToDate: attr('number'),
+  employerPensionContributionHeaderYearToDate: attr('string'),
   employerSHPTotal: attr('number'),
   fullName: attr('string'),
   grossNIContribution: attr('number'),
@@ -64,6 +65,7 @@ var Payslip = DS.Model.extend({
   deductions: filterBy('payslipElements', 'category', 'Deduction'),
 
   showEmployerPensionContribution: notEmpty('employerPensionContributionHeader'),
+  showEmployerPensionToDate: notEmpty('employerPensionContributionHeaderYearToDate'),
 
   pdfURL: function () {
     var url = config.apiBaseUrl;

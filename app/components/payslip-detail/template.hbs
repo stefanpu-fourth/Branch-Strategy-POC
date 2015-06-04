@@ -80,10 +80,12 @@
     <dt class="tabular--key -wide">{{t 'payslips.employerNIContribYTD'}}</dt>
     <dd class="tabular--value">{{currency payslip.employerNIContributionToDate unit='£'}}</dd>
   </dl>
-  <dl class="tabular--row">
-    <dt class="tabular--key -wide">{{t 'payslips.employerPensionContribYTD'}}</dt>
-    <dd class="tabular--value">{{currency payslip.employerPensionToDate unit='£'}}</dd>
-  </dl>
+  {{#if showEmployerPensionToDate}}
+    <dl class="tabular--row">
+      <dt class="tabular--key -wide">{{t 'payslips.employerPensionContribYTD'}}</dt>
+      <dd class="tabular--value">{{currency payslip.employerPensionToDate unit='£'}}</dd>
+    </dl>
+  {{/if}}
   <dl class="tabular--row">
     <dt class="tabular--key -wide">{{t 'payslips.employeePensionContribYTD'}}</dt>
     <dd class="tabular--value">{{currency payslip.employeePensionToDate unit='£'}}</dd>
