@@ -44,10 +44,12 @@
     <dt class="tabular--key -wide">{{t 'payslips.earningsNI'}}</dt>
     <dd class="tabular--value">{{currency payslip.grossNIContribution unit='£'}}</dd>
   </dl>
-  <dl class="tabular--row">
-    <dt class="tabular--key -wide">{{t 'payslips.employerPensionContrib'}}</dt>
-    <dd class="tabular--value">{{currency payslip.employerPensionContribution unit='£'}}</dd>
-  </dl>
+  {{#if showEmployerPensionContribution}}
+    <dl class="tabular--row">
+      <dt class="tabular--key -wide">{{t 'payslips.employerPensionContrib'}}</dt>
+      <dd class="tabular--value">{{currency payslip.employerPensionContribution unit='£'}}</dd>
+    </dl>
+  {{/if}}
   {{#if payslip.employeePension}}
     <dl class="tabular--row">
       <dt class="tabular--key -wide">{{t 'payslips.employerStakePensionContrib'}}</dt>
@@ -76,15 +78,18 @@
     <dt class="tabular--key -wide">{{t 'payslips.employerNIContribYTD'}}</dt>
     <dd class="tabular--value">{{currency payslip.employerNIContributionToDate unit='£'}}</dd>
   </dl>
-  <dl class="tabular--row">
-    <dt class="tabular--key -wide">{{t 'payslips.employerPensionContribYTD'}}</dt>
-    <dd class="tabular--value">{{currency payslip.employerPensionToDate unit='£'}}</dd>
-  </dl>
-  <dl class="tabular--row">
-    <dt class="tabular--key -wide">{{t 'payslips.employeePensionContribYTD'}}</dt>
-    <dd class="tabular--value">{{currency payslip.employeePensionToDate unit='£'}}</dd>
-  </dl>
-
+  {{#if showEmployerPensionToDate}}
+    <dl class="tabular--row">
+      <dt class="tabular--key -wide">{{t 'payslips.employerPensionContribYTD'}}</dt>
+      <dd class="tabular--value">{{currency payslip.employerPensionToDate unit='£'}}</dd>
+    </dl>
+  {{/if}}
+  {{#if showEmployeePensionToDate}}
+    <dl class="tabular--row">
+      <dt class="tabular--key -wide">{{t 'payslips.employeePensionContribYTD'}}</dt>
+      <dd class="tabular--value">{{currency payslip.employeePensionToDate unit='£'}}</dd>
+    </dl>
+  {{/if}}
   {{#if payslip.employeeAVCToDate}}
     <dl class="tabular--row">
       <dt class="tabular--key -wide">{{t 'payslips.employeeAVCYTD'}}</dt>
