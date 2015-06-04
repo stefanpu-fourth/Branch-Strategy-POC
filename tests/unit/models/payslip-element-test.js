@@ -28,7 +28,7 @@ test('label returns a formatted string (description units@rate) or the descripti
     assert.equal(model.get('label'), 'Tax', 'Label is still equal to tax as rate is falsy');
 
     model.set('rate', 500.00);
-    assert.equal(model.get('label'), 'Tax 1@500.00', 'Label is equal to Tax 1@500.00');
+    assert.equal(model.get('label'), 'Tax 1 @ £500.00', 'Label is equal to Tax 1@500.00');
   });
 });
 
