@@ -23,6 +23,7 @@ export default {
       grossPay: 'Gross Pay',
       taxablePay: 'Taxable Pay',
       earningsNI: 'Earnings for National Insurance',
+      earningsNIYTD: 'Earnings for National Insurance YTD',
       employerPensionContrib: 'Employer Pension Contribution',
       employerStakePensionContrib: 'Employer Stakeholder Pension Contribution',
       yearToDateTotals: 'Year To Date Totals',
