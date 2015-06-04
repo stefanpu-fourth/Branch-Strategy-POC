@@ -40,18 +40,14 @@
     <dt class="tabular--key -wide">{{t 'payslips.taxablePay'}}</dt>
     <dd class="tabular--value">{{currency payslip.grossTaxable unit='£'}}</dd>
   </dl>
-  {{#if payslip.grossNIContribution}}
-    <dl class="tabular--row">
-      <dt class="tabular--key -wide">{{t 'payslips.earningsNI'}}</dt>
-      <dd class="tabular--value">{{currency payslip.grossNIContribution unit='£'}}</dd>
-    </dl>
-  {{/if}}
-  {{#if payslip.employerPensionContribution}}
-    <dl class="tabular--row">
-      <dt class="tabular--key -wide">{{t 'payslips.employerPensionContrib'}}</dt>
-      <dd class="tabular--value">{{currency payslip.employerPensionContribution unit='£'}}</dd>
-    </dl>
-  {{/if}}
+  <dl class="tabular--row">
+    <dt class="tabular--key -wide">{{t 'payslips.earningsNI'}}</dt>
+    <dd class="tabular--value">{{currency payslip.grossNIContribution unit='£'}}</dd>
+  </dl>
+  <dl class="tabular--row">
+    <dt class="tabular--key -wide">{{t 'payslips.employerPensionContrib'}}</dt>
+    <dd class="tabular--value">{{currency payslip.employerPensionContribution unit='£'}}</dd>
+  </dl>
   {{#if payslip.employeePension}}
     <dl class="tabular--row">
       <dt class="tabular--key -wide">{{t 'payslips.employerStakePensionContrib'}}</dt>
