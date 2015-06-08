@@ -26,7 +26,7 @@ export default {
       earningsNIYTD: 'Earnings for National Insurance YTD',
       employerPensionContrib: 'Employer Pension Contribution',
       employerStakePensionContrib: 'Employer Stakeholder Pension Contribution',
-      yearToDateTotals: 'Year To Date Totals',
+      yearToDateTotals: 'Year To Date Totals (YTD)',
       grossPayYTD: 'Gross Pay YTD',
       taxablePayYTD: 'Taxable Pay YTD',
       taxYTD: 'Tax YTD',
