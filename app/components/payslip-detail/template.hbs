@@ -50,10 +50,10 @@
       <dd class="tabular--value">{{currency payslip.employerPensionContribution unit='£'}}</dd>
     </dl>
   {{/if}}
-  {{#if payslip.employeePension}}
+  {{#if payslip.employerSHPTotal}}
     <dl class="tabular--row">
       <dt class="tabular--key -wide">{{t 'payslips.employerStakePensionContrib'}}</dt>
-      <dd class="tabular--value">{{currency payslip.employeePension unit='£'}}</dd>
+      <dd class="tabular--value">{{currency payslip.employerSHPTotal unit='£'}}</dd>
     </dl>
   {{/if}}
 
