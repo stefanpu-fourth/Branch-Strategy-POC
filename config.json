@@ -22,6 +22,6 @@
         "token": "00525000000IcwIAAS"
     }],
     "appServerUrl": "http://localhost:4200",
-    "upstreamApiUrl": "http://fourth-employee-selfservice-qa.cloudapp.net:8080",
+    "upstreamApiUrl": "http://fourth-employee-selfservice-dev.cloudapp.net:8080",
     "upstreamApiMountPoint": "/api"
 }
