@@ -1,5 +1,8 @@
 .swipe-item {
   display:  inline-block;
+  @include display(inline-flex);
+  @include flex-shrink(0);
+  @include align-self(stretch);
   position: relative;
   white-space: normal;
   width: 100%;
