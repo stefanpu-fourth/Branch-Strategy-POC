@@ -1,6 +1,7 @@
 .swipe-item {
   display:  inline-block;
   @include display(inline-flex);
+  @include flex-direction(row);
   @include flex-shrink(0);
   @include align-self(stretch);
   position: relative;
@@ -10,5 +11,9 @@
 
   &.-active {
     z-index: 1;
+  }
+
+  > * {
+    @include flex-grow(1);
   }
 }
