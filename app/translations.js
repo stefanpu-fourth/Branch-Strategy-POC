@@ -57,7 +57,9 @@ export default {
       booked: 'Booked',
       holidaysReserved: 'Holidays Reserved',
       remaining: 'Remaining',
-      accrued: 'Accrued'
+      accrued: 'Accrued',
+      noRotasForWeek: 'There is no rota for this week',
+      noRotas: 'There are currently no rotas available'
     },
     details: {
       name: 'Name',

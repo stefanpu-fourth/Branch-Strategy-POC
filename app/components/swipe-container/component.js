@@ -48,7 +48,7 @@ var panEndHandler = function(e) {
   var index = selectedIndex;
 
   if (currentDelta < 0) {
-    if (index !== this.get('collection.length') - 1) {
+    if (index !== Math.max(this.get('collection.length') - 1, 0)) {
       index++;
     }
   } else if (currentDelta > 0) {
@@ -80,7 +80,7 @@ export default Ember.Component.extend({
 
   setMaxOffset: function() {
     // we can't entirely guarantee when tripleSpacing will get updated, so do that calc inside here
-    this.maxOffset = -((this.get('collection.length') - 1) * (this.viewPortWidth - (this.itemSpacing * 3)));
+    this.maxOffset = -(Math.max(this.get('collection.length') - 1, 0) * (this.viewPortWidth - (this.itemSpacing * 3)));
   }.observes('itemSpacing', 'collection', 'collection.length', 'viewPortWidth'),
 
   maxOffset: 0,
@@ -112,7 +112,7 @@ export default Ember.Component.extend({
   }.property('selectedIndex'),
 
   isLast: function () {
-    return this.get('selectedIndex') === (this.get('collection.length') - 1);
+    return this.get('selectedIndex') === Math.max(this.get('collection.length') - 1, 0);
   }.property('selectedIndex', 'collection'),
 
   moreThanOne: function() {

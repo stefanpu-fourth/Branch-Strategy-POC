@@ -1,3 +1,16 @@
 .rota-week {
   position: relative;
 }
+
+.rota-notice {
+  min-height: 300px;
+  @include display(flex);
+  @include flex-direction(column);
+  @include justify-content(center);
+  @include align-items(center);
+}
+
+.rota-message {
+  max-width: 300px;
+  text-align: center;
+}

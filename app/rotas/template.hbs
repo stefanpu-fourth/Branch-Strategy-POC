@@ -19,6 +19,12 @@
         }}
       </div>
     {{/swipe-item}}
+  {{else}}
+    {{#swipe-item index=0 selectedIndex=0}}
+      <div class="card rota-week rota-notice">
+        <div class="rota-message">{{t "rotas.noRotas"}}</div>
+      </div>
+    {{/swipe-item}}
   {{/each}}
 {{/swipe-container}}
 {{swipe-tabs

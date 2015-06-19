@@ -44,7 +44,7 @@ test('isFirst works', function(assert) {
 });
 
 test('isLast works', function(assert) {
-  assert.expect(6);
+  assert.expect(7);
   var component = this.subject();
 
   // by default, selectedIndex is null, and collection is null
@@ -60,6 +60,9 @@ test('isLast works', function(assert) {
   assert.equal(component.get('isLast'), false, 'isLast is false with a 3 item collection and selectedIndex 1');
   component.set('selectedIndex', 2);
   assert.equal(component.get('isLast'), true, 'isLast is true with a 3 item collection and selectedIndex 2');
+  component.set('collection', []);
+  component.set('selectedIndex', 0);
+  assert.equal(component.get('isLast'), true, 'isLast is true with an empty collection and selectedIndex 0');
 });
 
 test('isTouch detects touch device', function(assert) {
