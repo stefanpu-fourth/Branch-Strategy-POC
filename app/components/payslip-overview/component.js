@@ -18,7 +18,13 @@ export default Ember.Component.extend({
     },
     downloadPayslip: function(href) {
       ga('send', 'event', 'payslip', 'click', 'Download payslip');
-      location.href = href;
+      var redirectParam = 'redirect=' + encodeURIComponent(window.location.href);
+      // In principle the href for the payslip won't include any query params, but let's be safe
+      var joinChar = '?';
+      if (href.indexOf('?') !== -1) {
+        joinChar = '&';
+      }
+      location.href = [href, redirectParam].join(joinChar);
       return true;
     }
   }
