@@ -148,8 +148,10 @@ export default Ember.Component.extend({
     });
 
     //init viewport
-    run.once(this, 'resizeHandler');
-    this.sendAction('setSelectedIndex', this.get('selectedIndex'));
+    run.scheduleOnce('afterRender', () => {
+      this.resizeHandler();
+      this.sendAction('setSelectedIndex', this.get('selectedIndex'));
+    });
   },
 
   willDestroyElement: function () {

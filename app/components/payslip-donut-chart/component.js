@@ -6,6 +6,7 @@ export default Ember.Component.extend({
   netPay: null,
   grossPay: null,
   isActive: null,
+  hasRendered: false,
 
   takeHome: function () {
     var props = this.getProperties('grossPay', 'netPay');
@@ -15,23 +16,34 @@ export default Ember.Component.extend({
   pathStyles: function () {
     var isActive = this.get('isActive');
     var el = this.element;
-    var path = el.querySelector('.payslip-donut-chart--path');
-    var circumference = path.getTotalLength();
-    var dashOffset;
-    var takeHome;
+    var path, circumference, dashOffset, takeHome;
 
-    if (isActive) {
-      takeHome = this.get('takeHome');
-      dashOffset = circumference - (circumference * takeHome);
-      if (dashOffset<0) {
-        dashOffset=0;
+    if (el) {
+      path = el.querySelector('.payslip-donut-chart--path');
+      circumference = path.getTotalLength();
+      if (isActive) {
+        takeHome = this.get('takeHome');
+        dashOffset = circumference - (circumference * takeHome);
+        if (dashOffset < 0) {
+          dashOffset = 0;
+        }
+      } else {
+        dashOffset = circumference;
       }
     } else {
-      dashOffset = circumference;
+      // we have no element yet - but as our donut is a fixed element we know our dimensions already so bodge
+      circumference = 903.125;
+      dashOffset = 903.125;
     }
 
     return `stroke-dasharray: ${circumference}px, ${circumference}px; stroke-dashoffset: ${dashOffset}px;`.htmlSafe();
-  }.property('isActive', 'takeHome'),
+  }.property('isActive', 'takeHome', 'hasRendered'),
+
+  didInsertElement() {
+    Ember.run.scheduleOnce('afterRender', () => {
+      this.set('hasRendered', true);
+    });
+  },
 
   actions: {
     flipCard: function() {
