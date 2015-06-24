@@ -1,75 +1,18 @@
 import Ember from 'ember';
 
 var run = Ember.run;
-var horizontalPanHandler = function(e) {
-  if (!this.isPanning) {
-    return;
-  }
-  var evt = e.originalEvent;
-  var gesture = evt.gesture;
-  var deltaX = gesture.deltaX;
-  var deltaY = gesture.deltaY;
-
-  if (this.isMoving || Math.abs(deltaY) > Math.abs(deltaX)) {
-    return;
-  }
-
-  this.set('deltaX', deltaX);
-};
-
-var panEndHandler = function(e) {
-  if (!this.get('isPanning')) {
-    return;
-  }
-
-  this.set('isPanning', false);
-
-  e.stopPropagation();
-
-  var evt = e.originalEvent;
-  var gesture = evt.gesture;
-  var deltaX, deltaY;
-  if (gesture) {
-    deltaX = gesture.deltaX;
-    deltaY = gesture.deltaY;
-  }
-  var currentDelta = deltaX || this.get('deltaX');
-  this.set('deltaX', 0);
-
-  if (currentDelta !== 0) {
-    this.set('isMoving', true);
-  }
-
-  if (Math.abs(deltaY) > Math.abs(deltaX)) {
-    return;
-  }
-
-  var selectedIndex = this.get('selectedIndex');
-  var index = selectedIndex;
-
-  if (currentDelta < 0) {
-    if (index !== Math.max(this.get('collection.length') - 1, 0)) {
-      index++;
-    }
-  } else if (currentDelta > 0) {
-    if (index !== 0) {
-      index--;
-    }
-  }
-
-  if (index !== selectedIndex) {
-    ga('send', 'event', 'carousel', 'swipe', 'Swipe container');
-    this.sendAction('setSelectedIndex', index);
-  }
-};
 
 export default Ember.Component.extend({
 
   classNames: ['swipe-container'],
 
+  // public properties
   collection: null,
   tabPropertyKey: null,
   selectedIndex: null,
+  swipeThreshold: 20,     // number of pixels after which we register/descide on swipe/scroll
+
+  // other properties
   itemSpacing: 16,
 
   setTripleSpacing: function() {
@@ -88,7 +31,6 @@ export default Ember.Component.extend({
   deltaX: 0,
   viewPortWidth: 0,
 
-  isMoving: false,
   isPanning: false,
 
   wrapStyles: function () {
@@ -123,29 +65,24 @@ export default Ember.Component.extend({
     return (('ontouchstart' in window) || (window.navigator.MaxTouchPoints > 0) || (window.navigator.msMaxTouchPoints > 0));
   }.property(),
 
-  transitionEvents: function () {
-    var namespace = Ember.guidFor(this);
-    var evts = ['transitionend', 'webkitTransitionEnd', 'oTransitionEnd', 'MSTransitionEnd'];
-    return evts.map(str => { return `${str}.${namespace}`; }).join(' ');
-  }.property(),
-
-  didInsertElement: function() {
-    var transitionEvents = this.get('transitionEvents');
-    var $wrap = this.$('.swipe-container--wrap');
+  didInsertElement() {
     var $window = this.$(window);
-    var $arrows = this.$('.swipe-container--arrow');
 
     //bind handlers
     this.boundResizeHandler = run.bind(this, 'resizeHandler');
-    this.boundPanEndHandler = run.bind(this, 'panEnd');
     this.boundKeydownHandler = run.bind(this, 'keydownHandler');
     $window.on('resize', this.boundResizeHandler);
-    $window.on('panend', this.boundPanEndHandler);
     $window.on('keydown', this.boundKeydownHandler);
-    $wrap.on(transitionEvents, run.bind(this, 'transitionEnd'));
-    $arrows.on('panstart', function(evt) {
-      evt.stopPropagation();
-    });
+
+    if (this.get('isTouch')) {
+      this.boundTouchStart = run.bind(this, 'touchstartHandler');
+      this.boundTouchMove = run.bind(this, 'touchmoveHandler');
+      this.boundTouchEnd = run.bind(this, 'touchendHandler');
+      this.element.addEventListener('touchstart', this.boundTouchStart, false);
+      this.element.addEventListener('touchmove', this.boundTouchMove, false);
+      this.element.addEventListener('touchend', this.boundTouchEnd, false);
+      this.element.addEventListener('touchcancel', this.boundTouchEnd, false);
+    }
 
     //init viewport
     run.scheduleOnce('afterRender', () => {
@@ -154,18 +91,20 @@ export default Ember.Component.extend({
     });
   },
 
-  willDestroyElement: function () {
-    var transitionEvents = this.get('transitionEvents');
+  willDestroyElement() {
     var $window = this.$(window);
-
     $window.off('resize', this.boundResizeHandler);
-    $window.off('panend', this.boundPanEndHandler);
     $window.off('keydown', this.boundKeydownHandler);
-    this.$('.swipe-container--wrap').off(transitionEvents);
-    this.$('.swipe-container--arrow').off('panstart');
+
+    if (this.get('isTouch')) {
+      this.element.removeEventListener('touchstart', this.boundTouchStart, false);
+      this.element.removeEventListener('touchmove', this.boundTouchMove, false);
+      this.element.removeEventListener('touchend', this.boundTouchEnd, false);
+      this.element.removeEventListener('touchcancel', this.boundTouchEnd, false);
+    }
   },
 
-  resizeHandler: function() {
+  resizeHandler() {
     // automatically work out what our item spacing should be from the size of the container margins
     var margins = this.$().innerWidth() - this.$('.swipe-container--wrap').innerWidth();
     this.set('itemSpacing', margins / 3);
@@ -174,24 +113,92 @@ export default Ember.Component.extend({
   },
 
   pageChanging: function() {
-    this.set('isMoving', true);
+    this.set('isDragging', false);
   }.observes('selectedIndex'),
 
-  transitionEnd: function() {
-    this.set('isMoving', false);
-  },
-
-  panEnd: panEndHandler,
-
-  panLeft: horizontalPanHandler,
-
-  panRight: horizontalPanHandler,
-
-  panStart: function() {
+  touchstartHandler(e) {
+    this.startX = e.targetTouches[0].clientX;
+    this.startY = e.targetTouches[0].clientY;
     this.set('isPanning', true);
+    this.set('deltaX', 0);
+    this.reallyDragging = false;
   },
 
-  keydownHandler: function(e) {
+  touchmoveHandler(e) {
+    if (!this.get('isPanning')) {
+      return;
+    }
+    var deltaX = e.targetTouches[0].clientX - this.startX;
+    var deltaY = e.targetTouches[0].clientY - this.startY;
+    var absX = Math.abs(deltaX);
+
+    if (!this.reallyDragging) {
+      if (absX > this.get('swipeThreshold')) {
+        if (Math.abs(deltaY) > absX) {
+          // we're moving more vertical than horizontal so assume this is a scroll
+          this.set('isPanning', false);
+          this.set('deltaX', 0);
+          return;
+        } else {
+          this.reallyDragging = true;
+        }
+      }
+    }
+
+    if (this.reallyDragging) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    this.set('deltaX', deltaX);
+  },
+
+  touchendHandler(e) {
+    if (!this.get('isPanning')) {
+      return;
+    }
+
+    this.set('isPanning', false);
+
+    if (this.reallyDragging) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+
+    this.reallyDragging = false;
+
+    var deltaX = this.get('deltaX');
+
+    run.next(() => {
+      // make sure our adjustments come after isPanning has been cleared
+      this.set('deltaX', 0);
+
+      if (Math.abs(deltaX) < this.get('swipeThreshold')) {
+        // swipe under threshold, so don't change page
+        return;
+      }
+
+      var selectedIndex = this.get('selectedIndex');
+      var index = selectedIndex;
+
+      if (deltaX < 0) {
+        if (index !== Math.max(this.get('collection.length') - 1, 0)) {
+          index++;
+        }
+      } else if (deltaX > 0) {
+        if (index !== 0) {
+          index--;
+        }
+      }
+
+      if (index !== selectedIndex) {
+        ga('send', 'event', 'carousel', 'swipe', 'Swipe container');
+        this.sendAction('setSelectedIndex', index);
+      }
+    });
+  },
+
+  keydownHandler(e) {
     if (e.keyCode === 37) {
       this.send('prevPage');
     } else if (e.keyCode === 39) {
@@ -200,18 +207,18 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    setSelectedIndex: function (index) {
+    setSelectedIndex(index) {
       this.sendAction('setSelectedIndex', index);
     },
 
-    prevPage: function () {
+    prevPage() {
       if (!this.get('isFirst') && this.get('moreThanOne')) {
         ga('send', 'event', 'carousel', 'click', 'Swipe arrow');
         this.sendAction('setSelectedIndex', this.get('selectedIndex') - 1);
       }
     },
 
-    nextPage: function () {
+    nextPage() {
       if (!this.get('isLast') && this.get('moreThanOne')) {
         ga('send', 'event', 'carousel', 'click', 'Swipe arrow');
         this.sendAction('setSelectedIndex', this.get('selectedIndex') + 1);
