@@ -16,11 +16,16 @@ export default ODataAdapter.extend(Sortable, Filterable, Pageable, {
 
     return [
       this.urlPrefix(),
-      this.pathForType(type.typeKey),
+      this.pathForType(type.modelName),
       '?',
       this.getFiltersString(filters),
       this.getSortString(sort.by, sort.dir),
       this.getPaginationString(items, page)
     ];
+  },
+
+  // gets round a deprecation without having to change the odata addin
+  query(store, type, query) {
+    return this.findQuery(store, type, query);
   }
 });

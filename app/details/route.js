@@ -8,7 +8,7 @@ export default Ember.Route.extend(FindWithCache, {
 
   model: function () {
     return Ember.RSVP.hash({
-      employment: this.findWithCache('mainemployment'),
+      employment: this.findAllWithCache('mainemployment'),
       employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId'))
     });
   },

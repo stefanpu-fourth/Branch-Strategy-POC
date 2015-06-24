@@ -61,7 +61,7 @@ var Payslip = DS.Model.extend({
   totalPayments: attr('number'),
   town: attr('string'),
 
-  payslipElements: DS.hasMany('payslipElement'),
+  payslipElements: DS.hasMany('payslipElement', { async: false }),
 
   grossPay: computed.alias('currentGrossPay'),
   payments: filterBy('payslipElements', 'category', 'Payment'),

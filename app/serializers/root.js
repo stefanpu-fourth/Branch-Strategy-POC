@@ -1,12 +1,11 @@
-import SirenSerializer from './siren';
+import SirenSerializer from './ess';
 
 export default SirenSerializer.extend({
-  extractArray: function(store, type, payload) {
-    return [this.extractSingle(store, type, payload)];
-  },
-
-  normalize: function(type, hash, prop) {
-    hash.id = hash.employeeId;
-    return this._super(type, hash, prop);
+  normalizeArrayResponse(store, primaryModelClass, payload) {
+    payload.properties.id = payload.properties.employeeId;
+    const normalized = this.normalizeSingleResponse(store, primaryModelClass, payload);
+    return {
+      data: [normalized.data]
+    };
   }
 });

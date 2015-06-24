@@ -9,7 +9,7 @@ export default Ember.Route.extend({
   brandService: Ember.inject.service(),
 
   model: function() {
-    return this.store.find('root');
+    return this.store.findAll('root');
   },
 
   // TODO - split into a bower component for use by other apps

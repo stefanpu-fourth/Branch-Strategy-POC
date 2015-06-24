@@ -1,4 +1,4 @@
-import SirenSerializer from './siren';
+import SirenSerializer from './ess';
 
 export default SirenSerializer.extend({
   // TODO: this is spoofed, and not yet gathered from payload as it's not currently provided by the API

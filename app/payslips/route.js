@@ -17,7 +17,7 @@ export default Ember.Route.extend(Pageable, FindWithCache, {
   },
 
   model: function(params) {
-    return this.findWithCache('payslip', params);
+    return this.queryWithCache('payslip', params);
   },
 
   setupController: function(controller, model) {

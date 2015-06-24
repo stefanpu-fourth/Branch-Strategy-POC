@@ -11,5 +11,7 @@ export default SirenAdapter.extend({
 
   namespace: function() {
     return `employees/${this.get('appStateService.authenticatedEmployeeId')}`;
-  }.property('appStateService.authenticatedEmployeeId')
+  }.property('appStateService.authenticatedEmployeeId'),
+
+  defaultSerializer: 'ess'
 });

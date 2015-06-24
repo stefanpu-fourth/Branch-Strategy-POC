@@ -10,8 +10,8 @@ export default Ember.Route.extend(FindWithCache, {
 
   model: function() {
     return Ember.RSVP.hash({
-      holidayBalance: this.findWithCache('holidayBalance'),
-      rotaSchedules: this.findWithCache('rota-schedule', {
+      holidayBalance: this.findAllWithCache('holidayBalance'),
+      rotaSchedules: this.queryWithCache('rota-schedule', {
         RequestDate: moment().format('YYYY-MM-DD'),
         NoPreviousWeeks: 2,
         NoFutureWeeks: 2
