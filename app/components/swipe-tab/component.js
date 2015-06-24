@@ -21,7 +21,7 @@ export default Ember.Component.extend({
     return props.item.get(props.propertyKey);
   }.property('item', 'propertyKey'),
 
-  tap: function () {
+  click: function () {
     ga('send', 'event', 'carousel', 'click', 'Swipe tabs');
     this.sendAction('setSelectedIndex', this.get('index'));
   }

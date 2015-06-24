@@ -27,7 +27,7 @@ export default Ember.Component.extend(RotaBarItem, {
     return [...titles];
   }.property('overlap'),
 
-  tap: function() {
+  click: function() {
     ga('send', 'event', 'rota', 'click', 'Shift overlap details');
     var target = this.get("selectTarget");
     if (this.get('selected')) {
