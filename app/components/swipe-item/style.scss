@@ -9,6 +9,9 @@
   width: 100%;
   margin: 0 0.5em 0 0.1em;
 
+  // Chrome sucks - bodge to ensure that cards get displayed properly
+  @include transform(translateZ(0));
+
   &.-active {
     z-index: 1;
   }
