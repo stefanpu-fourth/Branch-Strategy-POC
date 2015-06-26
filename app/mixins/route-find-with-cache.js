@@ -12,7 +12,7 @@ export default Ember.Mixin.create({
       records = this.store.peekAll(modelName);
     }
 
-    //resolve to to found records or create a new request
+    //resolve to found records or create a new request
     return records.get('length') ? resolve(records) : this.store.findAll.apply(this.store, arguments);
   },
 
