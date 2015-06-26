@@ -2,7 +2,11 @@ import Ember from 'ember';
 import i18n from 'ess/i18n';
 
 export default Ember.Component.extend({
+  brandService: Ember.inject.service(),
+
   classNames: ['payslip--line'],
+
+  brandColor: Ember.computed.alias('brandService.loadedBrandData.brandColor'),
 
   payslips: null,
 
@@ -48,7 +52,7 @@ export default Ember.Component.extend({
   },
 
   didInsertElement: function() {
-    var propNames = ['xCategories', 'grossPaySeries', 'netPaySeries', 'grossPayTitle', 'netPayTitle'];
+    var propNames = ['xCategories', 'grossPaySeries', 'netPaySeries', 'grossPayTitle', 'netPayTitle', 'brandColor'];
     var props = this.getProperties(propNames);
 
     this.$().highcharts({
@@ -117,7 +121,7 @@ export default Ember.Component.extend({
           symbol: 'circle'
         },
         name: props.netPayTitle,
-        color: 'orange', // TODO: receive brand colour
+        color: props.brandColor,
         data: props.netPaySeries
       }]
     });

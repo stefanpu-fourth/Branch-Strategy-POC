@@ -5,18 +5,33 @@ var employees = Ember.A(config.employees);
 
 export default Ember.Route.extend({
   appStateService: Ember.inject.service(),
+  brandService: Ember.inject.service(),
 
   model: function() {
     return this.store.find('root');
   },
 
-  afterModel: function(rootResource) {
-    this.set('appStateService.rootResource', rootResource.get('firstObject'));
+  // TODO - split into a bower component for use by other apps
+  loadBrand: function() {
+    var head = document.querySelector('head');
+    var link = document.createElement('link');
+    Ember.$(link).prop('rel', 'stylesheet')
+      .prop('href', this.get('brandService.cssUrl'));
+    head.appendChild(link);
+    return Ember.$.getJSON(this.get('brandService.jsonUrl')).then(brandData => {
+      this.set('brandService.loadedBrandData', brandData);
+    });
   },
 
-  setupController: function(controller) {
-    this.store.find('mainemployment').then(employment => {
-      controller.set('employment', employment.get('firstObject'));
+  afterModel: function(root) {
+    this.set('appStateService.rootResource', root.get('firstObject'));
+    // this is here because fetching anything other than root depends on
+    // on a properly setup appStateService (i.e. one with an employment on it)
+    return this.store.find('mainemployment').then(e => {
+      var first = e.get('firstObject');
+      this.set('appStateService.employment', first);
+      this.set('brandService.brandKey', first.get('companyName').toLowerCase());
+      return this.loadBrand();
     });
   },
 

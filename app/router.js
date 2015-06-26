@@ -2,11 +2,13 @@ import Ember from 'ember';
 import config from './config/environment';
 
 var Router = Ember.Router.extend({
+  appStateService: Ember.inject.service(),
+
   location: config.locationType,
 
-  locationName: Ember.computed.alias('application.employment.locationName'),
+  locationName: Ember.computed.alias('appStateService.employment.locationName'),
 
-  company: Ember.computed.alias('application.employment.companyName'),
+  company: Ember.computed.alias('appStateService.employment.companyName'),
 
   application: function () {
     return this.container.lookup('controller:application');
