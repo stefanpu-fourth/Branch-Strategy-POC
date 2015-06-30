@@ -28,16 +28,3 @@ test('currentPayPeriod returns payPeriod or monthWeekNumber (if payPeriod is fal
     assert.equal(model.get('currentPayPeriod'), 24, 'currentPayPeriod is equal to 24');
   });
 });
-
-test('totalDeductions returns currentGrossPay minus netPay as a price (fixed float to 2)', function (assert) {
-  var model = this.subject();
-
-  Ember.run(() => {
-    model.setProperties({
-      currentGrossPay: 2167,
-      netPay: 1731
-    });
-
-    assert.equal(model.get('totalDeductions'), 436.00, 'totalDeductions is equal to 436.00 (gross - net)');
-  });
-});
