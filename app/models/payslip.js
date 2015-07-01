@@ -53,6 +53,7 @@ var Payslip = DS.Model.extend({
   postCode: attr('string'),
   processingDate: attr('string'),
   reference: attr('string'),
+  studentLoanYearToDate: attr('number'),
   taxCode: attr('string'),
   taxDueToDate: attr('number'),
   taxPreEmployment: attr('number'),
