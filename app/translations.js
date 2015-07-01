@@ -37,6 +37,7 @@ export default {
       employeeAVCYTD: 'Employee AVC YTD',
       employeeFSAVCYTD: 'Employeee FSAVC YTD',
       payFromPreviousEmploymentYTD: 'Pay from Previous Employment YTD',
+      studentLoanYTD: 'Student Loan YTD',
       taxFromPreviousEmploymentYTD: 'Tax for Previous Employment YTD',
       payslipDetails: 'Payslip Details',
       week: 'Week',

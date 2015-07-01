@@ -44,16 +44,16 @@
     <dt class="tabular--key -wide">{{t 'payslips.earningsNI'}}</dt>
     <dd class="tabular--value">{{currency payslip.grossNIContribution unit='£'}}</dd>
   </dl>
+  {{#if payslip.employeePension}}
+    <dl class="tabular--row">
+      <dt class="tabular--key -wide">{{t 'payslips.employerPensionContrib'}}</dt>
+      <dd class="tabular--value">{{currency payslip.employeePension unit='£'}}</dd>
+    </dl>
+  {{/if}}
   {{#if showEmployerPensionContribution}}
     <dl class="tabular--row">
       <dt class="tabular--key -wide">{{t 'payslips.employerPensionContrib'}}</dt>
       <dd class="tabular--value">{{currency payslip.employerPensionContribution unit='£'}}</dd>
-    </dl>
-  {{/if}}
-  {{#if payslip.employerSHPTotal}}
-    <dl class="tabular--row">
-      <dt class="tabular--key -wide">{{t 'payslips.employerStakePensionContrib'}}</dt>
-      <dd class="tabular--value">{{currency payslip.employerSHPTotal unit='£'}}</dd>
     </dl>
   {{/if}}
 
@@ -78,10 +78,12 @@
     <dt class="tabular--key -wide">{{t 'payslips.nationalInsuranceYTD'}}</dt>
     <dd class="tabular--value">{{currency payslip.niContributionToDate unit='£'}}</dd>
   </dl>
-  <dl class="tabular--row">
-    <dt class="tabular--key -wide">{{t 'payslips.employerNIContribYTD'}}</dt>
-    <dd class="tabular--value">{{currency payslip.employerNIContributionToDate unit='£'}}</dd>
-  </dl>
+  {{#if payslip.studentLoanYearToDate}}
+    <dl class="tabular--row">
+      <dt class="tabular--key -wide">{{t 'payslips.studentLoanYTD'}}</dt>
+      <dd class="tabular--value">{{currency payslip.studentLoanYearToDate unit='£'}}</dd>
+    </dl>
+  {{/if}}
   {{#if showEmployerPensionToDate}}
     <dl class="tabular--row">
       <dt class="tabular--key -wide">{{t 'payslips.employerPensionContribYTD'}}</dt>
