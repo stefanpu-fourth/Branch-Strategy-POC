@@ -56,12 +56,6 @@
       <dd class="tabular--value">{{currency payslip.employerPensionContribution unit='£'}}</dd>
     </dl>
   {{/if}}
-  {{#if payslip.employerSHPTotal}}
-    <dl class="tabular--row">
-      <dt class="tabular--key -wide">{{t 'payslips.employerStakePensionContrib'}}</dt>
-      <dd class="tabular--value">{{currency payslip.employerSHPTotal unit='£'}}</dd>
-    </dl>
-  {{/if}}
 
   <h3 class="tabular--sub">{{t 'payslips.yearToDateTotals'}}</h3>
   <dl class="tabular--row">
@@ -83,10 +77,6 @@
   <dl class="tabular--row">
     <dt class="tabular--key -wide">{{t 'payslips.nationalInsuranceYTD'}}</dt>
     <dd class="tabular--value">{{currency payslip.niContributionToDate unit='£'}}</dd>
-  </dl>
-  <dl class="tabular--row">
-    <dt class="tabular--key -wide">{{t 'payslips.employerNIContribYTD'}}</dt>
-    <dd class="tabular--value">{{currency payslip.employerNIContributionToDate unit='£'}}</dd>
   </dl>
   {{#if payslip.studentLoanYearToDate}}
     <dl class="tabular--row">
