@@ -51,7 +51,7 @@ module.exports = function(environment) {
 
   ENV.user = 57354;
   ENV.apiBaseUrl = "/api";
-  ENV.brandingService = "http://fourth-branding.azurewebsites.net";
+  ENV.brandingService = "https://fourth-branding.azurewebsites.net";
 
   if(environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
