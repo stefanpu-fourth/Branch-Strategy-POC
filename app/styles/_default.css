@@ -1,0 +1,35 @@
+
+.brand-bg,
+.brand-bg-hover:hover,
+.brand-before-bg::before,
+.brand-after-bg::after {
+  background-color: #0000ff;
+  color: white;
+}
+
+.brand-border,
+.brand-border-hover:hover {
+  border-color: #0000ff;
+}
+.brand-border-top,
+.brand-border-top-hover:hover {
+  border-top-color: #0000ff;
+}
+.brand-border-right,
+.brand-border-right-hover:hover {
+  border-right-color: #0000ff;
+}
+.brand-border-bottom,
+.brand-border-bottom-hover:hover {
+  border-bottom-color: #0000ff;
+}
+.brand-border-left,
+.brand-border-left-hover:hover {
+  border-left-color: #0000ff;
+}
+.brand-stroke {
+  stroke: #0000ff;
+}
+.brand-fill {
+  fill: #0000ff;
+}
