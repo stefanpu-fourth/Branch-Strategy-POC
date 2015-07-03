@@ -16,6 +16,9 @@ var app = new EmberApp({
   },
   sassOptions: {
     includePaths: ['app']
+  },
+  fingerprint: {
+    exclude: ['default.png']
   }
 });
 
