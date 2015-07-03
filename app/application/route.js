@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import config from 'ess/config/environment';
+import icAjax from 'ic-ajax';
 
 var employees = Ember.A(config.employees);
 
@@ -18,8 +19,11 @@ export default Ember.Route.extend({
     Ember.$(link).prop('rel', 'stylesheet')
       .prop('href', this.get('brandService.cssUrl'));
     head.appendChild(link);
-    return Ember.$.getJSON(this.get('brandService.jsonUrl')).then(brandData => {
+
+    return icAjax(this.get('brandService.jsonUrl')).then(brandData => {
       this.set('brandService.loadedBrandData', brandData);
+    }, () => {
+      console.warn('could not load the branding data');
     });
   },
 
