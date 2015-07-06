@@ -1,7 +1,6 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 import i18n from 'ess/i18n';
-import sumBy from 'ess/macros/sum-by';
 import config from 'ess/config/environment';
 
 var attr = DS.attr;
@@ -57,7 +56,9 @@ var Payslip = DS.Model.extend({
   taxCode: attr('string'),
   taxDueToDate: attr('number'),
   taxPreEmployment: attr('number'),
+  totalDeductions: attr('number'),
   totalGrossPayToDate: attr('number'),
+  totalPayments: attr('number'),
   town: attr('string'),
 
   payslipElements: DS.hasMany('payslipElement'),
@@ -78,9 +79,6 @@ var Payslip = DS.Model.extend({
     var props = this.getProperties('payPeriod', 'monthWeekNumber');
     return props.payPeriod || props.monthWeekNumber;
   }.property('payPeriod', 'monthWeekNumber'),
-
-  totalPayments: sumBy('payments', 'amount'),
-  totalDeductions: sumBy('deductions', 'amount'),
 
   formattedProcessingDate: function () {
     return moment(this.get('processingDate')).format(dayMonthFormat);
