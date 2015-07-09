@@ -60,7 +60,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.userEndPoint = 'userEndpoint'; // so it works with authsandbox + plus our dev mock
+    ENV.userEndPoint = '/userEndpoint'; // so it works with authsandbox + plus our dev mock
   }
 
   if(environment === 'test') {
@@ -74,6 +74,7 @@ module.exports = function(environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.gaTracker = 'unit-test-tracker';
+    ENV.userEndPoint = '/api/user';
   }
 
   if(environment === 'production') {
