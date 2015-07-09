@@ -4,8 +4,12 @@ import icAjax from 'ic-ajax';
 
 export function initialize(container, application) {
   application.deferReadiness();
+  var prefix = config.baseURL;
+  if (prefix === '/') {
+    prefix = '';
+  }
 
-  return icAjax(`${config.userEndPoint}`, { dataType: 'json' }).then(userData => {
+  return icAjax(`${prefix}${config.userEndPoint}`, { dataType: 'json' }).then(userData => {
     //init analytics
     ga('create', config.gaTracker, 'auto', {
       userId: userData.ExternalId
