@@ -4,6 +4,7 @@ module.exports = function(environment) {
     modulePrefix: 'ess',
     environment: environment,
     baseURL: '/',
+    userEndPoint: 'api/user',
     locationType: 'auto',
     gaTracker:'UA-62678526-2',
     EmberENV: {
@@ -59,6 +60,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.userEndPoint = 'userEndpoint'; // so it works with authsandbox + plus our dev mock
   }
 
   if(environment === 'test') {
@@ -71,6 +73,7 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.gaTracker = 'unit-test-tracker';
   }
 
   if(environment === 'production') {

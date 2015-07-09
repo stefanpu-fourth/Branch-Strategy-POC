@@ -2,31 +2,29 @@
 import Ember from 'ember';
 import { initialize } from '../../../initializers/init-user';
 import { module, test } from 'qunit';
+import { defineFixture } from 'ic-ajax';
 
 var container, application;
-
 
 module('InitUserInitializer', {
   beforeEach: function() {
     Ember.run(function() {
-      application = Ember.Application.create();
-      container = application.__container__;
-      application.deferReadiness();
+      defineFixture('/api/user', {
+        response: { ExternalId: 1234 }
+      });
+      application = {
+        deferReadiness() {},
+        advanceReadiness() {}
+      };
     });
   }
 });
 
-test('it works Create GA', function(assert) {
+test('google analytics tracker setup', function(assert) {
   window.ga=sinon.spy();
-  initialize(container, application);
-  //First argument is create
-  assert.equal('create', window.ga.args[0][0]);
-});
-
-test('it works Auto GA', function(assert) {
-  window.ga=sinon.spy();
-  initialize(container, application);
-  //Third argument is auto
-  assert.equal('auto', window.ga.args[0][2]);
-
+  return initialize(null, application).then(() => {
+    //First argument is create
+    sinon.assert.calledWith(window.ga, 'create', 'unit-test-tracker', 'auto', { userId: 1234 });
+    assert.ok(true, 'tracker configured correctly');
+  });
 });
