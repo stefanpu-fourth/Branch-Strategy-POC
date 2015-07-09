@@ -4,7 +4,7 @@ module.exports = function(environment) {
     modulePrefix: 'ess',
     environment: environment,
     baseURL: '/',
-    userEndPoint: 'api/user',
+    userEndPoint: '/api/user',
     locationType: 'auto',
     gaTracker:'UA-62678526-2',
     EmberENV: {
