@@ -152,7 +152,8 @@ export default Ember.Service.extend({
   },
 
   _findShift: function(schedules, date) {
-    var sortedSchedules = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
+    var SortingProxy = Ember.ArrayProxy.extend(Ember.SortableMixin, Ember.Array);
+    var sortedSchedules = SortingProxy.create({
       content: schedules,
       sortProperties: ['rotaStart', 'shiftDate', 'shiftTimes.0']
     });
