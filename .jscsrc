@@ -1,4 +1,5 @@
 {
+  "excludeFiles": [ "**/modules/**" ],
   "esnext": true,
   "additionalRules": [ "lib/jscs-rules/*.js" ],
   "disallowSpacesInsideArrayBrackets": "all",
