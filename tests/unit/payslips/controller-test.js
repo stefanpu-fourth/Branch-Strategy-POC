@@ -7,6 +7,7 @@ import Ember from 'ember';
 moduleFor('controller:payslips', {
   // Specify the other units that are required for this test.
   // needs: ['controller:foo']
+  needs: ['service:appStateService']
 });
 
 // Replace this with your real tests.

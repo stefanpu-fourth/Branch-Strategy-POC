@@ -6,6 +6,7 @@ import {
 moduleFor('route:details', {
   // Specify the other units that are required for this test.
   // needs: ['controller:foo']
+  needs: ['service:appStateService']
 });
 
 test('it exists', function(assert) {
