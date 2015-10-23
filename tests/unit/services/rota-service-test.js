@@ -275,6 +275,26 @@ test("findOverlapForShift can find matching overlaps", function(assert) {
   assert.equal(fetchedShift, records[1].get('overlappingShifts')[0].shifts[0], "and it's the right one");
 });
 
+test('findOverlapForShift deals with gaps', function(assert) {
+  assert.expect(2);
+  var service = this.subject();
+
+  // delete two weeks from the middle of our records
+  records.splice(7, 14);
+
+  // add some overlapping shifts to the last day
+  var lastRecord = records[records.length - 1];
+  lastRecord.shiftTimes = ['06:00', '12:00', '06:00', '12:00'];
+
+  // make sure calculateShifts has been called
+  lastRecord.calculateShifts();
+
+  var weeks = service.getRotaWeeks(records);
+  var fetchedShift = service.getNextShift(records, moment(lastRecord.get('shiftDate')));
+  assert.notEqual(fetchedShift, undefined, "we've found a shift for the second day");
+  assert.notEqual(service.findOverlapForShift(weeks, fetchedShift), undefined, "that shift is in an overlap");
+});
+
 test("getWeekIndexForDate will find the correct index", function(assert) {
   assert.expect(6);
   var service = this.subject();

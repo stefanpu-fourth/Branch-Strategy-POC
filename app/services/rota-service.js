@@ -194,9 +194,10 @@ export default Ember.Service.extend({
     };
     for (let i = 0; i < weeks.length; i++) {
       let week = weeks[i];
-      for (let day = 0; day < 7; day++) {
-        // do something!
-        let overlaps = week.get('shifts')[day].get('overlappingShifts').filter(overlapFilter);
+      let days = week.get('shifts');
+      for (let day = 0; day < days.length; day++) {
+        // check the shift to see if it's in the overlappingShifts for the day
+        let overlaps = days[day].get('overlappingShifts').filter(overlapFilter);
         if (overlaps && (overlaps.length !== 0)) {
           return overlaps[0];
         }
