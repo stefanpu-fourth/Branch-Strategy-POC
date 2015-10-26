@@ -266,12 +266,12 @@ test("findOverlapForShift can find matching overlaps", function(assert) {
   var weeks = service.getRotaWeeks(records);
   var fetchedShift = service.getNextShift(records, new Date(2015, 2, 30));
   // first fetched shift should not be in an overlap
-  assert.notEqual(fetchedShift, undefined, "we've found a shift for the first day");
-  assert.equal(service.findOverlapForShift(weeks, fetchedShift), undefined, "that shift is not in an overlap");
+  assert.ok(fetchedShift, "we've found a shift for the first day");
+  assert.ok(!service.findOverlapForShift(weeks, fetchedShift), 'that shift is not in an overlap');
   // shift fetched for second day should be in an overlap
   fetchedShift = service.getNextShift(records, new Date(2015, 2, 31));
-  assert.notEqual(fetchedShift, undefined, "we've found a shift for the second day");
-  assert.notEqual(service.findOverlapForShift(weeks, fetchedShift), undefined, "that shift is in an overlap");
+  assert.ok(fetchedShift, "we've found a shift for the second day");
+  assert.ok(service.findOverlapForShift(weeks, fetchedShift), 'that shift is in an overlap');
   assert.equal(fetchedShift, records[1].get('overlappingShifts')[0].shifts[0], "and it's the right one");
 });
 
@@ -291,8 +291,8 @@ test('findOverlapForShift deals with gaps', function(assert) {
 
   var weeks = service.getRotaWeeks(records);
   var fetchedShift = service.getNextShift(records, moment(lastRecord.get('shiftDate')));
-  assert.notEqual(fetchedShift, undefined, "we've found a shift for the second day");
-  assert.notEqual(service.findOverlapForShift(weeks, fetchedShift), undefined, "that shift is in an overlap");
+  assert.ok(fetchedShift, "we've found a shift for the final day");
+  assert.ok(service.findOverlapForShift(weeks, fetchedShift), 'that shift is in an overlap');
 });
 
 test("getWeekIndexForDate will find the correct index", function(assert) {
