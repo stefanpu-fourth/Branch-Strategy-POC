@@ -8,7 +8,7 @@ export default Ember.Controller.extend(Pageable, SetSelectedIndex, {
 
   sort: {
     by: 'processingDate',
-    dir: 'asc'
+    dir: 'desc'
   },
 
   filters: [{
@@ -18,6 +18,8 @@ export default Ember.Controller.extend(Pageable, SetSelectedIndex, {
   }],
 
   attrs: {
-    payslips: Ember.ArrayProxy.create()
+    payslips: Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
+      sortProperties: ['processingDate']
+    })
   }
 });
