@@ -5,10 +5,6 @@
     }, {
         "name": "66600",
         "token": "0000000Client66600"
-    },
-    {
-        "name": "69619",
-        "token": "00525000000Qy5YAAS"
     }],
     "appServerUrl": "http://localhost:4200",
     "upstreamApiUrl": "http://fourth-employee-selfservice-qa.cloudapp.net:8080",
