@@ -7,5 +7,6 @@ export default Ember.Component.extend({
   classNames: ['payslip-detail'],
   payslip: null,
   showEmployerPensionContribution: notEmpty('payslip.employerPensionContributionHeader'),
-  showEmployerPensionToDate: notEmpty('payslip.employerPensionContributionHeaderYearToDate')
+  showEmployerPensionToDate: notEmpty('payslip.employerPensionContributionHeaderYearToDate'),
+  showEmployeePensionToDate: notEmpty('payslip.employeePensionContributionHeaderYearToDate')
 });
