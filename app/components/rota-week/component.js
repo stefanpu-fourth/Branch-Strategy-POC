@@ -10,7 +10,7 @@ export default Ember.Component.extend({
   selectedShift: null,
   selectTarget: null,
 
-  tap: function() {
+  click: function() {
     this.get('selectTarget').send('setSelectedShift', null);
   }
 });

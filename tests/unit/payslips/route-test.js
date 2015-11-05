@@ -12,7 +12,7 @@ var mockController = Ember.Object.extend({
 });
 
 moduleFor('route:payslips', {
-  needs: []
+  needs: ['service:appStateService']
 });
 
 test('it exists', function(assert) {

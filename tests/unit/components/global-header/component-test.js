@@ -26,8 +26,6 @@ test('it has correct tag- and class-name', function(assert) {
   var correctTag = 'nav';
   var correctClass = 'global-header';
 
-  console.log(this.$().prop('tagName') + ' | ' + correctTag);
-
   assert.equal(this.$().prop('tagName').toLowerCase() === correctTag, true, 'tagName is correct');
   assert.equal(this.$().hasClass(correctClass), true, 'className is correct');
 });

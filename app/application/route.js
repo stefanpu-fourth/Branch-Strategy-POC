@@ -9,7 +9,7 @@ export default Ember.Route.extend({
   brandService: Ember.inject.service(),
 
   model: function() {
-    return this.store.find('root');
+    return this.store.findAll('root');
   },
 
   // TODO - split into a bower component for use by other apps
@@ -31,7 +31,7 @@ export default Ember.Route.extend({
     this.set('appStateService.rootResource', root.get('firstObject'));
     // this is here because fetching anything other than root depends on
     // on a properly setup appStateService (i.e. one with an employment on it)
-    return this.store.find('mainemployment').then(e => {
+    return this.store.findAll('mainemployment').then(e => {
       var first = e.get('firstObject');
       this.set('appStateService.employment', first);
       this.set('brandService.brandKey', first.get('companyName').toLowerCase());

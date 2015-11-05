@@ -17,9 +17,7 @@
 
   @include display(flex);
 
-  &.-moving {
-    @include transition(transform 0.25s ease-out);
-  }
+  @include transition(transform .25s ease-out);
 
   &.-dragging {
     @include transition(none);

@@ -20,16 +20,6 @@ test('it renders', function(assert) {
   assert.equal(component._state, 'inDOM');
 });
 
-test('transitionEvents returns a string of namespace vendor prefixed events', function (assert) {
-  assert.expect(1);
-
-  var component = this.subject();
-  var namespace = Ember.guidFor(component);
-  var expected = `transitionend.${namespace} webkitTransitionEnd.${namespace} oTransitionEnd.${namespace} MSTransitionEnd.${namespace}`;
-
-  assert.equal(component.get('transitionEvents'), expected, 'transitionEvents returns the expected string');
-});
-
 test('isFirst works', function(assert) {
   assert.expect(3);
   var component = this.subject();

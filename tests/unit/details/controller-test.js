@@ -6,6 +6,7 @@ import {
 moduleFor('controller:details', {
   // Specify the other units that are required for this test.
   // needs: ['controller:foo']
+  needs: ['service:appStateService']
 });
 
 // Replace this with your real tests.

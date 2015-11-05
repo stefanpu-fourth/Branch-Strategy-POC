@@ -13,7 +13,7 @@ export default Ember.Component.extend(RotaBarItem, {
     return Ember.isEqual(this.get('shift'), this.get('selectedShift'));
   }.property('shift', 'selectedShift'),
 
-  tap: function() {
+  click: function() {
     ga('send', 'event', 'rota', 'click', 'Shift details');
     var target = this.get("selectTarget");
     if (this.get('selected')) {
