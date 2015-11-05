@@ -21,6 +21,11 @@
   $min: false;
   $max: false;
 
+  // TODO: Workaround libsass bug - remove when fixed
+  @if ($min) {
+    @content;
+  }
+
   @each $breakpoint in $breakpoints {
     @if $min-width == $breakpoint { $min: $breakpoint };
     @if $max-width == $breakpoint { $max: $breakpoint };
