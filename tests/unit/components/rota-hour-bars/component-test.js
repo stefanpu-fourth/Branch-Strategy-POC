@@ -6,8 +6,8 @@ import Ember from 'ember';
 
 moduleForComponent('rota-hour-bars', {
   // Specify the other units that are required for this test
-  needs: ['component:rota-hour-bar']
-  // needs: ['component:foo', 'helper:bar']
+  needs: ['component:rota-hour-bar'],
+  unit: true
 });
 
 test('it renders', function(assert) {

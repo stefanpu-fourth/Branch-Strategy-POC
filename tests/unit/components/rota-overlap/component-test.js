@@ -6,7 +6,14 @@ import Ember from 'ember';
 
 moduleForComponent('rota-overlap', {
   // Specify the other units that are required for this test
-  needs: ['component:tool-tip', 'component:svg-icon']
+  needs: [
+    'component:tool-tip',
+    'component:svg-icon',
+    'template:partials/icons/clock',
+    'template:partials/icons/location',
+    'template:partials/icons/user'
+  ],
+  unit: true
 });
 
 test('it renders', function(assert) {

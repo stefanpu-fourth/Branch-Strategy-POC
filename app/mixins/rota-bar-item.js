@@ -11,9 +11,12 @@ export default Ember.Mixin.create({
 
   selectTarget: null,
 
+  // TODO: all property definition should not be volatile
+  // however Ember 2.0 is wrongly caching values when dependant keys have changed
+
   dayStart: function() {
     return this.get('meta.dayStartAsMinutes') || 0;
-  }.property('meta.dayStartAsMinutes'),
+  }.property('meta.dayStartAsMinutes').volatile(),
 
   dayEnd: function() {
     var dayEnd = this.get('meta.dayEndAsMinutes') || 0;
@@ -21,19 +24,19 @@ export default Ember.Mixin.create({
       dayEnd = dayEnd + wholeDay;
     }
     return dayEnd;
-  }.property('meta.dayEndAsMinutes', 'dayStart'),
+  }.property('meta.dayEndAsMinutes', 'dayStart').volatile(),
 
   dayDuration: function() {
     return this.get('dayEnd') - this.get('dayStart');
-  }.property('dayStart', 'dayEnd'),
+  }.property('dayStart', 'dayEnd').volatile(),
 
   dayMiddle: function() {
     return this.get('dayStart') + (this.get('dayDuration') / 2);
-  }.property('dayDuration', 'dayStart'),
+  }.property('dayDuration', 'dayStart').volatile(),
 
   dayEarly: function() {
     return this.get('dayStart') + (this.get('dayDuration') / 4);
-  }.property('dayDuration', 'dayStart'),
+  }.property('dayDuration', 'dayStart').volatile(),
 
   tooltipLocation: function() {
     var dayIndex = this.get('dayIndex');
@@ -68,7 +71,7 @@ export default Ember.Mixin.create({
     var itemStart = Math.max(this.get('startAsMinutes'), dayStart);
 
     return ((100 / this.get('dayDuration')) * (itemStart - dayStart));
-  }.property('startAsMinutes', 'dayStart', 'dayDuration'),
+  }.property('startAsMinutes', 'dayStart', 'dayDuration').volatile(),
 
   durationPercent: function() {
     var dayEnd = this.get('dayEnd');
@@ -80,5 +83,5 @@ export default Ember.Mixin.create({
     }
 
     return ((100 / this.get('dayDuration')) * (itemEnd - itemStart));
-  }.property('startAsMinutes', 'endAsMinutes', 'dayStart', 'dayEnd', 'dayDuration')
+  }.property('startAsMinutes', 'endAsMinutes', 'dayStart', 'dayEnd', 'dayDuration').volatile()
 });

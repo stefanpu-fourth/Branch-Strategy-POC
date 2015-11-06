@@ -5,27 +5,22 @@ import {
 from 'ember-qunit';
 
 import Ember from 'ember';
-import DS from 'ember-data';
-import RotaSchedule from 'ess/models/rota-schedule';
 
-var store = {};
+var store;
 var records;
 
 moduleFor('service:rota-service', {
+  needs: ['model:rota-schedule'],
+
   beforeEach: function() {
-    var container = this.container;
+    let container = this.container;
 
-    if (!container.lookup('store:main')) {
-      DS._setupContainer(container);
-    }
-
-    store = container.lookup('store:main');
-    container.register('model:rota-schedule', RotaSchedule);
-    records = [];
+    store = container.lookup('service:store');
     store.find = sinon.stub().returns(Ember.RSVP.resolve(records));
+    records = [];
 
     // we're starting our shifts from Monday 30th March
-    var m = moment(new Date(2015, 2, 30));
+    let m = moment(new Date(2015, 2, 30));
 
     for (let i = 0; i < 35; i++) {
       // rotaStart date needs to be Mondays

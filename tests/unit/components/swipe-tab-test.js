@@ -5,6 +5,7 @@ import {
 import Ember from 'ember';
 
 moduleForComponent('swipe-tab', {
+  unit: true
 });
 
 test('it renders', function(assert) {

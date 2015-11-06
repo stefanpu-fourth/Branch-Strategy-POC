@@ -2,16 +2,10 @@ import {
   moduleForComponent,
   test
 } from 'ember-qunit';
-import Ember from 'ember';
-import moment from 'ess/helpers/moment';
 
 moduleForComponent('rota-day', {
-  needs: ['helper:moment', 'component:rota-bar', 'component:svg-icon'],
-  // Specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar']
-  beforeEach: function () {
-    Ember.Handlebars.registerHelper('moment', moment);
-  }
+  needs: ['helper:moment', 'helper:t', 'component:rota-bar', 'component:svg-icon'],
+  unit: true
 });
 
 test('it renders', function(assert) {
