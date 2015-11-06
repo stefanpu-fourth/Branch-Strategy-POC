@@ -18,8 +18,7 @@ export default Ember.Controller.extend(Pageable, SetSelectedIndex, {
   }],
 
   attrs: {
-    payslips: Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, Ember.Array, {
-      sortProperties: ['processingDate']
-    })
+    payslipSort: ['processingDate'],
+    payslips: Ember.computed.sort('rawPayslips', 'payslipSort')
   }
 });

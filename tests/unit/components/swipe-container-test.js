@@ -5,7 +5,13 @@ import {
 import Ember from 'ember';
 
 moduleForComponent('swipe-container', {
-  needs: ['component:swipe-tabs', 'component:swipe-tab', 'component:svg-icon']
+  needs: [
+    'component:swipe-tabs',
+    'component:swipe-tab',
+    'component:svg-icon',
+    'template:partials/icons/chevron-left',
+    'template:partials/icons/chevron-right'
+  ]
 });
 
 test('it renders', function(assert) {
