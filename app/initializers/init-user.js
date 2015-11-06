@@ -2,7 +2,7 @@
 import config from 'ess/config/environment';
 import icAjax from 'ic-ajax';
 
-export function initialize(container, application) {
+export function initialize(application) {
   application.deferReadiness();
 
   return icAjax(`${config.userEndPoint}`, { dataType: 'json' }).then(userData => {

@@ -22,7 +22,7 @@ module('InitUserInitializer', {
 
 test('google analytics tracker setup', function(assert) {
   window.ga=sinon.spy();
-  return initialize(null, application).then(() => {
+  return initialize(application).then(() => {
     //First argument is create
     sinon.assert.calledWith(window.ga, 'create', 'unit-test-tracker', 'auto', { userId: 1234 });
     assert.ok(true, 'tracker configured correctly');
