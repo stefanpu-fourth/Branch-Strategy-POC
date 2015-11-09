@@ -24,7 +24,7 @@ module.exports = function(defaults) {
   });
 
   app.import('bower_components/moment/moment.js');
-  app.import('bower_components/highcharts-release/highcharts.js');
+  app.import('vendor/highcharts-custom.js');
   app.import('bower_components/babel-polyfill/browser-polyfill.js', { prepend: true });
 
   // Use `app.import` to add additional libraries to the generated

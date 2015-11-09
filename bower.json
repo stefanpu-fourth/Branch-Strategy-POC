@@ -15,7 +15,6 @@
     "i18n-js": "v3.0.0.rc11",
     "bourbon": "~4.2.1",
     "moment": "~2.10.3",
-    "highcharts-release": "~4.1.4",
     "sinon": "http://sinonjs.org/releases/sinon-1.14.1.js",
     "babel-polyfill": "~0.0.1"
   }
