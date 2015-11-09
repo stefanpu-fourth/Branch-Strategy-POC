@@ -17,7 +17,9 @@
 
   @include display(flex);
 
-  @include transition(transform .25s ease-out);
+  @include transition-property(transform);
+  @include transition-duration(.25s);
+  @include transition-timing-function(ease-out);
 
   &.-dragging {
     @include transition(none);
