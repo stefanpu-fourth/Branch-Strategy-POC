@@ -1,12 +1,12 @@
-{{#if attrs.payslips.length}}
+{{#if payslips.length}}
   {{#swipe-container
-    collection=attrs.payslips
+    collection=payslips
     tabPropertyKey="formattedProcessingDate"
     selectedIndex=attrs.selectedIndex
     isPanning=attrs.isPanning
     setSelectedIndex="setSelectedIndex"
   }}
-    {{#each attrs.payslips as |payslip index|}}
+    {{#each payslips as |payslip index|}}
       {{#swipe-item
         index=index
         selectedIndex=attrs.selectedIndex
@@ -34,7 +34,7 @@
     {{/each}}
   {{/swipe-container}}
   {{swipe-tabs
-    collection=attrs.payslips
+    collection=payslips
     selectedIndex=attrs.selectedIndex
     tabPropertyKey="formattedProcessingDate"
     setSelectedIndex="setSelectedIndex"
@@ -43,7 +43,7 @@
   <div class="payslip--breakdown">
     <h2>{{t 'payslips.historic'}}</h2>
     {{payslips-time-chart
-      payslips=attrs.payslips selectedIndex=attrs.selectedIndex setSelectedIndex="setSelectedIndex"}}
+      payslips=payslips selectedIndex=attrs.selectedIndex setSelectedIndex="setSelectedIndex"}}
   </div>
 {{else}}
   <div class="swipe-container">
@@ -58,4 +58,3 @@
     </div>
   </div>
 {{/if}}
-

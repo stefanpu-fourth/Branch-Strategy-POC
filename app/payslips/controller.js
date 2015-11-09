@@ -4,6 +4,8 @@ import SetSelectedIndex from 'ess/mixins/controller-set-selected-index';
 
 export default Ember.Controller.extend(Pageable, SetSelectedIndex, {
 
+  attrs: {},
+
   queryParams: ['sort', 'filters'],
 
   sort: {
@@ -17,8 +19,6 @@ export default Ember.Controller.extend(Pageable, SetSelectedIndex, {
     value: moment().subtract(12, 'months').format('YYYY-MM-DD')
   }],
 
-  attrs: {
-    payslipSort: ['processingDate'],
-    payslips: Ember.computed.sort('rawPayslips', 'payslipSort')
-  }
+  payslipSort: ['processingDate'],
+  payslips: Ember.computed.sort('attrs.rawPayslips', 'payslipSort')
 });
