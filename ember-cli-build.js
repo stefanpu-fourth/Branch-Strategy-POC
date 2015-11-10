@@ -20,7 +20,7 @@ module.exports = function(defaults) {
     },
     fingerprint: {
       exclude: ['default.png'],
-      prepend: 'https://fourth-static/azurewebsites.net/'
+      prepend: 'https://fourth-static.azurewebsites.net/'
     }
   });
 
