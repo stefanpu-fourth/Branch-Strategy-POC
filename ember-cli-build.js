@@ -19,8 +19,7 @@ module.exports = function(defaults) {
       includePaths: ['app']
     },
     fingerprint: {
-      exclude: ['default.png'],
-      prepend: 'https://fourth-static.azurewebsites.net/'
+      exclude: ['default.png']
     }
   });
 
