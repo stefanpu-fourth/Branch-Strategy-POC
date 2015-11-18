@@ -7,6 +7,7 @@ module.exports = function(environment) {
     userEndPoint: '/api/user',
     locationType: 'auto',
     gaTracker:'UA-62678526-2',
+    staticDomainUrl: 'https://static-dev.fourth.com/',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -79,7 +80,6 @@ module.exports = function(environment) {
 
   if(environment === 'production') {
     ENV.gaTracker = 'UA-62678526-2'; // production real tracker 'UA-62678526-1'
-    ENV.staticDomainUrl = 'https://static-dev.fourth.com/';
   }
 
   return ENV;
