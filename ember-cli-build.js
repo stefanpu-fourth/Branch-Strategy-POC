@@ -1,4 +1,4 @@
-/* global require, module, process */
+/* jshint node: true */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 var config = require('./config/environment')(process.env.EMBER_ENV);
 
