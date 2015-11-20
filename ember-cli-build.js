@@ -1,5 +1,6 @@
-/* global require, module */
+/* jshint node: true */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+var config = require('./config/environment')(process.env.EMBER_ENV);
 
 module.exports = function(defaults) {
 
@@ -19,7 +20,8 @@ module.exports = function(defaults) {
       includePaths: ['app']
     },
     fingerprint: {
-      exclude: ['default.png']
+      exclude: ['default.png'],
+      prepend: config.staticDomainUrl
     }
   });
 
