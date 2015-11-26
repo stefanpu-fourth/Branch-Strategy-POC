@@ -6,8 +6,8 @@ module.exports = function(environment) {
     baseURL: '/',
     userEndPoint: '/api/user',
     locationType: 'auto',
-    gaTracker:'UA-62678526-2',
-    staticDomainUrl: 'https://static-dev.fourth.com/ess/',
+    gaTracker: 'UA-62678526-2',
+    staticDomainUrl: 'https://fourth-static.azurewebsites.net/ess/',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
