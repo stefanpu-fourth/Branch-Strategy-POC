@@ -38,6 +38,7 @@ Router.map(function() {
   this.route('payslips');
   this.route('rota');
   this.route('details');
+  this.route('CatchAll', { path: '*:' });
 });
 
 export default Router;
