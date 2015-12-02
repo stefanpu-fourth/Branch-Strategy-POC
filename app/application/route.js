@@ -48,9 +48,14 @@ export default Ember.Route.extend({
   actions: {
     error(error/*, transition*/) {
 
-      // TODO: handle the error 403 
-      if (error && error.status === 403) {
-        console.log('catch 403 error');
+      // TODO: handle the error 403
+      if (error) {
+        if (error.status === 403) {
+          console.log('Catch 403 error');
+        } else {
+          console.log('Catch error:', error.status);
+        }
+
         // return this.transitionTo('errprPge', error);
       }
     },
