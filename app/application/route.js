@@ -46,6 +46,15 @@ export default Ember.Route.extend({
   },
 
   actions: {
+    error(error/*, transition*/) {
+
+      // TODO: handle the error 403 
+      if (error && error.status === 403) {
+        console.log('catch 403 error');
+        // return this.transitionTo('errprPge', error);
+      }
+    },
+
     setCurrentEmployee: function (employeeId) {
       var employee = this.store.getById('root', employeeId) || this.store.createRecord('root', employees.findBy('id', employeeId));
       this.set('appStateService.rootResource', employee);
