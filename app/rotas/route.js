@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import FindWithCache from 'ess/mixins/route-find-with-cache';
+import RenderNav from 'ess/mixins/render-nav';
 
-export default Ember.Route.extend(FindWithCache, {
+export default Ember.Route.extend(FindWithCache, RenderNav, {
   rotaService: Ember.inject.service(),
 
   title: 'MY ROTAS',
@@ -48,16 +49,6 @@ export default Ember.Route.extend(FindWithCache, {
       'attrs.selectedOverlap': selectedOverlap,
       'attrs.selectedIndex': null,
       'attrs.isPanning': true
-    });
-  },
-
-  renderTemplate() {
-    this.render();
-
-    this.render('application/nav', {
-      into: 'application',
-      outlet: 'nav',
-      controller: 'application'
     });
   }
 });
