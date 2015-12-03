@@ -16,5 +16,15 @@ export default Ember.Route.extend(FindWithCache, {
   setupController: function (controller, model) {
     controller.set('attrs.employment', model.employment);
     controller.set('attrs.employee', model.employee);
+  },
+
+  renderTemplate() {
+    this.render();
+
+    this.render('application/nav', {
+      into: 'application',
+      outlet: 'nav',
+      controller: 'application'
+    });
   }
 });

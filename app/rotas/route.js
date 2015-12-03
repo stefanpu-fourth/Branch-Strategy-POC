@@ -49,5 +49,15 @@ export default Ember.Route.extend(FindWithCache, {
       'attrs.selectedIndex': null,
       'attrs.isPanning': true
     });
+  },
+
+  renderTemplate() {
+    this.render();
+
+    this.render('application/nav', {
+      into: 'application',
+      outlet: 'nav',
+      controller: 'application'
+    });
   }
 });
