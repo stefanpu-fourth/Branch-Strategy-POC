@@ -1,25 +1,2 @@
-{{#global-header}}
-
-  {{#global-header-brand}}
-    <img src={{brandLogoUrl}} onerror="if (this.src != 'images/default.png') this.src='images/default.png';">
-  {{/global-header-brand}}
-
-  {{#nav-tabs}}
-    {{#link-to "rotas" class="nav-tabs--tab brand-after-bg"}}
-      {{t 'menu.rotas'}}
-    {{/link-to}}
-
-    {{#link-to "payslips" class="nav-tabs--tab brand-after-bg"}}
-      {{t 'menu.payslips'}}
-    {{/link-to}}
-
-    {{#link-to "details" class="nav-tabs--tab brand-after-bg"}}
-      {{t "menu.details"}}
-    {{/link-to}}
-
-  {{/nav-tabs}}
-
-{{/global-header}}
-
-
+{{outlet "nav"}}
 {{outlet}}

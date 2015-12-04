@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import FindWithCache from 'ess/mixins/route-find-with-cache';
+import RenderNav from 'ess/mixins/render-nav';
 
-export default Ember.Route.extend(FindWithCache, {
+export default Ember.Route.extend(FindWithCache, RenderNav, {
   appStateService: Ember.inject.service(),
 
   title: 'HR DETAILS',
