@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import FindWithCache from 'ess/mixins/route-find-with-cache';
 import RenderNav from 'ess/mixins/render-nav';
+import ErrorNotifications from 'ess/mixins/error-notifications';
 
-export default Ember.Route.extend(FindWithCache, RenderNav, {
+
+export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, {
   rotaService: Ember.inject.service(),
 
   title: 'MY ROTAS',
