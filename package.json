@@ -43,5 +43,8 @@
     "express": "^4.13.1",
     "glob": "^5.0.13",
     "morgan": "^1.6.1"
+  },
+  "dependencies": {
+    "ember-cli-notifications": "^2.1.3"
   }
 }

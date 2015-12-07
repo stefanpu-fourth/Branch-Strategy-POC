@@ -12,6 +12,9 @@
 // not within pods or components
    @import "ess";
 
+// scss for the notifications system
+   @import "node_modules/ember-cli-notifications/addon/styles/addon.scss";
+
    @import "default";
 
 // REVIEW THIS
