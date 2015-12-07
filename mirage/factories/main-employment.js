@@ -1,0 +1,31 @@
+import Mirage, { faker } from 'ember-cli-mirage';
+
+export default Mirage.Factory.extend({
+  addedToCache: faker.date.recent,
+  employeeId: faker.random.number,
+  manager: faker.name.findName,
+  jobTitle: faker.name.jobTitle,
+  payType: faker.finance.transactionType,
+  companyName: faker.company.companyName,
+  companyAddress1: faker.address.streetAddress,
+  companyAddress2: faker.address.streetName,
+  companyAddress3: faker.address.secondaryAddress,
+  companyTown: faker.address.city,
+  companyCounty: faker.address.county,
+  companyPostCode: faker.address.zipCode,
+  companyPhone: faker.phone.phoneNumber,
+  companyFax: faker.phone.phoneNumber,
+  taxOfficeName() { return 'HMRC'; },
+  taxOfficeNumber: faker.random.number,
+  payeReference: faker.random.number,
+  locationName: faker.company.companyName,
+  locationAddress1: faker.address.streetAddress,
+  locationAddress2: faker.address.streetName,
+  locationAddress3: faker.address.secondaryAddress,
+  locationTown: faker.address.city,
+  locationCounty: faker.address.county,
+  locationPostCode: faker.address.zipCode,
+  locationPhone: faker.phone.phoneNumber,
+  locationFax: faker.phone.phoneNumber,
+  division: faker.company.companySuffix
+});
