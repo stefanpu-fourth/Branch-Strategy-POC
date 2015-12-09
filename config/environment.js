@@ -8,6 +8,9 @@ module.exports = function(environment) {
     locationType: 'auto',
     gaTracker: 'UA-62678526-2',
     staticDomainUrl: 'https://fourth-static.azurewebsites.net/ess/',
+    'ember-cli-notifications': {
+      includeFontAwesome: false
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

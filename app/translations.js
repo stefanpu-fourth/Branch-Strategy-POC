@@ -104,6 +104,11 @@ export default {
       dayMonth: "D MMM",
       weekdayDay: "ddd D",
       "default": "D MMM YYYY"
+    },
+    errorNotifications: {
+      catchAll: 'How embarrassing!! We could not do what you asked and we do not know why. Please try again.',
+      forbidden: 'Sorry but you do not have permissions to see',
+      notFound: 'How embarrassing!! We could not do what you asked and we do not know why. Please try again.'
     }
   }
 };

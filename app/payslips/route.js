@@ -2,13 +2,14 @@ import Ember from 'ember';
 import FindWithCache from 'ess/mixins/route-find-with-cache';
 import Pageable from 'ess/mixins/route-pageable';
 import RenderNav from 'ess/mixins/render-nav';
+import ErrorNotifications from 'ess/mixins/error-notifications';
 
 var paramParams = {
   refreshModel: true,
   replace: true
 };
 
-export default Ember.Route.extend(Pageable, FindWithCache, RenderNav, {
+export default Ember.Route.extend(Pageable, FindWithCache, RenderNav, ErrorNotifications, {
 
   title: 'MY PAYSLIPS',
 
