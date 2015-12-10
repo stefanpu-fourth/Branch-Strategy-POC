@@ -303,3 +303,26 @@ test("getWeekIndexForDate will find the correct index", function(assert) {
   assert.equal(service.getWeekIndexForDate(weeks, new Date(2017, 1, 1)), 4, 'dates after range get last index');
   assert.equal(service.getWeekIndexForDate([], new Date(2015, 2, 30)), 0, 'no weeks will return zero');
 });
+
+test('filler days work as expected', function(assert) {
+  assert.expect(2);
+  var service = this.subject();
+
+  // delete a few days in the middle of our shifts
+  records.splice(10, 3);
+
+  Ember.run(() => {
+    // add in an overlap
+    let testRecord = records[10];
+    testRecord.shiftTimes = ['06:00', '12:00', '06:00', '12:00'];
+
+    // make sure calculateShifts has been called
+    testRecord.calculateShifts();
+
+    // Check it by looking for overlaps on day after our gap, as that requires all to be working
+    var weeks = service.getRotaWeeks(records);
+    var fetchedShift = service.getNextShift(records, moment(testRecord.get('shiftDate')));
+    assert.ok(fetchedShift, "we've found a shift for our test day");
+    assert.ok(service.findOverlapForShift(weeks, fetchedShift), 'that shift is in an overlap');
+  });
+});
