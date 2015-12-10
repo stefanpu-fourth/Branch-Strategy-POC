@@ -43,11 +43,13 @@ export default Mirage.Factory.extend({
   payPreEmployment: faker.finance.amount,
   payslipNote: faker.lorem.paragraph,
   postCode: faker.address.zipCode,
-  processingDate: faker.date.past,
+  processingDate(i) {
+    return moment().subtract(i, 'month').startOf('month').toDate();
+  },
   reference: faker.random.uuid,
   studentLoanYearToDate: faker.finance.amount,
   taxCode: faker.random.uuid,
-  taxDueToDate: faker.date.future,
+  taxDueToDate: faker.finance.amount,
   taxPreEmployment: faker.finance.amount,
   totalDeductions: faker.finance.amount,
   totalGrossPayToDate: faker.finance.amount,

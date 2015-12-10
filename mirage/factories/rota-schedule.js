@@ -1,8 +1,16 @@
 import Mirage, { faker } from 'ember-cli-mirage';
 
+function shiftDate(i) {
+  if (i < 5) {
+    return moment().subtract(i, 'day').startOf('day').toDate();
+  }
+
+  return moment().add(i, 'day').startOf('day').toDate();
+}
+
 export default Mirage.Factory.extend({
+  shiftDate,
   type() { return 'ON'; },
-  shiftDate: faker.date.recent,
   location: faker.address.streetName,
   department: faker.commerce.department,
   jobTitle: faker.name.jobTitle,
@@ -15,8 +23,10 @@ export default Mirage.Factory.extend({
       '17:00'
     ];
   },
-  rotaStart: faker.date.recent,
+  rotaStart(i) {
+    return moment(shiftDate(i)).startOf('week').toDate();
+  },
   rotaStartDayOfWeek() {
-    return Math.floor(Math.random() * 7) + 1;
+    return 2;
   }
 });
