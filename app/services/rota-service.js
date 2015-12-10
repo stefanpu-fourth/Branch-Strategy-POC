@@ -99,13 +99,13 @@ export default Ember.Service.extend({
         let foundDays = schedulesForDate.filter(d => moment(d.get('shiftDate')).isSame(checkDay, 'day'));
         if (foundDays.length === 0) {
           // add it if not
-          schedulesForDate.push(
-            store.createRecord('rota-schedule', {
-              shiftDate: checkDay.format('YYYY-MM-DD'),
-              rotaStart: shiftStart.format('YYYY-MM-DD'),
-              type: 'off'
-            })
-          );
+          let fillerDay = store.createRecord('rota-schedule', {
+            shiftDate: checkDay.format('YYYY-MM-DD'),
+            rotaStart: shiftStart.format('YYYY-MM-DD'),
+            type: 'off'
+          });
+          fillerDay.calculateShifts();
+          schedulesForDate.push(fillerDay);
         }
         checkDay.add(1, 'days');
       }
