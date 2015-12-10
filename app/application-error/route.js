@@ -2,14 +2,14 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  renderTemplate() {
-    const { currentModel } = this;
-    const { status } = currentModel;
-    let template = 'application-error';
+  _errorCodes: {
+    '403': 'application-error/forbidden'
+  },
 
-    if (status === '403') {
-      template = 'application-error/forbidden';
-    }
+  renderTemplate() {
+    const { currentModel, _errorCodes } = this;
+    const { status } = currentModel;
+    const template = _errorCodes[status] || 'application-error';
 
     this.render(template);
   }
