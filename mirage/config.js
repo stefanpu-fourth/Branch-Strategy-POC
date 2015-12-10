@@ -1,24 +1,13 @@
 export default function() {
 
-  // These comments are here to help you get started. Feel free to delete them.
+  this.get('/userEndPoint', function () {
+    return {};
+  });
 
-  /*
-    Config (with defaults).
-
-    Note: these only affect routes defined *after* them!
-  */
-
-  // this.urlPrefix = '';    // make this `http://localhost:8080`, for example, if your API is on a different server
-  // this.namespace = '';    // make this `api`, for example, if your API is namespaced
-  // this.timing = 400;      // delay for each request, automatically set to 0 during testing
-
-  /*
-    Shorthand cheatsheet:
-
-    this.get('/posts');
-    this.post('/posts');
-    this.get('/posts/:id');
-    this.put('/posts/:id'); // or this.patch
-    this.del('/posts/:id');
-  */
+  this.get('/api', 'root');
+  this.get('/api/employees/:id');
+  this.get('/api/employees/:id/holidaybalance', 'holidayBalance');
+  this.get('/api/employees/:id/mainemployment', 'mainEmployment');
+  this.get('/api/employees/:employee_id/payslips', 'payslips', ['payslipElements']);
+  this.get('/api/employees/:employee_id/rotaschedules', 'rotaSchedules');
 }
