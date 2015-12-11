@@ -1,10 +1,10 @@
 .flip-card {
-  display:block;
+  display: block;
   position: relative;
 }
 
 .flip-card--wrap {
-  display: block;
+  @include display(flex);
   height: 100%;
   border: 1px solid $color-grey-lighter;
 }
@@ -54,6 +54,9 @@
   }
   .flip-card--front,
   .flip-card--back {
+    @include transition-property(transform);
+    @include transition-duration(.4s);
+    @include backface-visibility(hidden);
     width: 100%;
     position: absolute;
     top: 0;
@@ -62,8 +65,6 @@
     left: 0;
     background-color: $color-white;
     border: 1px solid $color-grey-lighter;
-    @include transition(transform .4s);
-    @include backface-visibility(hidden);
   }
   .flip-card--front {
     z-index: 2;
