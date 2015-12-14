@@ -16,6 +16,8 @@
     "bourbon": "~4.2.1",
     "moment": "~2.10.3",
     "sinon": "http://sinonjs.org/releases/sinon-1.14.1.js",
-    "babel-polyfill": "~0.0.1"
+    "babel-polyfill": "~0.0.1",
+    "pretender": "~0.10.1",
+    "Faker": "~3.0.0"
   }
 }

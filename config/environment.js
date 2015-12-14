@@ -8,6 +8,7 @@ module.exports = function(environment) {
     locationType: 'auto',
     gaTracker: 'UA-62678526-2',
     staticDomainUrl: 'https://fourth-static.azurewebsites.net/ess/',
+    'ember-cli-mirage': { enabled: false },
     'ember-cli-notifications': {
       includeFontAwesome: false
     },
@@ -79,6 +80,7 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
     ENV.gaTracker = 'unit-test-tracker';
     ENV.userEndPoint = '/api/user';
+    ENV['ember-cli-mirage'].enabled = true;
   }
 
   if(environment === 'production') {
