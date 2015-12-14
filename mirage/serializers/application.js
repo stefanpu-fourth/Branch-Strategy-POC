@@ -1,21 +1,20 @@
 import Serializer from 'ember-cli-mirage/serializers/json-api-serializer';
 import Collection from 'ember-cli-mirage/orm/collection';
 import Model from 'ember-cli-mirage/orm/model';
-import _assign from 'lodash/object/assign';
+import flatten from 'lodash/array/flatten';
 import { capitalize, pluralize } from 'ember-cli-mirage/utils/inflector';
 
 export default Serializer.extend({
 
   namespace: '/api',
 
-  path: '/',
+  path: '',
 
   serialize(response) {
-    // const { included } = this;
     let payload;
 
     if (response instanceof Model) {
-      payload =  this._serializePrimaryModel(response);
+      payload = this._serializePrimaryModel(response);
     } else {
       payload = this._serializePrimaryCollection(response);
     }
@@ -24,7 +23,7 @@ export default Serializer.extend({
   },
 
   keyForModel({ type }) {
-    return type;
+    return capitalize(type);
   },
 
   keyForCollection({ type }) {
@@ -37,6 +36,8 @@ export default Serializer.extend({
 
   _serializePrimaryModel(model) {
     const response = this._resourceObjectFor(model);
+
+    // TODO: populate links here
 
     return response;
   },
@@ -60,74 +61,120 @@ export default Serializer.extend({
     const obj = {
       'class': [ this.keyForModel(model) ],
       properties: this._attrsForModel(model),
-      entities: this._serializeRelationshipsFor(model),
-      links: []
+      entities: flatten(this._serializeRelationshipsFor(model))
     };
 
     return obj;
   },
 
   _attrsForModel(model) {
-    let attrs = {};
+    const { attrs, fks } = model;
 
-    if (this.attrs) {
-      attrs = this.attrs.reduce((memo, attr) => {
+    return Object.keys(attrs).reduce((memo, attr) => {
+      if (fks.indexOf(attr) === -1) {
         memo[attr] = model[attr];
-        return memo;
-      }, {});
-    } else {
-      attrs = _assign(attrs, model.attrs);
-    }
+      }
 
-    model.fks.forEach(fk => {
-      delete attrs[fk];
-    });
-
-    return attrs;
+      return memo;
+    }, {});
   },
 
   _serializeRelationshipsFor(model) {
     const serializer = this._serializerFor(model);
-    const { relationships } = serializer;
 
-    return relationships.map(relName => {
+    return serializer.relationships.map(relName => {
       const relationship = model[relName];
       let entity;
 
+      // FIXME: Mirage is not mapping the foreign keys to child entities
+      // when in ORM mode. Relationships are not working at the moment (argh!)
       if (relationship instanceof Model) {
-        entity = this._serializeRelationshipForModel(model, relationship, relName);
+        entity = this._serializeBelongsTo(model, relationship, relName);
       } else if (relationship instanceof Collection) {
-        entity = this._serializeRelationshipForCollection(model, relationship, relName);
+        entity = this._serializeHasMany(model, relationship, relName);
       }
 
       return entity;
     });
   },
 
-  _serializeRelationshipForModel(model, relationship, relName) {
-    const { namespace, path } = this;
-    const modelKey = this.keyForModel(model);
-    const modelCollectionKey = this.keyForCollecton(model);
-    const relKey = this.keyForModel(relationship);
+  _serializeBelongsTo(model, relationship, relName) {
+    const { included } = this;
+    let res;
+
+    if (included.indexOf(relName) !== -1) {
+      res = this._serializeIncludedModel(relationship, relName);
+    } else {
+      res = {
+        'class': [ this.keyForModel(relationship) ],
+        rel: [ this._buildRelPath(model, relName) ],
+        href: this._buildURLForBelongsTo(model, relationship, relName)
+      };
+    }
+
+    return res;
+  },
+
+  _serializeHasMany(model, relationship, relName) {
+    const { included } = this;
+    let res;
+
+    if (included.indexOf(relName) !== -1) {
+      res = relationship.map(rel => this._serializeIncludedModel(rel, relName));
+    } else {
+      res = [{
+        'class': [ this.keyForCollection(relationship) ],
+        rel: [ this._buildRelPath(model, relName) ],
+        href: this._buildURLForHasMany(model, relName)
+      }];
+    }
+
+    return res;
+  },
+
+  _serializeIncludedModel(model, relName) {
+    const relPath = this._buildRelPath(model, relName);
 
     return {
-      'class': [ relKey ],
-      rel: [ `rels/${modelKey}/${relName}` ],
-      href: [ `${namespace}${path}${modelCollectionKey}/${model.id}/${relName}/${relationship.id}` ]
+      'class': [ this.keyForModel(model) ],
+      rel: [ relPath ],
+      properties: this._attrsForModel(model)
     };
   },
 
-  _serializeRelationshipForCollection(model, relationship, relName) {
-    const { namespace, path } = this;
+  _buildRelPath(model, relName) {
     const modelKey = this.keyForModel(model);
-    const modelCollectionKey = this.keyForCollection(model);
-    const relKey = this.keyForCollection(relationship);
 
-    return {
-      'class': [ relKey ],
-      rel: [ `rels/${modelKey}/${relName}` ],
-      href: [ `${namespace}${path}${modelCollectionKey}/${model.id}/${relName}` ]
-    };
+    return `rels/${modelKey}/${relName}`.toLowerCase();
+  },
+
+  _buildURL(...args) {
+    const { namespace, path } = this;
+    let url = [];
+
+    url.push(namespace);
+
+    if (typeof path === 'function') {
+      url.push(path.apply(this, args));
+    } else if (typeof path === 'string' && path.length) {
+      url.push(path);
+    }
+
+    args.forEach(x => url.push(x));
+
+    return url.join('/').toLowerCase();
+  },
+
+  _buildURLForHasMany(model, relName) {
+    const modelCollectionKey = this.keyForCollection(model);
+
+    return this._buildURL(modelCollectionKey, model.id, relName);
+  },
+
+  _buildURLForBelongsTo(model, relationship, relName) {
+    const modelCollectionKey = this.keyForCollection(model);
+
+    return this._buildURL(modelCollectionKey, model.id, relName, relationship.id);
   }
 
 });
