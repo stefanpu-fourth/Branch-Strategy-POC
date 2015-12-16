@@ -9,11 +9,11 @@ export default function(server) {
 
   const employee = server.create('employee');
   const employee_id = employee.id;
-  const payslips = server.createList('payslip', 10);
+  const payslips = server.createList('payslip', 10, { employee_id });
 
   server.create('root', { employee_id, employeeId: employee.id });
   server.create('mainEmployment', { employee_id, employeeId: employee.id });
   server.create('holidayBalance', { employee_id });
   server.createList('rotaSchedule', 10, { employee_id });
-  payslips.map(ps => server.createList('payslipElement', 10, { payslip_id: ps.id }));
+  payslips.map(ps => server.createList('payslipElement', 10, { payslip_id: ps.id, payslipId: ps.id }));
 }
