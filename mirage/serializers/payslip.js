@@ -1,5 +1,13 @@
 import ApplicationSerializer from './application';
 
-export default ApplicationSerializer.extend({
-  relationships: ['payslipElements']
+const PayslipSerializer = ApplicationSerializer.extend({
+  relationships: ['payslipElements'],
+
+  _buildRelPath() {
+    return '/rels/payslipElement';
+  }
 });
+
+PayslipSerializer.prototype.included = ['payslipElements'];
+
+export default PayslipSerializer;
