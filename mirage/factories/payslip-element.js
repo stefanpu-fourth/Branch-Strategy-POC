@@ -5,6 +5,8 @@ export default Mirage.Factory.extend({
   category(i) { return i % 2 === 0 ? 'Payment' : 'Deduction'; },
   description: faker.finance.accountName,
   isGross(i) { return i % 2 === 0; },
-  rate: faker.finance.amount,
-  units: faker.finance.currencySymbol
+  rate() {
+    return parseFloat(faker.finance.amount);
+  },
+  units() { return 2; }
 });
