@@ -80,30 +80,30 @@ export default Serializer.extend({
   },
 
   _serializeRelationshipsFor(model) {
-    const serializer = this._serializerFor(model);
-
-    return serializer.relationships.map(relName => {
+    return this.relationships.map(relName => {
       const relationship = model[relName];
+      const included = this._isIncludedRelationship(relName);
       let entity;
 
-      // FIXME: Mirage is not mapping the foreign keys to child entities
-      // when in ORM mode. Relationships are not working at the moment (argh!)
       if (relationship instanceof Model) {
-        entity = this._serializeBelongsTo(model, relationship, relName);
+        entity = this._serializeBelongsTo(model, relationship, relName, included);
       } else if (relationship instanceof Collection) {
-        entity = this._serializeHasMany(model, relationship, relName);
+        entity = this._serializeHasMany(model, relationship, relName, included);
       }
 
       return entity;
     });
   },
 
-  _serializeBelongsTo(model, relationship, relName) {
-    const { included } = this;
+  _isIncludedRelationship(relName) {
+    return this.constructor.prototype.included.indexOf(relName) !== -1;
+  },
+
+  _serializeBelongsTo(model, relationship, relName, included) {
     let res;
 
-    if (included.indexOf(relName) !== -1) {
-      res = this._serializeIncludedModel(relationship, relName);
+    if (included) {
+      res = this._serializeIncludedModel(model, relationship, relName);
     } else {
       res = {
         'class': [ this.keyForModel(relationship) ],
@@ -115,12 +115,11 @@ export default Serializer.extend({
     return res;
   },
 
-  _serializeHasMany(model, relationship, relName) {
-    const { included } = this;
+  _serializeHasMany(model, relationship, relName, included) {
     let res;
 
-    if (included.indexOf(relName) !== -1) {
-      res = relationship.map(rel => this._serializeIncludedModel(rel, relName));
+    if (included) {
+      res = relationship.map(rel => this._serializeIncludedModel(model, rel, relName));
     } else {
       res = [{
         'class': [ this.keyForCollection(relationship) ],
@@ -132,13 +131,13 @@ export default Serializer.extend({
     return res;
   },
 
-  _serializeIncludedModel(model, relName) {
+  _serializeIncludedModel(model, relatedModel, relName) {
     const relPath = this._buildRelPath(model, relName);
 
     return {
-      'class': [ this.keyForModel(model) ],
+      'class': [ this.keyForModel(relatedModel) ],
       rel: [ relPath ],
-      properties: this._attrsForModel(model)
+      properties: this._attrsForModel(relatedModel)
     };
   },
 
