@@ -111,6 +111,10 @@ export default {
       catchAll: 'How embarrassing!! We could not do what you asked and we do not know why. Please try again.',
       forbidden: 'Sorry but you do not have permissions to see',
       notFound: 'How embarrassing!! We could not do what you asked and we do not know why. Please try again.'
+    },
+    errorSplash: {
+      catchAll: 'Sorry, but this page doesn\'t exist.',
+      tryMain: 'Why not try one of the main pages?'
     }
   }
 };
