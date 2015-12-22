@@ -28,7 +28,7 @@ export default Ember.Mixin.create({
         message,
         type: 'error',
         autoClear: true,
-        clearDuration: 3000
+        clearDuration: 5000
       });
 
       return transition.abort();

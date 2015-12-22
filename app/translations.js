@@ -109,8 +109,15 @@ export default {
     },
     errorNotifications: {
       catchAll: 'How embarrassing!! We could not do what you asked and we do not know why. Please try again.',
-      forbidden: 'Sorry but you do not have permissions to see',
+      forbidden: 'Sorry, but you don\'t have permission to see this page.',
       notFound: 'How embarrassing!! We could not do what you asked and we do not know why. Please try again.'
+    },
+    errorSplash: {
+      catchAll: 'Sorry, but this page doesn\'t exist.',
+      wentWrong: 'Sorry, it looks like something went wrong!',
+      wentWrongMessage: 'This error has been logged. In the meantime try to <a href="/">refresh the page</a> or try one of the main pages.',
+      noPermission: 'Sorry, but you don\'t have permission to see this page.',
+      tryMain: 'Why not try one of the main pages?'
     }
   }
 };

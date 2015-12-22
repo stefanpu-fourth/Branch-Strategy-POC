@@ -1,21 +1,20 @@
 // app.scss
-
 // import the fourth styles
-   @import "fourth";
+@import "fourth";
 
 // import pods
 // this contains styles for all pods
 // including components
-   @import "pods";
+@import "pods";
 
 // import specific styleguide styles
 // not within pods or components
-   @import "ess";
+@import "ess";
 
 // scss for the notifications system
-   @import "node_modules/ember-cli-notifications/addon/styles/addon.scss";
-
-   @import "default";
+@import "node_modules/ember-cli-notifications/addon/styles/addon.scss";
+@import "_notifications";
+@import "default";
 
 // REVIEW THIS
 @import "temp/temp";
