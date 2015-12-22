@@ -61,7 +61,9 @@ export default {
       remaining: 'Remaining',
       accrued: 'Accrued',
       noRotasForWeek: 'There is no rota for this week',
-      noRotas: 'There are currently no rotas available'
+      noRotas: 'There are currently no rotas available',
+      infoIcon: '&#9432;',
+      subjectToChange: 'Your shift times may be subject to change'
     },
     details: {
       name: 'Name',
