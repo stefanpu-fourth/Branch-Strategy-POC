@@ -43,12 +43,17 @@
   }
 
   &-body {
-
-    // layout
     display: block;
     width: 65vw;
     max-width: 500px;
     margin: rem(16) auto;
+
+    &--title {
+
+      a {
+        text-decoration: underline;
+      }
+    }
   }
 }
 

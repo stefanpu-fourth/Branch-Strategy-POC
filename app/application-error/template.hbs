@@ -1,2 +1,18 @@
-<p>How embarrassing!! Something went wrong and we’re not sure what it is.</p>
-<a href="/">Refresh</a>
+<div class="error-page">
+  <header class="error-header">
+    <div class="error-header--title"></div>
+  </header>
+  <div class="error-body">
+    <h2 class="error-header--sub-title">{{t 'errorSplash.wentWrong'}}</h2>
+    <h3 class="error-body--title">{{t 'errorSplash.wentWrongMessage'}}</h3>
+    {{#link-to "rotas" class="f-btn" }}
+      {{t 'menu.rotas'}}
+    {{/link-to}}
+    {{#link-to "payslips" class="f-btn" }}
+      {{t 'menu.payslips'}}
+    {{/link-to}}
+    {{#link-to "details" class="f-btn" }}
+      {{t "menu.details"}}
+    {{/link-to}}
+  </div>
+</div>
