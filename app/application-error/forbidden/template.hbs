@@ -1,17 +1,18 @@
-403
-<br>
-Sorry but you don’t have permissions to see
-<br>
-Why not try the main pages?
-<br>
-{{#link-to "rotas"}}
-  {{t 'menu.rotas'}}
-{{/link-to}}
-<br>
-{{#link-to "payslips"}}
-  {{t 'menu.payslips'}}
-{{/link-to}}
-<br>
-{{#link-to "details"}}
-  {{t "menu.details"}}
-{{/link-to}}
+<div class="error-page">
+  <header class="error-header">
+    <div class="error-header--title"></div>
+  </header>
+  <div class="error-body">
+    <h2 class="error-header--sub-title">{{t 'errorSplash.noPermission'}}</h2>
+    <h3 class="error-body--title">{{t 'errorSplash.tryMain'}}</h3>
+    {{#link-to "rotas" class="f-btn" }}
+      {{t 'menu.rotas'}}
+    {{/link-to}}
+    {{#link-to "payslips" class="f-btn" }}
+      {{t 'menu.payslips'}}
+    {{/link-to}}
+    {{#link-to "details" class="f-btn" }}
+      {{t "menu.details"}}
+    {{/link-to}}
+  </div>
+</div>

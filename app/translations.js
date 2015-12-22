@@ -116,6 +116,7 @@ export default {
       catchAll: 'Sorry, but this page doesn\'t exist.',
       wentWrong: 'Sorry, it looks like something went wrong!',
       wentWrongMessage: 'This error has been logged. In the meantime try to <a href="/">refresh the page</a> or try one of the main pages.',
+      noPermission: 'Sorry, but you don\'t have permission to see this page.',
       tryMain: 'Why not try one of the main pages?'
     }
   }
