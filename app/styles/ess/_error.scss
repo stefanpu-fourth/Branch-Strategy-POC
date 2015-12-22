@@ -1,0 +1,61 @@
+.error {
+  &-page {
+    display: block;
+    min-height: 100vh;
+    padding: rem(64) rem(16) rem(16);
+    background-color: $color-grey-lightest;
+    color: $color-grey-darker;
+
+    * + * {
+      margin-top: rem(16);
+    }
+  }
+
+  &-header {
+    &--title {
+      // layout
+      display: block;
+      width: 90vw;
+      max-width: 800px;
+      height: 40.5vw;
+      max-height: 360px;
+      margin: 0 auto -5vw;
+
+      // style
+      background: {
+        image: url(../images/oops.png);
+        position: center center;
+        repeat: no-repeat;
+        size: contain;
+      }
+    }
+
+    &--sub-title {
+      display: block;
+      font-size: rem(22);
+      font: {
+        size: 7vw;
+        weight: 100;
+      }
+      line-height: 1.3;
+      color: $color-grey-dark;
+    }
+  }
+
+  &-body {
+
+    // layout
+    display: block;
+    width: 65vw;
+    max-width: 500px;
+    margin: rem(16) auto;
+  }
+}
+
+.f-btn {
+  @include button(fullwidth);
+
+  &:first-of-type {
+    margin-top: rem(16);
+  }
+}
