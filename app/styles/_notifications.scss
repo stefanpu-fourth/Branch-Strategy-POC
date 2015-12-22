@@ -1,0 +1,68 @@
+.c-notification {
+  @include border-radius(0);
+
+  &__container {
+    // layout
+    width: 100%;
+    // position
+    top: 0;
+  }
+
+  &__content {
+    // layout
+    padding: rem(32);
+  }
+
+  &__icon {
+    width: rem(48);
+  }
+
+  &--success,
+  &--error {
+    // style
+    background-color: rgba($color-grey-darkest, 0.8);
+
+    .c-notification__content {
+      padding-left: rem(64);
+    }
+
+    .c-notification__icon {
+      background-color: transparent;
+
+      span {
+        // layout
+        display: block;
+        width: 100%;
+        // typography
+        text-align: center;
+      }
+
+      &::after {
+        content: url('/images/warning-triangle.svg');
+        // layout
+        display: block;
+        width: 32px;
+        height: 32px;
+        margin-top: -20px;
+        // position
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        // style
+        opacity: 0.5;
+      }
+    }
+  }
+
+  &--success {
+    .c-notification__countdown {
+      background-color: $color-success;
+    }
+  }
+
+  &--error {
+    .c-notification__countdown {
+      background-color: $color-error;
+    }
+  }
+}

@@ -109,7 +109,7 @@ export default {
     },
     errorNotifications: {
       catchAll: 'How embarrassing!! We could not do what you asked and we do not know why. Please try again.',
-      forbidden: 'Sorry but you do not have permissions to see',
+      forbidden: 'Sorry, but you don\'t have permission to see this page.',
       notFound: 'How embarrassing!! We could not do what you asked and we do not know why. Please try again.'
     },
     errorSplash: {
