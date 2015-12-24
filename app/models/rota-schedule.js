@@ -1,30 +1,8 @@
 import DS from 'ember-data';
 import Ember from 'ember';
+import Shift from './shift';
 
 var attr = DS.attr;
-
-var Shift = Ember.Object.extend({
-  jobTitle: null,
-  type: null,
-  location: null,
-  start: null,
-  end: null,
-
-  convertToMinutes: function(time) {
-    var hours   = parseInt(time.substring(0, 2), 10);
-    var minutes = parseInt(time.substring(3, 5), 10);
-
-    return (hours * 60) + minutes;
-  },
-
-  startAsMinutes: function() {
-    return this.convertToMinutes(this.get('start'));
-  }.property('start'),
-
-  endAsMinutes: function() {
-    return this.convertToMinutes(this.get('end'));
-  }.property('end')
-});
 
 export default DS.Model.extend({
   type: attr('string'),
@@ -54,25 +32,7 @@ export default DS.Model.extend({
   }.property('type'),
 
   calculateShifts: function(meta) {
-    var times = this.get('shiftTimes');
-    let newShifts = [];
-    if (times) {
-      newShifts = times.map((startTime, index) => {
-        if ((index % 2) === 0) {
-          var endTime = times[index + 1];
-          if (startTime !== endTime) {
-            return Shift.create(Ember.merge(this.getProperties('jobTitle', 'type', 'location'), {
-              start: startTime,
-              end: endTime,
-              meta: meta
-            }));
-          }
-        }
-
-        return undefined;
-      });
-    }
-    this.set('shifts', newShifts.compact());
+    this.set('shifts', Shift.shiftsFromSchedule(this, meta));
   },
 
   overlappingShifts: function() {
