@@ -6,7 +6,7 @@ export default Ember.Component.extend({
   classNames: ['rota-week'],
 
   week: null,
-  shifts: null,
+  days: Ember.computed.alias('week.days'),
   selectedShift: null,
   selectTarget: null,
 

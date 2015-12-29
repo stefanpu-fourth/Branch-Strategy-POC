@@ -45,10 +45,10 @@ test('it groups the rotaSchedule objects into rota weeks', function(assert) {
     assert.equal(weeks.get('length'), 5, 'expected number of rota weeks loaded');
     weeks.forEach(week => {
       let formattedShiftStart = week.get('start').format('YYYY-MM-DD');
-      assert.equal(week.get('shifts.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
+      assert.equal(week.get('days.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
 
       // days of week should all have matching rotaStart days
-      let startDates = new Set(week.get('shifts').map(w => w.get('rotaStart')));
+      let startDates = new Set(week.get('days').map(w => w.get('rotaStart')));
       assert.equal(startDates.size, 1, 'all dates within a week match');
     });
   });
@@ -97,7 +97,7 @@ test('it consolidates days in rota weeks', function(assert) {
     assert.equal(weeks.get('length'), 5, 'expected number of rota weeks loaded');
     weeks.forEach(week => {
       let formattedShiftStart = week.get('start').format('YYYY-MM-DD');
-      assert.equal(week.get('shifts.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
+      assert.equal(week.get('days.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
     });
 
     // find day that matching date for last record as that should be consolidated
@@ -106,14 +106,14 @@ test('it consolidates days in rota weeks', function(assert) {
     let dayFilter = day => shiftDate.isSame(day.get('shiftDateAsMoment'), 'day');
 
     let recordWeek = service.findWeekForDate(weeks, shiftDate.valueOf());
-    let days = recordWeek.shifts.filter(dayFilter);
+    let days = recordWeek.days.filter(dayFilter);
 
     assert.equal(days.length, 1, 'single day for merged shifts found');
     assert.equal(days[0].shifts.length, 2, 'shifts get merged as expected');
 
     weeks = service.getRotaWeeks(records);
     recordWeek = service.findWeekForDate(weeks, shiftDate);
-    days = recordWeek.shifts.filter(dayFilter);
+    days = recordWeek.days.filter(dayFilter);
     assert.equal(days[0].shifts.length, 2, 'shifts merged as expected after second call to getRotaWeeks');
   });
 });
@@ -201,14 +201,14 @@ test("if we have the same days but our week starts on Sunday things still work a
     // new logic means that all weeks should still have 7 days
     weeks.forEach(week => {
       let formattedShiftStart = week.get('start').format('YYYY-MM-DD');
-      assert.equal(week.get('shifts.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
+      assert.equal(week.get('days.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
 
       // days of week should all have matching rotaStart days
-      let checkDates = new Set(week.get('shifts').map(w => w.get('rotaStart')));
+      let checkDates = new Set(week.get('days').map(w => w.get('rotaStart')));
       assert.equal(checkDates.size, 1, 'all dates within a week match');
 
       // all days within a week should be chronologically ordered
-      checkDates = week.get('shifts').map(week => moment(week.get('shiftDate')).valueOf());
+      checkDates = week.get('days').map(week => moment(week.get('shiftDate')).valueOf());
       let checkDate = checkDates[0];
       for (let i = 1; i < checkDates.length; i++) {
         assert.ok(checkDates[i] > checkDate, 'day dates are chronological');
@@ -216,8 +216,8 @@ test("if we have the same days but our week starts on Sunday things still work a
       }
     });
 
-    assert.equal(firstWeek.get('shifts.0.shiftDate'), '2015-03-29', 'first shift record in first week is now Sunday, not Monday');
-    assert.equal(lastWeek.get('shifts.0.shiftDate'), '2015-05-03', 'last shift record date matches');
+    assert.equal(firstWeek.get('days.0.shiftDate'), '2015-03-29', 'first shift record in first week is now Sunday, not Monday');
+    assert.equal(lastWeek.get('days.0.shiftDate'), '2015-05-03', 'last shift record date matches');
   });
 });
 
@@ -230,16 +230,16 @@ test("if weeks are missing from the data then empty weeks should get inserted", 
   let weeks = service.getRotaWeeks(records);
   // we should have 5 weeks
   assert.equal(weeks.length, 5, 'we still have five weeks');
-  assert.equal(weeks[1].shifts.length, 0, 'second week has no shifts');
-  assert.equal(weeks[2].shifts.length, 0, 'third week has no shifts');
+  assert.equal(weeks[1].days.length, 0, 'second week has no days');
+  assert.equal(weeks[2].days.length, 0, 'third week has no days');
 
   // delete the first week, and we should be left with just two weeks
   records.splice(0, 7);
   weeks = service.getRotaWeeks(records);
   assert.equal(weeks.length, 2, 'we now have only two weeks');
   // none of them should be empty
-  assert.equal(weeks[0].get('shifts.length'), 7, 'first week is complete');
-  assert.equal(weeks[1].get('shifts.length'), 7, 'second week is complete');
+  assert.equal(weeks[0].get('days.length'), 7, 'first week is complete');
+  assert.equal(weeks[1].get('days.length'), 7, 'second week is complete');
 });
 
 test("findOverlapForShift can find matching overlaps", function(assert) {
@@ -261,7 +261,7 @@ test("findOverlapForShift can find matching overlaps", function(assert) {
   assert.ok(service.findOverlapForShift(weeks, fetchedShift), 'that shift is in an overlap');
 
   let recordWeek = service.findWeekForDate(weeks, records[1].get('shiftDate').valueOf());
-  let days = recordWeek.shifts.filter(day => day.get('shiftDateAsMoment').isSame(records[1].get('shiftDateAsMoment'), 'day'));
+  let days = recordWeek.days.filter(day => day.get('shiftDateAsMoment').isSame(records[1].get('shiftDateAsMoment'), 'day'));
 
   assert.equal(fetchedShift, days[0].get('overlappingShifts')[0].shifts[0], "and it's the right one");
 });

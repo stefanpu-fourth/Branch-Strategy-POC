@@ -1,8 +1,8 @@
 {{! rota-hour-bars dayStart=week.meta.dayStartAsMinutes dayEnd=week.meta.dayEndAsMinutes }}
 <h1 class="card--title -center">{{week.formattedDateRange}}</h1>
-{{#each shifts as |shiftDay index|}}
+{{#each days as |day index|}}
   {{rota-day
-     day=shiftDay
+     day=day
      selectedShift=selectedShift
      selectedOverlap=selectedOverlap
      selectTarget=selectTarget
