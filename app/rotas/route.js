@@ -25,16 +25,12 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
   afterModel: function (model) {
     this.meta = model.rotaSchedules.get('meta') || this.meta;
     model.rotaSchedules.set('meta', this.meta);
-
-    model.rotaSchedules.forEach(day => {
-      day.calculateShifts(this.meta);
-    });
   },
 
   setupController: function(controller, model) {
     var rotaService = this.get('rotaService');
-    var rotaWeeks = rotaService.getRotaWeeks(model.rotaSchedules);
-    var selectedShift = rotaService.getNextShift(model.rotaSchedules);
+    var rotaWeeks = rotaService.getRotaWeeks(model.rotaSchedules, this.meta);
+    var selectedShift = rotaService.getNextShiftFromWeeks(rotaWeeks);
     var selectedOverlap;
     if (selectedShift) {
       selectedOverlap = rotaService.findOverlapForShift(rotaWeeks, selectedShift);

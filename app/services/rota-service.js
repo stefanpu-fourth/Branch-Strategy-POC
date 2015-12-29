@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import i18n from 'ess/i18n';
+import Day from 'ess/models/day';
 
 var dayMonthFormat = i18n.t('dateFormats.dayMonth');
 
@@ -29,17 +30,11 @@ RotaWeek.reopenClass({
 
 export default Ember.Service.extend({
 
-  getRotaWeeks: function(schedules) {
+  getRotaWeeks: function(schedules, meta) {
     // consolidate schedules into weeks
     // including consolidating shifts from multiple duplicate days into one day
     var rotaWeeks = [];
-    var meta = schedules.get('meta');
-    var store = schedules.get('firstObject.store');
-
-    // reset calculated shifts, as otherwise for subsequent calls we get lots of duplicates
-    schedules.forEach((s) => {
-      s.calculateShifts(meta);
-    });
+    meta = meta || schedules.get('meta');
 
     // revised logic
     // this method is now a week consolidator for the schedules passed in
@@ -55,67 +50,37 @@ export default Ember.Service.extend({
     var weekStarts = schedules.mapBy('rotaStart').map(d => moment(d).valueOf()).uniq().sortBy();
 
     weekStarts.forEach(function(weekDate) {
-      let shiftStart = moment(weekDate);
-      let filterStart = shiftStart.clone().subtract(1, 'days');
-      let end = shiftStart.clone().add(7, 'days');
+      let weekStart = moment(weekDate);
+      let filterStart = weekStart.clone().subtract(1, 'days');
+      let end = weekStart.clone().add(7, 'days');
 
       let schedulesForDate = schedules.filter(s => {
         return s.isBetweenMoments(filterStart, end);
       });
 
-      let shiftDates = schedulesForDate.mapBy('shiftDate').map(d => d.valueOf());
+      let days = Day.daysFromSchedules(schedulesForDate, meta);
 
-      schedulesForDate.forEach((s, index) => {
-        let dayTypes = new Set();
-        if (s.get('isNotRota') && (s.get('shifts.length') === 0)) {
-          dayTypes.add(s.get('type'));
-        }
-        let shiftDate = s.get('shiftDate').valueOf();
-        let dupeIndex = shiftDates.lastIndexOf(shiftDate);
-        while (dupeIndex !== index) {
-          let dupeSchedule = schedulesForDate[dupeIndex];
-          dupeSchedule.get('shifts').forEach(ds => {
-            s.get('shifts').push(ds);
-          });
-          // TODO: we're only merging in types when we have shifts in other records - this may be flawed
-          // essentially this is a workaround to deal with back-end data
-          if (dupeSchedule.get('isNotRota') && (dupeSchedule.get('shifts.length') === 0)) {
-            dayTypes.add(dupeSchedule.get('type'));
-          }
-          schedulesForDate.splice(dupeIndex, 1);
-          shiftDates.splice(dupeIndex, 1);
-          s.set('shifts', s.get('shifts').sort(function(a, b) {
-            return a.start.localeCompare(b.start);
-          }));
-          dupeIndex = shiftDates.lastIndexOf(shiftDate);
-        }
-        s.set('displayTypes', [...dayTypes].sort());
-      });
-
-      // insert missing days here (if wanted)
-      var checkDay = shiftStart.clone();
+      // add in any days that might be missing
+      var checkDay = weekStart.clone();
       while (checkDay.isBefore(end)) {
         // find out if we've got this day
-        let foundDays = schedulesForDate.filter(d => moment(d.get('shiftDate')).isSame(checkDay, 'day'));
+        let foundDays = days.filter(d => d.get('shiftDateAsMoment').isSame(checkDay, 'day'));
         if (foundDays.length === 0) {
           // add it if not
-          let fillerDay = store.createRecord('rota-schedule', {
+          days.push(Day.create({
             shiftDate: checkDay.format('YYYY-MM-DD'),
-            rotaStart: shiftStart.format('YYYY-MM-DD'),
-            type: 'off'
-          });
-          fillerDay.calculateShifts();
-          schedulesForDate.push(fillerDay);
+            rotaStart: weekStart.format('YYYY-MM-DD')
+          }));
         }
         checkDay.add(1, 'days');
       }
 
-      // make sure schedulesForDate array is in order
-      schedulesForDate.sort(function(a, b) {
-        return moment(a.get('shiftDate')).startOf('day').valueOf() - moment(b.get('shiftDate')).startOf('day').valueOf();
+      // make sure days array is sorted
+      days.sort(function(a, b) {
+        return a.get('shiftDateAsMoment').startOf('day').valueOf() - b.get('shiftDateAsMoment').startOf('day').valueOf();
       });
 
-      rotaWeeks.pushObject(RotaWeek.forDate(shiftStart, schedulesForDate, meta));
+      rotaWeeks.pushObject(RotaWeek.forDate(weekStart, days, meta));
     });
 
     // insert missing weeks
@@ -138,8 +103,8 @@ export default Ember.Service.extend({
   },
 
   _shiftMatches: function(shift, date, shiftDateAsMoment) {
-    let startDateTime = moment(shift.start, "HHmm");
-    let endDateTime = moment(shift.end, "HHmm");
+    let startDateTime = moment(shift.start, "HH:mm");
+    let endDateTime = moment(shift.end, "HH:mm");
 
     let endCheckTime = shiftDateAsMoment.clone().hour(endDateTime.hour());
     endCheckTime.minute(endDateTime.minute());
@@ -179,8 +144,28 @@ export default Ember.Service.extend({
     return foundShift;
   },
 
-  getNextShift: function(schedules, date = Date.now()) {
-    return this._findShift(schedules, date);
+  getNextShiftFromWeeks(weeks, date = Date.now()) {
+    // gather all the shifts from the weeks after the date
+    let checkMoment = moment(date);
+    let shifts = weeks.reduce(
+      (prev, week) => {
+        return prev.concat(week.shifts.reduce(
+          (prev, day) => {
+            let dayMoment = day.get('shiftDateAsMoment');
+            if (dayMoment.isSame(checkMoment, 'day')) {
+              // find only shifts after current time
+              return prev.concat(day.shifts.filter(shift => this._shiftMatches(shift, date, dayMoment)));
+            } else if (dayMoment.isAfter(checkMoment)) {
+              return prev.concat(day.shifts);
+            }
+            return prev;
+          }, [])
+        );
+      },
+      []
+    );
+
+    return shifts[0];
   },
 
   // utility method to check if a shift is in an overlap
@@ -224,7 +209,11 @@ export default Ember.Service.extend({
     date = moment(date);
     var foundWeek;
     weeks.forEach(week => {
-      if (date.isBetween(moment(week.get('start')).subtract(1, 'ms'), week.get('end'))) {
+      if (date.isBetween(
+        moment(week.get('start')).subtract(1, 'ms'),
+        moment(week.get('end')).add(1, 'day'),
+        'day')
+      ) {
         foundWeek = week;
       }
     });

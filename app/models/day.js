@@ -4,14 +4,14 @@ import Shift from './shift';
 let Day = Ember.Object.extend({
   shiftDate: null,
   rotaStart: null,
-  shifts: null,
+  shifts: [],
   displayTypes: null,
 
   hasDisplayableType: Ember.computed.bool('displayTypes.length'),
 
   overlappingShifts: function() {
     let overlaps = [];
-    const shifts = this.get('shifts');
+    const shifts = this.get('shifts') || [];
 
     shifts.forEach(function(shift, index) {
       const endTime = shift.get('endAsMinutes');
