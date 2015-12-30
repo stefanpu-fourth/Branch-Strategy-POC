@@ -5,8 +5,6 @@ import ErrorNotifications from 'ess/mixins/error-notifications';
 import Week from 'ess/models/week';
 
 export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, {
-  rotaService: Ember.inject.service(),
-
   title: 'MY ROTAS',
 
   meta: null,
@@ -28,12 +26,11 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
   },
 
   setupController: function(controller, model) {
-    var rotaService = this.get('rotaService');
     var rotaWeeks = Week.weeksFromSchedules(model.rotaSchedules, this.meta);
     var selectedShift = Week.getNextShiftFromWeeks(rotaWeeks);
     var selectedOverlap;
     if (selectedShift) {
-      selectedOverlap = rotaService.findOverlapForShift(rotaWeeks, selectedShift);
+      selectedOverlap = Week.findOverlapForShift(rotaWeeks, selectedShift);
     }
     if (selectedOverlap) {
       selectedShift = undefined;

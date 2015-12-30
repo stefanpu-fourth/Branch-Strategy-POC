@@ -9,15 +9,15 @@ moduleFor('model:day', 'Unit | Model | day', {
   needs: ['model:rota-schedule'],
 
   beforeEach: function() {
-    let container = this.container;
+    const container = this.container;
     store = container.lookup('service:store');
   }
 });
 
 function makeSchedule(shiftTimes = [], rawDate = Date.now()) {
-  let date = moment(rawDate).startOf('day');
-  let keys = ['jobTitle', 'type', 'location'];
-  let rawSchedule = { shiftTimes };
+  const date = moment(rawDate).startOf('day');
+  const keys = ['jobTitle', 'type', 'location'];
+  const rawSchedule = { shiftTimes };
 
   keys.forEach((key) => rawSchedule[key] = key);
   rawSchedule.shiftDate = date.format('YYYY-MM-DD');
@@ -36,9 +36,9 @@ test('daysFromSchedules can interpret a schedule record and make a day', functio
   assert.expect(6);
 
   Ember.run(() => {
-    let days = Day.daysFromSchedules([makeSchedule()]);
-    let day = days[0];
-    let displayTypes = day.get('displayTypes');
+    const days = Day.daysFromSchedules([makeSchedule()]);
+    const day = days[0];
+    const displayTypes = day.get('displayTypes');
 
     assert.equal(days.length, 1, 'Single day created');
     assert.equal(day.shifts.length, 0, 'No shifts in day');
@@ -53,9 +53,9 @@ test('daysFromSchedules will make a single day from multiple rota-schedule recor
   assert.expect(6);
 
   Ember.run(() => {
-    let days = Day.daysFromSchedules([makeSchedule(), makeSchedule()]);
-    let day = days[0];
-    let displayTypes = day.get('displayTypes');
+    const days = Day.daysFromSchedules([makeSchedule(), makeSchedule()]);
+    const day = days[0];
+    const displayTypes = day.get('displayTypes');
 
     assert.equal(days.length, 1, 'Single day created');
     assert.equal(day.shifts.length, 0, 'No shifts in day');
@@ -70,10 +70,10 @@ test('daysFromSchedules can make a day containing shifts', function(assert) {
   assert.expect(6);
 
   Ember.run(() => {
-    let days = Day.daysFromSchedules([makeSchedule(['00:30', '01:37'])]);
-    let day = days[0];
-    let shift = day.shifts[0];
-    let displayTypes = day.get('displayTypes');
+    const days = Day.daysFromSchedules([makeSchedule(['00:30', '01:37'])]);
+    const day = days[0];
+    const shift = day.shifts[0];
+    const displayTypes = day.get('displayTypes');
 
     assert.equal(days.length, 1, 'Single day created');
     assert.equal(day.shifts.length, 1, 'Single shift in day');
@@ -88,10 +88,10 @@ test('daysFromSchedules can make a day containing shifts from multiple records',
   assert.expect(6);
 
   Ember.run(() => {
-    let days = Day.daysFromSchedules([makeSchedule(), makeSchedule(['00:30', '01:37'])]);
-    let day = days[0];
-    let shift = day.shifts[0];
-    let displayTypes = day.get('displayTypes');
+    const days = Day.daysFromSchedules([makeSchedule(), makeSchedule(['00:30', '01:37'])]);
+    const day = days[0];
+    const shift = day.shifts[0];
+    const displayTypes = day.get('displayTypes');
 
     assert.equal(days.length, 1, 'Single day created');
     assert.equal(day.shifts.length, 1, 'Single shift in day');
@@ -106,10 +106,10 @@ test('daysFromSchedules can make a day containing overlapping shifts from a sing
   assert.expect(6);
 
   Ember.run(() => {
-    let days = Day.daysFromSchedules([makeSchedule(['00:30', '01:37', '01:00', '02:00'])]);
-    let day = days[0];
-    let overlaps = day.get('overlappingShifts');
-    let overlap = overlaps[0];
+    const days = Day.daysFromSchedules([makeSchedule(['00:30', '01:37', '01:00', '02:00'])]);
+    const day = days[0];
+    const overlaps = day.get('overlappingShifts');
+    const overlap = overlaps[0];
 
     assert.equal(days.length, 1, 'Single day created');
     assert.equal(day.shifts.length, 2, 'Two shifts in day');
@@ -124,10 +124,10 @@ test('daysFromSchedules can make a day containing overlapping shifts from multip
   assert.expect(6);
 
   Ember.run(() => {
-    let days = Day.daysFromSchedules([makeSchedule(['00:30', '01:37', '04:00', '05:00']), makeSchedule(['01:00', '02:00'])]);
-    let day = days[0];
-    let overlaps = day.get('overlappingShifts');
-    let overlap = overlaps[0];
+    const days = Day.daysFromSchedules([makeSchedule(['00:30', '01:37', '04:00', '05:00']), makeSchedule(['01:00', '02:00'])]);
+    const day = days[0];
+    const overlaps = day.get('overlappingShifts');
+    const overlap = overlaps[0];
 
     assert.equal(days.length, 1, 'Single day created');
     assert.equal(day.shifts.length, 3, 'Three shifts in day');
@@ -142,18 +142,54 @@ test('daysFromSchedules makes multiple days', function(assert) {
   assert.expect(5);
 
   Ember.run(() => {
-    let days = Day.daysFromSchedules([
+    const days = Day.daysFromSchedules([
       makeSchedule([], '2015-01-01'),
       makeSchedule([], '2015-01-02'),
       makeSchedule([], '2015-01-02'),
       makeSchedule([], '2015-01-03')
     ]);
-    let day = days[2];
+    const day = days[2];
 
     assert.equal(days.length, 3, 'Three days created');
     assert.equal(day.shifts.length, 0, 'No shifts in final day');
     assert.equal(day.get('overlappingShifts.length'), 0, 'No overlaps in day');
     assert.ok(day.get('hasDisplayableType'), 'As schedules for the day had no shifts, displayable types found');
     assert.equal(day.get('displayTypes.0'), 'type', 'Type of final day is as expected');
+  });
+});
+
+test('daysFromSchedules merges days with correctly sorted shifts', function(assert) {
+  assert.expect(11);
+
+  Ember.run(() => {
+    const days = Day.daysFromSchedules([
+      makeSchedule(['17:00', '18:00'], '2015-03-03'),
+      makeSchedule([], '2015-01-01'),
+      makeSchedule(['19:00', '22:00'], '2015-03-03'),
+      makeSchedule(['11:00', '12:00'], '2015-03-03'),
+      makeSchedule(['07:00', '09:00'], '2016-01-01')
+    ]);
+    let day = days[0];
+    let shifts = day.shifts;
+
+    // NB days returned are not sorted, but will instead be in the order they first appear
+    // hence why we're looking for day zero being 2015-03-03
+
+    assert.equal(days.length, 3, 'Three days created');
+    assert.equal(day.get('shiftDate'), '2015-03-03', 'Date is 2015-03-03 as expected');
+    assert.equal(shifts.length, 3, 'Three shifts found on day');
+    assert.equal(shifts[0].start, '11:00', 'First shift has correct start time');
+    assert.equal(shifts[1].start, '17:00', 'Second shift start is as expected');
+    assert.equal(shifts[2].start, '19:00', 'Third shift start looks right too');
+
+    day = days[1];
+    assert.equal(day.get('shiftDate'), '2015-01-01', 'Date is 2015-01-01 as expected');
+    assert.equal(day.shifts.length, 0, 'No shifts found on day');
+
+    day = days[2];
+    shifts = day.shifts;
+    assert.equal(day.get('shiftDate'), '2016-01-01', 'Date is 2016-01-01 as expected');
+    assert.equal(shifts.length, 1, 'Single shift found on day');
+    assert.equal(shifts[0].start, '07:00', 'Shift on final day starts as expected');
   });
 });

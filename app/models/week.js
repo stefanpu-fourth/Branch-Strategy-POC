@@ -117,20 +117,22 @@ Week.reopenClass({
 
   getNextShiftFromWeeks(weeks, dateTime = Date.now()) {
     const checkDate = moment(dateTime);
+    // get the day before, as this is needed to catch shifts spanning midnight
+    const dayBefore = checkDate.clone().subtract(1, 'day');
 
     // iterate through weeks, and days, until we find a shift after our checkDate
     for (let weekIndex = 0; weekIndex < weeks.length; weekIndex++) {
       const week = weeks[weekIndex];
 
       // does the end of this week come after our checkDate?
-      if (week.get('end').clone().add(1, 'day').isAfter(checkDate)) {
+      if (week.get('end').clone().add(1, 'day').isAfter(dayBefore)) {
         const days = week.days;
 
         for (let dayIndex = 0; dayIndex < days.length; dayIndex++) {
           const day = days[dayIndex];
           const dayDate = moment(day.get('shiftDate'));
 
-          if (checkDate.isSame(dayDate, 'day')) {
+          if (checkDate.isSame(dayDate, 'day') || dayBefore.isSame(dayDate, 'day')) {
             // as it's the same day, are there any shifts after current time?
             const shifts = day.shifts;
 
@@ -140,7 +142,7 @@ Week.reopenClass({
               const endCheckTime = dayDate.clone().hour(endTime.hour());
 
               endCheckTime.minute(endTime.minute());
-              if (shift.get('endTimeAsMinutes') < shift.get('startTimeAsMinutes')) {
+              if (shift.get('endAsMinutes') < shift.get('startAsMinutes')) {
                 endCheckTime.add(1, 'days');
               }
 
@@ -157,8 +159,25 @@ Week.reopenClass({
         }
       }
     }
-  }
+  },
 
+  findOverlapForShift: function(weeks, shift) {
+    var overlapFilter = function(overlap) {
+      return overlap.shifts.contains(shift);
+    };
+
+    for (let i = 0; i < weeks.length; i++) {
+      const week = weeks[i];
+      const days = week.get('days');
+      for (let day = 0; day < days.length; day++) {
+        // check the shift to see if it's in the overlappingShifts for the day
+        let overlaps = days[day].get('overlappingShifts').filter(overlapFilter);
+        if (overlaps && (overlaps.length !== 0)) {
+          return overlaps[0];
+        }
+      }
+    }
+  }
 });
 
 export default Week;
