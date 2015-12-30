@@ -96,3 +96,21 @@ test('findWeekForDate will find week for a date, if there is one', function(asse
     assert.equal(foundWeek, undefined, 'No week found when no weeks given');
   });
 });
+
+test('getWeekIndexForDate will find the correct index', function(assert) {
+  assert.expect(6);
+
+  let weeks = Week.weeksFromSchedules(records);
+
+  assert.equal(Week.getWeekIndexForDate(weeks, new Date(2015, 2, 30)), 0, 'first date is in first week');
+  assert.equal(Week.getWeekIndexForDate(weeks, new Date(2015, 3, 2)), 0, 'second date still in first week');
+  assert.equal(Week.getWeekIndexForDate(weeks, new Date(2015, 3, 6)), 1, 'next monday is in second week');
+  assert.equal(Week.getWeekIndexForDate(weeks, new Date(2014, 2, 2)), 0, 'dates before range get index zero');
+  assert.equal(Week.getWeekIndexForDate(weeks, new Date(2017, 1, 1)), 4, 'dates after range get last index');
+  assert.equal(Week.getWeekIndexForDate([], new Date(2015, 2, 30)), 0, 'no weeks will return zero');
+});
+
+test('getNextShiftFromWeeks', function(assert) {
+  assert.expect(0);
+  // Add explicit tests here!
+});

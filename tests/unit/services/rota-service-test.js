@@ -1,5 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
+import Week from '../../../models/week';
 
 let store;
 let records;
@@ -105,14 +106,14 @@ test('it consolidates days in rota weeks', function(assert) {
     shiftDate = lastRecord.get('shiftDateAsMoment');
     let dayFilter = day => shiftDate.isSame(day.get('shiftDateAsMoment'), 'day');
 
-    let recordWeek = service.findWeekForDate(weeks, shiftDate.valueOf());
+    let recordWeek = Week.findWeekForDate(weeks, shiftDate.valueOf());
     let days = recordWeek.days.filter(dayFilter);
 
     assert.equal(days.length, 1, 'single day for merged shifts found');
     assert.equal(days[0].shifts.length, 2, 'shifts get merged as expected');
 
     weeks = service.getRotaWeeks(records);
-    recordWeek = service.findWeekForDate(weeks, shiftDate);
+    recordWeek = Week.findWeekForDate(weeks, shiftDate);
     days = recordWeek.days.filter(dayFilter);
     assert.equal(days[0].shifts.length, 2, 'shifts merged as expected after second call to getRotaWeeks');
   });
@@ -130,7 +131,7 @@ test('it can get the next shift when there is one', function(assert) {
   record.shiftTimes = ['06:00', '12:00'];
 
   let weeks = service.getRotaWeeks(records);
-  let fetchedShift = service.getNextShiftFromWeeks(weeks, new Date(2015, 3, 2));
+  let fetchedShift = Week.getNextShiftFromWeeks(weeks, new Date(2015, 3, 2));
 
   // fetched shift should be the future one
   assert.equal(fetchedShift.start, '07:00');
@@ -140,7 +141,7 @@ test('it can get the next shift when there is one', function(assert) {
 test("won't return a next shift when there isn't one", function(assert) {
   const service = this.subject();
   let weeks = service.getRotaWeeks(records);
-  let fetchedShift = service.getNextShiftFromWeeks(weeks, new Date(2015, 3, 2));
+  let fetchedShift = Week.getNextShiftFromWeeks(weeks, new Date(2015, 3, 2));
 
   assert.equal(fetchedShift, undefined);
 });
@@ -170,7 +171,7 @@ test("merged schedules correctly sort their shifts", function(assert) {
     record.shiftTimes = ['06:00', '12:00'];
 
     let weeks = service.getRotaWeeks(records);
-    let fetchedShift = service.getNextShiftFromWeeks(weeks, shiftDate);
+    let fetchedShift = Week.getNextShiftFromWeeks(weeks, shiftDate);
 
     // fetched shift should be one from the merged-in record
     assert.equal(fetchedShift.start, '07:00');
@@ -251,16 +252,16 @@ test("findOverlapForShift can find matching overlaps", function(assert) {
   records[1].shiftTimes = ['06:00', '12:00', '06:00', '12:00'];
 
   let weeks = service.getRotaWeeks(records);
-  let fetchedShift = service.getNextShiftFromWeeks(weeks, new Date(2015, 2, 30));
+  let fetchedShift = Week.getNextShiftFromWeeks(weeks, new Date(2015, 2, 30));
   // first fetched shift should not be in an overlap
   assert.ok(fetchedShift, "we've found a shift for the first day");
   assert.ok(!service.findOverlapForShift(weeks, fetchedShift), 'that shift is not in an overlap');
   // shift fetched for second day should be in an overlap
-  fetchedShift = service.getNextShiftFromWeeks(weeks, new Date(2015, 2, 31));
+  fetchedShift = Week.getNextShiftFromWeeks(weeks, new Date(2015, 2, 31));
   assert.ok(fetchedShift, "we've found a shift for the second day");
   assert.ok(service.findOverlapForShift(weeks, fetchedShift), 'that shift is in an overlap');
 
-  let recordWeek = service.findWeekForDate(weeks, records[1].get('shiftDate').valueOf());
+  let recordWeek = Week.findWeekForDate(weeks, records[1].get('shiftDate').valueOf());
   let days = recordWeek.days.filter(day => day.get('shiftDateAsMoment').isSame(records[1].get('shiftDateAsMoment'), 'day'));
 
   assert.equal(fetchedShift, days[0].get('overlappingShifts')[0].shifts[0], "and it's the right one");
@@ -278,23 +279,9 @@ test('findOverlapForShift deals with gaps', function(assert) {
   lastRecord.shiftTimes = ['06:00', '12:00', '06:00', '12:00'];
 
   let weeks = service.getRotaWeeks(records);
-  let fetchedShift = service.getNextShiftFromWeeks(weeks, moment(lastRecord.get('shiftDate')));
+  let fetchedShift = Week.getNextShiftFromWeeks(weeks, moment(lastRecord.get('shiftDate')));
   assert.ok(fetchedShift, "we've found a shift for the final day");
   assert.ok(service.findOverlapForShift(weeks, fetchedShift), 'that shift is in an overlap');
-});
-
-test("getWeekIndexForDate will find the correct index", function(assert) {
-  assert.expect(6);
-  const service = this.subject();
-
-  let weeks = service.getRotaWeeks(records);
-
-  assert.equal(service.getWeekIndexForDate(weeks, new Date(2015, 2, 30)), 0, 'first date is in first week');
-  assert.equal(service.getWeekIndexForDate(weeks, new Date(2015, 3, 2)), 0, 'second date still in first week');
-  assert.equal(service.getWeekIndexForDate(weeks, new Date(2015, 3, 6)), 1, 'next monday is in second week');
-  assert.equal(service.getWeekIndexForDate(weeks, new Date(2014, 2, 2)), 0, 'dates before range get index zero');
-  assert.equal(service.getWeekIndexForDate(weeks, new Date(2017, 1, 1)), 4, 'dates after range get last index');
-  assert.equal(service.getWeekIndexForDate([], new Date(2015, 2, 30)), 0, 'no weeks will return zero');
 });
 
 test('filler days work as expected', function(assert) {
@@ -311,7 +298,7 @@ test('filler days work as expected', function(assert) {
 
     // Check it by looking for overlaps on day after our gap, as that requires all to be working
     let weeks = service.getRotaWeeks(records);
-    let fetchedShift = service.getNextShiftFromWeeks(weeks, moment(testRecord.get('shiftDate')));
+    let fetchedShift = Week.getNextShiftFromWeeks(weeks, moment(testRecord.get('shiftDate')));
     assert.ok(fetchedShift, "we've found a shift for our test day");
     assert.ok(service.findOverlapForShift(weeks, fetchedShift), 'that shift is in an overlap');
   });

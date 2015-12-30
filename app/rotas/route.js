@@ -2,7 +2,7 @@ import Ember from 'ember';
 import FindWithCache from 'ess/mixins/route-find-with-cache';
 import RenderNav from 'ess/mixins/render-nav';
 import ErrorNotifications from 'ess/mixins/error-notifications';
-
+import Week from 'ess/models/week';
 
 export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, {
   rotaService: Ember.inject.service(),
@@ -29,8 +29,8 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
 
   setupController: function(controller, model) {
     var rotaService = this.get('rotaService');
-    var rotaWeeks = rotaService.getRotaWeeks(model.rotaSchedules, this.meta);
-    var selectedShift = rotaService.getNextShiftFromWeeks(rotaWeeks);
+    var rotaWeeks = Week.weeksFromSchedules(model.rotaSchedules, this.meta);
+    var selectedShift = Week.getNextShiftFromWeeks(rotaWeeks);
     var selectedOverlap;
     if (selectedShift) {
       selectedOverlap = rotaService.findOverlapForShift(rotaWeeks, selectedShift);
@@ -42,7 +42,7 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     controller.setProperties({
       'attrs.holiday': model.holidayBalance.get('firstObject'),
       'attrs.rotaWeeks': rotaWeeks,
-      'attrs.defaultIndex': rotaService.getWeekIndexForDate(rotaWeeks),
+      'attrs.defaultIndex': Week.getWeekIndexForDate(rotaWeeks),
       'attrs.selectedShift': selectedShift,
       'attrs.selectedOverlap': selectedOverlap,
       'attrs.selectedIndex': null,
