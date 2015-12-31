@@ -12,9 +12,7 @@ export default Ember.Component.extend({
   selectedOverlap: null,
   selectTarget: null,
 
-  shiftDateAsMoment: function() {
-    return moment(this.get('day.shiftDate'));
-  }.property('day.shiftDate'),
+  shiftDateAsMoment: Ember.computed.alias('day.shiftDateAsMoment'),
 
   isSelectedShift: function() {
     var selectedShift = this.get('selectedShift');
@@ -37,7 +35,7 @@ export default Ember.Component.extend({
   isSelected: Ember.computed.or('isSelectedShift', 'isSelectedOverlap'),
 
   isInPast: function() {
-    return this.get('shiftDateAsMoment').isBefore(moment().startOf('day'));
+    return moment().startOf('day').isAfter(this.get('shiftDateAsMoment'));
   }.property('shiftDateAsMoment'),
 
   dayModifier: function() {

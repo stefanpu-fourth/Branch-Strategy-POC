@@ -30,23 +30,21 @@ Shift.reopenClass({
     let newShifts = [];
 
     if (times) {
-      newShifts = times.map((startTime, index) => {
+      times.forEach((startTime, index) => {
         if ((index % 2) === 0) {
           const endTime = times[index + 1];
           if (startTime !== endTime) {
-            return Shift.create(Ember.merge(rotaSchedule.getProperties('jobTitle', 'type', 'location'), {
+            newShifts.push(Shift.create(Ember.merge(rotaSchedule.getProperties('jobTitle', 'type', 'location'), {
               start: startTime,
               end: endTime,
               meta: meta
-            }));
+            })));
           }
         }
-
-        return undefined;
       });
     }
 
-    return newShifts.compact();
+    return newShifts;
   }
 });
 

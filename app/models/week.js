@@ -32,7 +32,6 @@ Week.reopenClass({
 
       // get only rotaSchedule records for this week
       let schedulesForDate = rotaSchedules.filter(s => {
-        // TODO: maybe replace isBetweenMoments
         return s.isBetweenMoments(filterStart, end);
       });
 

@@ -32,14 +32,9 @@ let Day = Ember.Object.extend({
     return overlaps;
   }.property('shifts'),
 
-  // TODO: do we need this?
   shiftDateAsMoment: function() {
     return moment(this.get('shiftDate'));
-  }.property('shiftDate'),
-
-  isBetweenMoments: function(m1, m2) {
-    return this.get('shiftDateAsMoment').isBetween(m1, m2);
-  }
+  }.property('shiftDate')
 });
 
 Day.reopenClass({

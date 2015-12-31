@@ -138,6 +138,73 @@ test('daysFromSchedules can make a day containing overlapping shifts from multip
   });
 });
 
+test('overlappingShifts are detected', function(assert) {
+  assert.expect(20);
+
+  Ember.run(() => {
+    const days = Day.daysFromSchedules([
+      makeSchedule(['00:00', '06:00', '08:00', '12:00'], '2015-03-01'),
+      makeSchedule(['00:00', '06:00', '05:00', '12:00'], '2015-03-02'),
+      makeSchedule(['00:00', '06:00', '05:00', '12:00', '07:00', '11:00', '10:00', '13:00', '14:00', '15:00'], '2015-03-03'),
+      makeSchedule(['00:00', '06:00', '00:00', '06:00', '08:00', '12:00', '08:00', '12:00'], '2015-03-04')
+    ]);
+    let day = days[0];
+    let overlaps = day.get('overlappingShifts');
+
+    assert.equal(overlaps.length, 0, 'no overlappingShifts on a day without any overlaps');
+
+    day = days[1];
+    overlaps = day.get('overlappingShifts');
+    assert.equal(overlaps.length, 1, 'detects a single overlap');
+
+    let overlap = overlaps[0];
+    let shifts = day.get('shifts');
+    let overlapShifts = overlap.shifts;
+
+    assert.equal(overlap.startAsMinutes, shifts.get('1.startAsMinutes'), 'correct start of overlap period found');
+    assert.equal(overlap.endAsMinutes, shifts.get('0.endAsMinutes'), 'correct end of overlap period found');
+    assert.ok(overlapShifts.indexOf(shifts.get('0')) !== -1, 'first shift identified as being in overlap');
+    assert.ok(overlapShifts.indexOf(shifts.get('1')) !== -1, 'second shift idenfitied as being in overlap');
+
+    day = days[2];
+    overlaps = day.get('overlappingShifts');
+
+    assert.equal(overlaps.length, 3, 'with third set of shift times we have three overlaps');
+
+    shifts = day.get('shifts');
+    overlapShifts = overlaps[0].shifts;
+
+    // first overlap will include shift 0 and 1
+    assert.ok(overlapShifts.indexOf(shifts[0]) !== -1, 'complex overlaps, first shift in first overlap');
+    assert.ok(overlapShifts.indexOf(shifts[1]) !== -1, 'complex overlaps, second shift in first overlap');
+
+    // checks for second overlap
+    overlapShifts = overlaps[1].shifts;
+    assert.ok(overlapShifts.indexOf(shifts[0]) === -1, 'complex overlaps, first shift not in second overlap');
+    assert.ok(overlapShifts.indexOf(shifts[1]) !== -1, 'complex overlaps, second shift in second overlap');
+    assert.ok(overlapShifts.indexOf(shifts[2]) !== -1, 'complex overlaps, third shift in second overlap');
+    assert.ok(overlapShifts.indexOf(shifts[3]) !== -1, 'complex overlaps, fourth shift in second overlap');
+
+    // checks for third overlap
+    overlapShifts = overlaps[2].shifts;
+    assert.ok(overlapShifts.indexOf(shifts[0]) === -1, 'complex overlaps, first shift not in third overlap');
+    assert.ok(overlapShifts.indexOf(shifts[1]) === -1, 'complex overlaps, second shift not in third overlap');
+    assert.ok(overlapShifts.indexOf(shifts[2]) !== -1, 'complex overlaps, third shift in third overlap');
+    assert.ok(overlapShifts.indexOf(shifts[3]) !== -1, 'complex overlaps, fourth shift in third overlap');
+
+    // no overlaps include the fifth shift
+    overlapShifts = [];
+    overlaps.forEach(o => overlapShifts.concat(o.shifts));
+    assert.notEqual(shifts[4], undefined, 'fifth shift is there');
+    assert.equal(overlapShifts.indexOf(shifts[4]), -1, 'complex overlaps, fourth shift is not in any of the overlaps');
+
+    day = days[3];
+    overlaps = day.get('overlappingShifts');
+
+    assert.equal(overlaps.length, 2, 'we can detect precisely overlapping shifts');
+  });
+});
+
 test('daysFromSchedules makes multiple days', function(assert) {
   assert.expect(5);
 
@@ -191,5 +258,29 @@ test('daysFromSchedules merges days with correctly sorted shifts', function(asse
     assert.equal(day.get('shiftDate'), '2016-01-01', 'Date is 2016-01-01 as expected');
     assert.equal(shifts.length, 1, 'Single shift found on day');
     assert.equal(shifts[0].start, '07:00', 'Shift on final day starts as expected');
+  });
+});
+
+test('daysFromSchedules merges shifts from schedules with differing data', function(assert) {
+  assert.expect(11);
+  Ember.run(() => {
+    // make an alternate schedule record with differing data
+    const alternateSchedule = makeSchedule(['18:00', '19:00']);
+    const keys = ['jobTitle', 'type', 'location'];
+    keys.forEach(key => alternateSchedule.set(key, 'test'));
+
+    const days = Day.daysFromSchedules([alternateSchedule, makeSchedule(['08:00', '12:00'])]);
+    const day = days[0];
+    const shifts = day.shifts;
+
+    assert.equal(days.length, 1, 'Schedules merged into a single day as expected');
+    assert.equal(shifts.length, 2, 'Two shifts found on that day');
+    keys.forEach(key => {
+      const firstKeyValue = shifts[0].get(key);
+      const secondKeyValue = shifts[1].get(key);
+      assert.notEqual(firstKeyValue, secondKeyValue, `shift ${key} data differs as expected`);
+      assert.equal(firstKeyValue, key, `first shift's value for ${key} is correct`);
+      assert.equal(secondKeyValue, 'test', `second shift's value for ${key} is correct`);
+    });
   });
 });
