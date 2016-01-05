@@ -2,7 +2,7 @@ import Ember from 'ember';
 import i18n from 'ess/i18n';
 import Day from 'ess/models/day';
 
-var Week = Ember.Object.extend({
+let Week = Ember.Object.extend({
   start: null,
   days: [],
   meta: null,
@@ -13,36 +13,27 @@ var Week = Ember.Object.extend({
 
   formattedDateRange: function() {
     const dayMonthFormat = i18n.t('dateFormats.dayMonth');
-    return moment(this.get('start')).format(dayMonthFormat) + " - " + moment(this.get('end')).format(dayMonthFormat);
+    return `${moment(this.get('start')).format(dayMonthFormat)} - ${moment(this.get('end')).format(dayMonthFormat)}`;
   }.property('start', 'end')
 });
 
 Week.reopenClass({
-  weeksFromSchedules(rotaSchedules, meta) {
-    var rotaWeeks = [];
-    meta = meta || rotaSchedules.get('meta');
-
+  weeksFromSchedules(rotaSchedules, meta = rotaSchedules.get('meta')) {
     // get a unique list of our rotaStart dates from our rotaSchedule records
-    var weekStarts = rotaSchedules.mapBy('rotaStart').map(d => moment(d).valueOf()).uniq().sortBy();
+    const weekStarts = rotaSchedules.mapBy('rotaStart').map(d => moment(d).valueOf()).uniq();
 
-    weekStarts.forEach(function(weekDate) {
-      let weekStart = moment(weekDate);
-      let filterStart = weekStart.clone().subtract(1, 'days');
-      let end = weekStart.clone().add(7, 'days');
-
-      // get only rotaSchedule records for this week
-      let schedulesForDate = rotaSchedules.filter(s => {
-        return s.isBetweenMoments(filterStart, end);
-      });
-
-      // process those into day model objects
-      let days = Day.daysFromSchedules(schedulesForDate, meta);
+    const rotaWeeks = weekStarts.map(weekDate => {
+      const weekStart = moment(weekDate);
+      const filterStart = weekStart.clone().subtract(1, 'days');
+      const end = weekStart.clone().add(7, 'days');
+      const schedulesForWeek = rotaSchedules.filter(s => s.isBetweenMoments(filterStart, end));
+      const days = Day.daysFromSchedules(schedulesForWeek, meta);
+      const checkDay = weekStart.clone();
 
       // add in any days that might be missing
-      var checkDay = weekStart.clone();
       while (checkDay.isBefore(end)) {
         // find out if we've got this day
-        let foundDays = days.filter(d => d.get('shiftDateAsMoment').isSame(checkDay, 'day'));
+        const foundDays = days.filter(d => d.get('shiftDateAsMoment').isSame(checkDay, 'day'));
         if (foundDays.length === 0) {
           // add it if not
           days.push(Day.create({
@@ -54,18 +45,18 @@ Week.reopenClass({
       }
 
       // make sure days array is sorted
-      days.sort(function(a, b) {
-        return a.get('shiftDateAsMoment').startOf('day').valueOf() - b.get('shiftDateAsMoment').startOf('day').valueOf();
-      });
+      days.sort((a, b) =>
+        a.get('shiftDateAsMoment').startOf('day').valueOf() - b.get('shiftDateAsMoment').startOf('day').valueOf()
+      );
 
-      rotaWeeks.pushObject(Week.create({ start: weekStart, days, meta }));
+      return Week.create({ start: weekStart, days, meta });
     });
 
     // insert missing weeks
-    var minDate = moment(weekStarts[0]);
-    var maxDate = moment(Math.max(...weekStarts));
+    const minDate = moment(weekStarts[0]);
+    const maxDate = moment(Math.max(...weekStarts));
     while (minDate.isBefore(maxDate)) {
-      var week = this.findWeekForDate(rotaWeeks, minDate);
+      const week = this.findWeekForDate(rotaWeeks, minDate);
       if (!week) {
         rotaWeeks.pushObject(Week.create({ start: minDate.clone(), days: [], meta }));
       }
@@ -73,26 +64,20 @@ Week.reopenClass({
     }
 
     // make sure our weeks are sorted in order
-    rotaWeeks.sort(function(a, b) {
-      return a.get('start').valueOf() - b.get('start').valueOf();
-    });
+    rotaWeeks.sort((a, b) => a.get('start').valueOf() - b.get('start').valueOf());
 
     return rotaWeeks;
   },
 
   findWeekForDate: function(weeks, date = Date.now()) {
-    date = moment(date);
-    var foundWeek;
-    weeks.forEach(week => {
-      if (date.isBetween(
+    const checkDate = moment(date);
+    return weeks.filter(week => (
+      checkDate.isBetween(
         moment(week.get('start')).subtract(1, 'ms'),
         moment(week.get('end')).add(1, 'day'),
-        'day')
-      ) {
-        foundWeek = week;
-      }
-    });
-    return foundWeek;
+        'day'
+      )
+    ))[0];
   },
 
   getWeekIndexForDate: function(weeks, date = Date.now()) {
@@ -161,7 +146,7 @@ Week.reopenClass({
   },
 
   findOverlapForShift: function(weeks, shift) {
-    var overlapFilter = function(overlap) {
+    const overlapFilter = function(overlap) {
       return overlap.shifts.contains(shift);
     };
 

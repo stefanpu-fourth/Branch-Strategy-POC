@@ -18,14 +18,13 @@ function checkShifts(assert, shiftTimes, schedule, count) {
 }
 
 test('it exists', function(assert) {
-  var model = this.subject();
-  // var store = this.store();
+  const model = this.subject();
   assert.ok(!!model);
 });
 
 test('shift objects can return shift times as minutes', function(assert) {
   assert.expect(4);
-  var model = this.subject();
+  const model = this.subject();
 
   Ember.run(() => {
     model.setProperties({

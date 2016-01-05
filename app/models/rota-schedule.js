@@ -1,6 +1,6 @@
 import DS from 'ember-data';
 
-var attr = DS.attr;
+const { attr } = DS;
 
 export default DS.Model.extend({
   type: attr('string'),
@@ -16,9 +16,8 @@ export default DS.Model.extend({
   // TODO - this logic is flawed and reliant upon particular words
   // this should probably be moved to a back-end provided field
   isNotRota: function() {
-    var type = this.get('type');
-
-    var onOff = /^(on|off|unavailable)$/i;
+    const type = this.get('type');
+    const onOff = /^(on|off|unavailable)$/i;
 
     return !(onOff.test(type));
   }.property('type'),

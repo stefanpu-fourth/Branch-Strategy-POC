@@ -9,7 +9,7 @@ test('it can detect non-rota days', function(assert) {
   assert.expect(7);
 
   // Creates the component instance
-  var model = this.subject();
+  const model = this.subject();
 
   Ember.run(() => {
     model.set('type', 'on');

@@ -24,21 +24,19 @@ let Shift = Ember.Object.extend({
 });
 
 Shift.reopenClass({
-  shiftsFromSchedule(rotaSchedule, meta) {
+  shiftsFromSchedule(rotaSchedule, meta = rotaSchedule.get('meta')) {
     const times = rotaSchedule.get('shiftTimes');
-    meta = meta || rotaSchedule.get('meta');
-    let newShifts = [];
+    const newShifts = [];
 
     if (times) {
-      times.forEach((startTime, index) => {
+      times.forEach((start, index) => {
         if ((index % 2) === 0) {
-          const endTime = times[index + 1];
-          if (startTime !== endTime) {
-            newShifts.push(Shift.create(Ember.merge(rotaSchedule.getProperties('jobTitle', 'type', 'location'), {
-              start: startTime,
-              end: endTime,
-              meta: meta
-            })));
+          const end = times[index + 1];
+          if (start !== end) {
+            newShifts.push(Shift.create(Ember.merge(
+              rotaSchedule.getProperties('jobTitle', 'type', 'location'),
+              { start, end, meta }
+            )));
           }
         }
       });

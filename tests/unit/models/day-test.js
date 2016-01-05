@@ -27,8 +27,7 @@ function makeSchedule(shiftTimes = [], rawDate = Date.now()) {
 }
 
 test('it exists', function(assert) {
-  var model = this.subject();
-  // var store = this.store();
+  const model = this.subject();
   assert.ok(!!model);
 });
 

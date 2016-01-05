@@ -187,12 +187,13 @@ test('weeksFromSchedules inserts empty days into weeks if those days were missin
   assert.equal(weeks.get('lastObject.start').format('YYYY-MM-DD'), '2015-04-27', 'last week is present');
   assert.equal(weeks.get('length'), 5, 'expected number of rota weeks loaded');
   weeks.forEach(week => {
-    const formattedShiftStart = week.get('start').format('YYYY-MM-DD');
+    const weekStart = week.get('start');
+    const formattedShiftStart = weekStart.format('YYYY-MM-DD');
     assert.equal(week.get('days.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
 
-    // days of week should all have matching rotaStart days
-    const startDates = new Set(week.get('days').map(w => w.get('rotaStart')));
-    assert.equal(startDates.size, 1, 'all dates within a week match');
+    // days of week should all be within a week of weekStart
+    const dayDiffs = week.get('days').map(day => weekStart.diff(day.get('shiftDate'), 'days'));
+    assert.ok((Math.max(...dayDiffs) <= 0) && (Math.min(...dayDiffs) > -7), 'all dates within a week');
   });
 
   // delete a few more records so we get a missing week, which should be empty
@@ -208,9 +209,9 @@ test('weeksFromSchedules still works as expected if our week starts on Sunday', 
 
   Ember.run(() => {
     // adjust all our records to have their rotaStart days back a day, moving them from Monday to Sunday
-    records.forEach(function(shift) {
-      const rotaStart = moment(shift.get('shiftDate')).clone().startOf('week');
-      shift.set('rotaStart', rotaStart.format('YYYY-MM-DD'));
+    records.forEach(function(schedule) {
+      const rotaStart = moment(schedule.get('shiftDate')).clone().startOf('week');
+      schedule.set('rotaStart', rotaStart.format('YYYY-MM-DD'));
     });
 
     const weeks = Week.weeksFromSchedules(records);
@@ -224,15 +225,16 @@ test('weeksFromSchedules still works as expected if our week starts on Sunday', 
 
     // new logic means that all weeks should still have 7 days
     weeks.forEach(week => {
-      const formattedShiftStart = week.get('start').format('YYYY-MM-DD');
+      const weekStart = week.get('start');
+      const formattedShiftStart = weekStart.format('YYYY-MM-DD');
       assert.equal(week.get('days.length'), 7, `rota week starting ${formattedShiftStart} is complete`);
 
-      // days of week should all have matching rotaStart days
-      let checkDates = new Set(week.get('days').map(w => w.get('rotaStart')));
-      assert.equal(checkDates.size, 1, 'all dates within a week match');
+      // days of week should all be within a week of weekStart
+      const dayDiffs = week.get('days').map(day => weekStart.diff(day.get('shiftDate'), 'days'));
+      assert.ok((Math.max(...dayDiffs) <= 0) && (Math.min(...dayDiffs) > -7), 'all dates within a week');
 
       // all days within a week should be chronologically ordered
-      checkDates = week.get('days').map(week => moment(week.get('shiftDate')).valueOf());
+      const checkDates = week.get('days').map(week => moment(week.get('shiftDate')).valueOf());
       let checkDate = checkDates[0];
       for (let i = 1; i < checkDates.length; i++) {
         assert.ok(checkDates[i] > checkDate, 'day dates are chronological');

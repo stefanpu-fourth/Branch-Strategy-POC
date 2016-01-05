@@ -2,16 +2,17 @@ import Ember from 'ember';
 import Shift from './shift';
 
 let Day = Ember.Object.extend({
+  // shiftDate is the date for this day's shifts (naming carried over from rota-schedule)
+  // TODO: consider changing to more sensible name
   shiftDate: null,
-  rotaStart: null,
   shifts: [],
-  displayTypes: null,
+  displayTypes: [],
 
   hasDisplayableType: Ember.computed.bool('displayTypes.length'),
 
   overlappingShifts: function() {
-    let overlaps = [];
     const shifts = this.get('shifts') || [];
+    const overlaps = [];
 
     shifts.forEach(function(shift, index) {
       const endTime = shift.get('endAsMinutes');
@@ -23,14 +24,14 @@ let Day = Ember.Object.extend({
         overlaps.push({
           startAsMinutes: Math.min(...overlapping.mapBy('startAsMinutes')),
           endAsMinutes: Math.min(endTime, ...overlapping.mapBy('endAsMinutes')),
-          shifts: [].concat(shift).concat(overlapping),
+          shifts: [shift, ...overlapping],
           meta: shift.meta
         });
       }
     });
 
     return overlaps;
-  }.property('shifts'),
+  }.property('shifts.[]'),
 
   shiftDateAsMoment: function() {
     return moment(this.get('shiftDate'));
@@ -38,8 +39,8 @@ let Day = Ember.Object.extend({
 });
 
 Day.reopenClass({
-  daysFromSchedules(rotaSchedules, meta) {
-    let scheduleDates = new Set(rotaSchedules.mapBy('shiftDate').map(d => d.valueOf()));
+  daysFromSchedules(rotaSchedules, meta = rotaSchedules.get('meta')) {
+    const scheduleDates = new Set(rotaSchedules.mapBy('shiftDate').map(d => d.valueOf()));
 
     return [...scheduleDates].map(date => {
       const scheduleDate = moment(date);
@@ -48,14 +49,14 @@ Day.reopenClass({
       });
 
       // make a new Day from first schedule
-      let day = Day.create(schedules[0].getProperties('shiftDate', 'rotaStart'));
+      const day = Day.create(schedules[0].getProperties('shiftDate'));
 
       // gather shifts and displayTypes for day from all matching schedules
-      let shifts = [];
-      let displayTypes = new Set();
+      const shifts = [];
+      const displayTypes = new Set();
 
       schedules.forEach(schedule => {
-        let scheduleShifts = Shift.shiftsFromSchedule(schedule, meta);
+        const scheduleShifts = Shift.shiftsFromSchedule(schedule, meta);
 
         // displayTypes only added if there's no shifts to display
         if (schedule.get('isNotRota') && (scheduleShifts.length === 0)) {
