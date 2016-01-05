@@ -13,8 +13,24 @@ let Week = Ember.Object.extend({
 
   formattedDateRange: function() {
     const dayMonthFormat = i18n.t('dateFormats.dayMonth');
+
     return `${moment(this.get('start')).format(dayMonthFormat)} - ${moment(this.get('end')).format(dayMonthFormat)}`;
-  }.property('start', 'end')
+  }.property('start', 'end'),
+
+  getNextShiftFromMoment(now, dayBefore = now.clone().subtract(1, 'day')) {
+    // we'll only find a shift if this week ends after 'now'
+    if (this.get('end').clone().add(1, 'day').isAfter(dayBefore)) {
+      const days = this.days;
+
+      for (let dayIndex = 0; dayIndex < days.length; dayIndex++) {
+        const shift = days[dayIndex].getNextShiftFromMoment(now, dayBefore);
+
+        if (shift) {
+          return shift;
+        }
+      }
+    }
+  }
 });
 
 Week.reopenClass({
@@ -27,13 +43,14 @@ Week.reopenClass({
       const filterStart = weekStart.clone().subtract(1, 'days');
       const end = weekStart.clone().add(7, 'days');
       const schedulesForWeek = rotaSchedules.filter(s => s.isBetweenMoments(filterStart, end));
-      const days = Day.daysFromSchedules(schedulesForWeek, meta);
-      const checkDay = weekStart.clone();
+      let days = Day.daysFromSchedules(schedulesForWeek, meta);
+      let checkDay = weekStart.clone();
 
       // add in any days that might be missing
       while (checkDay.isBefore(end)) {
         // find out if we've got this day
         const foundDays = days.filter(d => d.get('shiftDateAsMoment').isSame(checkDay, 'day'));
+
         if (foundDays.length === 0) {
           // add it if not
           days.push(Day.create({
@@ -53,10 +70,12 @@ Week.reopenClass({
     });
 
     // insert missing weeks
-    const minDate = moment(weekStarts[0]);
     const maxDate = moment(Math.max(...weekStarts));
+    let minDate = moment(weekStarts[0]);
+
     while (minDate.isBefore(maxDate)) {
       const week = this.findWeekForDate(rotaWeeks, minDate);
+
       if (!week) {
         rotaWeeks.pushObject(Week.create({ start: minDate.clone(), days: [], meta }));
       }
@@ -71,6 +90,7 @@ Week.reopenClass({
 
   findWeekForDate: function(weeks, date = Date.now()) {
     const checkDate = moment(date);
+
     return weeks.filter(week => (
       checkDate.isBetween(
         moment(week.get('start')).subtract(1, 'ms'),
@@ -85,14 +105,13 @@ Week.reopenClass({
       return 0;
     }
 
-    let weekIndex = weeks.indexOf(this.findWeekForDate(weeks, date));
+    const weekIndex = weeks.indexOf(this.findWeekForDate(weeks, date));
 
     if (weekIndex === -1) {
-      date = moment(date);
-      if (date.isBefore(weeks[0].get('start'))) {
-        weekIndex = 0;
+      if (moment(date).isBefore(weeks[0].get('start'))) {
+        return 0;
       } else {
-        weekIndex = weeks.length - 1;
+        return weeks.length - 1;
       }
     }
 
@@ -106,56 +125,25 @@ Week.reopenClass({
 
     // iterate through weeks, and days, until we find a shift after our checkDate
     for (let weekIndex = 0; weekIndex < weeks.length; weekIndex++) {
-      const week = weeks[weekIndex];
+      const shift = weeks[weekIndex].getNextShiftFromMoment(checkDate, dayBefore);
 
-      // does the end of this week come after our checkDate?
-      if (week.get('end').clone().add(1, 'day').isAfter(dayBefore)) {
-        const days = week.days;
-
-        for (let dayIndex = 0; dayIndex < days.length; dayIndex++) {
-          const day = days[dayIndex];
-          const dayDate = moment(day.get('shiftDate'));
-
-          if (checkDate.isSame(dayDate, 'day') || dayBefore.isSame(dayDate, 'day')) {
-            // as it's the same day, are there any shifts after current time?
-            const shifts = day.shifts;
-
-            for (let shiftIndex = 0; shiftIndex < shifts.length; shiftIndex++) {
-              const shift = shifts[shiftIndex];
-              const endTime = moment(shift.get('end'), "HH:mm");
-              const endCheckTime = dayDate.clone().hour(endTime.hour());
-
-              endCheckTime.minute(endTime.minute());
-              if (shift.get('endAsMinutes') < shift.get('startAsMinutes')) {
-                endCheckTime.add(1, 'days');
-              }
-
-              if (endCheckTime.isAfter(checkDate)) {
-                return shift;
-              }
-            }
-          } else if (checkDate.isBefore(dayDate, 'day')) {
-            // day is after current date, so if we have any shifts grab the first
-            if (day.shifts.length > 0) {
-              return day.shifts[0];
-            }
-          }
-        }
+      if (shift) {
+        return shift;
       }
     }
   },
 
   findOverlapForShift: function(weeks, shift) {
-    const overlapFilter = function(overlap) {
-      return overlap.shifts.contains(shift);
-    };
+    const overlapFilter = overlap => overlap.shifts.contains(shift);
 
     for (let i = 0; i < weeks.length; i++) {
       const week = weeks[i];
       const days = week.get('days');
+
       for (let day = 0; day < days.length; day++) {
         // check the shift to see if it's in the overlappingShifts for the day
         let overlaps = days[day].get('overlappingShifts').filter(overlapFilter);
+
         if (overlaps && (overlaps.length !== 0)) {
           return overlaps[0];
         }

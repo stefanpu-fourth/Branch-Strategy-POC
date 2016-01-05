@@ -283,3 +283,20 @@ test('daysFromSchedules merges shifts from schedules with differing data', funct
     });
   });
 });
+
+
+test('getNextShiftFromMoment can find a shift', function(assert) {
+  // NB getNextShiftFromMoment is implicitly tested with week's getNextShiftFromWeeks tests
+  // this test is thus a simple one
+  assert.expect(2);
+
+  Ember.run(() => {
+    const day = Day.daysFromSchedules([makeSchedule(['07:00', '12:00'])])[0];
+
+    assert.ok(day, 'definitely have a day');
+
+    const shift = day.getNextShiftFromMoment(moment(new Date(2015, 2, 30)));
+
+    assert.ok(shift, 'and found a shift');
+  });
+});

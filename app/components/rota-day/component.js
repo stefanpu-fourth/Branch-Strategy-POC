@@ -18,6 +18,7 @@ export default Ember.Component.extend({
 
   isSelectedShift: function() {
     const selectedShift = this.get('selectedShift');
+
     if (selectedShift) {
       return this.get('day.shifts').indexOf(selectedShift) !== -1;
     } else {
@@ -27,6 +28,7 @@ export default Ember.Component.extend({
 
   isSelectedOverlap: function() {
     const selectedOverlap = this.get('selectedOverlap');
+
     if (selectedOverlap) {
       return this.get('day.overlappingShifts').indexOf(selectedOverlap) !== -1;
     } else {
@@ -41,7 +43,6 @@ export default Ember.Component.extend({
   }.property('shiftDateAsMoment'),
 
   dayModifier: function() {
-    const dayIndex = parseInt(this.get('dayIndex'), 10) + 1;
-    return '-day-' + dayIndex;
+    return `-day-${parseInt(this.get('dayIndex'), 10) + 1}`;
   }.property('dayIndex')
 });

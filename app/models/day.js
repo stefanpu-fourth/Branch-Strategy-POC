@@ -12,13 +12,14 @@ let Day = Ember.Object.extend({
 
   overlappingShifts: function() {
     const shifts = this.get('shifts') || [];
-    const overlaps = [];
+    let overlaps = [];
 
     shifts.forEach(function(shift, index) {
       const endTime = shift.get('endAsMinutes');
-      const overlapping = shifts.filter(function(innerShift, innerIndex) {
-        return (innerIndex > index) && (endTime > innerShift.get('startAsMinutes'));
-      });
+      const overlapping = shifts.filter((innerShift, innerIndex) => (
+        (innerIndex > index) && (endTime > innerShift.get('startAsMinutes'))
+      ));
+
       if (overlapping.length > 0) {
         // we've found overlaps, so make an overlap item
         overlaps.push({
@@ -35,7 +36,33 @@ let Day = Ember.Object.extend({
 
   shiftDateAsMoment: function() {
     return moment(this.get('shiftDate'));
-  }.property('shiftDate')
+  }.property('shiftDate'),
+
+  getNextShiftFromMoment(now, dayBefore = now.clone().subtract(1, 'day')) {
+    const dayDate = this.get('shiftDateAsMoment');
+
+    if (now.isSame(dayDate, 'day') || dayBefore.isSame(dayDate, 'day')) {
+      // as it's the same day, or the day before, does a shift end after current time?
+      const shifts = this.shifts;
+
+      for (let shiftIndex = 0; shiftIndex < shifts.length; shiftIndex++) {
+        const shift = shifts[shiftIndex];
+        const endTime = moment(shift.get('end'), 'HH:mm');
+        const endCheckTime = dayDate.clone().hour(endTime.hour()).minute(endTime.minute());
+
+        // if the shift spans midnight we need to add a day
+        if (shift.get('endAsMinutes') < shift.get('startAsMinutes')) {
+          endCheckTime.add(1, 'days');
+        }
+
+        if (endCheckTime.isAfter(now)) {
+          return shift;
+        }
+      }
+    } else if (now.isBefore(dayDate, 'day') && (this.shifts.length > 0)) {
+      return this.shifts[0];
+    }
+  }
 });
 
 Day.reopenClass({
@@ -44,16 +71,13 @@ Day.reopenClass({
 
     return [...scheduleDates].map(date => {
       const scheduleDate = moment(date);
-      const schedules = rotaSchedules.filter((schedule) => {
-        return schedule.get('shiftDateAsMoment').isSame(scheduleDate, 'day');
-      });
-
-      // make a new Day from first schedule
-      const day = Day.create(schedules[0].getProperties('shiftDate'));
+      const schedules = rotaSchedules.filter(schedule => (
+        schedule.get('shiftDateAsMoment').isSame(scheduleDate, 'day')
+      ));
 
       // gather shifts and displayTypes for day from all matching schedules
-      const shifts = [];
-      const displayTypes = new Set();
+      let shifts = [];
+      let displayTypes = new Set();
 
       schedules.forEach(schedule => {
         const scheduleShifts = Shift.shiftsFromSchedule(schedule, meta);
@@ -66,10 +90,11 @@ Day.reopenClass({
         shifts.push(...scheduleShifts);
       });
 
-      // set shifts and displayTypes on day
-      day.setProperties({ shifts: shifts.sortBy('startAsMinutes'), displayTypes: [...displayTypes] });
-
-      return day;
+      return Day.create({
+        shiftDate: schedules[0].get('shiftDate'),
+        shifts: shifts.sortBy('startAsMinutes'),
+        displayTypes: [...displayTypes]
+      });
     });
   }
 });

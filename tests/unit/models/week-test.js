@@ -275,6 +275,23 @@ test('getWeekIndexForDate will find the correct index', function(assert) {
   assert.equal(Week.getWeekIndexForDate(weeks, moment('2015-04-21')), 3, 'found index using moment');
 });
 
+test('getNextShiftFromMoment can find a shift', function(assert) {
+  // NB getNextShiftFromMoment is implicitly tested with the following getNextShiftFromWeeks tests
+  // this test is thus a simple one
+  assert.expect(2);
+
+  const record = records.get(3);
+  record.shiftTimes = ['07:00', '13:00'];
+
+  const week = Week.weeksFromSchedules([record])[0];
+
+  assert.ok(week, 'definitely have a week');
+
+  const shift = week.getNextShiftFromMoment(moment(new Date(2015, 2, 30)));
+
+  assert.ok(shift, 'and found a shift');
+});
+
 test('getNextShiftFromWeeks can find next shift when there is one', function(assert) {
   assert.expect(4);
 

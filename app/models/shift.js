@@ -32,6 +32,7 @@ Shift.reopenClass({
       times.forEach((start, index) => {
         if ((index % 2) === 0) {
           const end = times[index + 1];
+
           if (start !== end) {
             newShifts.push(Shift.create(Ember.merge(
               rotaSchedule.getProperties('jobTitle', 'type', 'location'),
