@@ -20,7 +20,7 @@ module.exports = function(defaults) {
       includePaths: ['app']
     },
     fingerprint: {
-      exclude: ['default.png'],
+      exclude: ['default.png', 'oops.png'],
       prepend: config.staticDomainUrl
     }
   });
