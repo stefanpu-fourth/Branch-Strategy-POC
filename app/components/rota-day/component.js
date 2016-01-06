@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+const { computed } = Ember;
+
 export default Ember.Component.extend({
   tagName: 'li',
 
@@ -12,12 +14,11 @@ export default Ember.Component.extend({
   selectedOverlap: null,
   selectTarget: null,
 
-  shiftDateAsMoment: function() {
-    return moment(this.get('day.shiftDate'));
-  }.property('day.shiftDate'),
+  shiftDateAsMoment: computed.alias('day.shiftDateAsMoment'),
 
   isSelectedShift: function() {
-    var selectedShift = this.get('selectedShift');
+    const selectedShift = this.get('selectedShift');
+
     if (selectedShift) {
       return this.get('day.shifts').indexOf(selectedShift) !== -1;
     } else {
@@ -26,7 +27,8 @@ export default Ember.Component.extend({
   }.property('selectedShift', 'day.shifts'),
 
   isSelectedOverlap: function() {
-    var selectedOverlap = this.get('selectedOverlap');
+    const selectedOverlap = this.get('selectedOverlap');
+
     if (selectedOverlap) {
       return this.get('day.overlappingShifts').indexOf(selectedOverlap) !== -1;
     } else {
@@ -34,14 +36,13 @@ export default Ember.Component.extend({
     }
   }.property('selectedOverlap', 'day.overlappingShifts'),
 
-  isSelected: Ember.computed.or('isSelectedShift', 'isSelectedOverlap'),
+  isSelected: computed.or('isSelectedShift', 'isSelectedOverlap'),
 
   isInPast: function() {
-    return this.get('shiftDateAsMoment').isBefore(moment().startOf('day'));
+    return moment().startOf('day').isAfter(this.get('shiftDateAsMoment'));
   }.property('shiftDateAsMoment'),
 
   dayModifier: function() {
-    var dayIndex = parseInt(this.get('dayIndex'), 10) + 1;
-    return '-day-' + dayIndex;
+    return `-day-${parseInt(this.get('dayIndex'), 10) + 1}`;
   }.property('dayIndex')
 });

@@ -1,21 +1,20 @@
 {{#swipe-container
-   collection=attrs.rotaWeeks
-   tabPropertyKey="formattedDateRange"
-   selectedIndex=attrs.selectedIndex
-   setSelectedIndex="setSelectedIndex"
-   isPanning=attrs.isPanning
+  collection=attrs.rotaWeeks
+  tabPropertyKey="formattedDateRange"
+  selectedIndex=attrs.selectedIndex
+  setSelectedIndex="setSelectedIndex"
+  isPanning=attrs.isPanning
 }}
   {{#each attrs.rotaWeeks as |rotaWeek index|}}
     {{#swipe-item index=index selectedIndex=attrs.selectedIndex}}
       <div class="card">
         {{rota-week
-         week=rotaWeek
-         shifts=rotaWeek.shifts
-         selectedShift=attrs.selectedShift
-         selectedOverlap=attrs.selectedOverlap
-         selectTarget=this
-         index=index
-         selectedIndex=attrs.selectedIndex
+          week=rotaWeek
+          selectedShift=attrs.selectedShift
+          selectedOverlap=attrs.selectedOverlap
+          selectTarget=this
+          index=index
+          selectedIndex=attrs.selectedIndex
         }}
       </div>
     {{/swipe-item}}
