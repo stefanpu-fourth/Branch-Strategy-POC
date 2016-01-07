@@ -108,7 +108,7 @@ export default {
       "default": "D MMM YYYY"
     },
     errorNotifications: {
-      catchAll: 'How embarrassing!! We could not do what you asked and we do not know why. Please try again.',
+      catchAll: 'Sorry, it looks like something went wrong! Please try again.',
       forbidden: 'Sorry, but you don\'t have permission to access this page.'
     },
     errorSplash: {
