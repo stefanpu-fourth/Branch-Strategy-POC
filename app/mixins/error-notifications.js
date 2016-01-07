@@ -4,8 +4,7 @@ import i18n from 'ess/i18n';
 export default Ember.Mixin.create({
 
   _errorCodes: {
-    '403': 'forbidden',
-    '404': 'notFound'
+    '403': 'forbidden'
   },
 
   _getErrorTranslationKey(error) {
