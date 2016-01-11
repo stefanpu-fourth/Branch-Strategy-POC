@@ -57,6 +57,11 @@ test('formattedDateRange property formats dates as desired', function(assert) {
   assert.equal(model.get('formattedDateRange'), '28 Dec - 3 Jan', 'formatted date range is as expected');
 });
 
+test('weeksFromSchedules will return an empty array when no rotaSchedules provided', function(assert) {
+  assert.expect(1);
+  assert.equal(Week.weeksFromSchedules([]).length, 0, 'No weeks returned for empty schedules list');
+});
+
 test('weeksFromSchedules groups rotaSchedule records into weeks', function(assert) {
   assert.expect(3 + (5 * 2));
 
