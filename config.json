@@ -1,13 +1,17 @@
 {
-    "users": [{
-        "name": "68155",
-        "token": "00525000000QwoHAAS"
-    }, {
-        "name": "66600",
-        "token": "0000000Client66600"
-    }],
-    "appServerUrl": "http://localhost:4200",
-    "upstreamApiUrl": "http://fourth-employee-selfservice-qa.cloudapp.net:8080",
-    "upstreamApiMountPoint": "/api",
-    "fourthOrg": "0"
+  "users": [{
+    "name": "68155",
+    "token": "00525000000QwoHAAS"
+  }, {
+    "name": "66600",
+    "token": "0000000Client66600"
+  }, {
+    "name": "69296",
+    "token": "00525000000IcuMAAS"
+  }],
+  "upstreamApiUrl": "http://fourth-employee-selfservice-qa.cloudapp.net:8080",
+  "upstreamApiMountPoint": "/api",
+  "appServerUrl": "http://localhost:4200",
+  "fourthOrg": "0",
+  "replaceUrl": ""
 }
