@@ -18,6 +18,7 @@
   "forin": false,
   "immed": false,
   "laxbreak": false,
+  "loopfunc": true,
   "newcap": true,
   "noarg": true,
   "noempty": false,
