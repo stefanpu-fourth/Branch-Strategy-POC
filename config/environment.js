@@ -7,7 +7,7 @@ module.exports = function(environment) {
     userEndPoint: '/api/user',
     locationType: 'auto',
     gaTracker: 'UA-62678526-2',
-    staticDomainUrl: 'https://fourth-static.azurewebsites.net/ess/',
+    // staticDomainUrl: 'https://fourth-static.azurewebsites.net/ess/',
     'ember-cli-mirage': { enabled: false },
     'ember-cli-notifications': {
       includeFontAwesome: false

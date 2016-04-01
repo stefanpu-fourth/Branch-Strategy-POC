@@ -1,8 +1,8 @@
 /* jshint node: true */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
-var config = require('./config/environment')(process.env.EMBER_ENV);
+// var config = require('./config/environment')(process.env.EMBER_ENV);
 
-module.exports = function(defaults) {
+module.exports = function(/* defaults */) {
 
   var app = new EmberApp({
     jscsOptions: {
@@ -18,11 +18,12 @@ module.exports = function(defaults) {
     },
     sassOptions: {
       includePaths: ['app']
-    },
+    }
+    /* ,
     fingerprint: {
       exclude: ['default.png', 'oops.png'],
       prepend: config.staticDomainUrl
-    }
+    } */
   });
 
   app.import('bower_components/moment/moment.js');
