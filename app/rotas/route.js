@@ -12,7 +12,14 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
   model: function() {
     return Ember.RSVP.hash({
       holidayBalance: this.findAllWithCache('holidayBalance'),
-      rotaSchedules: this.queryWithCache('rota-schedule', {
+      // ------
+      // NB: US18158 - SPIKE: DATA refresh
+      //
+      // To reload records fresh from API don't use `queryWithCache`,
+      // call `query` instead
+      // ------
+      // rotaSchedules: this.queryWithCache('rota-schedule', {
+      rotaSchedules: this.store.query('rota-schedule', {
         RequestDate: moment().format('YYYY-MM-DD'),
         NoPreviousWeeks: 2,
         NoFutureWeeks: 2
