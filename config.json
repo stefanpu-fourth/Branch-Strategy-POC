@@ -8,8 +8,11 @@
   }, {
     "name": "69296",
     "token": "00525000000IcuMAAS"
+  }, {
+    "name": "69192",
+    "token": "00525000000NdJOAA0"
   }],
-  "upstreamApiUrl": "http://fourth-employee-selfservice-qa.cloudapp.net:8080",
+  "upstreamApiUrl": "http://10.12.13.10:83",
   "upstreamApiMountPoint": "/api",
   "appServerUrl": "http://localhost:4200",
   "fourthOrg": "0",
