@@ -69,18 +69,22 @@ Week.reopenClass({
       return Week.create({ start: weekStart, days, meta });
     });
 
+    //
+    // THIS insert missing weeks bit COMMENTED OUT, IT SEEMINGLY CREATES THE DUPLICATION weeks
+    // TODO: Check with Mel if the API is actually handling this now?
+    //
     // insert missing weeks
-    const maxDate = moment(Math.max(...weekStarts));
-    let minDate = moment(weekStarts[0]);
-
-    while (minDate.isBefore(maxDate)) {
-      const week = this.findWeekForDate(rotaWeeks, minDate);
-
-      if (!week) {
-        rotaWeeks.pushObject(Week.create({ start: minDate.clone(), days: [], meta }));
-      }
-      minDate.add(1, 'week');
-    }
+    // const maxDate = moment(Math.max(...weekStarts));
+    // let minDate = moment(weekStarts[0]);
+    //
+    // while (minDate.isBefore(maxDate)) {
+    //   const week = this.findWeekForDate(rotaWeeks, minDate);
+    //
+    //   if (!week) {
+    //     rotaWeeks.pushObject(Week.create({ start: minDate.clone(), days: [], meta }));
+    //   }
+    //   minDate.add(1, 'week');
+    // }
 
     // make sure our weeks are sorted in order
     rotaWeeks.sort((a, b) => a.get('start').valueOf() - b.get('start').valueOf());

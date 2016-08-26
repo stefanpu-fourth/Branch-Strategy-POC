@@ -1,16 +1,7 @@
 {
   "users": [{
-    "name": "68155",
-    "token": "00525000000QwoHAAS"
-  }, {
-    "name": "66600",
-    "token": "0000000Client66600"
-  }, {
-    "name": "69296",
-    "token": "00525000000IcuMAAS"
-  }, {
-    "name": "69192",
-    "token": "00525000000NdJOAA0"
+    "name": "82606",
+    "token": "00525000001QpdpAAC"
   }],
   "upstreamApiUrl": "http://10.12.13.10:83",
   "upstreamApiMountPoint": "/api",
