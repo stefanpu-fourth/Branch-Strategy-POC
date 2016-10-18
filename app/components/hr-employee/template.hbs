@@ -12,6 +12,22 @@
     <dd class="tabular--value">{{employee.nationalInsuranceNumber}}</dd>
   </dl>
   <dl class="tabular--row -nobg">
+    <dt class="tabular--key">{{t 'details.employee.nationality'}}</dt>
+    <dd class="tabular--value -wide">{{employee.nationality}}</dd>
+  </dl>
+  <dl class="tabular--row -nobg">
+    <dt class="tabular--key">{{t 'details.employee.dateOfBirth'}}</dt>
+    <dd class="tabular--value">{{moment employee.dateOfBirth format="dayMonthYear"}}</dd>
+  </dl>
+  <dl class="tabular--row -nobg">
+    <dt class="tabular--key">{{t 'details.employee.gender'}}</dt>
+    <dd class="tabular--value -wide">{{employee.gender}}</dd>
+  </dl>
+  <dl class="tabular--row -nobg">
+    <dt class="tabular--key">{{t 'details.name'}}</dt>
+    <dd class="tabular--value -wide">{{employee.fullName}}</dd>
+  </dl>
+  <dl class="tabular--row -nobg">
     <dt class="tabular--key">{{t 'details.address'}}</dt>
     <dd class="tabular--value -wide">
       {{employee.address1}}
@@ -60,17 +76,5 @@
   <dl class="tabular--row -nobg">
     <dt class="tabular--key">{{t 'details.employee.workEmail'}}</dt>
     <dd class="tabular--value -wide">{{employee.workEmail}}</dd>
-  </dl>
-  <dl class="tabular--row -nobg">
-    <dt class="tabular--key">{{t 'details.employee.nationality'}}</dt>
-    <dd class="tabular--value -wide">{{employee.nationality}}</dd>
-  </dl>
-  <dl class="tabular--row -nobg">
-    <dt class="tabular--key">{{t 'details.employee.dateOfBirth'}}</dt>
-    <dd class="tabular--value">{{moment employee.dateOfBirth format="dayMonthYear"}}</dd>
-  </dl>
-  <dl class="tabular--row -nobg">
-    <dt class="tabular--key">{{t 'details.employee.gender'}}</dt>
-    <dd class="tabular--value -wide">{{employee.gender}}</dd>
   </dl>
 </div>
