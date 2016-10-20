@@ -1,0 +1,10 @@
+.edit-header {
+  @include display(flex);
+  align-items: center;
+  height: rem(40);
+
+  &__title {
+    @include flex(1 0 0);
+    text-align: center;
+  }
+}

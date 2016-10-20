@@ -67,6 +67,7 @@ export default {
     },
     details: {
       name: 'Name',
+      contact: 'Contact',
       address: 'Address',
       phone: 'Phone',
       fax: 'Fax',

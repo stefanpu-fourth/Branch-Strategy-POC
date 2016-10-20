@@ -1,0 +1,13 @@
+.editable-block {
+  margin-top: rem(20);
+
+  &__header {
+    @include display(flex);
+    border-bottom: rem(1) solid;
+    padding-bottom: rem(5);
+
+    &__name {
+      @include flex-grow(1);
+    }
+  }
+}
