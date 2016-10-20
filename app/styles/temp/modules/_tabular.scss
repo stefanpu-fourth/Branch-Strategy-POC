@@ -75,6 +75,10 @@
       background: transparent;
     }
   }
+  &.-no-border-top {
+    border-top: 0;
+    margin-top: rem(1);
+  }
 }
 
 .tabular--key {
@@ -121,4 +125,3 @@
     display: none;
   };
 }
-

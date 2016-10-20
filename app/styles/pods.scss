@@ -8,6 +8,7 @@
 // ember g style [pod-folder] -p
 // or
 // ember g style components/[component-folder] -p
+@import "components/editable-block/style";
 
 @import "components/global-header/style";
 @import "components/global-header-brand/style";
