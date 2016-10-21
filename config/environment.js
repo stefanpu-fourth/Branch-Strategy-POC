@@ -12,6 +12,12 @@ module.exports = function(environment) {
     'ember-cli-notifications': {
       includeFontAwesome: false
     },
+    headers: {
+      'Accept': 'application/vnd.siren+json',
+      'Content-Type': 'application/json',
+      'X-Fourth-Org': '0',
+      'X-Fourth-Version': '1'
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -59,7 +65,7 @@ module.exports = function(environment) {
   ENV.apiBaseUrl = "/api";
   ENV.brandingService = "https://fourth-branding.azurewebsites.net";
 
-  if(environment === 'development') {
+  if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -68,7 +74,7 @@ module.exports = function(environment) {
     ENV.userEndPoint = '/userEndpoint'; // so it works with authsandbox + plus our dev mock
   }
 
-  if(environment === 'test') {
+  if (environment === 'test') {
     // Testem prefers this...
     ENV.baseURL = '/';
     ENV.locationType = 'none';
@@ -83,7 +89,7 @@ module.exports = function(environment) {
     ENV['ember-cli-mirage'].enabled = true;
   }
 
-  if(environment === 'production') {
+  if (environment === 'production') {
     ENV.gaTracker = 'UA-62678526-2'; // production real tracker 'UA-62678526-1'
   }
 
