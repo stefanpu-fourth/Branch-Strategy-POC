@@ -3,7 +3,7 @@
 
   &__header {
     @include display(flex);
-    border-bottom: 1px solid;
+    border-bottom: rem(1) solid;
     padding-bottom: rem(5);
 
     &__name {
