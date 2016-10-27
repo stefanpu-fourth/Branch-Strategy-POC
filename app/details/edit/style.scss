@@ -1,3 +1,12 @@
+.edit {
+  position: absolute;
+  top: 40px;
+  left: 0; 
+  right: 0;
+  bottom: 0;
+  background-color: $color-grey-lightest;;
+}
+
 .edit-header {
   @include display(flex);
   align-items: center;
@@ -7,4 +16,63 @@
     @include flex(1 0 0);
     text-align: center;
   }
+}
+
+.tab-container {
+  @include display(flex);
+  align-items: stretch;
+  cursor: pointer;
+  display: flex;
+  height: rem(40);
+  border-bottom: 1px solid $color-grey-light;
+
+
+  &__tab {
+    @include flex(1 0 auto);
+    // height: inherit;
+    line-height: rem(40);
+    // margin: auto;
+    text-align: center;
+    color: $color-grey;
+    position: relative;
+    @include transition(all 500ms ease);
+
+    &::after {
+      content: "";
+
+      display: block;
+
+      height: rem(4);
+
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      @include border-radius(rem(2));
+
+      @include transition(all 500ms ease);
+    }
+
+    &--active {
+      color: $color-grey-darkest;
+      @include transition(all 500ms ease);
+
+      &::after {
+        background-color: grey;
+        @include transition(all 500ms ease);
+      }
+    }
+  }
+}
+
+.edit-save-btn {
+  bottom: 0;
+  height: rem(40);
+  position: absolute;
+  width: 100%;
+}
+
+.edit__form {
+  padding: rem(16);
 }

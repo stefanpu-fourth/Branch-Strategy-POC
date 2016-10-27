@@ -1,9 +1,12 @@
 <div class="editable-block__header brand-border-bottom">
   <h1 class="editable-block__header__name">{{t (concat 'details.' referrer)}}</h1>
-  
-  {{#link-to 'details.edit' class="editable-block__header__link"}}
+
+  <div class="editable-block__header__link"
+      title="Edit"
+      edit={{this.attrs.edit}}
+      {{action 'clickToEdit' referrer}}>
     {{svg-icon name="edit"}}
-  {{/link-to}}
+  </div>
 </div>
 
 {{yield}}

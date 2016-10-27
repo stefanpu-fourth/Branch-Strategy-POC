@@ -24,14 +24,14 @@
     <dd class="tabular--value -wide">{{employee.gender}}</dd>
   </dl>
 
-  {{#editable-block referrer='name'}}
+  {{#editable-block referrer='name' edit=(action this.attrs.edit)}}
     <dl class="tabular--row -nobg -no-border-top">
       <dt class="tabular--key">{{t 'details.name'}}</dt>
       <dd class="tabular--value -wide">{{employee.fullName}}</dd>
     </dl>
   {{/editable-block}}
 
-  {{#editable-block referrer='contact'}}
+  {{#editable-block referrer='contact' edit=(action this.attrs.edit)}}
     <dl class="tabular--row -nobg -no-border-top">
       <dt class="tabular--key">{{t 'details.address'}}</dt>
       <dd class="tabular--value -wide">

@@ -1,1 +1,16 @@
+<div class="edit">
+  <div class="tab-container">
+    <div class="tab-container__tab {{if nameTabSelected 'tab-container__tab--active'}}" {{action "selectTab" "name"}}>{{t 'details.name'}}</div>
+    <div class="tab-container__tab {{if contactTabSelected 'tab-container__tab--active'}}" {{action "selectTab" "contact"}}>{{t 'details.contact'}}</div>
+  </div>
 
+  {{#if nameTabSelected}}
+    <div class="edit__form">Here will go name-edit-form component</div>
+  {{/if}}
+
+  {{#if contactTabSelected}}
+    <div class="edit__form">Here will go contact-edit-form component</div>
+  {{/if}}
+</div>
+
+<!--<button type="submit" name="edit-save-btn" class="edit-save-btn">Save</button>-->
