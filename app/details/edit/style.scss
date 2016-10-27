@@ -8,3 +8,32 @@
     text-align: center;
   }
 }
+
+.tab-container {
+  @include display(flex);
+  align-items: stretch;
+  cursor: pointer;
+  display: flex;
+  height: rem(40);
+
+  &__tab {
+    @include flex(1 0 auto);
+    // height: inherit;
+    line-height: rem(40);
+    // margin: auto;
+    text-align: center;
+    text-transform: uppercase;
+
+    &--active {
+      background-color: grey;
+      color: white;
+    }
+  }
+}
+
+.edit-save-btn {
+  bottom: 0;
+  height: rem(40);
+  position: absolute;
+  width: 100%;
+}
