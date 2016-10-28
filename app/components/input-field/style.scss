@@ -1,0 +1,40 @@
+.input-field {
+  &-container {
+    margin-top: rem(16);
+    margin-bottom: rem(16);
+
+    position: relative;
+
+    .input-element {
+      background-color: $color-grey-lightest;
+      height: 60px;
+      width: 100%;
+
+      padding-left: rem(16);
+      padding-top: 20px;
+      border: none;
+      border-bottom: 2px solid;
+      border-color: inherit;
+
+      @include transition(all 500ms ease);
+    }
+
+    & input:focus {
+      background-color: $color-grey-light;
+    }
+
+    .not-focused {
+      position: absolute;
+
+      left: rem(16);
+      bottom: 11px;
+
+      @include transition(all 500ms ease);
+    }
+
+    .focused {
+      font-size: 12px;
+      bottom: 35px;
+    }
+  }
+}

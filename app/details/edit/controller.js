@@ -9,6 +9,14 @@ export default Ember.Controller.extend({
   contactTabSelected: Ember.computed('tabSelected', function() {
     return this.get('tabSelected') === 'contact';
   }),
+  editInfo: {
+    name: {
+      title: '',
+      firstName: '',
+      middleName: '',
+      lastName: ''
+    }
+  },
 
   actions: {
     selectTab(tabName) {

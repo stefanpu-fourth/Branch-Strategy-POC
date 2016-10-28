@@ -59,7 +59,7 @@
       @include transition(all 500ms ease);
 
       &::after {
-        background-color: grey;
+        background-color: $color-grey-darker;
         @include transition(all 500ms ease);
       }
     }
