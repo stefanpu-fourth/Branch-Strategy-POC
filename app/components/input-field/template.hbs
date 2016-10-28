@@ -1,0 +1,6 @@
+<div class="input-field-container">
+    {{input class="input-element brand-border-bottom" type=type value=value focus-in="focusIn" focus-out="focusOut" id=inputId}} 
+    <label for={{inputId}} class="not-focused {{if isFocused 'focused'}}">{{placeholder}}</label> 
+</div>
+{{yield}}
+    
