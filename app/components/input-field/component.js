@@ -1,13 +1,19 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  isFocused: false,
+  isFocused: Ember.computed('value', function() {
+    return this.get('value') ? true : false;
+  }),
   actions: {
-    focusOut() {
-      this.set("isFocused", this.value ? true : false);
+    focusIn() {
+      this.set('isFocused', true);
     },
-    focusIn () {
-      this.set("isFocused", true);
+    focusOut() {
+      this.set('isFocused', this.value ? true : false);
+    },
+    clearInput() {
+      this.set('value', '');
+      this.set('isFocused', false);
     }
   }
 });

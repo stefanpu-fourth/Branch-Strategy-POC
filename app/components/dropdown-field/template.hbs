@@ -1,0 +1,10 @@
+<div class="dropdown-field">
+  <label class="not-focused {{if isFocused 'focused'}}" id="placeholder">{{placeholder}}</label>
+  <label class="dropdown-field-chevron {{if isFocused 'dropdown-field-chevron-rotate'}}" id="chevron">{{svg-icon name="chevron-right"}}</label>
+  {{#x-select value=selectedItem action="selectItem" focusIn=(action "focusIn") focusOut=(action "focusOut")}}
+    {{#each itemsList as |item|}}
+      {{#x-option value=item}}{{item}}{{/x-option}}
+    {{/each}}
+  {{/x-select}}
+</div>
+{{yield}}

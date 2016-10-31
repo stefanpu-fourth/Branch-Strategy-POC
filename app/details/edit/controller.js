@@ -1,26 +1,25 @@
 import Ember from 'ember';
+import i18n from 'ess/i18n';
 
 export default Ember.Controller.extend({
   details: Ember.inject.controller(),
   tabSelected: Ember.computed.reads('details.selectedForEdit'),
-  nameTabSelected: Ember.computed('tabSelected', function() {
-    return this.get('tabSelected') === 'name';
-  }),
-  contactTabSelected: Ember.computed('tabSelected', function() {
-    return this.get('tabSelected') === 'contact';
-  }),
-  editInfo: {
-    name: {
-      title: '',
-      firstName: '',
-      middleName: '',
-      lastName: ''
-    }
-  },
-
-  actions: {
-    selectTab(tabName) {
-      this.set('tabSelected', tabName);
-    }
-  }
+  tabContainerConfig: Ember.computed('tabSelected', function() {
+    return [
+      {
+        name: 'name',
+        title: i18n.t('details.name'),
+        component: 'edit-name-form',
+        componentModel: this.get('employee'),
+        active: this.get('tabSelected') === 'name'
+      },
+      {
+        name: 'contact',
+        title: i18n.t('details.contact'),
+        component: 'edit-contact-form',
+        componentModel: this.get('employee'),
+        active: this.get('tabSelected') === 'contact'
+      }
+    ];
+  })
 });
