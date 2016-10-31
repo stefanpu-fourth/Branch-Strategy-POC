@@ -28,6 +28,6 @@ export default DS.Model.extend({
   fullName: function () {
     var props = this.getProperties('firstNames', 'surname');
     return `${props.firstNames} ${props.surname}`;
-  }.property('firstNames', 'surName')
+  }.property('firstNames', 'surname')
 
 });

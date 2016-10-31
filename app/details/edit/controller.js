@@ -15,12 +15,19 @@ export default Ember.Controller.extend({
       firstName: '',
       middleName: '',
       lastName: ''
-    }
+    },
+    selectedTitle: '',
+    titles: ['Mr', 'Mrs', 'Miss', 'Ms']
   },
+  employee: Ember.computed.reads('details.attrs.employee'),
 
   actions: {
     selectTab(tabName) {
       this.set('tabSelected', tabName);
+    },
+    selectItem(value) {
+      this.set('make', value);
+      console.log(value);
     }
   }
 });

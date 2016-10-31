@@ -1,52 +1,51 @@
-.input-field {
+.dropdown-field {
   margin-top: rem(16);
   margin-bottom: rem(16);
 
   position: relative;
 
-  .input-element {
+  .x-select {
     background-color: $color-grey-lightest;
     height: 60px;
     width: 100%;
 
-    color: $color-grey-darkest;
-
     padding-left: rem(16);
     padding-top: 20px;
     border: none;
+    @include appearance(none);
+    @include border-bottom-radius(0);
+    @include border-right-radius(0);
     @include border-top-radius(2px);
     border-bottom: 2px solid;
     border-color: inherit;
+    outline: none;
     @include transition(all 500ms ease);
   }
 
-  & input:focus {
+  .x-select:focus {
     background-color: $color-grey-lighter;
+    @include transition(all 500ms ease);
   }
 
   .not-focused {
     position: absolute;
 
     left: rem(16);
-    bottom: 11px;
+    bottom: 35px;
 
     color: $color-grey-dark;
+    font-size: 12px;
 
     @include transition(all 500ms ease);
   }
 
-  .focused {
-    font-size: 12px;
-    bottom: 35px;
-  }
-
-  &-clear-button {
+  &-chevron {
     position: absolute;
 
     right: 15px;
     top: 16px;
 
-    cursor: pointer;
+    @include transition(all 500ms ease);
 
     .svg-icon {
       height: 8px;
@@ -57,5 +56,11 @@
         stroke-width: 2px;
       }
     }
+  }
+
+  &-chevron-rotate {
+    top: 20px;
+    @include transform(rotate(90deg));
+    @include transition(all 500ms ease);
   }
 }
