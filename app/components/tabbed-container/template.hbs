@@ -1,0 +1,11 @@
+<div class="tabbed-container">
+    {{#each tabs as |tab|}}
+      <div id="{{tab.tabName}}-tab" class="tabbed-container__tab {{if tab.active 'tabbed-container__tab--active'}}" {{action "setSelectedTab" tab.tabName}}>
+        {{tab.tabTitle}}
+      </div>
+    {{/each}}
+</div>
+
+<div class="tabbed-container__tab__content">
+    {{component activeTabItem}}
+</div>
