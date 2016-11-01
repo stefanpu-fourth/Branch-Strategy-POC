@@ -63,6 +63,10 @@
         @include transition(all 500ms ease);
       }
     }
+
+    &__content {
+      padding: rem(16);
+    }
   }
 }
 
@@ -74,5 +78,11 @@
 }
 
 .edit__form {
+  background-color: $color-white;
+
+  @include border-width(1px);
+  @include border-style(solid);
+  @include border-color($color-grey-lighter);
+  
   padding: rem(16);
 }

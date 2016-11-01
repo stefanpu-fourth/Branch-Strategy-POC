@@ -5,7 +5,7 @@
   position: relative;
 
   .x-select {
-    background-color: $color-grey-lightest;
+    background-color: $color-white;
     height: 60px;
     width: 100%;
 
@@ -31,12 +31,16 @@
     position: absolute;
 
     left: rem(16);
-    bottom: 35px;
+    bottom: 11px;
 
     color: $color-grey-dark;
-    font-size: 12px;
 
     @include transition(all 500ms ease);
+  }
+
+  .focused {
+    font-size: 12px;
+    bottom: 35px;
   }
 
   &-chevron {
