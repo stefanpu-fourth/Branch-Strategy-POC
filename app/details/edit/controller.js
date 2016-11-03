@@ -7,15 +7,17 @@ export default Ember.Controller.extend({
   tabContainerConfig: Ember.computed('tabSelected', function() {
     return [
       {
-        tabName: 'name',
-        tabTitle: i18n.t('details.name'),
-        tabContent: 'edit-name-form',
+        name: 'name',
+        title: i18n.t('details.name'),
+        component: 'edit-name-form',
+        componentModel: this.get('employee'),
         active: this.get('tabSelected') === 'name'
       },
       {
-        tabName: 'contact',
-        tabTitle: i18n.t('details.contact'),
-        tabContent: 'edit-contact-form',
+        name: 'contact',
+        title: i18n.t('details.contact'),
+        component: 'edit-contact-form',
+        componentModel: this.get('employee'),
         active: this.get('tabSelected') === 'contact'
       }
     ];
@@ -31,14 +33,4 @@ export default Ember.Controller.extend({
     titles: ['Mr', 'Mrs', 'Miss', 'Ms']
   },
   employee: Ember.computed.reads('details.attrs.employee')
-
-  // actions: {
-  //   selectTab(tabName) {
-  //     this.set('tabSelected', tabName);
-  //   },
-  //   selectItem(value) {
-  //     this.set('make', value);
-  //     console.log(value);
-  //   }
-  // }
 });
