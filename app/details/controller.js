@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
   attrs: {},
 
   employment: Ember.computed.alias('attrs.employment.firstObject'),
-  
+
   selectedForEdit: 'name',
 
   actions: {

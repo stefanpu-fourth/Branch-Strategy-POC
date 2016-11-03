@@ -5,15 +5,21 @@ import {
 
 moduleForComponent('hr-employee', {
   // Specify the other units that are required for this test
-  needs: ['helper:t', 'helper:moment'],
+  needs: [
+    'helper:t',
+    'helper:moment',
+    'component:editable-block'
+  ],
   unit: true
 });
 
-test('it renders', function(assert) {
+test('it renders', function (assert) {
   assert.expect(2);
 
   // Creates the component instance
-  var component = this.subject();
+  const component = this.subject({
+    edit: function () { }
+  });
   assert.equal(component._state, 'preRender');
 
   // Renders the component to the page

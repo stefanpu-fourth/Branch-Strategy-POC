@@ -1,7 +1,7 @@
 <div class="input-field">
     {{input class="input-element brand-border-bottom" type=type value=value focus-in="focusIn" focus-out="focusOut" id=inputId}} 
-    <label for="{{inputId}}" class="not-focused {{if isFocused 'focused'}}">{{placeholder}}</label>
-    <div class="input-field-clear-button" {{action "clearInput"}}>
+    <label for="{{inputId}}" id="label-{{inputId}}" class="not-focused {{if isFocused 'focused'}}">{{placeholder}}</label>
+    <div class="input-field-clear-button" id="clearButton" {{action "clearInput"}}>
         {{svg-icon name="x"}}
     </div> 
 </div>
