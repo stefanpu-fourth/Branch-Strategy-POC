@@ -1,15 +1,24 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  activeTabItem: Ember.computed(function() {
-    return this.get('tabs').find((tab) => tab.active).tabContent;
+  activeTab: Ember.computed(function() {
+    return this.get('tabs').find(tab => tab.active);
+  }),
+  activeTabComponent: Ember.computed(function() {
+    return this.get('activeTab').component;
+  }),
+  activeTabComponentModel: Ember.computed(function() {
+    return this.get('activeTab').componentModel;
   }),
 
   actions: {
-    setSelectedTab(tabName) {
+    setTabActive(tabName) {
+      const tab = this.get('tabs').find(tab => tab.name === tabName);
+      this.set('activeTabComponent', tab.component);
+      this.set('activeTanComponentModel', tab.componentModel);
+
       this.$('.tabbed-container__tab--active').removeClass('tabbed-container__tab--active');
       this.$(`#${tabName}-tab`).addClass('tabbed-container__tab--active');
-      this.set('activeTabItem', this.get('tabs').find((tab) => tab.tabName === tabName).tabContent);
     }
   }
 });

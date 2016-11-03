@@ -8,6 +8,10 @@ export default Ember.Route.extend(FindWithCache, {
     return this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId'));
   },
 
+  setupController(controller, model) {
+    controller.set('employee', model);
+  },
+
   /**
     Renders `details/edit/template.hbs` into main application outlet.
     Renders 'details/edit/header/template.hbs' in application 'nav' outlet.
