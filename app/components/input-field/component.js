@@ -12,7 +12,7 @@ export default Ember.Component.extend({
       this.set('isFocused', this.value ? true : false);
     },
     clearInput() {
-      this.set('value', undefined);
+      this.set('value', '');
       this.set('isFocused', false);
     }
   }
