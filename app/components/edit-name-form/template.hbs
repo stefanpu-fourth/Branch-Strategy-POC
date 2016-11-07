@@ -1,6 +1,6 @@
 <div class="edit__form">
-  {{#dropdown-field selectedItem=model.selectedTitle itmesList=editInfo.titles placeholder='Title'}}{{/dropdown-field}}
-  {{#input-field value=model.firstNames type='text' placeholder='First Name' inputId='firstName'}}{{/input-field}}
-  {{#input-field value=model.middleName type='text' placeholder='Middle Name(s)' inputId='middleName'}}{{/input-field}}
-  {{#input-field value=model.surname type='text' placeholder='Last Name' inputId='lastName'}}{{/input-field}}
+  {{#dropdown-field selectedItem=model.selectedTitle itemsList=titles placeholder=(t 'details.employee.title')}}{{/dropdown-field}}
+  {{#input-field value=model.firstNames type='text' placeholder=(t 'details.employee.firstName') inputId='firstName'}}{{/input-field}}
+  {{#input-field value=model.middleName type='text' placeholder=(t 'details.employee.middleName') inputId='middleName'}}{{/input-field}}
+  {{#input-field value=model.surname type='text' placeholder=(t 'details.employee.lastName') inputId='lastName'}}{{/input-field}}
 </div>
