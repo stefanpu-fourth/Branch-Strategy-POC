@@ -27,20 +27,20 @@ test('component properties are set', function (assert) {
 
   const component = this.subject({
     selectedItem: '',
-    itmesList: ['item1', 'item2', 'item3'],
+    itemsList: ['item1', 'item2', 'item3'],
     placeholder: 'test placeholder'
   });
 
   const selectElement = this.$('select');
   const optionsList = this.$('option');
   const actualSelectedItem = selectElement.val();
-  const actualItmesList = $.map(optionsList, function (option) {
+  const actualItemsList = $.map(optionsList, function (option) {
     return option.value;
   });
   const actualPlaceholder = this.$('#placeholder').text();
 
   assert.equal(actualSelectedItem, 'item1', '"selectedItem" property should be "item1".');
-  assert.deepEqual(actualItmesList, ['item1', 'item2', 'item3'], 'Items list should be ["item1", "item2", "item3"]');
+  assert.deepEqual(actualItemsList, ['item1', 'item2', 'item3'], 'Items list should be ["item1", "item2", "item3"]');
   assert.equal(actualPlaceholder, 'test placeholder', 'Input element type should be set to "test placeholder".');
 });
 
@@ -49,7 +49,7 @@ test('selecting item from the list', function (assert) {
 
   const component = this.subject({
     selectedItem: '',
-    itmesList: ['item1', 'item2', 'item3']
+    itemsList: ['item1', 'item2', 'item3']
   });
 
   const selectElement = this.$('select');
@@ -62,28 +62,30 @@ test('selecting item from the list', function (assert) {
 });
 
 test('"focusIn" action triggers', function (assert) {
-  assert.expect(2);
-
-  const component = this.subject({
-    selectedItem: '',
-    itmesList: ['', 'item1', 'item2', 'item3']
-  });
-
-  const selectElement = this.$('select');
-
-  assert.equal(component.get('isFocused'), false, '"isFocused" should be set to false, since the value is an empty string.');
-
-  selectElement.focus();
-
-  assert.equal(component.get('isFocused'), true, '"isFocused" should be set to true, since on the input element has been triggered a focus event.');
-});
-
-test('"focusOut" action triggers', function (assert) {
   assert.expect(4);
 
   const component = this.subject({
     selectedItem: '',
-    itmesList: ['', 'item1', 'item2', 'item3']
+    itemsList: ['', 'item1', 'item2', 'item3']
+  });
+
+  const selectElement = this.$('select');
+
+  assert.notOk(component.get('isFocused'), '"isFocused" should be set to false, since the value is an empty string.');
+  assert.notOk(this.$('#placeholder').hasClass('focused'), 'The label element should not have a class named "focused"');
+
+  selectElement.focus();
+
+  assert.ok(component.get('isFocused'), '"isFocused" should be set to true, since on the input element has been triggered a focus event.');
+  assert.ok(this.$('#placeholder').hasClass('focused'), 'The label element should have a class named "focused"');
+});
+
+test('"focusOut" action triggers', function (assert) {
+  assert.expect(8);
+
+  const component = this.subject({
+    selectedItem: '',
+    itemsList: ['', 'item1', 'item2', 'item3']
   });
 
   const selectElement = this.$('select');
@@ -93,12 +95,14 @@ test('"focusOut" action triggers', function (assert) {
     .val('item2')
     .trigger('change');
 
-  assert.equal(component.get('isFocused'), true, '"isFocused" should be set to true, since there is a value.');
+  assert.ok(component.get('isFocused'), '"isFocused" should be set to true, since there is a value.');
+  assert.ok(this.$('#placeholder').hasClass('focused'), 'The label element should have a class named "focused"');
 
   // Test if "isFocused" is still true after "focusIn" and "focusOut" events.
   selectElement.focus();
   selectElement.focusout();
-  assert.equal(component.get('isFocused'), true, '"isFocused" should be set to true, since there is a value.');
+  assert.ok(component.get('isFocused'), '"isFocused" should be set to true, since there is a value.');
+  assert.ok(this.$('#placeholder').hasClass('focused'), 'The label element should have a class named "focused"');
 
   // Test if "isFocused" is true after selected item is set to an empty string and а "focusin" event is triggered on the element.
   selectElement
@@ -106,9 +110,11 @@ test('"focusOut" action triggers', function (assert) {
     .trigger('change');
 
   selectElement.focus();
-  assert.equal(component.get('isFocused'), true, '"isFocused" should be set to true, since the element is focused.');
+  assert.ok(component.get('isFocused'), '"isFocused" should be set to true, since the element is focused.');
+  assert.ok(this.$('#placeholder').hasClass('focused'), 'The label element should have a class named "focused"');
 
   // Test if "isFocused" is false after selected item is set to an empty string and a "focusout" event is triggered.
   selectElement.focusout();
-  assert.equal(component.get('isFocused'), false, '"isFocused" should be set to false, since the value is set to an empty string.');
+  assert.notOk(component.get('isFocused'), '"isFocused" should be set to false, since the value is set to an empty string.');
+  assert.notOk(this.$('#placeholder').hasClass('focused'), 'The label element should not have a class named "focused"');
 });
