@@ -12,6 +12,12 @@ module.exports = function(environment) {
     'ember-cli-notifications': {
       includeFontAwesome: false
     },
+    headers: {
+      'Accept': 'application/vnd.siren+json',
+      'Content-Type': 'application/json',
+      'X-Fourth-Org': '0',
+      'X-Fourth-Version': '1'
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

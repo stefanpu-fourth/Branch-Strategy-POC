@@ -3,6 +3,8 @@ import i18n from 'ess/i18n';
 
 export default Ember.Controller.extend({
   details: Ember.inject.controller(),
+  //employee: Ember.computed.alias('details.attrs.employee'),
+  nextOfKins: Ember.computed.alias('details.attrs.nextOfKins'),
   tabSelected: Ember.computed.reads('details.selectedForEdit'),
   tabContainerConfig: Ember.computed('tabSelected', function() {
     return [
@@ -19,6 +21,13 @@ export default Ember.Controller.extend({
         component: 'edit-contact-form',
         componentModel: this.get('employee'),
         active: this.get('tabSelected') === 'contact'
+      },
+      {
+        name: 'nextOfKin',
+        title: i18n.t('details.nextOfKin'),
+        component: 'edit-nok-form',
+        componentModel: this.get('nextOfKins'),
+        active: this.get('tabSelected') === 'nextOfKin'
       }
     ];
   }),

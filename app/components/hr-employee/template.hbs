@@ -83,4 +83,39 @@
       <dd class="tabular--value -wide">{{employee.workEmail}}</dd>
     </dl>
   {{/editable-block}}
+
+  {{#editable-block referrer='nextOfKin' edit=(action this.attrs.edit)}}
+    {{#each nextOfKins as |nextOfKin|}}
+      <dl class="tabular--row -nobg">
+        <dt class="tabular--key">{{t 'details.employee.title'}}</dt>
+        <dt class="tabular--value">{{nextOfKin.personTitle}}</dt>
+      </dl>
+      <dl class="tabular--row -nobg">
+        <dt class="tabular--key">{{t 'details.employee.firstName'}}</dt>
+        <dt class="tabular--value">{{nextOfKin.firstName}}</dt>
+      </dl>
+      <dl class="tabular--row -nobg">
+        <dt class="tabular--key">{{t 'details.employee.lastName'}}</dt>
+        <dt class="tabular--value">{{nextOfKin.lastName}}</dt>
+      </dl>
+      <dl class="tabular--row -nobg">
+        <dt class="tabular--key">{{t 'details.employee.nokRelationship'}}</dt>
+        <dt class="tabular--value">{{nextOfKin.relationship}}</dt>
+      </dl>
+      <dl class="tabular--row -nobg">
+        <dt class="tabular--key">{{t 'details.employee.homeTel'}}</dt>
+        <dt class="tabular--value">{{nextOfKin.homeTelephone}}</dt>
+      </dl>
+      <dl class="tabular--row -nobg">
+        <dt class="tabular--key">{{t 'details.employee.mobileTel'}}</dt>
+        <dt class="tabular--value">{{nextOfKin.mobileTelephone}}</dt>
+      </dl>
+      <dl class="tabular--row -nobg">
+        <dt class="tabular--key">{{t 'details.employee.homeEmail'}}</dt>
+        <dt class="tabular--value">{{nextOfKin.homeEmail}}</dt>
+      </dl>
+    {{/each}}
+
+  {{/editable-block}}
+
 </div>

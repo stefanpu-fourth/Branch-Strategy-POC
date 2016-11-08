@@ -5,7 +5,7 @@
   <div class="hr-details--cards">
     <div class="hr-details--card">
       <h1 class="hr-details--header brand-after-bg">{{t 'details.employee.details'}}</h1>
-      {{hr-employee employee=attrs.employee edit=(action 'edit')}}
+      {{hr-employee nextOfKins=attrs.nextOfKins employee=attrs.employee edit=(action 'edit')}}
     </div>
 
     <div class="hr-details--card">
@@ -15,7 +15,7 @@
 
     <div class="hr-details--card">
       <h1 class="hr-details--header brand-after-bg">{{t 'details.employment.details'}}</h1>
-      {{hr-employment employment=employment}}
+      {{hr-employment}}
     </div>
   </div>
 

@@ -4,6 +4,7 @@ import FindWithCache from 'ess/mixins/route-find-with-cache';
 export default Ember.Route.extend(FindWithCache, {
   appStateService: Ember.inject.service(),
 
+/*
   model() {
     return this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId'));
   },
@@ -11,6 +12,7 @@ export default Ember.Route.extend(FindWithCache, {
   setupController(controller, model) {
     controller.set('employee', model);
   },
+*/
 
   /**
     Renders `details/edit/template.hbs` into main application outlet.

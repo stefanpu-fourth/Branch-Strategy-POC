@@ -71,6 +71,7 @@ export default {
       address: 'Address',
       phone: 'Phone',
       fax: 'Fax',
+      nextOfKin: 'Next Of Kin',
       card: {
         subHeader: 'With {{employer}} for {{employmentDuration}}'
       },
@@ -105,7 +106,8 @@ export default {
         nationality: 'Nationality',
         gender: 'Gender',
         title: 'Title',
-        titles: ['Mr', 'Mrs', 'Miss', 'Ms']
+        titles: ['Mr', 'Mrs', 'Miss', 'Ms'],
+        nokRelationship: 'Relationship'
       },
       employer: {
         details: 'Employer Details',

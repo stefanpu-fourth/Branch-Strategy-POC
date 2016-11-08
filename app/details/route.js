@@ -8,15 +8,17 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
 
   title: 'HR DETAILS',
 
-  model: function () {
+  model() {
     return Ember.RSVP.hash({
       employment: this.findAllWithCache('mainemployment'),
-      employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId'))
+      employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId')),
+      nextOfKins: this.findAllWithCache('next-of-kin')
     });
   },
 
-  setupController: function (controller, model) {
+  setupController(controller, model) {
     controller.set('attrs.employment', model.employment);
     controller.set('attrs.employee', model.employee);
+    controller.set('attrs.nextOfKins', model.nextOfKins);
   }
 });

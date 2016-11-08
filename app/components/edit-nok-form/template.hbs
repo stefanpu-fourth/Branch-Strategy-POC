@@ -1,0 +1,11 @@
+<div class="edit_form">
+  {{#each model as |nextOfKin|}}
+    {{input-field value=nextOfKin.personTitle type='text' placeholder=(t 'details.employee.title')}}
+    {{input-field value=nextOfKin.firstName type='text' placeholder=(t 'details.employee.firstName')}}
+    {{input-field value=nextOfKin.lastName type='text' placeholder=(t 'details.employee.lastName')}}
+    {{input-field value=nextOfKin.relationship type='text' placeholder=(t 'details.employee.nokRelationship')}}
+    {{input-field value=nextOfKin.homeTelephone type='text' placeholder=(t 'details.employee.homeTel')}}
+    {{input-field value=nextOfKin.mobileTelephone type='text' placeholder=(t 'details.employee.mobileTel')}}
+    {{input-field value=nextOfKin.homeEmail type='text' placeholder=(t 'details.employee.homeEmail')}}
+  {{/each}}
+</div>

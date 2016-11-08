@@ -13,5 +13,14 @@ export default SirenAdapter.extend({
     return `employees/${this.get('appStateService.authenticatedEmployeeId')}`;
   }.property('appStateService.authenticatedEmployeeId'),
 
-  defaultSerializer: 'ess'
+  defaultSerializer: 'ess',
+
+  /**
+   Supplementary Fourth API headers to use when conducting AJAX calls
+
+   @property headers
+   @type Object
+   @public
+   */
+  headers: config.headers
 });

@@ -24,6 +24,7 @@ export default DS.Model.extend({
   employeeNumber: attr('string'),
   startDate: attr('string'), //TODO: change to date or similar for API integration
   lengthOfService: attr('string'),
+  nextOfKins: DS.hasMany('nextOfKins'),
 
   fullName: function () {
     var props = this.getProperties('firstNames', 'surname');
