@@ -13,7 +13,6 @@ export default Ember.Component.extend({
     },
     selectItem(item) {
       this.set('selectedItem', item);
-      console.log(this.get('selectedItem'));
     }
   }
 });

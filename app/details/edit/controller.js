@@ -21,16 +21,5 @@ export default Ember.Controller.extend({
         active: this.get('tabSelected') === 'contact'
       }
     ];
-  }),
-  editInfo: {
-    name: {
-      title: '',
-      firstName: '',
-      middleName: '',
-      lastName: ''
-    },
-    selectedTitle: '',
-    titles: ['Mr', 'Mrs', 'Miss', 'Ms']
-  },
-  employee: Ember.computed.reads('details.attrs.employee')
+  })
 });

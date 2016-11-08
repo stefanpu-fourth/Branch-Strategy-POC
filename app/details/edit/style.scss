@@ -1,66 +1,64 @@
 .edit {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: $color-grey-lightest;;
-}
+  @include position(absolute, rem(40) 0 0 0);
+  background-color: $color-grey-lightest;
 
-.edit-header {
-  @include display(flex);
-  align-items: center;
-  height: rem(40);
+  &-header {
+    @include display(flex);
+    @include align-items(center);
+    height: rem(40);
 
-  &__title {
-    @include flex(1 0 0);
-    text-align: center;
+    &__title {
+      @include flex(1 0 0);
+      text-align: center;
+    }
+
+    &-save-btn {
+      @include position(absolute, auto 0 0 0);
+      height: rem(40);
+      width: 100%;
+    }
+  }
+
+  &__form {
+    @include border-width(rem(1));
+    @include border-style(solid);
+    @include border-color($color-grey-lighter);
+    @include padding(rem(16));
+    background-color: $color-white;
   }
 }
 
 .tabbed-container {
   @include display(flex);
-  align-items: stretch;
-  cursor: pointer;
-  display: flex;
-  height: rem(40);
+  @include align-items(stretch);
   border-bottom: 1px solid $color-grey-light;
-
+  cursor: pointer;
+  height: rem(40);
 
   &__tab {
     @include flex(1 0 auto);
-    // height: inherit;
-    line-height: rem(40);
-    // margin: auto;
-    text-align: center;
-    color: $color-grey;
-    position: relative;
+    @include position(relative);
     @include transition(all 500ms ease);
+    color: $color-grey;
+    line-height: rem(40);
+    text-align: center;
 
     &::after {
-      content: "";
-
-      display: block;
-
-      height: rem(4);
-
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-
+      @include position(absolute, auto 0 0 0);
       @include border-radius(rem(2));
-
       @include transition(all 500ms ease);
+      @include display(block);
+      content: '';
+      height: rem(4);
     }
 
     &--active {
-      color: $color-grey-darkest;
       @include transition(all 500ms ease);
+      color: $color-grey-darkest;
 
       &::after {
-        background-color: $color-grey-darker;
         @include transition(all 500ms ease);
+        background-color: $color-grey-darker;
       }
     }
 
@@ -68,21 +66,4 @@
       padding: rem(16);
     }
   }
-}
-
-.edit-save-btn {
-  bottom: 0;
-  height: rem(40);
-  position: absolute;
-  width: 100%;
-}
-
-.edit__form {
-  background-color: $color-white;
-
-  @include border-width(1px);
-  @include border-style(solid);
-  @include border-color($color-grey-lighter);
-  
-  padding: rem(16);
 }
