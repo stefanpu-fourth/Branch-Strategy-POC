@@ -37,9 +37,7 @@ Router.map(function() {
   this.route('rotas');
   this.route('payslips');
   this.route('rota');
-  this.route('details', function() {
-    this.route('edit');
-  });
+  this.route('details');
   this.route('catchAll', { path: '*:' });
 });
 
