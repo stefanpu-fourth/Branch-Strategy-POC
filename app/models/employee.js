@@ -21,6 +21,7 @@ export default DS.Model.extend({
   homeEmail: attr('string'),
   nationalInsuranceNumber: attr('string'),
   nationality: attr('string'),
+  personTitle: attr('string'),
   employeeNumber: attr('string'),
   startDate: attr('string'), //TODO: change to date or similar for API integration
   lengthOfService: attr('string'),

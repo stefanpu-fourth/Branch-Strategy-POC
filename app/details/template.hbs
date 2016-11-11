@@ -21,4 +21,10 @@
 
 </div>
 
+{{#if isModalOpen}}
+  {{#modal-window}}
+    {{edit-employee selectedForEdit=selectedForEdit employee=attrs.employee isOpen=isModalOpen}}
+  {{/modal-window}}
+{{/if}}
+
 {{outlet}}

@@ -3,9 +3,9 @@ import { moduleForComponent, test } from 'ember-qunit';
 
 const employee = {
   selectedTitle: '',
-  surname: 'Doe',
   firstNames: 'John',
-  middleNames: 'Roe'
+  middleNames: 'Roe',
+  surname: 'Doe'
 };
 
 const titlesList = ['', 'Mr', 'Mrs', 'Ms', 'Miss'];
@@ -41,6 +41,8 @@ test('component properties are set', function (assert) {
     model: employee,
     titles: titlesList
   });
+
+  console.log(component.get('titles'));
 
   assert.deepEqual(component.get('model'), employee, 'Test if configuration object is being set properly.');
   assert.deepEqual(component.get('titles'), titlesList, 'Test if configuration object is being set properly.');

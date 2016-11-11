@@ -7,10 +7,12 @@ export default Ember.Controller.extend({
 
   selectedForEdit: 'name',
 
+  isModalOpen: false,
+
   actions: {
     edit(selected) {
       this.set('selectedForEdit', selected);
-      this.transitionToRoute('details.edit');
+      this.set('isModalOpen', true);
     }
   }
 });

@@ -105,7 +105,7 @@ export default {
         nationality: 'Nationality',
         gender: 'Gender',
         title: 'Title',
-        titles: ['Mr', 'Mrs', 'Miss', 'Ms']
+        titles: ['Mr', 'Mrs', 'Miss', 'Ms', 'Master', 'Madam', 'Dr', 'Mx']
       },
       employer: {
         details: 'Employer Details',
