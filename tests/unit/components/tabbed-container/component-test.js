@@ -61,9 +61,12 @@ test('default properties', function (assert) {
 
   const activeTabConfig = tabContainerConfig.find(tab => tab.active);
 
-  assert.deepEqual(component.get('activeTab'), activeTabConfig, 'Test if "activeTab" equals actual active tab');
-  assert.equal(component.get('activeTabComponent'), activeTabConfig.component, 'Test if "activeTabComponent" equals actual active tab component');
-  assert.equal(component.get('activeTabComponentModel'), activeTabConfig.componentModel, 'Test if "activeTabComponentModel" equals actual active tab component model');
+  assert.deepEqual(component.get('activeTab'), activeTabConfig, 
+    'Test if "activeTab" equals actual active tab');
+  assert.equal(component.get('activeTabComponent'), activeTabConfig.component, 
+    'Test if "activeTabComponent" equals actual active tab component');
+  assert.equal(component.get('activeTabComponentModel'), activeTabConfig.componentModel, 
+    'Test if "activeTabComponentModel" equals actual active tab component model');
 });
 
 test('tab switch', function (assert) {
@@ -77,15 +80,21 @@ test('tab switch', function (assert) {
   const tab1Id = '#' + tabContainerConfig[0].name + '-tab';
   const tab2Id = '#' + tabContainerConfig[1].name + '-tab';
 
-  assert.ok(this.$(tab1Id).hasClass('tabbed-container__tab--active'), 'Test if the active tab has "tabbed-container__tab--active" class.');
+  assert.ok(this.$(tab1Id).hasClass('tabbed-container__tab--active'), 
+    'Test if the active tab has "tabbed-container__tab--active" class.');
 
   this.$(tab2Id).click();
 
   const activeTabAfterClickConfig = tabContainerConfig[1];
 
-  assert.notOk(this.$(tab1Id).hasClass('tabbed-container__tab--active'), 'Test if the inactive tab does not have "tabbed-container__tab--active" class.');
-  assert.ok(this.$(tab2Id).hasClass('tabbed-container__tab--active'), 'Test if the active tab has "tabbed-container__tab--active" class.');
-  assert.deepEqual(component.get('activeTab'), activeTabAfterClickConfig, 'Test if "activeTab" equals actual active tab');
-  assert.equal(component.get('activeTabComponent'), activeTabAfterClickConfig.component, 'Test if "activeTabComponent" equals actual active tab component');
-  assert.equal(component.get('activeTabComponentModel'), activeTabAfterClickConfig.componentModel, 'Test if "activeTabComponentModel" equals actual active tab component model');
+  assert.notOk(this.$(tab1Id).hasClass('tabbed-container__tab--active'), 
+    'Test if the inactive tab does not have "tabbed-container__tab--active" class.');
+  assert.ok(this.$(tab2Id).hasClass('tabbed-container__tab--active'), 
+    'Test if the active tab has "tabbed-container__tab--active" class.');
+  assert.deepEqual(component.get('activeTab'), activeTabAfterClickConfig, 
+    'Test if "activeTab" equals actual active tab');
+  assert.equal(component.get('activeTabComponent'), activeTabAfterClickConfig.component, 
+    'Test if "activeTabComponent" equals actual active tab component');
+  assert.equal(component.get('activeTabComponentModel'), activeTabAfterClickConfig.componentModel, 
+    'Test if "activeTabComponentModel" equals actual active tab component model');
 });

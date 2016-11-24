@@ -1,8 +1,9 @@
 import DS from 'ember-data';
+import Validations from '../validations/validations';
 
-var attr = DS.attr;
+const attr = DS.attr;
 
-export default DS.Model.extend({
+export default DS.Model.extend(Validations, {
   surname: attr('string'),
   firstNames: attr('string'),
   preferredName: attr('string'),
@@ -27,7 +28,7 @@ export default DS.Model.extend({
   lengthOfService: attr('string'),
 
   fullName: function () {
-    var props = this.getProperties('firstNames', 'surname');
+    const props = this.getProperties('firstNames', 'surname');
     return `${props.firstNames} ${props.surname}`;
   }.property('firstNames', 'surname')
 

@@ -1,13 +1,20 @@
 import Ember from 'ember';
 
+/**
+  @class TabbedContainer
+  @extends Ember.Component
+  @public
+*/
 export default Ember.Component.extend({
-  activeTab: Ember.computed(function() {
+  activeTab: Ember.computed(function () {
     return this.get('tabs').find(tab => tab.active);
   }),
-  activeTabComponent: Ember.computed('activeTab', function() {
+
+  activeTabComponent: Ember.computed('activeTab', function () {
     return this.get('activeTab').component;
   }),
-  activeTabComponentModel: Ember.computed('activeTab', function() {
+
+  activeTabComponentModel: Ember.computed('activeTab', function () {
     return this.get('activeTab').componentModel;
   }),
 

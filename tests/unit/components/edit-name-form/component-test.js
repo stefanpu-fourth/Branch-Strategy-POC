@@ -42,8 +42,6 @@ test('component properties are set', function (assert) {
     titles: titlesList
   });
 
-  console.log(component.get('titles'));
-
   assert.deepEqual(component.get('model'), employee, 'Test if configuration object is being set properly.');
   assert.deepEqual(component.get('titles'), titlesList, 'Test if configuration object is being set properly.');
 });
