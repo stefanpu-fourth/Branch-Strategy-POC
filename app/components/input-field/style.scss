@@ -1,10 +1,10 @@
-.input-field {
+.input__field {
   margin-top: rem(16);
   margin-bottom: rem(16);
 
   position: relative;
 
-  .input-element {
+  .input__element {
     background-color: $color-white;
     height: 60px;
     width: 100%;
@@ -20,27 +20,36 @@
     @include transition(all 500ms ease);
   }
 
+  .input__element--invalid {
+    background-color: rgba(213, 77, 63, 0.2);
+    border-top: 1px solid;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-color: $color-error;
+    box-shadow: 0px 0px 5px $color-error;
+  }
+
   & input:focus {
     background-color: $color-grey-lighter;
   }
 
-  .not-focused {
+  .input__element--not-focused {
     position: absolute;
 
     left: rem(16);
-    bottom: 11px;
+    top: 28px;
 
     color: $color-grey-dark;
 
     @include transition(all 500ms ease);
   }
 
-  .focused {
+  .input__element--focused {
     font-size: 12px;
-    bottom: 35px;
+    top: 5px;
   }
 
-  &-clear-button {
+  &__clear__button {
     position: absolute;
 
     right: 15px;
@@ -56,6 +65,49 @@
         stroke: $color-grey-darkest;
         stroke-width: 2px;
       }
+    }
+  }
+
+  &__error__message {
+    background-color: $color-error;
+    padding: 0px 0px;
+    max-height: 0px;
+
+    @include border-bottom-radius(2px);
+    box-shadow: 0px 0px 5px $color-error;
+
+    line-height: 18px;
+    font-size: 12px;
+    color: $color-white;
+
+    @include transition(all 500ms ease);
+    visibility: hidden;
+
+    @include display(flex);
+    @include align-items(center);
+
+    word-break: break-all;
+
+    .warning__icon {
+      width: 20px;
+      padding: 0px 5px;
+      display: none;
+    }
+
+    &__content {
+      padding: 0px 5px;
+    }
+  }
+
+  &__error__message--visible {
+    padding: 5px 0px;
+    max-height: 50px;
+
+    @include transition(all 500ms ease);
+    visibility: visible;
+
+    .warning__icon {
+      display: block;
     }
   }
 }

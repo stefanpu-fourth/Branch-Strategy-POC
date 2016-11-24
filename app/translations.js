@@ -130,6 +130,13 @@ export default {
       wentWrongMessage: 'This error has been logged. In the meantime try to <a href="/">refresh the page</a> or come back later.',
       noPermission: 'Sorry, but you don\'t have permission to access this page.',
       tryMain: 'Why not try one of the main pages?'
+    },
+    errorValidation: {
+      presence: 'This field is required.',
+      alphabetical: 'Your entry must contain only letters.',
+      length: 'Your input is less than {min} or more than {max} characters.',
+      onlyDigits: 'Phone number must contain only digits.',
+      leadingZero: 'Phone number should start with a leading zero.'
     }
   }
 };
