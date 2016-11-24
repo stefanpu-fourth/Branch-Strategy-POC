@@ -3,7 +3,7 @@
     "name": "82606",
     "token": "00525000000IcpbAAC"
   }],
-  "upstreamApiUrl": "http://10.10.20.79:83",
+  "upstreamApiUrl": "http://10.10.20.80:83",
   "upstreamApiMountPoint": "/api",
   "appServerUrl": "http://localhost:4200",
   "fourthOrg": "0",

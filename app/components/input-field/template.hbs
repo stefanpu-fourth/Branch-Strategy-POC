@@ -1,9 +1,17 @@
-<div class="input-field">
-    {{input class="input-element brand-border-bottom" type=type value=value focus-in="focusIn" focus-out="focusOut" id=inputId}} 
-    <label for="{{inputId}}" id="label-{{inputId}}" class="not-focused {{if isFocused 'focused'}}">{{placeholder}}</label>
-    <div class="input-field-clear-button" id="clearButton" {{action "clearInput"}}>
-        {{svg-icon name="x"}}
-    </div> 
+<div class="input__field">
+  {{input class=(concat 'input__element brand-border-bottom ' (if (v-get model inputId 'isInvalid') (if dirty 'input__element--invalid')))
+  type=type value=value focus-in="focusIn" focus-out="focusOut" id=inputId}}
+  <label for="{{inputId}}" id="label-{{inputId}}" class="input__element--not-focused {{if isFocused 'input__element--focused'}}">{{placeholder}}</label>
+  <div class="input__field__clear__button" id="clearButton" {{action "clearInput"}}>
+    {{svg-icon name="x"}}
+  </div>
+  <div class="input__field__error__message {{if (v-get model inputId 'isInvalid') (if dirty 'input__field__error__message--visible')}}">
+    <div class="warning__icon">
+      {{svg-icon name="warning-triangle"}}
+    </div>
+    <div class="input__field__error__message__content">
+      {{v-get model inputId 'message'}}
+    </div>
+  </div>
 </div>
 {{yield}}
-    

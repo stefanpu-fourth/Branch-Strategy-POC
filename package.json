@@ -38,6 +38,7 @@
     "ember-cli-sass": "^4.0.1",
     "ember-cli-sass-pods": "^1.0.9",
     "ember-cli-uglify": "1.2.0",
+    "ember-cp-validations": "3.1.2",
     "ember-data": "2.2.0",
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.3",

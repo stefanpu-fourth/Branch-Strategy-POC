@@ -4,7 +4,8 @@ import { moduleForComponent, test } from 'ember-qunit';
 moduleForComponent('input-field', {
   needs: [
     'component:svg-icon',
-    'template:partials/icons/x'
+    'template:partials/icons/x',
+    'template:partials/icons/warning-triangle'
   ]
 });
 
@@ -82,7 +83,7 @@ test('"focusIn" action triggers', function (assert) {
 
   assert.ok(component.get('isFocused'), '"isFocused" should be set to true, since on the input element has been triggered a focus event.');
   // Test if class "focused" is being set.
-  assert.ok(this.$(labelId).hasClass('focused'), 'The label element should have a class named "focused"');
+  assert.ok(this.$(labelId).hasClass('input__element--focused'), 'The label element should have a class named "focused"');
 });
 
 test('"focusOut" action triggers', function (assert) {
@@ -100,14 +101,14 @@ test('"focusOut" action triggers', function (assert) {
   // Test if "isFocused" is true when an there is a value.
   assert.ok(component.get('isFocused'), '"isFocused" should be set to true, since there is a value.');
   // Test if class "focused" is being set.
-  assert.ok(this.$(labelId).hasClass('focused'), 'The label element should have a class named "focused"');
+  assert.ok(this.$(labelId).hasClass('input__element--focused'), 'The label element should have a class named "focused"');
 
   // Test if "isFocused" is still true after "focusIn" and "focusOut" events.
   inputElement.focus();
   inputElement.focusout();
   assert.ok(component.get('isFocused'), '"isFocused" should be set to true, since there is a value.');
   // Test if class "focused" is being set.
-  assert.ok(this.$(labelId).hasClass('focused'), 'The label element should have a class named "focused"');
+  assert.ok(this.$(labelId).hasClass('input__element--focused'), 'The label element should have a class named "focused"');
 
   // Test if "isFocused" is true after the value is set to an empty string and a "focusin" event is triggered on the element.
   inputElement.val('');
@@ -115,11 +116,11 @@ test('"focusOut" action triggers', function (assert) {
   inputElement.focus();
   assert.ok(component.get('isFocused'), '"isFocused" should be set to true, since the element is focused.');
   // Test if class "focused" is being set.
-  assert.ok(this.$(labelId).hasClass('focused'), 'The label element should have a class named "focused"');
+  assert.ok(this.$(labelId).hasClass('input__element--focused'), 'The label element should have a class named "focused"');
 
   // Test if "isFocused" is false after value is set to an empty string and a "focusout" event is triggered.
   inputElement.focusout();
   assert.notOk(component.get('isFocused'), '"isFocused" should be set to false, since the value is set to an empty string.');
   // Test if class "focused" is not being set.
-  assert.notOk(this.$(labelId).hasClass('focused'), 'The label element should not have a class named "focused"');
+  assert.notOk(this.$(labelId).hasClass('input__element--focused'), 'The label element should not have a class named "focused"');
 });
