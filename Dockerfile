@@ -2,6 +2,8 @@
 
 FROM fourthdockerpoc/fourth-ember:v2.8.0
 
+ARG NPM_TOKEN
+
 RUN mkdir /app
 
 WORKDIR /app
@@ -13,6 +15,8 @@ COPY . /app
 RUN npm install --legacy-bundling \
   && bower --allow-root install \
 	&& npm rebuild node-sass
+
+RUN rm -f /app/.npmrc
 
 # ember server on port 4200
 EXPOSE 4200
