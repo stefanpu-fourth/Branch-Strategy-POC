@@ -2,8 +2,6 @@
 
 FROM fourthdockerpoc/fourth-ember:v2.8.0
 
-ARG NPM_TOKEN
-
 RUN mkdir /app
 
 WORKDIR /app
@@ -24,4 +22,4 @@ EXPOSE 4200
 # live-reload on port 49152
 EXPOSE 49152
 
-CMD ["ember", "test"]
+CMD ["/bin/bash"]
