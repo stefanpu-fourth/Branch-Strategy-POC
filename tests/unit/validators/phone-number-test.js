@@ -9,7 +9,7 @@ moduleFor('validator:phone-number', 'Unit | Validator | phone-number', {
 
 const onlyDigitsErrorMessage = 'Only Digits Error Message';
 const leadingZeroErrorMessage = 'Leading Zero Error Message';
-const correctValue = '0123456789';
+const correctValue = '012 345 6789';
 const incorrectValue_1 = '1234567890';
 const incorrectValue_2 = 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ';
 const incorrectValue_3 = '§±!@#$%^&*()-_=+[{}];:"\'|\\,<.>/?`~';

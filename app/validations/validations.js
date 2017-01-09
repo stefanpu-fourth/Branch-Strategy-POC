@@ -34,6 +34,26 @@ export default buildValidations({
     })],
 
   /**
+    Defines "alphabetical" validator for "middleName"
+    Defines "length" validator for "middleName"
+
+    @property middleName
+    @type {Array}
+    @public
+  */
+  middleName: [
+    validator('alphabetical', {
+      message: errorMessage.alphabetical,
+      allowBlank: true
+    }),
+    validator('length', {
+      allowBlank: true,
+      min: 1,
+      max: 60,
+      message: errorMessage.length
+    })],
+
+  /**
     Defines "presence" validator for "firstNames"
     Defines "alphabetical" validator for "firstNames"
     Defines "length" validator for "firstNames"
@@ -87,7 +107,7 @@ export default buildValidations({
   */
   address2: validator('length', {
     allowBlank: true,
-    min: 2,
+    min: 1,
     max: 32,
     message: errorMessage.length
   }),
@@ -101,7 +121,7 @@ export default buildValidations({
   */
   address3: validator('length', {
     allowBlank: true,
-    min: 2,
+    min: 1,
     max: 32,
     message: errorMessage.length
   }),
@@ -142,7 +162,7 @@ export default buildValidations({
   county: [
     validator('alphabetical', {
       message: errorMessage.alphabetical,
-      allowBlank: false
+      allowBlank: true
     }),
     validator('length', {
       allowBlank: true,

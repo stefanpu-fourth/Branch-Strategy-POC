@@ -6,6 +6,7 @@ var attr = DS.attr;
 export default DS.Model.extend(Validations, {
   surname: attr('string'),
   firstNames: attr('string'),
+  middleName: attr('string'),
   preferredName: attr('string'),
   dateOfBirth: attr('string'), //TODO: change to date or similar for API integration
   gender: attr('string'),
