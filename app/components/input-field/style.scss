@@ -6,27 +6,27 @@
 
   .input__element {
     background-color: $color-white;
-    height: 60px;
+    height: rem(60);
     width: 100%;
 
     color: $color-grey-darkest;
 
     padding-left: rem(16);
-    padding-top: 20px;
+    padding-top: rem(16);
     border: none;
-    @include border-top-radius(2px);
-    border-bottom: 2px solid;
+    @include border-top-radius(rem(2));
+    border-bottom: rem(2) solid;
     border-color: inherit;
     @include transition(all 500ms ease);
   }
 
   .input__element--invalid {
     background-color: rgba(213, 77, 63, 0.2);
-    border-top: 1px solid;
-    border-left: 1px solid;
-    border-right: 1px solid;
+    border-top: rem(1) solid;
+    border-left: rem(1) solid;
+    border-right: rem(1) solid;
     border-color: $color-error;
-    box-shadow: 0px 0px 5px $color-error;
+    box-shadow: 0 0 rem(5) $color-error;
   }
 
   & input:focus {
@@ -37,7 +37,7 @@
     position: absolute;
 
     left: rem(16);
-    top: 28px;
+    top: rem(28);
 
     color: $color-grey-dark;
 
@@ -45,39 +45,39 @@
   }
 
   .input__element--focused {
-    font-size: 12px;
-    top: 5px;
+    font-size: rem(12);
+    top: rem(4);
   }
 
   &__clear__button {
     position: absolute;
 
-    right: 15px;
-    top: 16px;
+    right: rem(16);
+    top: rem(16);
 
     cursor: pointer;
 
     .svg-icon {
-      height: 8px;
-      width: 8px;
+      height: rem(8);
+      width: rem(8);
 
       svg path {
         stroke: $color-grey-darkest;
-        stroke-width: 2px;
+        stroke-width: rem(2);
       }
     }
   }
 
   &__error__message {
     background-color: $color-error;
-    padding: 0px 0px;
-    max-height: 0px;
+    padding: 0 0;
+    max-height: 0;
 
-    @include border-bottom-radius(2px);
-    box-shadow: 0px 0px 5px $color-error;
+    @include border-bottom-radius(rem(2));
+    box-shadow: 0 0 rem(5) $color-error;
 
-    line-height: 18px;
-    font-size: 12px;
+    line-height: rem(18);
+    font-size: rem(12);
     color: $color-white;
 
     @include transition(all 500ms ease);
@@ -89,19 +89,19 @@
     word-break: break-all;
 
     .warning__icon {
-      width: 20px;
-      padding: 0px 5px;
+      width: rem(20);
+      padding: 0 rem(5);
       display: none;
     }
 
     &__content {
-      padding: 0px 5px;
+      padding: 0 rem(5);
     }
   }
 
   &__error__message--visible {
-    padding: 5px 0px;
-    max-height: 50px;
+    padding: rem(5) 0;
+    max-height: rem(50);
 
     @include transition(all 500ms ease);
     visibility: visible;
