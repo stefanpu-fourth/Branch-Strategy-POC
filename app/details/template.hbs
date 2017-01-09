@@ -21,7 +21,9 @@
 
 {{#if isModalOpen}}
   {{#modal-window}}
-    {{edit-employee selectedForEdit=selectedForEdit employee=attrs.employee isOpen=isModalOpen}}
+    {{edit-employee selectedForEdit=selectedForEdit
+       employee=attrs.employee isOpen=isModalOpen
+     saveAction="saveEmployee" }}
   {{/modal-window}}
 {{/if}}
 

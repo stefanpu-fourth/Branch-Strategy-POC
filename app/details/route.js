@@ -20,7 +20,6 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @public
   */
   appStateService: Ember.inject.service(),
-
   /**
     @property title
     @type {String}
@@ -28,7 +27,7 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @public
   */
   title: 'HR DETAILS',
-
+  _localEmployeeCopy: {},
   /**
     Finds cached employments and employees.
 
@@ -36,7 +35,7 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @public
     @return {Promise}
   */
-  model: function () {
+  model: function() {
     return Ember.RSVP.hash({
       employment: this.findAllWithCache('mainemployment'),
       employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId'))
@@ -51,8 +50,27 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @param {DetailsController} controller
     @param {DetailsModel} model
   */
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.set('attrs.employment', model.employment);
     controller.set('attrs.employee', model.employee);
+  },
+  actions: {
+    saveEmployee() {
+      this.model().then(function(modelData) {
+        // create copy for the employees
+        // return to original copy
+        // debugger;
+        modelData.employee.save({
+          "dataType": "text"
+        }).then(function(response) {
+          // debugger;
+          console.log(response);
+        }, function(error) {
+          // debugger;
+          console.log(error);
+        });
+
+      });
+    }
   }
 });
