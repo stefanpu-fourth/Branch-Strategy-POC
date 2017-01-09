@@ -2,6 +2,7 @@ import Ember from 'ember';
 import FindWithCache from 'ess/mixins/route-find-with-cache';
 import RenderNav from 'ess/mixins/render-nav';
 import ErrorNotifications from 'ess/mixins/error-notifications';
+import i18n from 'ess/i18n';
 
 /**
   details route handler
@@ -20,7 +21,6 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @public
   */
   appStateService: Ember.inject.service(),
-
   /**
     @property title
     @type {String}
@@ -28,7 +28,7 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @public
   */
   title: 'HR DETAILS',
-
+  _employeeId: 0,
   /**
     Finds cached employments and employees.
 
@@ -42,7 +42,9 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
       employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId'))
     });
   },
-
+  afterModel(model) {
+    this.set('_employeeId', model.employee.id);
+  },
   /**
     Sets employment and employee on the controller's
     attrs.
@@ -54,5 +56,35 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
   setupController: function (controller, model) {
     controller.set('attrs.employment', model.employment);
     controller.set('attrs.employee', model.employee);
+  },
+  actions: {
+    saveEmployee() {
+      this.findWithCache('employee', this.get('_employeeId')).then((modelData) => {
+        modelData.save().then((response) => {
+          this.get('notifications').addNotification({
+            message: i18n.t('successNotifications.employeeUpdate'),
+            type: 'success',
+            autoClear: true,
+            clearDuration: 5000
+          });
+        }, (error) => {
+          this.get('notifications').addNotification({
+            message: i18n.t('errorNotifications.employeeUpdate'),
+            type: 'error',
+            autoClear: true,
+            clearDuration: 5000
+          });
+        });
+
+      });
+    },
+    cancelEdit() {
+      this.findWithCache('employee', this.get('_employeeId')).then(function (result) {
+        const modelHasChangedAttributes = result.get('hasDirtyAttributes');
+        if (modelHasChangedAttributes) {
+          result.rollbackAttributes();
+        }
+      });
+    }
   }
 });
