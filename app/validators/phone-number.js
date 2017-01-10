@@ -21,7 +21,7 @@ const PhoneNumber = BaseValidator.extend({
   */
   validate(value, options) {
     const leadingZeroRegex = /^0.*$/;
-    const onlyDigitsRegex = /^\d+$/;
+    const onlyDigitsRegex = /^[\d\s?]+$/;
     const isLeadingZeroValid = leadingZeroRegex.test(value);
     const isOnlyDigitsValid = onlyDigitsRegex.test(value);
 
@@ -33,10 +33,8 @@ const PhoneNumber = BaseValidator.extend({
       } else {
         return true;
       }
-    } else if (options.allowBlank) {
-      return true;
     } else {
-      return false;
+      return options.allowBlank;
     }
   }
 });

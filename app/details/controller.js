@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 /**
   @class DetailsController
-  @extends Ember.Route
+  @extends Ember.Controller
   @module Details
 */
 export default Ember.Controller.extend({
@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
 
   /**
     @property employment
-    @type {Any}
+    @type {Object}
     @public
   */
   employment: Ember.computed.alias('attrs.employment.firstObject'),
@@ -35,7 +35,7 @@ export default Ember.Controller.extend({
     /**
       Sets selected detail for edition and opens edit modal.
 
-      @method focusIn
+      @method edit
       @param {String} selected
       @public
     */

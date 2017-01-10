@@ -47,7 +47,7 @@
     position: absolute;
 
     right: rem(16);
-    top: 1rem(16);
+    top: rem(16);
 
     @include transition(all 500ms ease);
 
