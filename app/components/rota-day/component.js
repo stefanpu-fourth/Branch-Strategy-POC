@@ -2,6 +2,12 @@ import Ember from 'ember';
 
 const { computed } = Ember;
 
+/**
+  @class RotaDay
+  @extends Ember.Component
+  @module Components
+  @public
+*/
 export default Ember.Component.extend({
   tagName: 'li',
 

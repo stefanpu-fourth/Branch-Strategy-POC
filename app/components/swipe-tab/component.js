@@ -1,7 +1,12 @@
 import Ember from 'ember';
 
+/**
+  @class SwipeTab
+  @extends Ember.Component
+  @module Components
+  @public
+*/
 export default Ember.Component.extend({
-
   tagName: 'a',
   classNames: ['notALink', 'swipe--tablink', 'brand-after-bg'],
   classNameBindings: ['isActive:-active'],

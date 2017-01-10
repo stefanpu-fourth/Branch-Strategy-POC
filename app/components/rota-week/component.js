@@ -1,5 +1,11 @@
 import Ember from 'ember';
 
+/**
+  @class RotaWeek
+  @extends Ember.Component
+  @module Components
+  @public
+*/
 export default Ember.Component.extend({
   tagName: 'ul',
 

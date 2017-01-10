@@ -1,7 +1,19 @@
 import Ember from 'ember';
 import i18n from 'ess/i18n';
 
+/**
+  @class EditEmployee
+  @extends Ember.Component
+  @module Components
+  @public
+*/
 export default Ember.Component.extend({
+
+  /**
+    @property tabContainerConfig
+    @type {Array}
+    @public
+  */
   tabContainerConfig: Ember.computed('selectedForEdit', function () {
     return [
       {
@@ -21,6 +33,12 @@ export default Ember.Component.extend({
     ];
   }),
   actions: {
+    /**
+      Closes the details modal
+
+      @method closeModal
+      @public
+    */
     closeModal() {
       this.set('isOpen', false);
     }

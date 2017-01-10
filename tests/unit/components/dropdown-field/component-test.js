@@ -40,8 +40,10 @@ test('component properties are set', function (assert) {
   const actualPlaceholder = this.$('#placeholder').text();
 
   assert.equal(actualSelectedItem, 'item1', '"selectedItem" property should be "item1".');
-  assert.deepEqual(actualItemsList, ['item1', 'item2', 'item3'], 'Items list should be ["item1", "item2", "item3"]');
-  assert.equal(actualPlaceholder, 'test placeholder', 'Input element type should be set to "test placeholder".');
+  assert.deepEqual(actualItemsList, ['item1', 'item2', 'item3'],
+    'Items list should be ["item1", "item2", "item3"]');
+  assert.equal(actualPlaceholder, 'test placeholder',
+    'Input element type should be set to "test placeholder".');
 });
 
 test('selecting item from the list', function (assert) {
@@ -71,12 +73,14 @@ test('"focusIn" action triggers', function (assert) {
 
   const selectElement = this.$('select');
 
-  assert.notOk(component.get('isFocused'), '"isFocused" should be set to false, since the value is an empty string.');
+  assert.notOk(component.get('isFocused'),
+    '"isFocused" should be set to false, since the value is an empty string.');
   assert.notOk(this.$('#placeholder').hasClass('focused'), 'The label element should not have a class named "focused"');
 
   selectElement.focus();
 
-  assert.ok(component.get('isFocused'), '"isFocused" should be set to true, since on the input element has been triggered a focus event.');
+  assert.ok(component.get('isFocused'),
+    '"isFocused" should be set to true, since on the input element has been triggered a focus event.');
   assert.ok(this.$('#placeholder').hasClass('focused'), 'The label element should have a class named "focused"');
 });
 
@@ -95,14 +99,17 @@ test('"focusOut" action triggers', function (assert) {
     .val('item2')
     .trigger('change');
 
-  assert.ok(component.get('isFocused'), '"isFocused" should be set to true, since there is a value.');
+  assert.ok(component.get('isFocused'),
+    '"isFocused" should be set to true, since there is a value.');
   assert.ok(this.$('#placeholder').hasClass('focused'), 'The label element should have a class named "focused"');
 
   // Test if "isFocused" is still true after "focusIn" and "focusOut" events.
   selectElement.focus();
   selectElement.focusout();
-  assert.ok(component.get('isFocused'), '"isFocused" should be set to true, since there is a value.');
-  assert.ok(this.$('#placeholder').hasClass('focused'), 'The label element should have a class named "focused"');
+  assert.ok(component.get('isFocused'),
+    '"isFocused" should be set to true, since there is a value.');
+  assert.ok(this.$('#placeholder').hasClass('focused'),
+    'The label element should have a class named "focused"');
 
   // Test if "isFocused" is true after selected item is set to an empty string and а "focusin" event is triggered on the element.
   selectElement
@@ -110,11 +117,15 @@ test('"focusOut" action triggers', function (assert) {
     .trigger('change');
 
   selectElement.focus();
-  assert.ok(component.get('isFocused'), '"isFocused" should be set to true, since the element is focused.');
-  assert.ok(this.$('#placeholder').hasClass('focused'), 'The label element should have a class named "focused"');
+  assert.ok(component.get('isFocused'),
+    '"isFocused" should be set to true, since the element is focused.');
+  assert.ok(this.$('#placeholder').hasClass('focused'),
+    'The label element should have a class named "focused"');
 
   // Test if "isFocused" is false after selected item is set to an empty string and a "focusout" event is triggered.
   selectElement.focusout();
-  assert.notOk(component.get('isFocused'), '"isFocused" should be set to false, since the value is set to an empty string.');
-  assert.notOk(this.$('#placeholder').hasClass('focused'), 'The label element should not have a class named "focused"');
+  assert.notOk(component.get('isFocused'),
+    '"isFocused" should be set to false, since the value is set to an empty string.');
+  assert.notOk(this.$('#placeholder').hasClass('focused'),
+    'The label element should not have a class named "focused"');
 });

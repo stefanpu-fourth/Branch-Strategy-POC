@@ -1,7 +1,7 @@
 .tabbed-container {
   @include display(flex);
   @include align-items(stretch);
-  border-bottom: 1px solid $color-grey-light;
+  border-bottom: rem(1) solid $color-grey-light;
   cursor: pointer;
   height: rem(40);
 

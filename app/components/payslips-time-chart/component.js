@@ -1,6 +1,12 @@
 import Ember from 'ember';
 import i18n from 'ess/i18n';
 
+/**
+  @class PayslipsTimeChart
+  @extends Ember.Component
+  @module Components
+  @public
+*/
 export default Ember.Component.extend({
   brandService: Ember.inject.service(),
 

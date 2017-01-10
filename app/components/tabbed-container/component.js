@@ -6,19 +6,41 @@ import Ember from 'ember';
   @public
 */
 export default Ember.Component.extend({
+  /**
+    @property activeTab
+    @type {Object}
+    @public
+  */
   activeTab: Ember.computed(function () {
     return this.get('tabs').find(tab => tab.active);
   }),
 
+  /**
+    @property activeTabComponent
+    @type {Object}
+    @public
+  */
   activeTabComponent: Ember.computed('activeTab', function () {
     return this.get('activeTab').component;
   }),
 
+  /**
+    @property activeTabComponentModel
+    @type {Object}
+    @public
+  */
   activeTabComponentModel: Ember.computed('activeTab', function () {
     return this.get('activeTab').componentModel;
   }),
 
   actions: {
+    /**
+      Sets the provided tab as active.
+
+      @method setTabActive
+      @param {String} tabName
+      @public
+    */
     setTabActive(tabName) {
       const tab = this.get('tabs').find(tab => tab.name === tabName);
       this.set('activeTab', tab);
