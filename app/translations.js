@@ -136,7 +136,10 @@ export default {
       alphabetical: 'Your entry must contain only letters.',
       length: 'Your input is less than {min} or more than {max} characters.',
       onlyDigits: 'Phone number must contain only digits.',
-      leadingZero: 'Phone number should start with a leading zero.'
+      leadingZero: 'Phone number should start with a leading zero.',
+      geographicalNames: 'Your entry must not contain unsupported characters.',
+      address: 'Your entry must not contain ` or | symbol',
+      postCode: 'Your entry must not contain unsupported characters.'
     }
   }
 };

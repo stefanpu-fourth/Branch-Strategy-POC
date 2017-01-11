@@ -80,6 +80,7 @@ export default buildValidations({
 
   /**
     Defines "presence" validator for "address1"
+    Defines "address" validator for "address1"
     Defines "length" validator for "address1"
 
     @property address1
@@ -91,6 +92,10 @@ export default buildValidations({
       presence: true,
       message: errorMessage.presence
     }),
+    validator('address', {
+      message: errorMessage.address,
+      allowBlank: false
+    }),
     validator('length', {
       allowBlank: true,
       min: 4,
@@ -99,36 +104,48 @@ export default buildValidations({
     })],
 
   /**
+    Defines "address" validator for "address2"
     Defines "length" validator for "address2"
 
     @property address2
-    @type {Object}
+    @type {Array}
     @public
   */
-  address2: validator('length', {
-    allowBlank: true,
-    min: 1,
-    max: 32,
-    message: errorMessage.length
-  }),
+  address2: [
+    validator('address', {
+      message: errorMessage.address,
+      allowBlank: true
+    }),
+    validator('length', {
+      allowBlank: true,
+      min: 1,
+      max: 32,
+      message: errorMessage.length
+    })],
 
   /**
+    Defines "address" validator for "address3"
     Defines "length" validator for "address3"
 
     @property address3
-    @type {Object}
+    @type {Array}
     @public
   */
-  address3: validator('length', {
-    allowBlank: true,
-    min: 1,
-    max: 32,
-    message: errorMessage.length
-  }),
+  address3: [
+    validator('address', {
+      message: errorMessage.address,
+      allowBlank: true
+    }),
+    validator('length', {
+      allowBlank: true,
+      min: 1,
+      max: 32,
+      message: errorMessage.length
+    })],
 
   /**
     Defines "presence" validator for "town"
-    Defines "alphabetical" validator for "town"
+    Defines "geographical-names" validator for "town"
     Defines "length" validator for "town"
 
     @property town
@@ -140,8 +157,8 @@ export default buildValidations({
       presence: true,
       message: errorMessage.presence
     }),
-    validator('alphabetical', {
-      message: errorMessage.alphabetical,
+    validator('geographical-names', {
+      message: errorMessage.geographicalNames,
       allowBlank: true
     }),
     validator('length', {
@@ -152,7 +169,7 @@ export default buildValidations({
     })],
 
   /**
-    Defines "alphabetical" validator for "county"
+    Defines "geographical-names" validator for "county"
     Defines "length" validator for "county"
 
     @property county
@@ -160,15 +177,15 @@ export default buildValidations({
     @public
   */
   county: [
-    validator('alphabetical', {
-      message: errorMessage.alphabetical,
-      allowBlank: true
-    }),
     validator('length', {
       allowBlank: true,
-      min: 3,
+      min: 1,
       max: 32,
       message: errorMessage.length
+    }),
+    validator('geographical-names', {
+      message: errorMessage.geographicalNames,
+      allowBlank: true
     })],
 
   /**
@@ -180,8 +197,8 @@ export default buildValidations({
     @public
   */
   country: [
-    validator('alphabetical', {
-      message: errorMessage.alphabetical,
+    validator('geographical-names', {
+      message: errorMessage.geographicalNames,
       allowBlank: true
     }),
     validator('length', {
@@ -193,18 +210,24 @@ export default buildValidations({
   ],
 
   /**
+    Defines "post-code" validator for "postCode"
     Defines "length" validator for "postCode"
 
     @property postCode
     @type {Object}
     @public
   */
-  postCode: validator('length', {
-    allowBlank: true,
-    min: 5,
-    max: 8,
-    message: errorMessage.length
-  }),
+  postCode: [
+    validator('post-code', {
+      message: errorMessage.postCode,
+      allowBlank: true
+    }),
+    validator('length', {
+      allowBlank: true,
+      min: 5,
+      max: 8,
+      message: errorMessage.length
+    })],
 
   /**
     Defines "phone-number" validator for "homeTel"
