@@ -27,7 +27,7 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @public
   */
   title: 'HR DETAILS',
-  _localEmployeeCopy: {},
+  _employeeId: 0,
   /**
     Finds cached employments and employees.
 
@@ -41,7 +41,9 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
       employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId'))
     });
   },
-
+  afterModel(model) {
+    this.set('_employeeId', model.employee.id);
+  },
   /**
     Sets employment and employee on the controller's
     attrs.
@@ -56,13 +58,14 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
   },
   actions: {
     saveEmployee() {
-      this.model().then(function(modelData) {
+      this.findWithCache('employee', this.get('_employeeId')).then(function(modelData) {
         // create copy for the employees
         // return to original copy
+        //TODO: add validation before calling save
+        //TODO: if wrong display the notifications and force? dirty attributes8
+        // const modelDataIsValid = modelData.validate();
         // debugger;
-        modelData.employee.save({
-          "dataType": "text"
-        }).then(function(response) {
+        modelData.save().then(function(response) {
           // debugger;
           console.log(response);
         }, function(error) {
@@ -71,6 +74,18 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
         });
 
       });
+    },
+    cancelEdit() {
+      // ask wether we should open a warning dialog?
+      //if changes -> prompt/confirm
+      this.findWithCache('employee', this.get('_employeeId')).then(function(result) {
+        const modelHasChangedAttributes = result.get('hasDirtyAttributes');
+        if (modelHasChangedAttributes) {
+          // open confirm window
+          result.rollbackAttributes();
+        }
+      });
+      // else -> stop
     }
   }
 });

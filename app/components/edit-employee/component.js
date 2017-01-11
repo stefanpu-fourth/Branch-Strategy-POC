@@ -40,10 +40,10 @@ export default Ember.Component.extend({
       @public
     */
     closeModal() {
+      this.sendAction('cancelAction');
       this.set('isOpen', false);
     },
     saveAction() {
-      // TODO: bubble action to controller or route to save
       this.sendAction('saveAction');
       this.set('isOpen', false);
     }
