@@ -25,12 +25,12 @@ const Alphabetical = BaseValidator.extend({
       /**
         Allows letters, dashes and apostrophes.
 
-        ^[A-z]+           - Match beginning of string. Must contain letters one or more times.
-        [ |'|-]?          - Might contain white space, apostrophe or dash one or zero times.
-        [A-z\s]+          - Allows letters and spaces one or more times.
-        [A-z\s]+$         - Match end of string. Must contain letters and/or spaces one or more times.
+        ^[A-Za-z]+          - Match beginning of string. Must contain letters one or more times.
+        [ |'|-]?            - Might contain white space, apostrophe or dash one or zero times.
+        [A-Za-z\s]+         - Allows letters and spaces one or more times.
+        [A-Za-z\s]+$        - Match end of string. Must contain letters and/or spaces one or more times.
       */
-      const regex = /^[A-z]+[ |'|-]?[A-z]+[ |'|-]?[A-z\s]+$/;
+      const regex = /^[A-Za-z]+[ |'|-]?[A-Za-z]*[ |'|-]?[A-Za-z\s]*$/;
 
       return regex.test(value) || message;
     } else {
