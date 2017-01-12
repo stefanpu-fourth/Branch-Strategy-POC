@@ -10,7 +10,10 @@ moduleForModel('employee', {
     'validator:alphabetical',
     'validator:length',
     'validator:phone-number',
-    'validator:format'
+    'validator:format',
+    'validator:address',
+    'validator:geographical-names',
+    'validator:post-code'
   ]
 });
 

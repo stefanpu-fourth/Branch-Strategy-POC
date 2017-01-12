@@ -9,7 +9,7 @@ moduleFor('validator:alphabetical', 'Unit | Validator | alphabetical', {
 
 const testMessage = 'Test Message.';
 const correctValue_1 = 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ';
-const correctValue_2 = 'string-string ';
+const correctValue_2 = 'string-string';
 const correctValue_3 = 'string-string-string';
 const correctValue_4 = 'string\'string';
 const incorrectValue_1 = '1234567890';

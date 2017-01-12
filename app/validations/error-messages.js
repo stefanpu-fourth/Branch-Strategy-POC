@@ -11,5 +11,8 @@ export default Ember.Object.create({
   alphabetical: i18n.t('errorValidation.alphabetical'),
   length: i18n.t('errorValidation.length'),
   leadingZero: i18n.t('errorValidation.leadingZero'),
-  onlyDigits: i18n.t('errorValidation.onlyDigits')
+  onlyDigits: i18n.t('errorValidation.onlyDigits'),
+  geographicalNames: i18n.t('errorValidation.geographicalNames'),
+  address: i18n.t('errorValidation.address'),
+  postCode: i18n.t('errorValidation.postCode')
 });

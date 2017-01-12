@@ -1,15 +1,15 @@
 import BaseValidator from 'ember-cp-validations/validators/base';
 
 /**
-  @class Alphabetical
+  @class GeographicalNames
   @extends BaseValidator
   @module validators
   @public
 */
-const Alphabetical = BaseValidator.extend({
+const GeographicalNames = BaseValidator.extend({
   /**
-    Executes when the value of a property, having "alphabetical" validator changes.
-    Checks if the value contains only letters.
+    Executes when the value of a property, having "GeographicalNames" validator changes.
+    Checks if the value contains only letters, spaces, apostrophes, and dashes.
     Returns true if value is valid.
     Returns error message if value is invalid.
 
@@ -19,27 +19,24 @@ const Alphabetical = BaseValidator.extend({
     @public
   */
   validate(value, options) {
-    const message = options.message;
-
     if (value) {
       /**
-        Allows letters, dashes and apostrophes.
+        Allows letters, dashes, spaces and apostrophes.
 
         ^[A-Za-z]+          - Match beginning of string. Must contain letters one or more times.
         ( |'|-)?            - Might contain white space, apostrophe or dash one or zero times.
-        [A-Za-z\s]+         - Allows letters and spaces one or more times.
         [A-Za-z\s]+$        - Match end of string. Must contain letters and/or spaces one or more times.
       */
-      const regex = /^([A-Za-z]+( |'|-)?[A-Za-z]*( |'|-)?[A-Za-z]+$)|^[A-Za-z]*$/;
+      const regex = /^([A-Za-z]+( |'|-)?[A-Za-z]+$)|^[A-Za-z]*$/;
 
-      return regex.test(value) || message;
+      return regex.test(value) || options.message;
     } else {
       return options.allowBlank;
     }
   }
 });
 
-Alphabetical.reopenClass({
+GeographicalNames.reopenClass({
   /**
    * Define attribute specific dependent keys for your validator
    *
@@ -57,4 +54,4 @@ Alphabetical.reopenClass({
   }
 });
 
-export default Alphabetical;
+export default GeographicalNames;

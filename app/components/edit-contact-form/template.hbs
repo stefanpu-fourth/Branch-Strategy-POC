@@ -1,8 +1,8 @@
 <div class="edit-contact__form">
-  {{input-field value=model.address1 type='text' placeholder=(t 'details.employee.address1') inputId='address1' model=model}}
+  {{input-field value=model.address1 type='text' placeholder=(t 'details.employee.address1') inputId='address1' mandatory=true model=model}}
   {{input-field value=model.address2 type='text' placeholder=(t 'details.employee.address2') inputId='address2' model=model}}
   {{input-field value=model.address3 type='text' placeholder=(t 'details.employee.address3') inputId='address3' model=model}}
-  {{input-field value=model.town type='text' placeholder=(t 'details.employee.town') inputId='town' model=model}}
+  {{input-field value=model.town type='text' placeholder=(t 'details.employee.town') inputId='town' mandatory=true model=model}}
   {{input-field value=model.county type='text' placeholder=(t 'details.employee.county') inputId='county' model=model}}
   {{input-field value=model.country type='text' placeholder=(t 'details.employee.country') inputId='country' model=model}}
   {{input-field value=model.postCode type='text' placeholder=(t 'details.employee.postCode') inputId='postCode' model=model}}
