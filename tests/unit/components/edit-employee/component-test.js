@@ -25,7 +25,9 @@ moduleForComponent('edit-employee', {
   needs: [
     'component:svg-icon',
     'template:partials/icons/chevron-left',
-    'component:tabbed-container'
+    'template:partials/icons/tick-icon',
+    'component:tabbed-container',
+    'helper:t'
   ]
 });
 
@@ -57,21 +59,4 @@ test('component properties are set', function (assert) {
   assert.deepEqual(component.get('employee'), employee, 'Test if configuration object is being set properly.');
   assert.ok(component.get('isOpen', 'Test if property "isOpen" is true'));
   assert.ok(selectedTab.active, 'Test if the selected tab property "active" is true');
-});
-
-test('action "closeModal" executes', function (assert) {
-  assert.expect(1);
-
-  // Create the component instance
-  const component = this.subject({
-    selectedForEdit: selectedTabName,
-    employee: employee,
-    isOpen: true
-  });
-
-  const closeTriggerElement = this.$('#close-modal');
-
-  closeTriggerElement.click();
-
-  assert.notOk(component.get('isOpen'), 'Test if "isOpen" property is set to false.');
 });

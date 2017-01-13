@@ -35,17 +35,24 @@ export default Ember.Component.extend({
   actions: {
     /**
       Closes the details modal
+      Sends 'cancelAction'
 
       @method closeModal
       @public
     */
     closeModal() {
       this.sendAction('cancelAction');
-      this.set('isOpen', false);
     },
+
+    /**
+      Closes the details modal
+      Sends 'saveAction'
+
+      @method saveAction
+      @public
+    */
     saveAction() {
       this.sendAction('saveAction');
-      this.set('isOpen', false);
     }
   }
 });
