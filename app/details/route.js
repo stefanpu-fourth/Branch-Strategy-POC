@@ -2,6 +2,7 @@ import Ember from 'ember';
 import FindWithCache from 'ess/mixins/route-find-with-cache';
 import RenderNav from 'ess/mixins/render-nav';
 import ErrorNotifications from 'ess/mixins/error-notifications';
+import i18n from 'ess/i18n';
 
 /**
   details route handler
@@ -35,7 +36,7 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @public
     @return {Promise}
   */
-  model: function() {
+  model: function () {
     return Ember.RSVP.hash({
       employment: this.findAllWithCache('mainemployment'),
       employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId'))
@@ -52,40 +53,38 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @param {DetailsController} controller
     @param {DetailsModel} model
   */
-  setupController: function(controller, model) {
+  setupController: function (controller, model) {
     controller.set('attrs.employment', model.employment);
     controller.set('attrs.employee', model.employee);
   },
   actions: {
     saveEmployee() {
-      this.findWithCache('employee', this.get('_employeeId')).then(function(modelData) {
-        // create copy for the employees
-        // return to original copy
-        //TODO: add validation before calling save
-        //TODO: if wrong display the notifications and force? dirty attributes8
-        // const modelDataIsValid = modelData.validate();
-        // debugger;
-        modelData.save().then(function(response) {
-          // debugger;
-          console.log(response);
-        }, function(error) {
-          // debugger;
-          console.log(error);
+      this.findWithCache('employee', this.get('_employeeId')).then((modelData) => {
+        modelData.save().then((response) => {
+          this.get('notifications').addNotification({
+            message: i18n.t('successNotifications.employeeUpdate'),
+            type: 'success',
+            autoClear: true,
+            clearDuration: 5000
+          });
+        }, (error) => {
+          this.get('notifications').addNotification({
+            message: i18n.t('errorNotifications.employeeUpdate'),
+            type: 'error',
+            autoClear: true,
+            clearDuration: 5000
+          });
         });
 
       });
     },
     cancelEdit() {
-      // ask wether we should open a warning dialog?
-      //if changes -> prompt/confirm
-      this.findWithCache('employee', this.get('_employeeId')).then(function(result) {
+      this.findWithCache('employee', this.get('_employeeId')).then(function (result) {
         const modelHasChangedAttributes = result.get('hasDirtyAttributes');
         if (modelHasChangedAttributes) {
-          // open confirm window
           result.rollbackAttributes();
         }
       });
-      // else -> stop
     }
   }
 });
