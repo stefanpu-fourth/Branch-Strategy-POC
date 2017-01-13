@@ -3,12 +3,11 @@
     {{svg-icon name="chevron-left"}}
   </a>
   <div class="edit-employee-header__title">
-    My Details
+    {{t 'details.editDetails.headerTitle'}}
   </div>
-  <div class="">
-    <button id="save-button-to-fix" {{action "saveAction"}}>
-      Save
-    </button>
-  </div>
+  <a id="save-modal" {{action "saveAction"}}>
+  <span class="save-text">{{t 'details.editDetails.saveButtonText'}}</span>
+  {{svg-icon name="tick-icon"}}
+</a>
 </div>
 {{tabbed-container tabs=tabContainerConfig}}

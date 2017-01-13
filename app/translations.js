@@ -112,6 +112,10 @@ export default {
         taxOfficeName: 'Tax Office Name',
         taxOfficeNumber: 'Tax Office Number',
         payeReference: 'PAYE Reference'
+      },
+      editDetails: {
+        headerTitle: 'My Details',
+        saveButtonText: 'Done'
       }
     },
     dateFormats: {

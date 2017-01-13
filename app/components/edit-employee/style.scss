@@ -6,10 +6,20 @@
     @include display(flex);
     @include align-items(center);
     height: rem(40);
+    padding: 0 rem(6);
 
     &__title {
       @include flex(1 0 0);
       text-align: center;
+    }
+
+    #save-modal {
+      text-decoration: none;
+
+      .save-text{
+        padding-right: rem(4);
+      }
+
     }
   }
 }
