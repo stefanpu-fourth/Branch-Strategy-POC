@@ -41,11 +41,11 @@ export default Ember.Component.extend({
     */
     closeModal() {
       this.sendAction('cancelAction');
+      //TODO: get this in the route?
       this.set('isOpen', false);
     },
     saveAction() {
       this.sendAction('saveAction');
-      this.set('isOpen', false);
     }
   }
 });

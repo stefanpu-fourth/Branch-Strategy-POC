@@ -36,7 +36,7 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @public
     @return {Promise}
   */
-  model: function () {
+  model: function() {
     return Ember.RSVP.hash({
       employment: this.findAllWithCache('mainemployment'),
       employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId'))
@@ -53,33 +53,47 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @param {DetailsController} controller
     @param {DetailsModel} model
   */
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.set('attrs.employment', model.employment);
     controller.set('attrs.employee', model.employee);
   },
   actions: {
     saveEmployee() {
       this.findWithCache('employee', this.get('_employeeId')).then((modelData) => {
-        modelData.save().then((response) => {
-          this.get('notifications').addNotification({
-            message: i18n.t('successNotifications.employeeUpdate'),
-            type: 'success',
-            autoClear: true,
-            clearDuration: 5000
-          });
-        }, (error) => {
-          this.get('notifications').addNotification({
-            message: i18n.t('errorNotifications.employeeUpdate'),
-            type: 'error',
-            autoClear: true,
-            clearDuration: 5000
-          });
-        });
+        const isModelDataValid = modelData.get('validations.isValid');
+        const modelHasChangedAttributes = modelData.get('hasDirtyAttributes');
 
+        if (modelHasChangedAttributes && isModelDataValid) {
+          modelData.save().then(() => {
+            this.get('notifications').addNotification({
+              message: i18n.t('successNotifications.employeeUpdate'),
+              type: 'success',
+              autoClear: true,
+              clearDuration: 5000
+            });
+            this.set('controller.isModalOpen', false);
+            modelData.reload();
+          }, (error) => {
+            this.get('notifications').addNotification({
+              message: i18n.t('errorNotifications.employeeUpdate'),
+              type: 'error',
+              autoClear: true,
+              clearDuration: 5000
+            });
+            console.error(error);
+            modelData.rollbackAttributes();
+            this.set('controller.isModalOpen', false);
+          });
+        } else {
+          //const modelDataErrorArray = modelData.get('validations.errors');
+          //TODO: display error notification saying some of the data is invalid
+          console.log('Invalid validation');
+        }
       });
     },
+
     cancelEdit() {
-      this.findWithCache('employee', this.get('_employeeId')).then(function (result) {
+      this.findWithCache('employee', this.get('_employeeId')).then((result) => {
         const modelHasChangedAttributes = result.get('hasDirtyAttributes');
         if (modelHasChangedAttributes) {
           result.rollbackAttributes();
