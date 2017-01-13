@@ -1,5 +1,11 @@
 import Ember from 'ember';
 
+/**
+  @class RotaHourBar
+  @extends Ember.Component
+  @module Components
+  @public
+*/
 export default Ember.Component.extend({
   classNames: ['rota-hour-bar'],
 

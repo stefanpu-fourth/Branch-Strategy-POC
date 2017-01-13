@@ -1,0 +1,113 @@
+.input__field {
+  margin-top: rem(16);
+  margin-bottom: rem(16);
+
+  position: relative;
+
+  .input__element {
+    background-color: $color-white;
+    height: rem(60);
+    width: 100%;
+
+    color: $color-grey-darkest;
+
+    padding-left: rem(16);
+    padding-top: rem(16);
+    border: none;
+    @include border-top-radius(rem(2));
+    border-bottom: rem(2) solid;
+    border-color: inherit;
+    @include transition(all 500ms ease);
+  }
+
+  .input__element--invalid {
+    background-color: rgba(213, 77, 63, 0.2);
+    border-top: rem(1) solid;
+    border-left: rem(1) solid;
+    border-right: rem(1) solid;
+    border-color: $color-error;
+    box-shadow: 0 0 rem(5) $color-error;
+  }
+
+  & input:focus {
+    background-color: $color-grey-lighter;
+  }
+
+  .input__element--not-focused {
+    position: absolute;
+
+    left: rem(16);
+    top: rem(28);
+
+    color: $color-grey-dark;
+
+    @include transition(all 500ms ease);
+  }
+
+  .input__element--focused {
+    font-size: rem(12);
+    top: rem(4);
+  }
+
+  &__clear__button {
+    position: absolute;
+
+    right: rem(16);
+    top: rem(16);
+
+    cursor: pointer;
+
+    .svg-icon {
+      height: rem(8);
+      width: rem(8);
+
+      svg path {
+        stroke: $color-grey-darkest;
+        stroke-width: rem(2);
+      }
+    }
+  }
+
+  &__error__message {
+    background-color: $color-error;
+    padding: 0 0;
+    max-height: 0;
+
+    @include border-bottom-radius(rem(2));
+    box-shadow: 0 0 rem(5) $color-error;
+
+    line-height: rem(18);
+    font-size: rem(12);
+    color: $color-white;
+
+    @include transition(all 500ms ease);
+    visibility: hidden;
+
+    @include display(flex);
+    @include align-items(center);
+
+    word-break: break-all;
+
+    .warning__icon {
+      width: rem(20);
+      padding: 0 rem(5);
+      display: none;
+    }
+
+    &__content {
+      padding: 0 rem(5);
+    }
+  }
+
+  &__error__message--visible {
+    padding: rem(5) 0;
+    max-height: rem(50);
+
+    @include transition(all 500ms ease);
+    visibility: visible;
+
+    .warning__icon {
+      display: block;
+    }
+  }
+}

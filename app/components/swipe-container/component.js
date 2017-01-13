@@ -2,6 +2,12 @@ import Ember from 'ember';
 
 var run = Ember.run;
 
+/**
+  @class SwipeContainer
+  @extends Ember.Component
+  @module Components
+  @public
+*/
 export default Ember.Component.extend({
 
   classNames: ['swipe-container'],

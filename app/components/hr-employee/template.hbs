@@ -1,5 +1,5 @@
 <div class="tabular">
-  <dl class="tabular--row -nobg">
+  <dl class="tabular--row -nobg -no-border-top">
     <dt class="tabular--key">{{t 'details.employee.employeeNumber'}}</dt>
     <dd class="tabular--value">{{employee.employeeNumber}}</dd>
   </dl>
@@ -10,56 +10,6 @@
   <dl class="tabular--row -nobg">
     <dt class="tabular--key">{{t 'details.employee.niNumber'}}</dt>
     <dd class="tabular--value">{{employee.nationalInsuranceNumber}}</dd>
-  </dl>
-  <dl class="tabular--row -nobg">
-    <dt class="tabular--key">{{t 'details.address'}}</dt>
-    <dd class="tabular--value -wide">
-      {{employee.address1}}
-      {{#if employee.address2}}
-        <br />{{employee.address2}}
-      {{/if}}
-      {{#if employee.address3}}
-        <br />{{employee.address3}}
-      {{/if}}
-      {{#if employee.address4}}
-        <br />{{employee.address4}}
-      {{/if}}
-      {{#if employee.town}}
-        <br />{{employee.town}}
-      {{/if}}
-      {{#if employee.county}}
-        <br />{{employee.county}}
-      {{/if}}
-      {{#if employee.country}}
-        <br />{{employee.country}}
-      {{/if}}
-      {{#if employee.postCode}}
-        <br />{{employee.postCode}}
-      {{/if}}
-      {{#if employee.postalCode}}
-        <br />{{employee.postalCode}}
-      {{/if}}
-      </dd>
-  </dl>
-  {{#if employee.homeTel}}
-    <dl class="tabular--row -nobg">
-      <dt class="tabular--key">{{t 'details.employee.homeTel'}}</dt>
-      <dd class="tabular--value">{{employee.homeTel}}</dd>
-    </dl>
-  {{/if}}
-  {{#if employee.mobileTel}}
-    <dl class="tabular--row -nobg">
-      <dt class="tabular--key">{{t 'details.employee.mobileTel'}}</dt>
-      <dd class="tabular--value">{{employee.mobileTel}}</dd>
-    </dl>
-  {{/if}}
-  <dl class="tabular--row -nobg">
-    <dt class="tabular--key">{{t 'details.employee.homeEmail'}}</dt>
-    <dd class="tabular--value -wide">{{employee.homeEmail}}</dd>
-  </dl>
-  <dl class="tabular--row -nobg">
-    <dt class="tabular--key">{{t 'details.employee.workEmail'}}</dt>
-    <dd class="tabular--value -wide">{{employee.workEmail}}</dd>
   </dl>
   <dl class="tabular--row -nobg">
     <dt class="tabular--key">{{t 'details.employee.nationality'}}</dt>
@@ -73,4 +23,64 @@
     <dt class="tabular--key">{{t 'details.employee.gender'}}</dt>
     <dd class="tabular--value -wide">{{employee.gender}}</dd>
   </dl>
+
+  {{#editable-block referrer='name' edit=(action edit)}}
+    <dl class="tabular--row -nobg -no-border-top">
+      <dt class="tabular--key">{{t 'details.name'}}</dt>
+      <dd class="tabular--value -wide">{{employee.fullName}}</dd>
+    </dl>
+  {{/editable-block}}
+
+  {{#editable-block referrer='contact' edit=(action edit)}}
+    <dl class="tabular--row -nobg -no-border-top">
+      <dt class="tabular--key">{{t 'details.address'}}</dt>
+      <dd class="tabular--value -wide">
+        {{employee.address1}}
+        {{#if employee.address2}}
+          <br />{{employee.address2}}
+        {{/if}}
+        {{#if employee.address3}}
+          <br />{{employee.address3}}
+        {{/if}}
+        {{#if employee.address4}}
+          <br />{{employee.address4}}
+        {{/if}}
+        {{#if employee.town}}
+          <br />{{employee.town}}
+        {{/if}}
+        {{#if employee.county}}
+          <br />{{employee.county}}
+        {{/if}}
+        {{#if employee.country}}
+          <br />{{employee.country}}
+        {{/if}}
+        {{#if employee.postCode}}
+          <br />{{employee.postCode}}
+        {{/if}}
+        {{#if employee.postalCode}}
+          <br />{{employee.postalCode}}
+        {{/if}}
+        </dd>
+    </dl>
+    {{#if employee.homeTel}}
+      <dl class="tabular--row -nobg">
+        <dt class="tabular--key">{{t 'details.employee.homeTel'}}</dt>
+        <dd class="tabular--value">{{employee.homeTel}}</dd>
+      </dl>
+    {{/if}}
+    {{#if employee.mobileTel}}
+      <dl class="tabular--row -nobg">
+        <dt class="tabular--key">{{t 'details.employee.mobileTel'}}</dt>
+        <dd class="tabular--value">{{employee.mobileTel}}</dd>
+      </dl>
+    {{/if}}
+    <dl class="tabular--row -nobg">
+      <dt class="tabular--key">{{t 'details.employee.homeEmail'}}</dt>
+      <dd class="tabular--value -wide">{{employee.homeEmail}}</dd>
+    </dl>
+    <dl class="tabular--row -nobg">
+      <dt class="tabular--key">{{t 'details.employee.workEmail'}}</dt>
+      <dd class="tabular--value -wide">{{employee.workEmail}}</dd>
+    </dl>
+  {{/editable-block}}
 </div>

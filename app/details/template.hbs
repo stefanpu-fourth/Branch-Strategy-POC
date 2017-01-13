@@ -1,11 +1,10 @@
 <div class="hr-details">
-
   {{hr-card employee=attrs.employee employment=employment}}
 
   <div class="hr-details--cards">
     <div class="hr-details--card">
       <h1 class="hr-details--header brand-after-bg">{{t 'details.employee.details'}}</h1>
-      {{hr-employee employee=attrs.employee}}
+      {{hr-employee employee=attrs.employee edit=(action 'edit')}}
     </div>
 
     <div class="hr-details--card">
@@ -18,5 +17,12 @@
       {{hr-employment employment=employment}}
     </div>
   </div>
-
 </div>
+
+{{#if isModalOpen}}
+  {{#modal-window}}
+    {{edit-employee selectedForEdit=selectedForEdit employee=attrs.employee isOpen=isModalOpen}}
+  {{/modal-window}}
+{{/if}}
+
+{{outlet}}

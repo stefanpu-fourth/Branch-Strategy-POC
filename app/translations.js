@@ -67,6 +67,7 @@ export default {
     },
     details: {
       name: 'Name',
+      contact: 'Contact',
       address: 'Address',
       phone: 'Phone',
       fax: 'Fax',
@@ -82,17 +83,29 @@ export default {
       },
       employee: {
         details: 'Employee Details',
+        firstName: 'First Name',
+        middleName: 'Middle Name(s)',
+        lastName: 'Last Name',
+        address1: 'Address 1',
+        address2: 'Address 2',
+        address3: 'Address 3',
+        town: 'Town',
+        county: 'County',
+        country: 'Country',
+        postCode: 'Post code',
         employeeNumber: 'Employee number',
         startDate: 'Start date',
         serviceDuration: 'Service duration',
         niNumber: 'NI Number',
         dateOfBirth: 'Date of birth',
-        homeTel: 'Home',
-        mobileTel: 'Mobile',
+        homeTel: 'Home phone',
+        mobileTel: 'Mobile phone',
         workEmail: 'Work email',
         homeEmail: 'Home email',
         nationality: 'Nationality',
-        gender: 'Gender'
+        gender: 'Gender',
+        title: 'Title',
+        titles: ['Mr', 'Mrs', 'Miss', 'Ms', 'Master', 'Madam', 'Dr', 'Mx']
       },
       employer: {
         details: 'Employer Details',
@@ -117,6 +130,16 @@ export default {
       wentWrongMessage: 'This error has been logged. In the meantime try to <a href="/">refresh the page</a> or come back later.',
       noPermission: 'Sorry, but you don\'t have permission to access this page.',
       tryMain: 'Why not try one of the main pages?'
+    },
+    errorValidation: {
+      presence: 'This field is required.',
+      alphabetical: 'Your entry must contain only letters.',
+      length: 'Your input is less than {min} or more than {max} characters.',
+      onlyDigits: 'Phone number must contain only digits.',
+      leadingZero: 'Phone number should start with a leading zero.',
+      geographicalNames: 'Your entry must not contain unsupported characters.',
+      address: 'Your entry must not contain ` or | symbol',
+      postCode: 'Your entry must not contain unsupported characters.'
     }
   }
 };

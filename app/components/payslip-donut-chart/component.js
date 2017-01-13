@@ -1,18 +1,67 @@
 import Ember from 'ember';
 
+/**
+  @class PayslipDonutChart
+  @extends Ember.Component
+  @module Components
+  @public
+*/
 export default Ember.Component.extend({
+  /**
+    @property classNames
+    @type {String}
+    @default ['payslip-donut-chart']
+    @public
+  */
   classNames: ['payslip-donut-chart'],
 
+  /**
+    @property netPay
+    @type {Number}
+    @default null
+    @public
+  */
   netPay: null,
+
+  /**
+    @property grossPay
+    @type {Number}
+    @default null
+    @public
+  */
   grossPay: null,
+
+  /**
+    @property isActive
+    @type {Boolean}
+    @default null
+    @public
+  */
   isActive: null,
+
+  /**
+    @property hasRendered
+    @type {Boolean}
+    @default false
+    @public
+  */
   hasRendered: false,
 
+  /**
+    @property takeHome
+    @type {Number}
+    @public
+  */
   takeHome: function () {
     var props = this.getProperties('grossPay', 'netPay');
     return (1 / props.grossPay) * props.netPay;
   }.property('grossPay', 'netPay'),
 
+  /**
+    @property pathStyles
+    @type {String}
+    @public
+  */
   pathStyles: function () {
     var isActive = this.get('isActive');
     var el = this.element;
@@ -46,6 +95,13 @@ export default Ember.Component.extend({
   },
 
   actions: {
+
+    /**
+      Calls 'flipCard' action of parent component.
+
+      @method flipCard
+      @public
+    */
     flipCard: function() {
       ga('send', 'event', 'payslip', 'click', 'Donut');
       this.get('parentView').send('flipCard', false);

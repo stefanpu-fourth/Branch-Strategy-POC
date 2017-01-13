@@ -1,10 +1,12 @@
 import DS from 'ember-data';
+import Validations from '../validations/validations';
 
-var attr = DS.attr;
+const attr = DS.attr;
 
-export default DS.Model.extend({
+export default DS.Model.extend(Validations, {
   surname: attr('string'),
   firstNames: attr('string'),
+  middleName: attr('string'),
   preferredName: attr('string'),
   dateOfBirth: attr('string'), //TODO: change to date or similar for API integration
   gender: attr('string'),
@@ -21,13 +23,14 @@ export default DS.Model.extend({
   homeEmail: attr('string'),
   nationalInsuranceNumber: attr('string'),
   nationality: attr('string'),
+  personTitle: attr('string'),
   employeeNumber: attr('string'),
   startDate: attr('string'), //TODO: change to date or similar for API integration
   lengthOfService: attr('string'),
 
   fullName: function () {
-    var props = this.getProperties('firstNames', 'surname');
+    const props = this.getProperties('firstNames', 'surname');
     return `${props.firstNames} ${props.surname}`;
-  }.property('firstNames', 'surName')
+  }.property('firstNames', 'surname')
 
 });

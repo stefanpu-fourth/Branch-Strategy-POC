@@ -1,0 +1,42 @@
+@include keyframes(fadeIn) {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.blackout {
+    @include animation-name(fadeIn);
+    @include animation-duration(0.2s);
+    @include animation-timing-function(ease);
+    background-color: rgba(black, .5);
+    @include position(fixed);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+
+    .flexModal {
+        @include respond(0, 720) {
+            height: 100%;
+            @include flex-grow(1);
+        }
+        height: calc(100% - 40px);
+        background-color: white;
+        @include display(flex);
+        @include flex-direction(column);
+        @include flex-basis(rem(700));
+        @include flex-grow(0);
+        overflow: auto;
+        background-color: $color-grey-lightest;
+    }
+}
+
+.noScroll {
+    overflow: hidden;
+}

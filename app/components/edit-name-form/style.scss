@@ -1,0 +1,9 @@
+.edit-name {
+  &__form {
+    @include border-width(rem(1));
+    @include border-style(solid);
+    @include border-color($color-grey-lighter);
+    @include padding(rem(16));
+    background-color: $color-white;
+  }
+}

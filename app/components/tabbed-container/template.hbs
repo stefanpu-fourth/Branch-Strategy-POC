@@ -1,0 +1,11 @@
+<div class="tabbed-container flexModal__header">
+    {{#each tabs as |tab|}}
+      <div id="{{tab.name}}-tab" class="tabbed-container__tab {{if tab.active 'tabbed-container__tab--active'}}" {{action "setTabActive" tab.name}}>
+        {{tab.title}}
+      </div>
+    {{/each}}
+</div>
+
+<div class="tabbed-container__tab__content flexModal__body">
+  {{component activeTabComponent model=activeTabComponentModel}}
+</div>

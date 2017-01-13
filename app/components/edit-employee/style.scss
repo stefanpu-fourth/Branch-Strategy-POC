@@ -1,0 +1,15 @@
+.edit-employee {
+  @include position(absolute, rem(40) 0 0 0);
+  background-color: $color-grey-lightest;
+
+  &-header {
+    @include display(flex);
+    @include align-items(center);
+    height: rem(40);
+
+    &__title {
+      @include flex(1 0 0);
+      text-align: center;
+    }
+  }
+}
