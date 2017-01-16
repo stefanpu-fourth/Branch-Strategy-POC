@@ -3,7 +3,11 @@
     {{svg-icon name="chevron-left"}}
   </a>
   <div class="edit-employee-header__title">
-    My Details
+    {{t 'details.editDetails.headerTitle'}}
   </div>
+  <a class="edit-employee__save-button" {{action "saveAction"}}>
+    <span class="edit-employee__save-button__text">{{t 'details.editDetails.saveButtonText'}}</span>
+    {{svg-icon name="tick-icon"}}
+  </a>
 </div>
 {{tabbed-container tabs=tabContainerConfig}}

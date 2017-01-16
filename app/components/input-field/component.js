@@ -23,7 +23,9 @@ export default Ember.Component.extend({
     @default false
     @public
   */
-  dirty: false,
+  dirty: Ember.computed(function() {
+    return this.get('value') ? true : false;
+  }),
 
   actions: {
     /**

@@ -14,6 +14,7 @@ import ErrorNotifications from 'ess/mixins/error-notifications';
   @module Details
 */
 export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, {
+
   /**
     @property appStateService
     @type {Any}
@@ -32,9 +33,9 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
   /**
     Finds cached employments and employees.
 
-    @method focusIn
+    @method model
+    @return {DS.Promise} `LocationModel` record
     @public
-    @return {Promise}
   */
   model: function () {
     return Ember.RSVP.hash({

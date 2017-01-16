@@ -6,7 +6,6 @@ const attr = DS.attr;
 export default DS.Model.extend(Validations, {
   surname: attr('string'),
   firstNames: attr('string'),
-  middleName: attr('string'),
   preferredName: attr('string'),
   dateOfBirth: attr('string'), //TODO: change to date or similar for API integration
   gender: attr('string'),
@@ -23,10 +22,14 @@ export default DS.Model.extend(Validations, {
   homeEmail: attr('string'),
   nationalInsuranceNumber: attr('string'),
   nationality: attr('string'),
-  personTitle: attr('string'),
   employeeNumber: attr('string'),
   startDate: attr('string'), //TODO: change to date or similar for API integration
   lengthOfService: attr('string'),
+  serviceDuration: attr('string'),
+  middleName: attr('string'),
+  maritalStatus: attr('string'),
+  personTitle: attr('string'),
+  canEdit: attr('boolean'),
 
   fullName: function () {
     const props = this.getProperties('firstNames', 'surname');

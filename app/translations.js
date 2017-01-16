@@ -112,6 +112,10 @@ export default {
         taxOfficeName: 'Tax Office Name',
         taxOfficeNumber: 'Tax Office Number',
         payeReference: 'PAYE Reference'
+      },
+      editDetails: {
+        headerTitle: 'My Details',
+        saveButtonText: 'Done'
       }
     },
     dateFormats: {
@@ -120,9 +124,14 @@ export default {
       weekdayDay: "ddd D",
       "default": "D MMM YYYY"
     },
+    successNotifications: {
+      employeeUpdate: 'Success! Your request has been accepted.'
+    },
     errorNotifications: {
       catchAll: 'Sorry, it looks like something went wrong! Please try again.',
-      forbidden: 'Sorry, but you don\'t have permission to access this page.'
+      forbidden: 'Sorry, but you don\'t have permission to access this page.',
+      employeeUpdate: 'Sorry, your request has failed. Please try again or contact support.',
+      invalidFields: 'You have invalid fields.'
     },
     errorSplash: {
       catchAll: 'Sorry, but this page doesn\'t exist.',
