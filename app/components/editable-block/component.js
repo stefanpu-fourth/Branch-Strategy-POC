@@ -15,6 +15,22 @@ export default Ember.Component.extend({
   */
   classNames: ['editable-block'],
 
+  /**
+    @property classNameBindings
+    @type {Array}
+    @public
+  */
+  classNameBindings: ['referrerClassName'],
+
+  /**
+    @property referrerClassName
+    @type {String}
+    @public
+  */
+  referrerClassName: Ember.computed(function () {
+    return 'editable-block-' + this.get('referrer');
+  }),
+
   actions: {
     /**
       Opens modal window for edit, depending on referrer

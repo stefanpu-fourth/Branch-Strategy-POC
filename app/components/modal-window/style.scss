@@ -21,7 +21,7 @@
     @include align-items(center);
     @include justify-content(center);
 
-    .flexModal {
+    .flex-modal {
         @include respond(0, 720) {
             height: 100%;
             @include flex-grow(1);
