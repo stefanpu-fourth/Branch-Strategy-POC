@@ -10,6 +10,16 @@ export default Ember.Controller.extend({
   attrs: {},
 
   /**
+    `conditional-validation-fields` service injection.
+    Used to store and govern conditional properties requirements.
+
+    @property conditions
+    @type ConditionalValidationFieldsService
+    @public
+  */
+  conditions: Ember.inject.service('conditional-validation-fields'),
+
+  /**
     @property employment
     @type {Object}
     @public
@@ -49,6 +59,20 @@ export default Ember.Controller.extend({
     });
   },
 
+  /**
+     Used to call the service: "conditional-validation-fields"
+     in order to notify the validators of the new requirements.
+
+     @method _parseErrorResponse
+     @param {String} exceptionMessage
+     @private
+     @deprecated this is a dirty fix used for now
+   */
+  _parseErrorResponse(exceptionMessage) {
+    const conditionsService = this.get('conditions');
+    conditionsService.parseResponse(exceptionMessage);
+  },
+
   actions: {
     /**
       Sets selected detail for edition and opens edit modal.
@@ -67,6 +91,8 @@ export default Ember.Controller.extend({
      Checks if the model has dirty properties.
      Checks if every field is valid.
      Creates a PUT request to save the employee.
+     If the request fails indicating a required optional property,
+     the conditional property is set to required and indicates the invalid state.
      Gets the employee model form the API.
      Generates notifications to inform the user.
 
@@ -85,8 +111,17 @@ export default Ember.Controller.extend({
           modelData.reload();
         }, (error) => {
           this._renderMessage(i18n.t('errorNotifications.employeeUpdate'), 'error');
-          this.set('isModalOpen', false);
-          modelData.rollbackAttributes();
+          //if the error is due to some fields which initially appear optional and need
+          //to be set to mandatory we attach status and detail in the employee Adapter.
+          if (error.errors && error.errors[0].status === 400 &&
+             error.errors[0].detail && error.errors[0].errorCase === 'mandatory_property') {
+            const currentError = error.errors[0];
+            this._parseErrorResponse(currentError.detail);
+          } else {
+            this.set('isModalOpen', false);
+            modelData.rollbackAttributes();
+          }
+
           console.error(error);
         });
       } else if (modelHasChangedAttributes && !isModelDataValid) {
