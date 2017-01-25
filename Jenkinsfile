@@ -52,15 +52,15 @@ try {
       port = generateRandomPort()
       exit = sh ( returnStatus: true, script: "ember test --reporter xunit --test-port ${port} --silent > output.xml" )
       junit 'output.xml'
+
       if (exit != 0) {
         error 'Tests Failed'
       }
     }
-    /*
     // The BRANCH_NAME env variable is only set by the Multibranch
     // pipeline job type. In other words, only the job that sits over
     // 'develop' will go into the deploy stage below.
-    if (!env.BRANCH_NAME || !env.BRANCH_NAME.contains('PR')) {
+    /*if (!env.BRANCH_NAME || !env.BRANCH_NAME.contains('PR')) {
       stage('Deploy to development') {
         // Build and deploy
         withCredentials([[$class: 'StringBinding', credentialsId: 'menucycles-dev-ftp-password', variable: 'PASSWORD']]) {
@@ -68,12 +68,12 @@ try {
           // sh './setupServer.sh'
           sh 'ember deploy development'
         }
-      }*/
+      }
     }
 
-  //def promoteToQA = true
+  def promoteToQA = false
 
-  /*if (!isPRBranch()) {
+  if (!isPRBranch()) {
     stage('promote to qa') {
       try {
         milestone() // cancel older builds that are still waiting on the input step
@@ -93,9 +93,8 @@ try {
           }
         }
       }
-    }
-  }*/
-
+    }*/
+  }
 } catch (e) {
   // if anything goes wrong, notify the relevant people
   currentBuild.result='FAILED'
