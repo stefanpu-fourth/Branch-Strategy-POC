@@ -5,7 +5,7 @@ def notifyFailed() {
              <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
     recipientProviders: [[$class: 'CulpritsRecipientProvider'],
                          [$class: 'FailingTestSuspectsRecipientProvider']],
-    to: 'konstantin.tsolev@fourth.com',
+    to: 'anton.atanasov@fourth.com dimitar.angelov@fourth.com georgi.kolev@fourthlimited.onmicrosoft.com konstantin.tsolev@fourth.com simeon.minchev@fourth.com stefan.uzunov@fourth.com',
     mimeType: 'text/html'
   )
 }
@@ -21,7 +21,6 @@ def isPRBranch() {
 }
 
 try {
-
   // Only run on nodes (slaves) with a label of 'ember'.
   node ('ember') {
     stage('Get code') {
@@ -52,15 +51,15 @@ try {
       port = generateRandomPort()
       exit = sh ( returnStatus: true, script: "ember test --reporter xunit --test-port ${port} --silent > output.xml" )
       junit 'output.xml'
+
       if (exit != 0) {
         error 'Tests Failed'
       }
     }
-    /*
     // The BRANCH_NAME env variable is only set by the Multibranch
     // pipeline job type. In other words, only the job that sits over
     // 'develop' will go into the deploy stage below.
-    if (!env.BRANCH_NAME || !env.BRANCH_NAME.contains('PR')) {
+    /*if (!env.BRANCH_NAME || !env.BRANCH_NAME.contains('PR')) {
       stage('Deploy to development') {
         // Build and deploy
         withCredentials([[$class: 'StringBinding', credentialsId: 'menucycles-dev-ftp-password', variable: 'PASSWORD']]) {
@@ -68,12 +67,12 @@ try {
           // sh './setupServer.sh'
           sh 'ember deploy development'
         }
-      }*/
+      }
     }
 
-  //def promoteToQA = true
+  def promoteToQA = false
 
-  /*if (!isPRBranch()) {
+  if (!isPRBranch()) {
     stage('promote to qa') {
       try {
         milestone() // cancel older builds that are still waiting on the input step
@@ -93,9 +92,8 @@ try {
           }
         }
       }
-    }
-  }*/
-
+    }*/
+  }
 } catch (e) {
   // if anything goes wrong, notify the relevant people
   currentBuild.result='FAILED'
