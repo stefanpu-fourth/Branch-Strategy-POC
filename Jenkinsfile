@@ -70,7 +70,6 @@ try {
         }
       }*/
     }
-  }
 
   //def promoteToQA = true
 
