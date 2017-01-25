@@ -210,6 +210,7 @@ export default buildValidations({
   ],
 
   /**
+    Defines "conditional-presence" validator for "postCode"
     Defines "post-code" validator for "postCode"
     Defines "length" validator for "postCode"
 
@@ -218,6 +219,10 @@ export default buildValidations({
     @public
   */
   postCode: [
+    validator('conditional-presence', {
+      currentProperty: 'postCode',
+      errorMessage: errorMessage.presence
+    }),
     validator('post-code', {
       message: errorMessage.postCode,
       allowBlank: true
@@ -230,6 +235,7 @@ export default buildValidations({
     })],
 
   /**
+    Defines "conditional-presence" validator for "homeTel"
     Defines "phone-number" validator for "homeTel"
     Defines "length" validator for "homeTel"
 
@@ -238,6 +244,10 @@ export default buildValidations({
     @public
   */
   homeTel: [
+    validator('conditional-presence', {
+      currentProperty: 'homeTel',
+      errorMessage: errorMessage.presence
+    }),
     validator('phone-number', {
       onlyDigitsErrorMessage: errorMessage.onlyDigits,
       leadingZeroErrorMessage: errorMessage.leadingZero,
@@ -252,6 +262,7 @@ export default buildValidations({
   ],
 
   /**
+    Defines "conditional-presence" validator for "mobileTel"
     Defines "phone-number" validator for "mobileTel"
     Defines "length" validator for "mobileTel"
 
@@ -260,6 +271,10 @@ export default buildValidations({
     @public
   */
   mobileTel: [
+    validator('conditional-presence', {
+      currentProperty: 'mobileTel',
+      errorMessage: errorMessage.presence
+    }),
     validator('phone-number', {
       leadingZeroErrorMessage: errorMessage.leadingZero,
       onlyDigitsErrorMessage: errorMessage.onlyDigits,
@@ -274,26 +289,38 @@ export default buildValidations({
   ],
 
   /**
+    Defines "conditional-presence" validator for "workEmail"
     Defines "format" validator for "workEmail"
 
     @property workEmail
     @type {Object}
     @public
   */
-  workEmail: validator('format', {
+  workEmail: [
+    validator('conditional-presence', {
+      currentProperty: 'workEmail',
+      errorMessage: errorMessage.presence
+    }),
+    validator('format', {
     allowBlank: true,
     type: 'email'
-  }),
+  })],
 
   /**
+    Defines "conditional-presence" validator for "homeEmail"
     Defines "format" validator for "homeEmail"
 
     @property homeEmail
     @type {Object}
     @public
   */
-  homeEmail: validator('format', {
+  homeEmail: [
+    validator('conditional-presence', {
+      currentProperty: 'homeEmail',
+      errorMessage: errorMessage.presence
+    }),
+    validator('format', {
     allowBlank: true,
     type: 'email'
-  })
+  })]
 });

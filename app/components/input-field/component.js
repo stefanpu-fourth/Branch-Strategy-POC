@@ -17,27 +17,15 @@ export default Ember.Component.extend({
     return this.get('value') ? true : false;
   }),
 
-  /**
-    @property dirty
-    @type {Boolean}
-    @default false
-    @public
-  */
-  dirty: Ember.computed(function() {
-    return this.get('value') ? true : false;
-  }),
-
   actions: {
     /**
       Executes on "focus-in" event of the input field.
-      Sets "dirty" property to true.
       Sets "isFocused" property to true
 
       @method focusIn
       @public
     */
     focusIn() {
-      this.set('dirty', true);
       this.set('isFocused', true);
     },
 
@@ -56,7 +44,6 @@ export default Ember.Component.extend({
     /**
       Executes on "click" event on the "X" icon of the input field,
       and clears its value.
-      Sets "dirty" property to true.
       Clears the "value" property of the input field by setting it to an empty string.
       Sets "isFocused" property to false.
 
@@ -64,7 +51,6 @@ export default Ember.Component.extend({
       @public
     */
     clearInput() {
-      this.set('dirty', true);
       this.set('value', '');
       this.set('isFocused', false);
     }

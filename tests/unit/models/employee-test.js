@@ -13,7 +13,8 @@ moduleForModel('employee', {
     'validator:format',
     'validator:address',
     'validator:geographical-names',
-    'validator:post-code'
+    'validator:post-code',
+    'validator:conditional-presence'
   ]
 });
 
