@@ -5,7 +5,7 @@ def notifyFailed() {
              <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
     recipientProviders: [[$class: 'CulpritsRecipientProvider'],
                          [$class: 'FailingTestSuspectsRecipientProvider']],
-    to: 'konstantin.tsolev@fourth.com',
+    to: 'anton.atanasov@fourth.com dimitar.angelov@fourth.com georgi.kolev@fourthlimited.onmicrosoft.com konstantin.tsolev@fourth.com simeon.minchev@fourth.com stefan.uzunov@fourth.com',
     mimeType: 'text/html'
   )
 }
@@ -21,7 +21,6 @@ def isPRBranch() {
 }
 
 try {
-
   // Only run on nodes (slaves) with a label of 'ember'.
   node ('ember') {
     stage('Get code') {
