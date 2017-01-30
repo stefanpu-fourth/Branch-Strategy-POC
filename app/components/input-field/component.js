@@ -9,6 +9,22 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   /**
+    @property classNameBindings
+    @type {Array}
+    @public
+  */
+  classNameBindings: ['inputClassName'],
+
+  /**
+    @property inputClassName
+    @type {String}
+    @public
+  */
+  inputClassName: Ember.computed(function () {
+    return 'input__field__' + this.get('inputId');
+  }),
+
+  /**
     @property isFocused
     @type {Boolean}
     @public

@@ -50,70 +50,241 @@ export default PageObject.create({
           scope: '.dropdown-field select',
           select: selectable()
         },
-        firstName: {
-          scope: '#firstNames',
-          fill: fillable()
+        firstNameContainer: {
+          scope: '.input__field__firstNames',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          firstName: {
+            scope: '#firstNames',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
-        middleName: {
-          scope: '#middleName',
-          fill: fillable()
+        middleNameContainer: {
+          scope: '.input__field__middleName',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          middleName: {
+            scope: '#middleName',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
-        surname: {
-          scope: '#surname',
-          fill: fillable()
+        surnameContainer: {
+          scope: '.input__field__surname',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          surname: {
+            scope: '#surname',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
         edit(title, firstName, middleName, surname) {
           this.personTitle.select(title);
-          this.firstName.fill(firstName);
-          this.middleName.fill(middleName);
-          this.surname.fill(surname);
+          this.firstNameContainer.firstName.fill(firstName);
+          this.middleNameContainer.middleName.fill(middleName);
+          this.surnameContainer.surname.fill(surname);
         }
       },
       editContactForm: {
         scope: '.edit-contact__form',
-        address1: {
-          scope: '#address1',
-          fill: fillable()
+        address1Container: {
+          scope: '.input__field__address1',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          address1: {
+            scope: '#address1',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
-        address2: {
-          scope: '#address2',
-          fill: fillable()
+        address2Container: {
+          scope: '.input__field__address2',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          address2: {
+            scope: '#address2',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
-        address3: {
-          scope: '#address3',
-          fill: fillable()
+        address3Container: {
+          scope: '.input__field__address3',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          address3: {
+            scope: '#address3',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
-        town: {
-          scope: '#town',
-          fill: fillable()
+        townContainer: {
+          scope: '.input__field__town',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          town: {
+            scope: '#town',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
-        county: {
-          scope: '#county',
-          fill: fillable()
+        countyContainer: {
+          scope: '.input__field__county',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          county: {
+            scope: '#county',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
-        country: {
-          scope: '#country',
-          fill: fillable()
+        countryContainer: {
+          scope: '.input__field__country',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          country: {
+            scope: '#country',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
-        postCode: {
-          scope: '#postCode',
-          fill: fillable()
+        postCodeContainer: {
+          scope: '.input__field__postCode',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          postCode: {
+            scope: '#postCode',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
-        homeTel: {
-          scope: '#homeTel',
-          fill: fillable()
+        homeTelContainer: {
+          scope: '.input__field__homeTel',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          homeTel: {
+            scope: '#homeTel',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
-        mobileTel: {
-          scope: '#mobileTel',
-          fill: fillable()
+        mobileTelContainer: {
+          scope: '.input__field__mobileTel',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          mobileTel: {
+            scope: '#mobileTel',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
-        homeEmail: {
-          scope: '#homeEmail',
-          fill: fillable()
+        homeEmailContainer: {
+          scope: '.input__field__homeEmail',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          homeEmail: {
+            scope: '#homeEmail',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
         },
-        workEmail: {
-          scope: '#workEmail',
-          fill: fillable()
+        workEmailContainer: {
+          scope: '.input__field__workEmail',
+          errorElement: {
+            scope: '.input__field__error__message',
+            hasError: PageObject.hasClass('input__field__error__message--visible')
+          },
+          workEmail: {
+            scope: '#workEmail',
+            fill: fillable()
+          },
+          clearInputButton: {
+            scope: '.input__field__clear__button',
+            click: clickable()
+          }
+        },
+        editMandatoryOnly(addressInput, townInput) {
+          this.address1Container.address1.fill(addressInput);
+          this.townContainer.town.fill(townInput);
+        },
+        editAllFields(inputObject) {
+          this.address1Container.address1.fill(inputObject.address1 || '');
+          this.address2Container.address2.fill(inputObject.address2 || '');
+          this.address3Container.address3.fill(inputObject.address3 || '');
+          this.townContainer.town.fill(inputObject.town || '');
+          this.countyContainer.county.fill(inputObject.county || '');
+          this.countryContainer.country.fill(inputObject.country || '');
+          this.postCodeContainer.postCode.fill(inputObject.postCode || '');
+          this.homeTelContainer.homeTel.fill(inputObject.homeTel || '');
+          this.mobileTelContainer.mobileTel.fill(inputObject.mobileTel || '');
+          this.homeEmailContainer.homeEmail.fill(inputObject.homeEmail || '');
+          this.workEmailContainer.workEmail.fill(inputObject.workEmail || '');
         }
       }
     }
