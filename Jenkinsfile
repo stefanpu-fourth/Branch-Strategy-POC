@@ -31,6 +31,7 @@ try {
 
     stage('Install dependencies') {
 
+
       // Make sure we can access our private npm packages.
       withCredentials([[$class: 'StringBinding', credentialsId: 'bdae9b67-57e7-422c-b3a5-72aa1964987c', variable: 'npmrc']]) {
         sh 'echo $npmrc > $HOME/.npmrc'
