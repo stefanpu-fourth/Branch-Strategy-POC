@@ -22,14 +22,14 @@ module.exports = function(deployTarget) {
   };
 
   if (deployTarget === 'development') {
-    ENV.ftp = ftpConfig({ remoteRoot: '/ci-marketplaceui' });
-    ENV.configure.configKeys.apiBaseUrl = 'http://fourth-marketplace-purchasing-api-dv.azurewebsites.net';
+    ENV.ftp = ftpConfig({ remoteRoot: '/ci-essui' });
+    ENV.configure.configKeys.apiBaseUrl = 'http://10.10.20.80:83';
     ENV.configure.configKeys.hasUserEndpoint = false;
   }
 
   if (deployTarget === 'qa') {
-    ENV.ftp = ftpConfig({ remoteRoot: '/qa-marketplaceui' });
-    ENV.configure.configKeys.apiBaseUrl = 'http://fourth-marketplace-purchasing-api-dv.azurewebsites.net';
+    ENV.ftp = ftpConfig({ remoteRoot: '/qa-essui' });
+    ENV.configure.configKeys.apiBaseUrl = 'http://10.10.20.80:83';
     ENV.configure.configKeys.hasUserEndpoint = false;
   }
 

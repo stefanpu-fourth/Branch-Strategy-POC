@@ -15,12 +15,15 @@ def generateRandomPort() {
   return r.nextInt(1001) + 8000
 }
 
-def isPRBranch() {
-  branch = env.BRANCH_NAME
-  return branch || branch.contains('PR')
+// isBranchMaster
+// Checks if we are on the 'master' branch
+// NB: in the case of marketplace, this is 'marketplace-2'
+def isBranchMaster() {
+  return env.BRANCH_NAME == "master"
 }
 
 try {
+
   // Only run on nodes (slaves) with a label of 'ember'.
   node ('ember') {
     stage('Get code') {
@@ -31,7 +34,7 @@ try {
 
     stage('Install dependencies') {
 
-        // Make sure we can access our private npm packages.
+      // Make sure we can access our private npm packages.
       withCredentials([[$class: 'StringBinding', credentialsId: 'bdae9b67-57e7-422c-b3a5-72aa1964987c', variable: 'npmrc']]) {
         sh 'echo $npmrc > $HOME/.npmrc'
       }
@@ -59,44 +62,68 @@ try {
         error 'Tests Failed'
       }
     }
-    // The BRANCH_NAME env variable is only set by the Multibranch
-    // pipeline job type. In other words, only the job that sits over
-    // 'develop' will go into the deploy stage below.
-    /*if (!env.BRANCH_NAME || !env.BRANCH_NAME.contains('PR')) {
+
+    // Only deploy the base branch to development
+    if (isBranchMaster()) {
       stage('Deploy to development') {
         // Build and deploy
         withCredentials([[$class: 'StringBinding', credentialsId: 'menucycles-dev-ftp-password', variable: 'PASSWORD']]) {
           sh 'ember build --environment=production'
-          // sh './setupServer.sh'
           sh 'ember deploy development'
         }
       }
     }
-
-  def promoteToQA = false
-
-  if (!isPRBranch()) {
-    stage('promote to qa') {
-      try {
-        milestone() // cancel older builds that are still waiting on the input step
-        input 'Promote?'
-        milestone()
-        promoteToQA = true
-      } catch(err) {
-        // if we don't promote then don't fail the build
-        currentBuild.result = 'SUCCESS'
-      }
-
-      if (promoteToQA) {
-        node('ember') {
-          // deploy the previously built app to QA
-          withCredentials([[$class: 'StringBinding', credentialsId: 'menucycles-dev-ftp-password', variable: 'PASSWORD']]) {
-            sh 'ember deploy qa'
-          }
-        }
-      }
-    }*/
   }
+
+  // def promoteToQA = false
+  // def promoteToQAI = false
+
+  // if (isBranchMaster()) {
+
+  //   stage('promote to qa') {
+  //     try {
+  //       milestone() // cancel older builds that are still waiting on the input step
+  //       input 'Promote to QA?'
+  //       milestone()
+  //       promoteToQA = true
+  //     } catch(err) {
+  //       // if we don't promote then don't fail the build
+  //       currentBuild.result = 'SUCCESS'
+  //     }
+
+  //     if (promoteToQA) {
+  //       node('ember') {
+  //         // deploy the previously built app to QA
+  //         withCredentials([[$class: 'StringBinding', credentialsId: 'menucycles-dev-ftp-password', variable: 'PASSWORD']]) {
+  //           sh 'ember deploy qa'
+  //         }
+  //       }
+  //     }
+  //   }
+
+  //   stage('promote to qai') {
+  //     try {
+  //       milestone() // cancel older builds that are still waiting on the input step
+  //       input 'Promote to QAI?'
+  //       milestone()
+  //       promoteToQAI = true
+  //     } catch(err) {
+  //       // if we don't promote then don't fail the build
+  //       currentBuild.result = 'SUCCESS'
+  //     }
+
+  //     if (promoteToQAI) {
+  //       node('ember') {
+  //         // deploy the previously built app to QA
+  //         withCredentials([[$class: 'StringBinding', credentialsId: 'menucycles-qai-ftp-password', variable: 'PASSWORD']]) {
+  //           sh 'ember deploy qai'
+  //         }
+  //       }
+  //     }
+  //   }
+
+  // }
+
 } catch (e) {
   // if anything goes wrong, notify the relevant people
   currentBuild.result='FAILED'
@@ -105,3 +132,4 @@ try {
   }
   throw e
 }
+
