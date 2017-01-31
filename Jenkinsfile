@@ -31,8 +31,7 @@ try {
 
     stage('Install dependencies') {
 
-
-      // Make sure we can access our private npm packages.
+        // Make sure we can access our private npm packages.
       withCredentials([[$class: 'StringBinding', credentialsId: 'bdae9b67-57e7-422c-b3a5-72aa1964987c', variable: 'npmrc']]) {
         sh 'echo $npmrc > $HOME/.npmrc'
       }
@@ -50,8 +49,11 @@ try {
 
     stage('Run tests') {
       port = generateRandomPort()
-      exit = sh ( returnStatus: true, script: "ember test --reporter xunit --test-port ${port} --silent > output.xml" )
-      junit 'output.xml'
+
+      timeout(time: 10, unit: 'MINUTES') {
+        exit = sh ( returnStatus: true, script: "ember test --reporter xunit --test-port ${port} --silent > output.xml" )
+        junit 'output.xml'
+      }
 
       if (exit != 0) {
         error 'Tests Failed'
