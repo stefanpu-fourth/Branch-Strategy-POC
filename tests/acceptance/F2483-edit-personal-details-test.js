@@ -1117,7 +1117,7 @@ test('Verify that optional field is not marked as error when X button is clicked
 });
 
 /**
- * Scenario: Enter valid value in mandatory field
+ * Scenario: Enter valid value in mandatory field.
  *
  * Given I am on the ESS home-page
  * And I click on the HR DETAILS tab
