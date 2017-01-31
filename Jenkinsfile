@@ -19,7 +19,7 @@ def generateRandomPort() {
 // Checks if we are on the 'master' branch
 // NB: in the case of marketplace, this is 'marketplace-2'
 def isBranchMaster() {
-  return env.BRANCH_NAME == "master"
+  return env.BRANCH_NAME == "test-jenkins-5"
 }
 
 try {
@@ -64,7 +64,8 @@ try {
     }
 
     // Only deploy the base branch to development
-    if (isBranchMaster()) {
+    // if (isBranchMaster()) {
+
       stage('Deploy to development') {
         // Build and deploy
         withCredentials([[$class: 'StringBinding', credentialsId: 'menucycles-dev-ftp-password', variable: 'PASSWORD']]) {
@@ -72,7 +73,7 @@ try {
           sh 'ember deploy development'
         }
       }
-    }
+    // }
   }
 
   // def promoteToQA = false
