@@ -16,7 +16,8 @@ module.exports = function(environment) {
       'Accept': 'application/vnd.siren+json',
       'Content-Type': 'application/json',
       'X-Fourth-Org': '0',
-      'X-Fourth-Version': '1'
+      'X-Fourth-Version': '1',
+      'X-Fourth-UserID': '82606'
     },
     EmberENV: {
       FEATURES: {
@@ -90,7 +91,11 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.gaTracker = 'UA-62678526-2'; // production real tracker 'UA-62678526-1'
+    ENV.locationType = 'hash';
+    ENV.apiBaseUrl = '#BASEURL#';
+    ENV.location = '#LOCATION#';
+    ENV.user = '#USER#';
+    ENV.gaTracker = 'UA-62678526-1'; // production real tracker 'UA-62678526-1'
   }
 
   return ENV;

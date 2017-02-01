@@ -62,7 +62,6 @@ try {
         error 'Tests Failed'
       }
     }
-
     // Only deploy the base branch to development
     // if (isBranchMaster()) {
 

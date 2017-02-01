@@ -23,7 +23,7 @@ module.exports = function(deployTarget) {
 
   if (deployTarget === 'development') {
     ENV.ftp = ftpConfig({ remoteRoot: '/ci-essui' });
-    ENV.configure.configKeys.apiBaseUrl = 'http://10.10.20.80:83';
+    ENV.configure.configKeys.apiBaseUrl = 'http://10.10.20.79:83';
     ENV.configure.configKeys.hasUserEndpoint = false;
   }
 
