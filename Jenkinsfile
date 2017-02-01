@@ -75,52 +75,52 @@ try {
     // }
   }
 
-  // def promoteToQA = false
-  // def promoteToQAI = false
+  def promoteToQA = false
+  def promoteToQAI = false
 
   // if (isBranchMaster()) {
 
-  //   stage('promote to qa') {
-  //     try {
-  //       milestone() // cancel older builds that are still waiting on the input step
-  //       input 'Promote to QA?'
-  //       milestone()
-  //       promoteToQA = true
-  //     } catch(err) {
-  //       // if we don't promote then don't fail the build
-  //       currentBuild.result = 'SUCCESS'
-  //     }
+    stage('promote to qa') {
+      try {
+        milestone() // cancel older builds that are still waiting on the input step
+        input 'Promote to QA?'
+        milestone()
+        promoteToQA = true
+      } catch(err) {
+        // if we don't promote then don't fail the build
+        currentBuild.result = 'SUCCESS'
+      }
 
-  //     if (promoteToQA) {
-  //       node('ember') {
-  //         // deploy the previously built app to QA
-  //         withCredentials([[$class: 'StringBinding', credentialsId: 'menucycles-dev-ftp-password', variable: 'PASSWORD']]) {
-  //           sh 'ember deploy qa'
-  //         }
-  //       }
-  //     }
-  //   }
+      if (promoteToQA) {
+        node('ember') {
+          // deploy the previously built app to QA
+          withCredentials([[$class: 'StringBinding', credentialsId: 'menucycles-dev-ftp-password', variable: 'PASSWORD']]) {
+            sh 'ember deploy qa'
+          }
+        }
+      }
+    }
 
-  //   stage('promote to qai') {
-  //     try {
-  //       milestone() // cancel older builds that are still waiting on the input step
-  //       input 'Promote to QAI?'
-  //       milestone()
-  //       promoteToQAI = true
-  //     } catch(err) {
-  //       // if we don't promote then don't fail the build
-  //       currentBuild.result = 'SUCCESS'
-  //     }
+    stage('promote to qai') {
+      try {
+        milestone() // cancel older builds that are still waiting on the input step
+        input 'Promote to QAI?'
+        milestone()
+        promoteToQAI = true
+      } catch(err) {
+        // if we don't promote then don't fail the build
+        currentBuild.result = 'SUCCESS'
+      }
 
-  //     if (promoteToQAI) {
-  //       node('ember') {
-  //         // deploy the previously built app to QA
-  //         withCredentials([[$class: 'StringBinding', credentialsId: 'menucycles-qai-ftp-password', variable: 'PASSWORD']]) {
-  //           sh 'ember deploy qai'
-  //         }
-  //       }
-  //     }
-  //   }
+      if (promoteToQAI) {
+        node('ember') {
+          // deploy the previously built app to QA
+          withCredentials([[$class: 'StringBinding', credentialsId: 'menucycles-qai-ftp-password', variable: 'PASSWORD']]) {
+            sh 'ember deploy qai'
+          }
+        }
+      }
+    }
 
   // }
 

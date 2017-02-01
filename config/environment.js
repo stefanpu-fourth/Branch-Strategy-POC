@@ -17,7 +17,7 @@ module.exports = function(environment) {
       'Content-Type': 'application/json',
       'X-Fourth-Org': '0',
       'X-Fourth-Version': '1',
-      'X-Fourth-UserID': '82606'
+      'X-Fourth-UserID': '00525000000IcpbAAC'
     },
     EmberENV: {
       FEATURES: {
