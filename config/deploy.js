@@ -23,14 +23,19 @@ module.exports = function(deployTarget) {
 
   if (deployTarget === 'development') {
     ENV.ftp = ftpConfig({ remoteRoot: '/ci-essui' });
-    ENV.configure.configKeys.apiBaseUrl = 'http://10.10.20.79:83';
+    ENV.configure.configKeys.apiBaseUrl = 'http://10.10.20.80:83';
     ENV.configure.configKeys.hasUserEndpoint = false;
   }
 
   if (deployTarget === 'qa') {
     ENV.ftp = ftpConfig({ remoteRoot: '/qa-essui' });
-    ENV.configure.configKeys.apiBaseUrl = 'http://10.10.20.80:83';
+    ENV.configure.configKeys.apiBaseUrl = 'http://qa-essapi.fourth.com';
     ENV.configure.configKeys.hasUserEndpoint = false;
+  }
+
+  if (deployTarget === 'qai') {
+    ENV.ftp = ftpConfig({ host: 'ie1uiqui01.cloudapp.net', username: 'deploy', remoteRoot: '/qai-essui' }); 
+    ENV.configure.configKeys.apiBaseUrl = 'https://IE1APIQAPI03.cloudapp.net';
   }
 
   if (deployTarget === 'production') { /*TODO*/ }
