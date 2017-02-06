@@ -73,6 +73,11 @@ export default Ember.Controller.extend({
     conditionsService.parseResponse(exceptionMessage);
   },
 
+  _legitAction(message) {
+    const action = message;
+    console.log(action);
+  },
+
   actions: {
     /**
       Sets selected detail for edition and opens edit modal.

@@ -1117,6 +1117,55 @@ test('Verify that optional field is not marked as error when X button is clicked
 });
 
 /**
+ * Temp tests
+ */
+test('Verify entering valid value in optional field doesn\'t trigger error', function(assert) {
+  let contactInputObject = {
+    address2: thirtyTwoLengthString,
+    address3: thirtyTwoLengthString,
+    county: thirtyTwoLengthString,
+    country: 'Country',
+    postCode: 'postco',
+    homeTel: '01234567',
+    mobileTel: '01234567',
+    homeEmail: 'home@google.com',
+    workEmail: 'work@google.com'
+  };
+  page.visit()
+    .editNameButton
+    .click();
+
+  nameForm.edit('Mr', 'John', sixtyLenghtString, 'Doe');
+
+  assert.expect(9);
+  andThen(function() {
+    assert.notOk(nameForm.middleNameContainer.errorElement.hasError,
+      'Middle name length validation shouldn\'t be triggered');
+  });
+
+  page.modal.tabs.contact.click();
+  contactForm.editAllFields(contactInputObject);
+  andThen(function() {
+    assert.notOk(contactForm.address2Container.errorElement.hasError,
+      'Address 2 validation shouldn\' be triggered');
+    assert.notOk(contactForm.address3Container.errorElement.hasError,
+      'Address 3 validation shouldn\' be triggered');
+    assert.notOk(contactForm.countryContainer.errorElement.hasError,
+      'Country validation shouldn\' be triggered');
+    assert.notOk(contactForm.postCodeContainer.errorElement.hasError,
+      'Post code validation shouldn\' be triggered');
+    assert.notOk(contactForm.homeTelContainer.errorElement.hasError,
+      'Home telephone validation shouldn\' be triggered');
+    assert.notOk(contactForm.mobileTelContainer.errorElement.hasError,
+      'Mobile telephone validation shouldn\' be triggered');
+    assert.notOk(contactForm.homeEmailContainer.errorElement.hasError,
+      'Home email validation shouldn\' be triggered');
+    assert.notOk(contactForm.workEmailContainer.errorElement.hasError,
+      'Work email validation shouldn\' be triggered triggered triggered');
+  });
+});
+
+/**
  * Scenario: Enter valid value in mandatory field
  *
  * Given I am on the ESS home-page
@@ -1203,6 +1252,6 @@ test('Verify entering valid value in optional field doesn\'t trigger error', fun
     assert.notOk(contactForm.homeEmailContainer.errorElement.hasError,
       'Home email validation shouldn\' be triggered');
     assert.notOk(contactForm.workEmailContainer.errorElement.hasError,
-      'Work email validation shouldn\' be triggered');
+      'Work email validation shouldn\' be triggered triggered triggered');
   });
 });
