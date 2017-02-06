@@ -40,9 +40,7 @@ Router.map(function() {
   this.route('details');
   this.route('catchAll', { path: '*:' });
 
-  this.route('employee', function() {
-    this.route('sucker');
-  });
+  this.route('employee', function() {});
 });
 
 export default Router;
