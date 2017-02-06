@@ -3,6 +3,7 @@ import DS from 'ember-data';
 
 export default EssAdapter.extend({
   namespace: "",
+  adapterName: "super adapter",
 
   /**
     Handles responses from the API.

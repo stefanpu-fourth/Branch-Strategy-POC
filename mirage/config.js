@@ -13,6 +13,7 @@ export default function () {
   });
 
   this.namespace = '/api';
+  
 
   this.get('/', function (schema, request) {
     console.log(schema.root.all()[0]);
