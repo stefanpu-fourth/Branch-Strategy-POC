@@ -8,6 +8,7 @@ import moduleForAcceptance from 'ess/tests/helpers/module-for-acceptance';
 import page from 'ess/tests/pages/details';
 
 
+
 const sixtyLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const sixtyOneLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab';
 const thirtyTwoLengthString = 'thirtyTwoLengthStringaaaaaaaaaaa';
