@@ -43,6 +43,7 @@ export default Ember.Component.extend({
     closeModal() {
       this.sendAction('cancelAction');
     },
+    
 
     /**
       Closes the details modal
