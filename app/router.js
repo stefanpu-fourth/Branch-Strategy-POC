@@ -39,6 +39,10 @@ Router.map(function() {
   this.route('rota');
   this.route('details');
   this.route('catchAll', { path: '*:' });
+
+  this.route('employee', function() {
+    this.route('sucker');
+  });
 });
 
 export default Router;

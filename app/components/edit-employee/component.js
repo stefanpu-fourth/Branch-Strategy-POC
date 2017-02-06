@@ -8,7 +8,6 @@ import i18n from 'ess/i18n';
   @public
 */
 export default Ember.Component.extend({
-
   /**
     @property tabContainerConfig
     @type {Array}
@@ -25,6 +24,7 @@ export default Ember.Component.extend({
       },
       {
         name: 'contact',
+        lastName: 'contact',
         title: i18n.t('details.contact'),
         component: 'edit-contact-form',
         componentModel: this.get('employee'),
