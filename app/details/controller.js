@@ -19,6 +19,12 @@ export default Ember.Controller.extend({
   */
   conditions: Ember.inject.service('conditional-validation-fields'),
 
+
+  _legitAction(message) {
+    const action = message;
+    console.log(action);
+  },
+
   /**
     @property employment
     @type {Object}
@@ -71,11 +77,7 @@ export default Ember.Controller.extend({
   _parseErrorResponse(exceptionMessage) {
     const conditionsService = this.get('conditions');
     conditionsService.parseResponse(exceptionMessage);
-  },
-
-  _legitAction(message) {
-    const action = message;
-    console.log(action);
+    console.log(1);
   },
 
   actions: {
@@ -119,7 +121,7 @@ export default Ember.Controller.extend({
           //if the error is due to some fields which initially appear optional and need
           //to be set to mandatory we attach status and detail in the employee Adapter.
           if (error.errors && error.errors[0].status === 400 &&
-             error.errors[0].detail && error.errors[0].errorCase === 'mandatory_property') {
+            error.errors[0].detail && error.errors[0].errorCase === 'mandatory_property') {
             const currentError = error.errors[0];
             this._parseErrorResponse(currentError.detail);
           } else {
