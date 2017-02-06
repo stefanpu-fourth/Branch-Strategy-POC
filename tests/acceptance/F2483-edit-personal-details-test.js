@@ -1166,7 +1166,7 @@ test('Verify entering valid value in optional field doesn\'t trigger error', fun
     address2: thirtyTwoLengthString,
     address3: thirtyTwoLengthString,
     county: thirtyTwoLengthString,
-    country: 'Country',
+    country: 'Countryi',
     postCode: 'postco',
     homeTel: '01234567',
     mobileTel: '01234567',
