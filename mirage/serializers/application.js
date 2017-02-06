@@ -18,7 +18,7 @@ export default Serializer.extend({
     } else {
       payload = this._serializePrimaryCollection(response);
     }
-
+    // trash 
     return payload;
   },
 
