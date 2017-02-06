@@ -8,6 +8,8 @@ moduleFor('adapter:employee', 'EmployeeAdapter', {
   // needs: ['serializer:foo']
 });
 
+
+
 // Replace this with your real tests.
 test('it exists', function(assert) {
   var adapter = this.subject();
