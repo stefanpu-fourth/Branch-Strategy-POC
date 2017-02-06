@@ -11,8 +11,8 @@ const sixtyLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 const sixtyOneLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab';
 const thirtyTwoLengthString = 'thirtyTwoLengthStringaaaaaaaaaaa';
 const thirtyThreeLengthString = 'thirtyTwoLengthStringaaaaaaaaaaab';
-const twentyLengthPhone = '01234567890123456789';
-const twentyOneLengthPhone = '012345678901234567890';
+const twentyLengthPhone = '00234567890123456789';
+const twentyOneLengthPhone = '002345678901234567890';
 
 const nameForm = page.modal.tabsContent.editNameForm;
 const contactForm = page.modal.tabsContent.editContactForm;
@@ -27,6 +27,52 @@ moduleForAcceptance('Acceptance | F2483 edit personal details', {
       employeeId: this.id
     });
   }
+});
+
+/**
+ * Scenario: Verify there is a header with a Back and Close buttons in the modal.
+ *
+ * Given I am on the ESS home-page
+ * When I tap / click on the HR DETAILS tab
+ * And I tap / click on any "Update" button from Name or Contact
+ * Then I see a header for the new modal, with a Back / Close button
+ */
+test('Verify there is a header with a Back and Close buttons in the modal.', function(assert) {
+  page.visit()
+    .editNameButton
+    .click();
+
+  assert.expect(4);
+
+  andThen(() => {
+    assert.ok(page.modal.isVisible, 'Modal window should be visible.');
+    assert.ok(page.modal.header.isVisible, 'Modal window header should be visible.');
+    assert.ok(page.modal.header.backButton.isVisible, 'Modal window back button should be visible.');
+    assert.ok(page.modal.header.saveButton.isVisible, 'Modal window save button should be visible.');
+  });
+});
+
+/**
+ * Scenario: Verify there is a header with a Back and Close buttons in the modal.
+ *
+ * Given I am on the ESS home-page
+ * When I tap / click on the HR DETAILS tab
+ * And I tap / click on any "Update" button from Name or Contact
+ * Then I see a header for the new modal, with a Back / Close button
+ */
+test('Verify there is a header with a Back and Close buttons in the modal.', function(assert) {
+  page.visit()
+    .editNameButton
+    .click();
+
+  assert.expect(4);
+
+  andThen(() => {
+    assert.ok(page.modal.isVisible, 'Modal window should be visible.');
+    assert.ok(page.modal.header.isVisible, 'Modal window header should be visible.');
+    assert.ok(page.modal.header.backButton.isVisible, 'Modal window back button should be visible.');
+    assert.ok(page.modal.header.saveButton.isVisible, 'Modal window save button should be visible.');
+  });
 });
 
 /**
