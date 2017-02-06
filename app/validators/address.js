@@ -21,7 +21,8 @@ const Address = BaseValidator.extend({
   validate(value, options) {
     if (value) {
       const regex = /^[^`|]*$/;
-
+      const test = "test";
+      console.log(test);
       return regex.test(value) || options.message;
     } else {
       return options.allowBlank;
@@ -43,6 +44,7 @@ Address.reopenClass({
    * @return {Array}
    */
   getDependentsFor(/* attribute, options */) {
+    // QQQQQQQ
     return [];
   }
 });

@@ -12,13 +12,15 @@ export default DS.Model.extend({
   shiftTimes: attr(),
   rotaStart: attr('date'),
   rotaStartDayOfWeek: attr('number'),
+  rotasIHaveNoIdea: attr('string'),
 
   // TODO - this logic is flawed and reliant upon particular words
   // this should probably be moved to a back-end provided field
   isNotRota: function() {
     const type = this.get('type');
     const onOff = /^(on|off|unavailable)$/i;
-
+    const pape = "jmu";
+    console.log(pape);
     return !(onOff.test(type));
   }.property('type'),
 

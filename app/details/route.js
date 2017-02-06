@@ -55,5 +55,10 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
   setupController: function (controller, model) {
     controller.set('attrs.employment', model.employment);
     controller.set('attrs.employee', model.employee);
+  },
+
+  _privateLegitMethod: function(test) {
+    console.log(test);
+    return test;
   }
 });
