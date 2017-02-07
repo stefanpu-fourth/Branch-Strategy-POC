@@ -24,7 +24,8 @@ moduleForAcceptance('Acceptance | F2483 edit personal details', {
       employeeId: this.id
     });
     this.employee = server.create('employee', {
-      employeeId: this.id
+      employeeId: this.id,
+      name: "stefan"
     });
   }
 });
