@@ -11,7 +11,8 @@ const sixtyLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 const sixtyOneLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab';
 const thirtyTwoLengthString = 'thirtyTwoLengthStringaaaaaaaaaaa';
 const thirtyThreeLengthString = 'thirtyTwoLengthStringaaaaaaaaaaab';
-const twentyLengthPhone = '002345127890123456789';
+const twentyLengthPhone = '022345127890123456789';
+const secondBadVariable = "QQQQQ";
 const twentyOneLengthPhone = '00234567890145634567890';
 
 const nameForm = page.modal.tabsContent.editNameForm;

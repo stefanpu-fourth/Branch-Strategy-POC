@@ -38,6 +38,8 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @public
   */
   model: function () {
+    const test = "test";
+    console.log(test);
     return Ember.RSVP.hash({
       employment: this.findAllWithCache('mainemployment2'),
       employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId'))
