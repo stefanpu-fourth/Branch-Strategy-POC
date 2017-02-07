@@ -41,15 +41,10 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     return Ember.RSVP.hash({
       employment: this.findAllWithCache('mainemployment'),
       employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId')),
-      user: "none",
-      emptyOne: {
-        id: 0,
-        name: 'empty one'
-      }
+      user: "some"
+
     });
   },
-
-  
 
   /**
     Sets employment and employee on the controller's
@@ -61,6 +56,8 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
   */
   setupController: function (controller, model) {
     controller.set('attrs.employment', model.employment);
+    const test = "test";
+    console.log(test);
     controller.set('attrs.employee', model.employee);
   }
 });
