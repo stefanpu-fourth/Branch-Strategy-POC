@@ -116,10 +116,7 @@ export default Ember.Controller.extend({
           if (error.errors && error.errors[0].status === 400 &&
              error.errors[0].detail && error.errors[0].errorCase === 'mandatory_property') {
             const currentError = error.errors[0];
-            console.log(currentError);
-            let a = 5 + 5;
-            a += 2;
-            console.log(a);
+            const another = "error";
             this._parseErrorResponse(currentError.detail);
           } else {
             this.set('isModalOpen', false);

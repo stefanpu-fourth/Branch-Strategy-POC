@@ -13,13 +13,9 @@ const thirtyTwoLengthString = 'thirtyTwoLengthStringaaaaaaaaaaa';
 const thirtyThreeLengthString = 'thirtyTwoLengthStringaaaaaaaaaaab';
 const twentyLengthPhone = '01234567890123456789';
 const twentyOneLengthPhone = '012345678901234567890';
-const anotherBadLine = "very bad";
+const myConst = "My";
 const nameForm = page.modal.tabsContent.editNameForm;
 const contactForm = page.modal.tabsContent.editContactForm;
-
-function forConflicts() {
-  return 1;
-};
 
 moduleForAcceptance('Acceptance | F2483 edit personal details', {
   beforeEach() {
@@ -1208,43 +1204,5 @@ test('Verify entering valid value in optional field doesn\'t trigger error', fun
       'Home email validation shouldn\' be triggered');
     assert.notOk(contactForm.workEmailContainer.errorElement.hasError,
       'Work email validation shouldn\' be triggered');
-  });
-});
-
-
-/**
- * Scenario: Verify presence of edit name and edit contact buttons.
- *
- * Given I am on the ESS home-page
- * When I tap / click on the HR DETAILS tab
- * Then I see "Update" buttons for both the user's Name and Contact data
- */
-test('Verify presence of edit name and edit contact buttons.', function(assert) {
-  page.visit();
-
-  assert.expect(2);
-
-  andThen(() => {
-    assert.ok(page.editNameButton.isVisible, 'Edit name button should be visible.');
-    assert.ok(page.editContactButton.isVisible, 'Edit contact button should be visible.');
-  });
-});
-
-
-/**
- * Scenario: Verify presence of edit name and edit contact buttons.
- *
- * Given I am on the ESS home-page
- * When I tap / click on the HR DETAILS tab
- * Then I see "Update" buttons for both the user's Name and Contact data
- */
-test('Verify presence of edit name and edit contact buttons.', function(assert) {
-  page.visit();
-
-  assert.expect(2);
-
-  andThen(() => {
-    assert.ok(page.editNameButton.isVisible, 'Edit name button should be visible.');
-    assert.ok(page.editContactButton.isVisible, 'Edit contact button should be visible.');
   });
 });
