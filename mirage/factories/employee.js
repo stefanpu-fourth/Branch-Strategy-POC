@@ -12,6 +12,7 @@ export default Mirage.Factory.extend({
   town: 'string',
   county: faker.address.county,
   country: 'County',
+  secondCountry: 'County',
   postCode: 'abc def',
   homeTel: '0123456',
   mobileTel: '0123456',
