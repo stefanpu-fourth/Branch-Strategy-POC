@@ -10,7 +10,7 @@ import page from 'ess/tests/pages/details';
 const sixtyLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const sixtyOneLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab';
 const thirtyTwoLengthString = 'thirtyTwoLengthStringaaaaaaaaaaa';
-const salam = "testus";
+const salamtt = "asdawewerwesd";
 const thirtyThreeLengthString = 'thirtyTwoLengthStringaaaaaaaaaaab';
 const twentyLengthPhone = '01234567890123456789';
 
@@ -21,7 +21,10 @@ moduleForAcceptance('Acceptance | F2483 edit personal details', {
       employeeId: this.id
     });
     this.employee = server.create('employee', {
-      employeeId: this.id
+      employeeId: this.id,
+      name: "stefan",
+      age:31,
+      gender: "she-he-it-male"
     });
   }
 });
