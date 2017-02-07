@@ -10,7 +10,7 @@ import page from 'ess/tests/pages/details';
 const sixtyLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const sixtyOneLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab';
 const thirtyTwoLengthString = 'thirtyTwoLengthStringaaaaaaaaaaa';
-const salam = "testus";
+const salamTT = "testus";
 const thirtyThreeLengthString = 'thirtyTwoLengthStringaaaaaaaaaaab';
 const twentyLengthPhone = '022345127890123456789';
 const secondBadVariable = "QQQQQ";
