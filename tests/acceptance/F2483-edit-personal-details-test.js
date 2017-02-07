@@ -12,7 +12,8 @@ const sixtyOneLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 const thirtyTwoLengthString = 'thirtyTwoLengthStringaaaaaaaaaaa';
 const thirtyThreeLengthString = 'thirtyTwoLengthStringaaaaaaaaaaab';
 const twentyLengthPhone = '002345127890123456789';
-const twentyOneLengthPhone = '00234567890145634567890';
+const badVariable = "Creating conflicts since ever";
+const twentyOneLengthPhone = '02234567890145634567890';
 
 const nameForm = page.modal.tabsContent.editNameForm;
 const contactForm = page.modal.tabsContent.editContactForm;
@@ -27,6 +28,28 @@ moduleForAcceptance('Acceptance | F2483 edit personal details', {
       employeeId: this.id
     });
   }
+});
+
+/**
+ * Scenario: Verify tapping edit name button will open modal with active name tab.
+ *
+ * Given I am on the ESS home-page
+ * And I tap / click on the HR DETAILS tab
+ * When I tap / click on "Update" next to Name
+ * Then I see a modal / full-screen view where I can edit Name data
+ * And I see the selected tab as Name
+ */
+test('Verify tapping edit name button will open modal with active name tab.', function(assert) {
+  page.visit()
+    .editNameButton
+    .click();
+
+  assert.expect(2);
+
+  andThen(() => {
+    assert.ok(page.modal.tabs.name.isActive, 'Modal window name tab should be active.');
+    assert.notOk(page.modal.tabs.contact.isActive, 'Modal window contact tab should not be active.');
+  });
 });
 
 /**
