@@ -77,7 +77,6 @@ export default Ember.Controller.extend({
   _parseErrorResponse(exceptionMessage) {
     const conditionsService = this.get('conditions');
     conditionsService.parseResponse(exceptionMessage);
-    console.log(1);
   },
 
   actions: {
