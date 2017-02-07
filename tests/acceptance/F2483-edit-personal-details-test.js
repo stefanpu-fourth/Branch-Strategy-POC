@@ -14,6 +14,7 @@ const thirtyThreeLengthString = 'thirtyTwoLengthStringaaaaaaaaaaab';
 const twentyLengthPhone = '022345127890123456789';
 const secondBadVariable = "QQQQQ";
 const twentyOneLengthPhone = '00234567890145634567890';
+const myConst = "My";
 const anotherBadLine = "very bad";
 const nameForm = page.modal.tabsContent.editNameForm;
 const contactForm = page.modal.tabsContent.editContactForm;
