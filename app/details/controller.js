@@ -100,6 +100,7 @@ export default Ember.Controller.extend({
      @public
    */
     saveEmployee() {
+      const newVar = "newVar"
       const modelData = this.get('attrs.employee');
       const isModelDataValid = modelData.get('validations.isValid');
       const modelHasChangedAttributes = modelData.get('hasDirtyAttributes');
@@ -125,9 +126,7 @@ export default Ember.Controller.extend({
 
           console.error(error);
         });
-      } else if (modelHasChangedAttributes && !isModelDataValid) {
-        this._renderMessage(i18n.t('errorNotifications.invalidFields'), 'error');
-      }
+      } 
     },
 
     /**
