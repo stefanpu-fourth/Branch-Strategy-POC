@@ -116,6 +116,7 @@ export default Ember.Controller.extend({
           if (error.errors && error.errors[0].status === 400 &&
              error.errors[0].detail && error.errors[0].errorCase === 'mandatory_property') {
             const currentError = error.errors[0];
+            const another = "error";
             console.log(currentError);
             let a = 5 + 5;
             a += 2;
