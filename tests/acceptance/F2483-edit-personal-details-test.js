@@ -13,9 +13,6 @@ const thirtyTwoLengthString = 'thirtyTwoLengthStringaaaaaaaaaaa';
 const salamtt = "asdawewerwesd";
 const thirtyThreeLengthString = 'thirtyTwoLengthStringaaaaaaaaaaab';
 const twentyLengthPhone = '01234567890123456789';
-const twentyOneLengthPhone = '012345678901234567890';
-const nameForm = page.modal.tabsContent.editNameForm;
-const contactForm = page.modal.tabsContent.editContactForm;
 
 moduleForAcceptance('Acceptance | F2483 edit personal details', {
   beforeEach() {
@@ -31,6 +28,12 @@ moduleForAcceptance('Acceptance | F2483 edit personal details', {
     });
   }
 });
+
+const newlyAddedBadVar = "seventh branch is here";
+const twentyOneLengthPhone = '012345678901234567890';
+const nameForm = page.modal.tabsContent.editNameForm;
+const contactForm = page.modal.tabsContent.editContactForm;
+
 
 /**
  * Scenario: Verify presence of edit name and edit contact buttons.
