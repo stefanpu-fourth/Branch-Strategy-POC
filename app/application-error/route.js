@@ -11,6 +11,9 @@ export default Ember.Route.extend({
     const { status } = currentModel;
     const template = _errorCodes[status] || 'application-error';
 
+    const noPurpouse = "som baba";
+    console.log(noPurpouse);
+
     this.render(template);
   }
 

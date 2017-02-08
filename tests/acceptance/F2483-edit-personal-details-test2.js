@@ -7,13 +7,14 @@ import Ember from 'ember';
 import moduleForAcceptance from 'ess/tests/helpers/module-for-acceptance';
 import page from 'ess/tests/pages/details';
 
+
+
 const sixtyLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const sixtyOneLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab';
 const thirtyTwoLengthString = 'thirtyTwoLengthStringaaaaaaaaaaa';
 const thirtyThreeLengthString = 'thirtyTwoLengthStringaaaaaaaaaaab';
-const twentyLengthPhone = '022345127890123456789';
-const secondBadVariable = "QQQQQ";
-const twentyOneLengthPhone = '00234567890145634567890';
+const twentyLengthPhone = '01234567890123456789';
+const twentyOneLengthPhone = '012345678901234567890';
 
 const nameForm = page.modal.tabsContent.editNameForm;
 const contactForm = page.modal.tabsContent.editContactForm;
@@ -28,52 +29,6 @@ moduleForAcceptance('Acceptance | F2483 edit personal details', {
       employeeId: this.id
     });
   }
-});
-
-/**
- * Scenario: Verify there is a header with a Back and Close buttons in the modal.
- *
- * Given I am on the ESS home-page
- * When I tap / click on the HR DETAILS tab
- * And I tap / click on any "Update" button from Name or Contact
- * Then I see a header for the new modal, with a Back / Close button
- */
-test('Verify there is a header with a Back and Close buttons in the modal.', function(assert) {
-  page.visit()
-    .editNameButton
-    .click();
-
-  assert.expect(4);
-
-  andThen(() => {
-    assert.ok(page.modal.isVisible, 'Modal window should be visible.');
-    assert.ok(page.modal.header.isVisible, 'Modal window header should be visible.');
-    assert.ok(page.modal.header.backButton.isVisible, 'Modal window back button should be visible.');
-    assert.ok(page.modal.header.saveButton.isVisible, 'Modal window save button should be visible.');
-  });
-});
-
-/**
- * Scenario: Verify there is a header with a Back and Close buttons in the modal.
- *
- * Given I am on the ESS home-page
- * When I tap / click on the HR DETAILS tab
- * And I tap / click on any "Update" button from Name or Contact
- * Then I see a header for the new modal, with a Back / Close button
- */
-test('Verify there is a header with a Back and Close buttons in the modal.', function(assert) {
-  page.visit()
-    .editNameButton
-    .click();
-
-  assert.expect(4);
-
-  andThen(() => {
-    assert.ok(page.modal.isVisible, 'Modal window should be visible.');
-    assert.ok(page.modal.header.isVisible, 'Modal window header should be visible.');
-    assert.ok(page.modal.header.backButton.isVisible, 'Modal window back button should be visible.');
-    assert.ok(page.modal.header.saveButton.isVisible, 'Modal window save button should be visible.');
-  });
 });
 
 /**
@@ -884,5 +839,372 @@ test('Verify that field is mandatory', function(assert) {
     assert.equal(contactForm.townContainer.errorElement.text,
       'This field is required.',
       'Town presence validation message should be correct');
+  });
+});
+
+/**
+ * Scenario: Verify that the mandatory field is marked as error and an error
+ * message appears when x button is clicked.
+ *
+ * Given I am on the ESS home-page
+ * And I click on the HR DETAILS tab
+ * And I click x button on mandatory field
+ * Then I see an error message
+ * And the field is marked as error
+ */
+test('Verify error after X button is clicked on mandatory field', function(assert) {
+  page.visit()
+    .editNameButton
+    .click();
+
+  nameForm.edit('Mr', 'John', 'Asd', 'Doe');
+  nameForm.firstNameContainer.clearInputButton.click();
+  nameForm.surnameContainer.clearInputButton.click();
+
+  assert.expect(12);
+  andThen(function() {
+    assert.ok(nameForm.firstNameContainer.errorElement.hasError,
+      'First name presence validation should be triggered');
+    assert.ok(nameForm.surnameContainer.errorElement.hasError,
+      'Surname presence validation should be triggered');
+
+    assert.equal(nameForm.firstNameContainer.firstName.value, '',
+      'First name should be empty');
+    assert.equal(nameForm.surnameContainer.surname.value, '',
+      'Surname should be empty');
+
+    assert.equal(nameForm.firstNameContainer.errorElement.text,
+      'This field is required.',
+      'First name presence validation message should be correct');
+    assert.equal(nameForm.surnameContainer.errorElement.text,
+      'This field is required.',
+      'Surname presence validation message should be correct');
+  });
+
+  page.modal.tabs.contact
+    .click();
+  contactForm.editMandatoryOnly('Adress', 'Town');
+  contactForm.address1Container.clearInputButton.click();
+  contactForm.townContainer.clearInputButton.click();
+  andThen(function() {
+    assert.ok(contactForm.address1Container.errorElement.hasError,
+      'Address 1 presence validation should be triggered');
+    assert.ok(contactForm.townContainer.errorElement.hasError,
+      'Town presence validation should be triggered');
+
+    assert.equal(contactForm.address1Container.address1.value, '',
+      'Address 1 should be empty');
+    assert.equal(contactForm.townContainer.town.value, '',
+      'Town should be empty');
+
+    assert.equal(contactForm.address1Container.errorElement.text,
+      'This field is required.',
+      'Address 1 presence validation message should be correct');
+    assert.equal(contactForm.townContainer.errorElement.text,
+      'This field is required.',
+      'Town presence validation message should be correct');
+  });
+
+});
+
+/**
+ * Scenario: Verify that the field is still marked as error with an error message.
+ *  when we navigate back to its tab
+ *
+ * Given I am on the ESS home-page
+ * And I click on the HR DETAILS tab
+ * And I click x button on mandatory field / unsupported character (error message should appear)
+ * And I click on next tab
+ * And I click back on the previous tab
+ * Then I still see the same error message
+ *
+ */
+test('Verify error persists when switching tabs', function(assert) {
+  page.visit()
+    .editNameButton
+    .click();
+
+  nameForm.edit('Mr', 'John', 'Asd', 'Doe/');
+  nameForm.firstNameContainer.clearInputButton.click();
+
+  assert.expect(8);
+  andThen(function() {
+    assert.ok(nameForm.firstNameContainer.errorElement.hasError,
+      'First name presence validation should be triggered');
+    assert.ok(nameForm.surnameContainer.errorElement.hasError,
+      'Surname invalid symbols validation should be triggered');
+
+    assert.equal(nameForm.firstNameContainer.errorElement.text,
+      'This field is required.',
+      'First name presence validation message should be correct');
+    assert.equal(nameForm.surnameContainer.errorElement.text,
+      'Your entry must contain only letters.',
+      'Surname invalid symbols validation message should be correct');
+  });
+
+  page.modal.tabs.contact
+    .click();
+  page.modal.tabs.name.click();
+
+  andThen(function() {
+    assert.ok(nameForm.firstNameContainer.errorElement.hasError,
+      'First name presence validation should be triggered');
+    assert.ok(nameForm.surnameContainer.errorElement.hasError,
+      'Surname invalid symbols validation should be triggered');
+
+    assert.equal(nameForm.firstNameContainer.errorElement.text,
+      'This field is required.',
+      'First name presence validation message should be correct');
+    assert.equal(nameForm.surnameContainer.errorElement.text,
+      'Your entry must contain only letters.',
+      'Surname invalid symbols validation message should be correct');
+  });
+});
+
+/**
+ * Scenario: Verify that there is an error message when optional field is updated
+ * with unsupported character
+ *
+ * Given I am on the ESS home-page
+ * And I click on the HR DETAILS tab
+ * And I click on either "Edit" button
+ * And I update the optional field with unsupported character / number
+ * Then I see an error message
+ */
+test('Verify optional field validation is triggered by unsupported character', function(assert) {
+  let contactInputObject = {
+    address2: 'adress | invalid',
+    address3: 'adress | invalid',
+    county: 'Country123',
+    country: '??2@',
+    postCode: '???!:@',
+    homeTel: 'very valid',
+    mobileTel: 'very valid',
+    homeEmail: 'such mail@google.com',
+    workEmail: 'very@legit.???'
+  };
+  page.visit()
+    .editNameButton
+    .click();
+
+  nameForm.edit('Mr', 'John', '??Middle@', 'Doe');
+  assert.expect(20);
+  andThen(function() {
+    assert.ok(nameForm.middleNameContainer.errorElement.hasError,
+      'Middle name unsupported characters validation should be triggered');
+    assert.equal(nameForm.middleNameContainer.errorElement.text,
+      'Your entry must contain only letters.',
+      'Middle name unsupported character validation message should be correct');
+  });
+
+  page.modal.tabs.contact.click();
+  contactForm.editAllFields(contactInputObject);
+
+  andThen(function() {
+    assert.ok(contactForm.address2Container.errorElement.hasError,
+      'Address 2 unsupported character validation should be triggered');
+    assert.ok(contactForm.address3Container.errorElement.hasError,
+      'Address 3 unsupported character validation should be triggered');
+    assert.ok(contactForm.countyContainer.errorElement.hasError,
+      'County unsupported character validation should be triggered');
+    assert.ok(contactForm.countryContainer.errorElement.hasError,
+      'Country unsupported character validation should be triggered');
+    assert.ok(contactForm.postCodeContainer.errorElement.hasError,
+      'Post code unsupported character validation should be triggered');
+    assert.ok(contactForm.homeTelContainer.errorElement.hasError,
+      'Home telephone unsupported character validation should be triggered');
+    assert.ok(contactForm.mobileTelContainer.errorElement.hasError,
+      'Mobile telephone unsupported character validation should be triggered');
+    assert.ok(contactForm.homeEmailContainer.errorElement.hasError,
+      'Home email unsupported character validation should be triggered');
+    assert.ok(contactForm.workEmailContainer.errorElement.hasError,
+      'Work email unsupported character validation should be triggered');
+
+    assert.equal(contactForm.address2Container.errorElement.text,
+      'Your entry must not contain ` or | symbol',
+      'Addres 2 unsupported character validation message should be correct');
+    assert.equal(contactForm.address3Container.errorElement.text,
+      'Your entry must not contain ` or | symbol',
+      'Address 3 unsupported character validation message should be correct');
+    assert.equal(contactForm.countyContainer.errorElement.text,
+      'Your entry must not contain unsupported characters.',
+      'County unsupported character validation message should be correct');
+    assert.equal(contactForm.countryContainer.errorElement.text,
+      'Your entry must not contain unsupported characters.',
+      'Country unsupported character validation message should be correct');
+    assert.equal(contactForm.postCodeContainer.errorElement.text,
+      'Your entry must not contain unsupported characters.',
+      'Post code unsupported character validation message should be correct');
+    assert.equal(contactForm.homeTelContainer.errorElement.text,
+      'Phone number must contain only digits.',
+      'Home telephone unsupported character validation message should be correct');
+    assert.equal(contactForm.mobileTelContainer.errorElement.text,
+      'Phone number must contain only digits.',
+      'Mobile telephone unsupported character validation message should be correct');
+    assert.equal(contactForm.homeEmailContainer.errorElement.text,
+      'This field must be a valid email address',
+      'Home email unsupported character validation message should be correct');
+    assert.equal(contactForm.workEmailContainer.errorElement.text,
+      'This field must be a valid email address',
+      'Work email unsupported character validation message should be correct');
+  });
+
+});
+
+/**
+ * Scenario: Verify that the Optional field is not marked as error when x button is clicked
+ *
+ * Given I am on the ESS home-page
+ * And I click on the HR DETAILS tab
+ * And I click x button on mandatory field
+ * Then the field shouldn't contains errors
+ *
+ */
+test('Verify that optional field is not marked as error when X button is clicked', function(assert) {
+  let contactInputObject = {
+    address2: 'adress ',
+    address3: 'adress ',
+    county: 'Country',
+    country: 'Butan',
+    postCode: 'postco',
+    homeTel: '08888888',
+    mobileTel: '099999',
+    homeEmail: 'mail@google.com',
+    workEmail: 'meil@google.com'
+  };
+  page.visit()
+    .editNameButton
+    .click();
+
+  nameForm.edit('Mr', 'John', 'Middle', 'Doe');
+  nameForm.middleNameContainer.clearInputButton.click();
+  assert.expect(10);
+  andThen(function() {
+    assert.notOk(nameForm.middleNameContainer.errorElement.hasError,
+      'Middle name presence validation shouldn\'t be triggered');
+  });
+
+  page.modal.tabs.contact.click();
+  contactForm.editAllFields(contactInputObject);
+  contactForm.address2Container.clearInputButton.click();
+  contactForm.address3Container.clearInputButton.click();
+  contactForm.countyContainer.clearInputButton.click();
+  contactForm.countryContainer.clearInputButton.click();
+  contactForm.postCodeContainer.clearInputButton.click();
+  contactForm.homeTelContainer.clearInputButton.click();
+  contactForm.mobileTelContainer.clearInputButton.click();
+  contactForm.homeEmailContainer.clearInputButton.click();
+  contactForm.workEmailContainer.clearInputButton.click();
+
+  andThen(function() {
+    assert.notOk(contactForm.address2Container.errorElement.hasError,
+      'Address 2 presence validation shouldn\'t be triggered');
+    assert.notOk(contactForm.address3Container.errorElement.hasError,
+      'Address 3 presence validation shouldn\'t be triggered');
+    assert.notOk(contactForm.countyContainer.errorElement.hasError,
+      'County presence validation shouldn\'t be triggered');
+    assert.notOk(contactForm.countryContainer.errorElement.hasError,
+      'Country presence validation shouldn\'t be triggered');
+    assert.notOk(contactForm.postCodeContainer.errorElement.hasError,
+      'Post code presence validation shouldn\'t be triggered');
+    assert.notOk(contactForm.homeTelContainer.errorElement.hasError,
+      'Home telephone presence validation shouldn\'t be triggered');
+    assert.notOk(contactForm.mobileTelContainer.errorElement.hasError,
+      'Mobile telephone presence validation shouldn\'t be triggered');
+    assert.notOk(contactForm.homeEmailContainer.errorElement.hasError,
+      'Home email presence validation shouldn\'t be triggered');
+    assert.notOk(contactForm.workEmailContainer.errorElement.hasError,
+      'Work email presence validation shouldn\'t be triggered');
+  });
+});
+
+/**
+ * Scenario: Enter valid value in mandatory field
+ *
+ * Given I am on the ESS home-page
+ * And I click on the HR DETAILS tab
+ * And I click on either "Edit" button
+ * And I update the mandatory field with valid value
+ * Then the field is not marked as an error
+ * And no error message is displayed
+ */
+test('Verify entering valid value in mandatory field doesn\'t trigger error', function(assert) {
+  page.visit()
+    .editNameButton
+    .click();
+
+  nameForm.edit('Mr', sixtyLenghtString, sixtyLenghtString, sixtyLenghtString);
+  assert.expect(4);
+  andThen(function() {
+    assert.notOk(nameForm.firstNameContainer.errorElement.hasError,
+      'First name validation shouldn\'t be triggered');
+    assert.notOk(nameForm.surnameContainer.errorElement.hasError,
+      'Surname validation shouldn\'t be triggered');
+  });
+
+  page.modal.tabs.contact.click();
+  contactForm.editMandatoryOnly('Address', 'Town');
+  andThen(function() {
+    assert.notOk(contactForm.address1Container.errorElement.hasError,
+      'Address 1 validation shouldn\'t be triggered');
+    assert.notOk(contactForm.townContainer.errorElement.hasError,
+      'Town validation shouldn\'t be triggered');
+  });
+
+});
+
+/**
+ * Scenario: Enter valid value in optional field
+ *
+ * Given I am on the ESS home-page
+ * And I click on the HR DETAILS tab
+ * And I click on either "Edit" button
+ * And I update the mandatory field with valid value
+ * Then the field is not marked as an error
+ * And no error message is displayed
+ */
+test('Verify entering valid value in optional field doesn\'t trigger error', function(assert) {
+  let contactInputObject = {
+    address2: thirtyTwoLengthString,
+    address3: thirtyTwoLengthString,
+    county: thirtyTwoLengthString,
+    country: 'Country',
+    postCode: 'postco',
+    homeTel: '01234567',
+    mobileTel: '01234567',
+    homeEmail: 'home@google.com',
+    workEmail: 'work@google.com'
+  };
+  page.visit()
+    .editNameButton
+    .click();
+
+  nameForm.edit('Mr', 'John', sixtyLenghtString, 'Doe');
+
+  assert.expect(9);
+  andThen(function() {
+    assert.notOk(nameForm.middleNameContainer.errorElement.hasError,
+      'Middle name length validation shouldn\'t be triggered');
+  });
+
+  page.modal.tabs.contact.click();
+  contactForm.editAllFields(contactInputObject);
+  andThen(function() {
+    assert.notOk(contactForm.address2Container.errorElement.hasError,
+      'Address 2 validation shouldn\' be triggered');
+    assert.notOk(contactForm.address3Container.errorElement.hasError,
+      'Address 3 validation shouldn\' be triggered');
+    assert.notOk(contactForm.countryContainer.errorElement.hasError,
+      'Country validation shouldn\' be triggered');
+    assert.notOk(contactForm.postCodeContainer.errorElement.hasError,
+      'Post code validation shouldn\' be triggered');
+    assert.notOk(contactForm.homeTelContainer.errorElement.hasError,
+      'Home telephone validation shouldn\' be triggered');
+    assert.notOk(contactForm.mobileTelContainer.errorElement.hasError,
+      'Mobile telephone validation shouldn\' be triggered');
+    assert.notOk(contactForm.homeEmailContainer.errorElement.hasError,
+      'Home email validation shouldn\' be triggered');
+    assert.notOk(contactForm.workEmailContainer.errorElement.hasError,
+      'Work email validation shouldn\' be triggered');
   });
 });

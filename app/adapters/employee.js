@@ -3,6 +3,7 @@ import DS from 'ember-data';
 
 export default EssAdapter.extend({
   namespace: "",
+  adapterName: "super adapter",
 
   /**
     Handles responses from the API.
@@ -22,8 +23,10 @@ export default EssAdapter.extend({
         detail: payload.Message,
         status: payload.StatusCode
       }]);
+    } else if (payload.StatusCode === 99999999) {
+      console.log("How did you get to this?");
     }
-
+    
     return this._super(status, headers, payload);
   }
 });

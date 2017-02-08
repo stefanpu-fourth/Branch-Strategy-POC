@@ -38,8 +38,10 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @public
   */
   model: function () {
+    const test = "test";
+    console.log(test);
     return Ember.RSVP.hash({
-      employment: this.findAllWithCache('mainemployment'),
+      employment: this.findAllWithCache('mainemployment2'),
       employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId'))
     });
   },
@@ -55,5 +57,10 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
   setupController: function (controller, model) {
     controller.set('attrs.employment', model.employment);
     controller.set('attrs.employee', model.employee);
+  },
+
+  _privateLegitMethod: function(test) {
+    console.log(test);
+    return test;
   }
 });
