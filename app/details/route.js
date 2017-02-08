@@ -60,6 +60,7 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
     @param {DetailsModel} model
   */
   setupController: function (controller, model) {
+    // comment
     controller.set('attrs.employment', model.employment);
     const test = "test";
     console.log(test);
