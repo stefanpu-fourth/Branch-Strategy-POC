@@ -14,6 +14,7 @@ export default {
       name: 'Name',
       company: 'Company',
       date: 'Date',
+      // I have no idea
       netPayment: 'Net Payment',
       payments: 'Payments',
       totalPayments: 'Total Payments',
