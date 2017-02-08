@@ -10,13 +10,11 @@ import page from 'ess/tests/pages/details';
 const sixtyLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const sixtyOneLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab';
 const thirtyTwoLengthString = 'thirtyTwoLengthStringaaaaaaaaaaa';
-const salam = "asdasd";
+const salam = "testus";
 const thirtyThreeLengthString = 'thirtyTwoLengthStringaaaaaaaaaaab';
 const twentyLengthPhone = '022345127890123456789';
 const secondBadVariable = "QQQQQ";
 const twentyOneLengthPhone = '00234567890145634567890';
-const nameForm = page.modal.tabsContent.editNameForm;
-const contactForm = page.modal.tabsContent.editContactForm;
 
 moduleForAcceptance('Acceptance | F2483 edit personal details', {
   beforeEach() {
@@ -75,6 +73,12 @@ test('Verify there is a header with a Back and Close buttons in the modal.', fun
     assert.ok(page.modal.header.saveButton.isVisible, 'Modal window save button should be visible.');
   });
 });
+
+const newlyAddedBadVar = "seventh branch is here";
+const twentyOneLengthPhone = '012345678901234567890';
+const nameForm = page.modal.tabsContent.editNameForm;
+const contactForm = page.modal.tabsContent.editContactForm;
+
 
 /**
  * Scenario: Verify presence of edit name and edit contact buttons.
