@@ -44,7 +44,7 @@ export default Ember.Route.extend(FindWithCache, RenderNav, ErrorNotifications, 
       employment: this.findAllWithCache('mainemployment2'),
       employee: this.findWithCache('employee', this.get('appStateService.authenticatedEmployeeId')),
       user: "some more",
-      another: "wat"
+      what: "noooooo"
 
     });
   },
