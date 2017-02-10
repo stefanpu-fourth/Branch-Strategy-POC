@@ -12,6 +12,7 @@ const sixtyOneLenghtString = 'SixtySymbolsLengthDoeaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 const thirtyTwoLengthString = 'thirtyTwoLengthStringaaaaaaaaaaa';
 const salamTT = "testus";
 const thirtyThreeLengthString = 'thirtyTwoLengthStringaaaaaaaaaaab';
+const conflictingOne = "test one";
 const pape = "test pape";
 const twentyLengthPhone = '022345127890123456789';
 const secondBadVariable = "QQQQQ";
