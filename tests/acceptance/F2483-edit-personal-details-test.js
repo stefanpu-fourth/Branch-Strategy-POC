@@ -16,6 +16,9 @@ const pape = "test pape";
 const twentyLengthPhone = '022345127890123456789';
 const secondBadVariable = "QQQQQ";
 const twentyOneLengthPhone = '00234567890145634567890';
+const newlyAddedBadVar = "seventh branch is here";
+const nameForm = page.modal.tabsContent.editNameForm;
+const contactForm = page.modal.tabsContent.editContactForm;
 
 moduleForAcceptance('Acceptance | F2483 edit personal details', {
   beforeEach() {
@@ -75,10 +78,6 @@ test('Verify there is a header with a Back and Close buttons in the modal.', fun
   });
 });
 
-const newlyAddedBadVar = "seventh branch is here";
-const twentyOneLengthPhone = '012345678901234567890';
-const nameForm = page.modal.tabsContent.editNameForm;
-const contactForm = page.modal.tabsContent.editContactForm;
 
 
 /**
@@ -1201,60 +1200,4 @@ test('Verify entering valid value in mandatory field doesn\'t trigger error', fu
       'Town validation shouldn\'t be triggered');
   });
 
-});
-
-/**
- * Scenario: Enter valid value in optional field
- *
- * Given I am on the ESS home-page
- * And I click on the HR DETAILS tab
- * And I click on either "Edit" button
- * And I update the mandatory field with valid value
- * Then the field is not marked as an error
- * And no error message is displayed
- */
-test('Verify entering valid value in optional field doesn\'t trigger error', function(assert) {
-  let contactInputObject = {
-    address2: thirtyTwoLengthString,
-    address3: thirtyTwoLengthString,
-    county: thirtyTwoLengthString,
-    country: 'Country',
-    postCode: 'postco',
-    homeTel: '01234567',
-    mobileTel: '01234567',
-    homeEmail: 'home@google.com',
-    workEmail: 'work@google.com'
-  };
-  page.visit()
-    .editNameButton
-    .click();
-
-  nameForm.edit('Mr', 'John', sixtyLenghtString, 'Doe');
-
-  assert.expect(9);
-  andThen(function() {
-    assert.notOk(nameForm.middleNameContainer.errorElement.hasError,
-      'Middle name length validation shouldn\'t be triggered');
-  });
-
-  page.modal.tabs.contact.click();
-  contactForm.editAllFields(contactInputObject);
-  andThen(function() {
-    assert.notOk(contactForm.address2Container.errorElement.hasError,
-      'Address 2 validation shouldn\' be triggered');
-    assert.notOk(contactForm.address3Container.errorElement.hasError,
-      'Address 3 validation shouldn\' be triggered');
-    assert.notOk(contactForm.countryContainer.errorElement.hasError,
-      'Country validation shouldn\' be triggered');
-    assert.notOk(contactForm.postCodeContainer.errorElement.hasError,
-      'Post code validation shouldn\' be triggered');
-    assert.notOk(contactForm.homeTelContainer.errorElement.hasError,
-      'Home telephone validation shouldn\' be triggered');
-    assert.notOk(contactForm.mobileTelContainer.errorElement.hasError,
-      'Mobile telephone validation shouldn\' be triggered');
-    assert.notOk(contactForm.homeEmailContainer.errorElement.hasError,
-      'Home email validation shouldn\' be triggered');
-    assert.notOk(contactForm.workEmailContainer.errorElement.hasError,
-      'Work email validation shouldn\' be triggered');
-  });
 });
